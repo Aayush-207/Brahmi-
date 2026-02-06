@@ -23,12 +23,12 @@ export function Header() {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="fixed top-0 left-0 right-0 z-50 bg-[#1C1C1C] border-b border-[#3A3A3A] shadow-md"
+                className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#1a1613] via-[#2a2420] to-[#1a1613] border-b border-[#E6D8B8]/20 shadow-2xl backdrop-blur-sm"
             >
                 <div className="px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
                     {/* Left: Logo & Brand */}
-                    <Link href="/" className="flex items-center gap-3">
-                        <div className="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden border border-[#D4AF37]/30 shrink-0">
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-[#D4AF37]/40 group-hover:border-[#D4AF37] transition-all duration-300 shrink-0 shadow-lg">
                             <img
                                 src="/assets/jain_foundation_logo.jpg"
                                 alt="Good Life Jain Foundation"
@@ -36,10 +36,10 @@ export function Header() {
                             />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <span className="text-base md:text-xl font-serif font-bold text-[#D4AF37] leading-tight tracking-wide">
+                            <span className="text-base md:text-xl font-serif font-bold text-[#D4AF37] leading-tight tracking-wide group-hover:text-[#E6D8B8] transition-colors duration-300">
                                 Good Life Jain Foundation
                             </span>
-                            <span className="text-[10px] md:text-xs font-medium text-[#A6B1C0] tracking-wider leading-none mt-0.5">
+                            <span className="text-[10px] md:text-xs font-medium text-[#B8AFA0] tracking-wider leading-none mt-0.5">
                                 ब्राह्मी लिपि का पुनरुद्धार
                             </span>
                         </div>
@@ -49,15 +49,16 @@ export function Header() {
                     <div className="hidden md:flex items-center gap-4">
                         <AuthButton />
                         <Link href="/learn">
-                            <Button className="h-10 px-6 text-sm font-bold bg-[#D4AF37] text-[#1C1C1C] rounded-md hover:bg-[#D4AF37]/90 transition-all uppercase tracking-wide border border-[#9F8224] shadow-sm">
-                                अध्ययन प्रारंभ करें
+                            <Button className="relative h-11 px-8 text-sm font-bold bg-gradient-to-r from-[#D4AF37] to-[#C5A059] text-[#1a1613] rounded-xl hover:scale-105 transition-all duration-300 uppercase tracking-wider shadow-lg shadow-[#D4AF37]/30 hover:shadow-xl hover:shadow-[#D4AF37]/40 overflow-hidden group">
+                                <span className="relative z-10">अध्ययन प्रारंभ करें</span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#E6D8B8] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </Button>
                         </Link>
                     </div>
 
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-[#2C2C2C] border border-[#D4AF37]/20 text-[#D4AF37]"
+                        className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-[#2a2420] border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37] transition-all duration-300"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -71,13 +72,14 @@ export function Header() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="md:hidden border-t border-[#3A3A3A] bg-[#1C1C1C] overflow-hidden"
+                            className="md:hidden border-t border-[#E6D8B8]/20 bg-gradient-to-b from-[#2a2420] to-[#1a1613] overflow-hidden"
                         >
                             <div className="flex flex-col gap-4 p-6 items-center">
                                 <AuthButton />
                                 <Link href="/learn" className="w-full" onClick={() => setIsMobileMenuOpen(false)}>
-                                    <Button className="w-full h-12 text-sm font-bold bg-[#D4AF37] text-[#1C1C1C] rounded-md hover:bg-[#D4AF37]/90 transition-all uppercase tracking-wide border border-[#9F8224] shadow-sm">
-                                        अध्ययन प्रारंभ करें
+                                    <Button className="relative w-full h-12 text-sm font-bold bg-gradient-to-r from-[#D4AF37] to-[#C5A059] text-[#1a1613] rounded-xl hover:scale-105 transition-all duration-300 uppercase tracking-wider shadow-lg shadow-[#D4AF37]/30 overflow-hidden group">
+                                        <span className="relative z-10">अध्ययन प्रारंभ करें</span>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-[#E6D8B8] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     </Button>
                                 </Link>
                             </div>
