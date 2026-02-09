@@ -7,6 +7,7 @@ import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
 import { useRouter } from 'next/navigation'
 import LessonQuiz, { McqQuestion, McqOption } from '@/components/lesson/LessonQuiz'
 import LessonTracer from '@/components/lesson/LessonTracer'
+import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
 
 // TypeScript types
 type Letter = {
@@ -38,9 +39,14 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
             const currentIdentity = await getCurrentIdentity()
             setIdentity(currentIdentity)
             setIsLoaded(true)
+            
+            // Require authentication for lessons
+            if (currentIdentity.type === 'none' || currentIdentity.type === 'guest') {
+                router.push('/login')
+            }
         }
         loadIdentity()
-    }, [supabase])
+    }, [supabase, router])
     const [currentStepIndex, setCurrentStepIndex] = useState(0)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -57,8 +63,6 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     // Trace state
     const [traceMode, setTraceMode] = useState(false)
     // Removed strokes state as it's no longer needed
-
-    // No authentication check needed - guests are allowed
 
     // Unwrap params
     useEffect(() => {
@@ -282,13 +286,20 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     if (traceMode) {
         return (
             <div className="min-h-screen bg-[#1C1C1C] p-4 md:p-8 flex items-center justify-center flex-col">
-                <h2 className="text-[#D4AF37] text-2xl font-bold mb-8 text-center uppercase tracking-widest">
-                    Trace the Letter
-                </h2>
-                <LessonTracer
-                    letterSymbol={steps[0]?.letters.brahmi_symbol || '?'}
-                    onComplete={handleFlowComplete}
-                />
+                <div className="max-w-2xl w-full">
+                    <JainBabaCharacter 
+                        message={`अब लिखने का समय! Now trace '${steps[0]?.letters.brahmi_symbol}' with your finger or mouse. Follow the strokes carefully. Practice makes perfect!`}
+                        variant="encouraging"
+                        position="center"
+                    />
+                    <h2 className="text-[#D4AF37] text-2xl font-bold mb-8 text-center uppercase tracking-widest mt-8">
+                        Trace the Letter
+                    </h2>
+                    <LessonTracer
+                        letterSymbol={steps[0]?.letters.brahmi_symbol || '?'}
+                        onComplete={handleFlowComplete}
+                    />
+                </div>
             </div>
         )
     }
@@ -296,11 +307,18 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     // IF QUIZ MODE IS ACTIVE
     if (quizMode) {
         return (
-            <div className="min-h-screen bg-[#1C1C1C] p-4 md:p-8 flex items-center justify-center">
-                <LessonQuiz
-                    questions={quizQuestions}
-                    onComplete={handleFlowComplete}
-                />
+            <div className="min-h-screen bg-[#1C1C1C] p-4 md:p-8 flex items-center justify-center flex-col">
+                <div className="max-w-2xl w-full">
+                    <JainBabaCharacter 
+                        message="समय परीक्षा का! Time to test your knowledge! Show me what you have learned about this character."
+                        variant="encouraging"
+                        position="center"
+                    />
+                    <LessonQuiz
+                        questions={quizQuestions}
+                        onComplete={handleFlowComplete}
+                    />
+                </div>
             </div>
         )
     }
@@ -357,10 +375,50 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
             position: 'relative' as const,
         }
 
+        // Get Guruji message based on step type
+        const getGurujiMessage = () => {
+            switch (stepType) {
+                case 'show':
+                    return `नमस्ते! This is the Brahmi character '${brahmiSymbol}'. Look at its beautiful form!`;
+                case 'sound':
+                    return `Listen carefully! ${content}. Let me help you pronounce it correctly.`;
+                case 'explanation':
+                    return `Now let me explain: ${content}`;
+                case 'example':
+                    return `Here's an example: ${content}`;
+                case 'practice':
+                    return `Time to practice! ${content}`;
+                case 'complete':
+                    return `साधुवाद! You have done wonderfully! ${content}`;
+                default:
+                    return content;
+            }
+        };
+
+        const getGurujiVariant = (): 'default' | 'excited' | 'encouraging' | 'celebrating' => {
+            switch (stepType) {
+                case 'show':
+                    return 'excited';
+                case 'sound':
+                    return 'default';
+                case 'practice':
+                    return 'encouraging';
+                case 'complete':
+                    return 'celebrating';
+                default:
+                    return 'default';
+            }
+        };
+
         switch (stepType) {
             case 'show':
                 return (
                     <div style={{ ...baseCardStyle, padding: '80px' }}>
+                        <JainBabaCharacter 
+                            message={getGurujiMessage()}
+                            variant={getGurujiVariant()}
+                            position="center"
+                        />
                         <div style={{ ...symbolStyle, fontSize: '180px' }}>{brahmiSymbol}</div>
                         <div style={{ fontSize: '24px', color: '#888', letterSpacing: '2px' }}>{letter.letter_name}</div>
                     </div>
@@ -368,6 +426,10 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
             case 'sound':
                 return (
                     <div style={{ ...baseCardStyle, maxWidth: '700px' }}>
+                        <JainBabaCharacter 
+                            message={getGurujiMessage()}
+                            variant={getGurujiVariant()}
+                        />
                         <div style={{ ...symbolStyle, fontSize: '140px' }}>{brahmiSymbol}</div>
                         <div className="flex items-center gap-4 bg-[#1C1C1C] p-4 rounded-xl border border-[#3A3A3A]">
                             <button
@@ -383,10 +445,11 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
             default:
                 return (
                     <div style={{ ...baseCardStyle, maxWidth: '800px' }}>
+                        <JainBabaCharacter 
+                            message={getGurujiMessage()}
+                            variant={getGurujiVariant()}
+                        />
                         <div style={{ ...symbolStyle, fontSize: '120px' }}>{brahmiSymbol}</div>
-                        <div className="text-xl text-gray-300 text-center leading-relaxed">
-                            {content}
-                        </div>
                     </div>
                 )
         }

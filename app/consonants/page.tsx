@@ -101,11 +101,17 @@ export default function ConsonantsPage() {
     // 1. Load User Identity
     useEffect(() => {
         const loadIdentity = async () => {
-            setIdentity(await getCurrentIdentity())
+            const currentIdentity = await getCurrentIdentity()
+            setIdentity(currentIdentity)
             setIsLoaded(true)
+            
+            // Require authentication for lessons
+            if (currentIdentity.type === 'none' || currentIdentity.type === 'guest') {
+                router.push('/login')
+            }
         }
         loadIdentity()
-    }, [])
+    }, [router])
 
     // 2. Fetch Letters (CONSONANTS ONLY - Order >= 13)
     useEffect(() => {

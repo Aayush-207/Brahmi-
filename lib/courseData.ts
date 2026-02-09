@@ -6,6 +6,7 @@ export type CourseModule = {
     icon: string
     iconType: 'text' | 'emoji' // Helper to style emoji vs text differently if needed
     order: number
+    locked?: boolean // If true, module is not yet available
 }
 
 export const COURSE_MODULES: CourseModule[] = [
@@ -16,7 +17,8 @@ export const COURSE_MODULES: CourseModule[] = [
         route: '#', // Placeholder
         icon: '📜',
         iconType: 'emoji',
-        order: 1
+        order: 1,
+        locked: true
     },
     {
         id: 'module-swar',
@@ -34,7 +36,8 @@ export const COURSE_MODULES: CourseModule[] = [
         route: '/consonants', // Connected to consonants journey page
         icon: 'क',
         iconType: 'text',
-        order: 3
+        order: 3,
+        locked: true
     },
     {
         id: 'module-matra',
@@ -43,6 +46,7 @@ export const COURSE_MODULES: CourseModule[] = [
         route: '#', // Placeholder
         icon: 'का',
         iconType: 'text',
-        order: 4
+        order: 4,
+        locked: true
     }
 ]

@@ -23,10 +23,15 @@ export default function LoginPage() {
     }, [])
 
     const handleLogin = async () => {
+        // Use localhost in development, current origin in production
+        const baseUrl = process.env.NODE_ENV === 'development' 
+            ? 'http://localhost:3000' 
+            : window.location.origin
+            
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: `${window.location.origin}/auth/callback`,
+                redirectTo: `${baseUrl}/auth/callback`,
             },
         })
         if (error) setError(error.message)
@@ -39,8 +44,12 @@ export default function LoginPage() {
                     Welcome Back
                 </h2>
                 <p className="text-gray-400 text-sm mb-6 text-center">
-                    Sign in to continue your journey
+                    Sign in to track your learning progress
                 </p>
+
+                <div className="bg-blue-500/10 border border-blue-500/30 text-blue-400 p-3 rounded-lg mb-4 text-sm w-full text-center">
+                    🔐 Sign in required to access lessons and track progress
+                </div>
 
                 {hasGuestProgress && (
                     <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] p-3 rounded-lg mb-4 text-sm w-full text-center">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { LessonStep } from '@/types/lesson';
 import CanvasBoard from '@/components/course/CanvasBoard';
+import JainBabaCharacter from '../JainBabaCharacter';
 
 interface TraceStepProps {
     step: LessonStep;
@@ -12,7 +13,10 @@ const TraceStep: React.FC<TraceStepProps> = ({ step, onComplete }) => {
 
     return (
         <div className="flex flex-col items-center justify-center space-y-8 p-4 w-full max-w-md mx-auto">
-            <h3 className="text-2xl font-bold text-gray-800">Practice Tracing</h3>
+            <JainBabaCharacter 
+                message={`Excellent! Now trace '${character}' with your finger or mouse. Follow the strokes carefully. Practice makes perfect!`}
+                variant="encouraging"
+            />
 
             <div className="w-full">
                 <CanvasBoard traceCharacter={character} />

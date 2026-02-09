@@ -103,11 +103,17 @@ export default function LettersPage() {
     // 1. Load User Identity
     useEffect(() => {
         const loadIdentity = async () => {
-            setIdentity(await getCurrentIdentity())
+            const currentIdentity = await getCurrentIdentity()
+            setIdentity(currentIdentity)
             setIsLoaded(true)
+            
+            // Require authentication for lessons
+            if (currentIdentity.type === 'none' || currentIdentity.type === 'guest') {
+                router.push('/login')
+            }
         }
         loadIdentity()
-    }, [])
+    }, [router])
 
     // 2. Fetch Letters (VOWELS ONLY)
     useEffect(() => {
@@ -351,6 +357,13 @@ export default function LettersPage() {
                             <Link href={isLocked ? '#' : `/lesson/${letter.id}`} className={`${isLocked ? 'cursor-not-allowed' : 'cursor-pointer'} z-20`}>
                                 <div className={nodeClass}>
                                     <span className="text-3xl font-serif font-bold">{letter.brahmi_symbol}</span>
+                                    
+                                    {/* Completion Checkmark */}
+                                    {isCompleted && (
+                                        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#10B981] rounded-full flex items-center justify-center border-4 border-[#1F1D3A] shadow-lg z-50">
+                                            <span className="text-white text-base font-bold">✓</span>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Start Bubble (Only on Next/Active) */}

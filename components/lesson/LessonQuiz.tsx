@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { speakAsGuruji } from '@/lib/gurujispeech'
 
 export type McqOption = {
     id: string
@@ -54,8 +55,10 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
 
         if (correct) {
             setQuizState('answered_correct')
+            speakAsGuruji('sahi jawab')
         } else {
             setQuizState('answered_wrong')
+            speakAsGuruji('galat jawab')
             setShakingOptionId(optionId)
             // Reset shake after animation
             setTimeout(() => setShakingOptionId(null), 500)

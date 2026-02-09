@@ -116,6 +116,7 @@ export default function LearnPage() {
 
                     // State Logic
                     const isCompleted = index <= completedUpTo
+                    const isLocked = module.locked === true
 
                     return (
                         <div
@@ -143,18 +144,55 @@ export default function LearnPage() {
                                         src={`/assets/mascot_${mascotImg}.png`}
                                         alt=""
                                         width={120} height={120}
-                                        className={`object-contain ${mascotSide === 'right' ? 'scale-x-[-1]' : ''}`}
+                                        className={`object-contain ${mascotSide === 'right' ? 'scale-x-[-1]' : ''} ${isLocked ? 'grayscale opacity-50' : ''}`}
                                     />
                                 </motion.div>
                             </div>
 
                             {/* LAYER 2: Module Node (Z-20) */}
-                            <Link href={module.route} className="z-20 group relative cursor-pointer outline-none">
-                                <motion.div
-                                    initial={{ scale: 0, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    transition={{ delay: 0.2 + (index * 0.1), type: "spring" }}
-                                    className={`
+                            {isLocked ? (
+                                <div className="z-20 group relative cursor-not-allowed outline-none">
+                                    <motion.div
+                                        initial={{ scale: 0, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        transition={{ delay: 0.2 + (index * 0.1), type: "spring" }}
+                                        className="w-28 h-28 md:w-32 md:h-32 rounded-full flex flex-col items-center justify-center 
+                                        transition-all duration-300 relative bg-[#1F1D3A]
+                                        border-2 border-gray-600/40 shadow-[0_0_10px_rgba(100,100,100,0.1)]
+                                        opacity-50"
+                                    >
+                                        {/* Lock Icon Overlay */}
+                                        <div className="absolute inset-0 flex items-center justify-center bg-[#1F1D3A]/80 rounded-full">
+                                            <span className="text-4xl">🔒</span>
+                                        </div>
+
+                                        {/* Inner Character/Icon (Faded) */}
+                                        <span className="text-4xl md:text-5xl mb-1 filter grayscale opacity-30">
+                                            {module.icon}
+                                        </span>
+                                    </motion.div>
+
+                                    {/* Hover Tooltip */}
+                                    <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
+                                        <h3 className="text-gray-500 font-bold text-lg md:text-xl leading-tight font-serif">
+                                            {module.title}
+                                        </h3>
+                                        <p className="text-gray-600 text-[10px] uppercase tracking-[0.15em] mt-1 md:mt-2 font-bold">
+                                            {module.subtitle}
+                                        </p>
+                                        {/* Development in Progress message on hover */}
+                                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 mt-2 bg-[#2C2C2C] text-amber-400 text-xs py-1.5 px-3 rounded-lg border border-amber-400/30">
+                                            Development in progress
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <Link href={module.route} className="z-20 group relative cursor-pointer outline-none">
+                                    <motion.div
+                                        initial={{ scale: 0, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        transition={{ delay: 0.2 + (index * 0.1), type: "spring" }}
+                                        className={`
                                         w-28 h-28 md:w-32 md:h-32 rounded-full flex flex-col items-center justify-center 
                                         transition-all duration-300 relative bg-[#1F1D3A]
                                         ${isCompleted
@@ -163,30 +201,31 @@ export default function LearnPage() {
                                         }
                                         group-hover:scale-105 active:scale-95
                                     `}
-                                >
-                                    {/* Inner Character/Icon */}
-                                    <span className={`text-4xl md:text-5xl mb-1 filter drop-shadow-lg ${isCompleted ? 'text-[#E69138]' : 'text-white'}`}>
-                                        {module.icon}
-                                    </span>
+                                    >
+                                        {/* Inner Character/Icon */}
+                                        <span className={`text-4xl md:text-5xl mb-1 filter drop-shadow-lg ${isCompleted ? 'text-[#E69138]' : 'text-white'}`}>
+                                            {module.icon}
+                                        </span>
 
-                                    {/* Completion Check (Optional visual flair) */}
-                                    {isCompleted && index === 0 && ( // Just showing logic potential
-                                        <div className="absolute -bottom-2 w-8 h-8 bg-[#E69138] rounded-full flex items-center justify-center border-4 border-[#1F1D3A]">
-                                            <span className="text-[#1F1D3A] text-xs font-bold">✓</span>
-                                        </div>
-                                    )}
-                                </motion.div>
+                                        {/* Completion Check (Optional visual flair) */}
+                                        {isCompleted && index === 0 && ( // Just showing logic potential
+                                            <div className="absolute -bottom-2 w-8 h-8 bg-[#E69138] rounded-full flex items-center justify-center border-4 border-[#1F1D3A]">
+                                                <span className="text-[#1F1D3A] text-xs font-bold">✓</span>
+                                            </div>
+                                        )}
+                                    </motion.div>
 
-                                {/* Text Label (Below) - Z-30 */}
-                                <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
-                                    <h3 className="text-[#D4AF37] font-bold text-lg md:text-xl leading-tight group-hover:text-white transition-colors font-serif">
-                                        {module.title}
-                                    </h3>
-                                    <p className="text-[#6C7BAF] text-[10px] uppercase tracking-[0.15em] mt-1 md:mt-2 font-bold opacity-80 group-hover:opacity-100 transition-opacity">
-                                        {module.subtitle}
-                                    </p>
-                                </div>
-                            </Link>
+                                    {/* Text Label (Below) - Z-30 */}
+                                    <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
+                                        <h3 className="text-[#D4AF37] font-bold text-lg md:text-xl leading-tight group-hover:text-white transition-colors font-serif">
+                                            {module.title}
+                                        </h3>
+                                        <p className="text-[#6C7BAF] text-[10px] uppercase tracking-[0.15em] mt-1 md:mt-2 font-bold opacity-80 group-hover:opacity-100 transition-opacity">
+                                            {module.subtitle}
+                                        </p>
+                                    </div>
+                                </Link>
+                            )}
 
                         </div>
                     )

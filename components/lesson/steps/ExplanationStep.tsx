@@ -1,5 +1,6 @@
 import React from 'react';
 import { LessonStep } from '@/types/lesson';
+import JainBabaCharacter from '../JainBabaCharacter';
 
 interface ExplanationStepProps {
     step: LessonStep;
@@ -17,6 +18,10 @@ const ExplanationStep: React.FC<ExplanationStepProps> = ({ step, onComplete }) =
 
     return (
         <div className="flex flex-col items-center justify-center space-y-6 p-6 max-w-lg mx-auto">
+            <JainBabaCharacter 
+                message={`Look carefully! This is how '${devnagari}' transforms into the ancient Brahmi script. Notice the beautiful evolution of the character.`}
+                variant="default"
+            />
             {heading && <h3 className="text-2xl font-bold text-gray-800 text-center">{heading}</h3>}
 
             <div className="flex items-center justify-center space-x-8 my-4">
