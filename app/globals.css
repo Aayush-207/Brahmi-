@@ -112,3 +112,27 @@ h6 {
   background-size: 200% 200%;
   animation: gradient 8s ease infinite;
 }
+
+/* Universal Custom Scrollbar - Golden Temple Theme */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #D4AF37 #1a1613;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #1a1613;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #E69A47;
+}

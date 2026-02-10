@@ -179,27 +179,7 @@ export default function LettersPage() {
         <div 
             ref={containerRef}
             className="fixed inset-0 bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] text-[#F5F1E8] overflow-auto"
-            style={{
-                scrollbarWidth: 'thin',
-                scrollbarColor: '#D4AF37 #1a1613',
-            }}
         >
-            <style jsx>{`
-                div::-webkit-scrollbar {
-                    width: 8px;
-                    height: 8px;
-                }
-                div::-webkit-scrollbar-track {
-                    background: #1a1613;
-                }
-                div::-webkit-scrollbar-thumb {
-                    background: #D4AF37;
-                    border-radius: 4px;
-                }
-                div::-webkit-scrollbar-thumb:hover {
-                    background: #E69A47;
-                }
-            `}</style>
             {/* Subtle background pattern */}
             <div className="fixed inset-0 opacity-5 pointer-events-none">
                 <div className="absolute inset-0" style={{
