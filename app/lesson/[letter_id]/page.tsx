@@ -285,20 +285,27 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     // IF TRACE MODE IS ACTIVE
     if (traceMode) {
         return (
-            <div className="min-h-screen bg-[#1C1C1C] p-4 md:p-8 flex items-center justify-center flex-col">
-                <div className="max-w-2xl w-full">
-                    <JainBabaCharacter 
-                        message={`अब लिखने का समय! Now trace '${steps[0]?.letters.brahmi_symbol}' with your finger or mouse. Follow the strokes carefully. Practice makes perfect!`}
-                        variant="encouraging"
-                        position="center"
-                    />
-                    <h2 className="text-[#D4AF37] text-2xl font-bold mb-8 text-center uppercase tracking-widest mt-8">
-                        Trace the Letter
-                    </h2>
-                    <LessonTracer
-                        letterSymbol={steps[0]?.letters.brahmi_symbol || '?'}
-                        onComplete={handleFlowComplete}
-                    />
+            <div className="min-h-screen bg-[#1C1C1C] flex items-center justify-center p-8">
+                <div className="flex items-center gap-8 w-full max-w-7xl">
+                    {/* Left Side - Guruji Centered */}
+                    <div className="w-1/3 flex items-center justify-center">
+                        <JainBabaCharacter 
+                            message={`अब लिखने का समय! Now trace '${steps[0]?.letters.brahmi_symbol}' with your finger or mouse. Follow the strokes carefully. Practice makes perfect!`}
+                            variant="encouraging"
+                            position="center"
+                        />
+                    </div>
+                    
+                    {/* Right Side - Blackboard */}
+                    <div className="flex-1 flex flex-col">
+                        <h2 className="text-[#D4AF37] text-2xl font-bold mb-6 text-center uppercase tracking-widest">
+                            Trace the Letter
+                        </h2>
+                        <LessonTracer
+                            letterSymbol={steps[0]?.letters.brahmi_symbol || '?'}
+                            onComplete={handleFlowComplete}
+                        />
+                    </div>
                 </div>
             </div>
         )

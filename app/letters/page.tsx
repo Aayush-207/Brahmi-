@@ -1,12 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { getUserProgress } from '@/lib/progress'
 import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
 // --- Types ---
@@ -17,66 +16,44 @@ type Letter = {
     order_no: number
 }
 
-// --- Layout Constants ---
-const VERTICAL_GAP = 180    // Vertical spacing between nodes
-const PADDING_TOP = 100     // Initial top padding
-const SVG_WIDTH = 400       // Virtual coordinate width
-const CENTER_X = 200        // Center axis
-const OFFSET = 80           // Gentler curves (was 120/90)
+// --- Temple Steps Layout Constants ---
+const STEP_WIDTH = 220          // Horizontal distance between steps
+const STEP_HEIGHT = 100         // Vertical rise per step  
+const STEPS_START_X = 100       // Starting X position
+const STEPS_START_Y = typeof window !== 'undefined' ? window.innerHeight / 2 + 150 : 500  // Center vertically
 
 /**
- * Calculate the (x, y) position for a specific lesson node.
- * Uses a 4-step cycle: Center -> Right -> Center -> Left
+ * Calculate temple step position
+ * Creates horizontal ascending steps from left to right
  */
-function getPosition(index: number) {
-    const cycle = index % 4
-    let x = CENTER_X
-
-    if (cycle === 1) x = CENTER_X + OFFSET // Right
-    if (cycle === 3) x = CENTER_X - OFFSET // Left
-
-    const y = PADDING_TOP + (index * VERTICAL_GAP)
+function getTempleStepPosition(index: number) {
+    const x = STEPS_START_X + (index * STEP_WIDTH)
+    const y = STEPS_START_Y - (index * STEP_HEIGHT)
+    
     return { x, y }
 }
 
 /**
- * Generate path segments for individual animation
+ * Generate temple path SVG as stepped path
  */
-function generatePathSegments(count: number): string[] {
-    const segments: string[] = []
-    const positions = Array.from({ length: count }, (_, i) => getPosition(i))
-
-    for (let i = 0; i < count - 1; i++) {
-        const from = positions[i]
-        const to = positions[i + 1]
-
-        // Control points for smooth vertical entry/exit
-        const cp1x = from.x
-        const cp1y = from.y + (VERTICAL_GAP * 0.5)
-
-        const cp2x = to.x
-        const cp2y = to.y - (VERTICAL_GAP * 0.5)
-
-        segments.push(
-            `M ${from.x} ${from.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${to.x} ${to.y}`
-        )
-    }
-
-    return segments
-}
-
-/**
- * Generate a smooth cubic bezier path connecting all nodes.
- */
-function generateSVGPath(count: number): string {
+function generateTemplePath(count: number): string {
     if (count < 2) return ''
-    const segments = generatePathSegments(count)
-
-    // Join segments: Start with Move (M), then append Curves (C)
-    // We can just join them, as M commands re-position the "pen" harmlessly to the same spot
-    return segments.join(' ')
+    
+    const positions = Array.from({ length: count }, (_, i) => getTempleStepPosition(i))
+    
+    let path = `M ${positions[0].x} ${positions[0].y}`
+    
+    for (let i = 1; i < positions.length; i++) {
+        const prev = positions[i - 1]
+        const curr = positions[i]
+        
+        // Create step pattern: horizontal then vertical  
+        const midX = curr.x - STEP_WIDTH / 2
+        path += ` L ${midX} ${prev.y} L ${midX} ${curr.y} L ${curr.x} ${curr.y}`
+    }
+    
+    return path
 }
-
 
 export default function LettersPage() {
     // --- State ---
@@ -84,12 +61,13 @@ export default function LettersPage() {
     const [isLoaded, setIsLoaded] = useState(false)
     const [letters, setLetters] = useState<Letter[]>([])
     const [loading, setLoading] = useState(true)
-
     const [completedIds, setCompletedIds] = useState<string[]>([])
-    // animatingIndex: The index of the path segment being animated
-    // If Lesson 0 is just completed, we animate segment 0 (L0 -> L1)
     const [animatingIndex, setAnimatingIndex] = useState<number | null>(null)
     const [showCelebration, setShowCelebration] = useState(false)
+    
+    // Refs for scrolling
+    const containerRef = useRef<HTMLDivElement>(null)
+    const letterRefs = useRef<Map<number, HTMLDivElement>>(new Map())
 
     // Derived state
     const lastCompletedLetter = letters.filter(l => completedIds.includes(l.id)).sort((a, b) => b.order_no - a.order_no)[0]
@@ -103,17 +81,11 @@ export default function LettersPage() {
     // 1. Load User Identity
     useEffect(() => {
         const loadIdentity = async () => {
-            const currentIdentity = await getCurrentIdentity()
-            setIdentity(currentIdentity)
+            setIdentity(await getCurrentIdentity())
             setIsLoaded(true)
-            
-            // Require authentication for lessons
-            if (currentIdentity.type === 'none' || currentIdentity.type === 'guest') {
-                router.push('/login')
-            }
         }
         loadIdentity()
-    }, [router])
+    }, [])
 
     // 2. Fetch Letters (VOWELS ONLY)
     useEffect(() => {
@@ -121,7 +93,7 @@ export default function LettersPage() {
             const { data, error } = await supabase
                 .from('letters')
                 .select('*')
-                .eq('letter_type', 'vowel') // STRICT FILTER
+                .eq('letter_type', 'vowel')
                 .order('order_no', { ascending: true })
 
             if (!error) setLetters(data || [])
@@ -130,20 +102,13 @@ export default function LettersPage() {
         fetchLetters()
     }, [])
 
-    // 3. Fetch Progress & Handle New Completions (Via URL Params)
-    // We use a URL parameter '?completed=ID' to robustly detect when to animate.
+    // 3. Fetch Progress & Handle New Completions
     useEffect(() => {
         if (!isLoaded || letters.length === 0) return
 
         async function fetchProgress() {
             const { completedIds: fetchedIds } = await getUserProgress(identity)
             setCompletedIds(fetchedIds)
-
-            // Check URL for completion flag
-            // Note: We need to use useSearchParams() but for now accessing via window (or router state if complex) is tricky in minimal setup?
-            // Safer: Just assume standard Next.js SearchParams availability.
-            // Since we are in client component, let's parse window.location.search directly or import useSearchParams.
-            // Let's use simple window check to avoid adding hooks if possible, or better adds `useSearchParams`.
         }
 
         fetchProgress()
@@ -155,24 +120,17 @@ export default function LettersPage() {
 
     useEffect(() => {
         if (justCompletedId && letters.length > 0 && completedIds.length > 0) {
-            // Check if this ID is actually done (sanity check)
             if (completedIds.includes(justCompletedId)) {
                 const letter = letters.find(l => l.id === justCompletedId)
                 if (letter) {
                     const idx = letters.findIndex(l => l.id === letter.id)
-                    // Animate segment starting from this index
                     if (idx < letters.length - 1) {
                         setAnimatingIndex(idx)
-
-                        // Clear param after animation started so it doesn't loop on refresh? 
-                        // Actually router.replace is good.
                         setTimeout(() => {
                             setShowCelebration(true)
-
                             setTimeout(() => {
                                 setShowCelebration(false)
                                 setAnimatingIndex(null)
-                                // Clean up URL
                                 router.replace('/letters', { scroll: false })
                             }, 2000)
                         }, 1000)
@@ -182,210 +140,258 @@ export default function LettersPage() {
         }
     }, [justCompletedId, letters, completedIds, router])
 
+    // Auto-scroll to center current/next letter
+    useEffect(() => {
+        if (!containerRef.current || letters.length === 0 || loading) return
+        
+        // Determine current step index
+        const currentStepIndex = lastCompletedIndex === -1 ? 0 : lastCompletedIndex + 1
+        
+        // Get the position of the current step
+        const currentPos = getTempleStepPosition(currentStepIndex)
+        
+        // Calculate minY for offset
+        const minY = STEPS_START_Y - ((letters.length - 1) * STEP_HEIGHT) - 200
+        
+        // Calculate scroll position to center the current step (both X and Y)
+        const containerWidth = containerRef.current.clientWidth
+        const containerHeight = containerRef.current.clientHeight
+        const scrollLeft = currentPos.x - (containerWidth / 2)
+        const scrollTop = (currentPos.y - minY) - (containerHeight / 2)
+        
+        // Smooth scroll to center
+        containerRef.current.scrollTo({
+            left: Math.max(0, scrollLeft),
+            top: Math.max(0, scrollTop),
+            behavior: 'smooth'
+        })
+    }, [letters, completedIds, loading, lastCompletedIndex])
 
-    if (loading) return <div className="min-h-screen bg-[#1F1D3A] flex items-center justify-center text-[#D4AF37]">Loading...</div>
+    if (loading) return <div className="fixed inset-0 bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] flex items-center justify-center text-[#D4AF37]">Loading...</div>
 
-
-    // --- Path Logic ---
-    // If I have completed Index 0. 
-    // I want Segment 0 (L0->L1) to be SOLID.
-    // So solid segments = lastCompletedIndex + 1? No.
-    // If L0 is done. lastCompletedIndex = 0.
-    // We want segment 0 to be solid. 
-    // So solidLimit = 1 (slice(0,1) -> [0]).
-
-    // BUT if we are actively animating Segment 0.
-    // We want solidLimit = 0.
-
-    let solidLimit = lastCompletedIndex
-    // WAIT. Logic check:
-    // If L0 is done. CompletedIds=['id_0']. lastCompletedIndex=0.
-    // Next unlocked is L1.
-    // Path L0->L1 should be solid.
-    // That is segment index 0.
-    // So if lastCompletedIndex=0, we want solid up to index 0 (inclusive of segment index).
-    // slice(0, solidLimit).
-    // slice(0, 1) returns [0].
-    // So solidLimit = lastCompletedIndex + 1? -> 1. Correct.
-
-    // Correction: If L0 is NOT done (-1). solidLimit = 0. Correct.
-
-    solidLimit = lastCompletedIndex + 1
-
-    if (animatingIndex !== null) {
-        // If animating segment N. We want segments 0 to N-1 to be solid.
-        // So solidLimit = N.
-        solidLimit = animatingIndex
-    }
-
-    // Bounds check
-    if (solidLimit > letters.length - 1) solidLimit = letters.length - 1
-    if (solidLimit < 0) solidLimit = 0
-
+    // Calculate bounds for all temple steps
+    const minY = letters.length > 0 ? STEPS_START_Y - ((letters.length - 1) * STEP_HEIGHT) - 200 : 0  // Highest point with padding
+    const maxY = STEPS_START_Y + 200  // Lowest point with padding
+    const totalWidth = STEPS_START_X + (letters.length * STEP_WIDTH) + 200
+    const totalHeight = maxY - minY  // Total vertical span
 
     return (
-        <div className="min-h-screen bg-[#1F1D3A] text-white overflow-hidden flex flex-col items-center">
-            {/* Header */}
-            <div className="w-full border-b border-[#D4AF37]/20 py-6 text-center bg-[#1F1D3A]/95 backdrop-blur-sm sticky top-0 z-50">
-                <button onClick={() => router.push('/learn')} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#D4AF37] hover:text-white transition-colors text-sm font-bold uppercase tracking-wider">
-                    ← Back
-                </button>
-                <div className="text-[#6C7BAF] font-bold tracking-[0.2em] text-xs mb-2 uppercase">Journey</div>
-                <h1 className="text-3xl font-serif text-white font-bold">Vowels</h1>
+        <div 
+            ref={containerRef}
+            className="fixed inset-0 bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] text-[#F5F1E8] overflow-auto"
+            style={{
+                scrollbarWidth: 'thin',
+                scrollbarColor: '#D4AF37 #1a1613',
+            }}
+        >
+            <style jsx>{`
+                div::-webkit-scrollbar {
+                    width: 8px;
+                    height: 8px;
+                }
+                div::-webkit-scrollbar-track {
+                    background: #1a1613;
+                }
+                div::-webkit-scrollbar-thumb {
+                    background: #D4AF37;
+                    border-radius: 4px;
+                }
+                div::-webkit-scrollbar-thumb:hover {
+                    background: #E69A47;
+                }
+            `}</style>
+            {/* Subtle background pattern */}
+            <div className="fixed inset-0 opacity-5 pointer-events-none">
+                <div className="absolute inset-0" style={{
+                    backgroundImage: `radial-gradient(circle at 25% 25%, #D4AF37 2px, transparent 2px),
+                                      radial-gradient(circle at 75% 75%, #E6D8B8 2px, transparent 2px)`,
+                    backgroundSize: '50px 50px'
+                }}></div>
             </div>
 
-            {/* Journey Container */}
-            <div
-                className="relative w-full max-w-[400px] mx-auto mt-12 pb-40"
-                style={{ height: `${PADDING_TOP + (letters.length * VERTICAL_GAP)}px` }}
+            {/* Back Button Only */}
+            <button 
+                onClick={() => router.push('/learn')} 
+                className="fixed top-6 left-6 z-50 flex items-center gap-2 text-[#D4AF37] hover:text-[#E69A47] transition-colors text-lg font-bold bg-[#1a1613]/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-[#D4AF37]/30 hover:border-[#E69A47]/50 shadow-lg"
             >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
 
-                {/* --- LAYER 0: SVG PATHS (Z-0) --- */}
+            {/* Temple Steps Container */}
+            <div 
+                className="relative"
+                style={{ 
+                    width: `${totalWidth}px`,
+                    height: `${totalHeight}px`,
+                    minHeight: '100vh'
+                }}
+            >
+                {/* SVG Path Layer */}
                 <svg
-                    className="absolute top-0 left-0 w-full h-full pointer-events-none z-0"
-                    viewBox={`0 0 ${SVG_WIDTH} ${PADDING_TOP + (letters.length * VERTICAL_GAP)}`}
-                    preserveAspectRatio="xMidYMin slice"
+                    className="absolute inset-0 w-full h-full pointer-events-none z-10"
+                    viewBox={`0 ${minY} ${totalWidth} ${totalHeight}`}
+                    preserveAspectRatio="xMidYMin meet"
                 >
-                    {/* Background Dashed Path */}
+                    <defs>
+                        <linearGradient id="templeGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#CC7722" stopOpacity="0.3" />
+                            <stop offset="50%" stopColor="#D4AF37" stopOpacity="0.6" />
+                            <stop offset="100%" stopColor="#E69A47" stopOpacity="0.8" />
+                        </linearGradient>
+                        
+                        <filter id="templeGlow">
+                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    {/* Background dashed path */}
                     <path
-                        d={generateSVGPath(letters.length)}
+                        d={generateTemplePath(letters.length)}
                         fill="none"
-                        stroke="#D4AF37"
-                        strokeOpacity="0.3"
-                        strokeWidth="8"
-                        strokeLinecap="round"
-                        strokeDasharray="12 12"
+                        stroke="url(#templeGradient)"
+                        strokeWidth="6"
+                        strokeLinecap="square"
+                        strokeDasharray="15 10"
+                        opacity="0.3"
                     />
-
-                    {/* Progress Solid Path */}
-                    {solidLimit > 0 && (
+                    
+                    {/* Completed solid path */}
+                    {lastCompletedIndex >= 0 && (
                         <path
-                            d={generatePathSegments(letters.length).slice(0, solidLimit).join(' ')}
+                            d={generateTemplePath(lastCompletedIndex + 2)}
                             fill="none"
                             stroke="#D4AF37"
-                            strokeOpacity="1"
                             strokeWidth="8"
-                            strokeLinecap="round"
+                            strokeLinecap="square"
+                            filter="url(#templeGlow)"
                         />
                     )}
-
-                    {/* Animated Segment */}
-                    <AnimatePresence>
-                        {animatingIndex !== null && (
-                            <motion.path
-                                key={`anim-path-${animatingIndex}`}
-                                d={generatePathSegments(letters.length)[animatingIndex]}
-                                fill="none"
-                                stroke="#E69138" // Saffron accent
-                                strokeWidth="8"
-                                strokeLinecap="round"
-                                initial={{ pathLength: 0 }}
-                                animate={{ pathLength: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 1.2, ease: "easeInOut" }}
-                            />
-                        )}
-                    </AnimatePresence>
                 </svg>
 
-
-                {/* --- LAYER 1 & 2: MASCOTS & NODES --- */}
-                {letters.map((letter, index) => {
-                    const pos = getPosition(index)
-
-                    const isCompleted = completedIds.includes(letter.id)
-                    // If no lessons completed, index 0 is active.
-                    // If X completed, X+1 is active.
-                    // "lastCompletedIndex" is index of Completed X.
-                    let isNext = (lastCompletedIndex === -1 && index === 0) || (index === lastCompletedIndex + 1)
-
-                    // FORCE UNLOCK: All lessons are accessible.
-                    let isLocked = false
-
-                    const isCelebrating = showCelebration && (index === animatingIndex)
-
-                    // DELAYED UNLOCK:
-                    // If we are currently animating the path to this node, keep it LOCKED until animation finishes.
-                    // animatingIndex is the index of the "Source" node.
-                    // If animatingIndex = 0 (L0->L1). We want L1 (Index 1) to stay locked.
-                    if (animatingIndex !== null && index === animatingIndex + 1) {
-                        isNext = false
-                        isLocked = true
-                    }
-
-                    // Visual Styles
-                    let nodeClass = "relative w-24 h-24 rounded-full flex flex-col items-center justify-center border-4 transition-all duration-300 z-20 "
-                    if (isCompleted || isCelebrating) {
-                        nodeClass += "bg-[#E69138] border-[#FFD6A5] text-white shadow-[0_0_20px_rgba(230,145,56,0.5)]"
-                    } else if (isNext) {
-                        nodeClass += "bg-[#D4AF37] border-white text-white animate-pulse shadow-[0_0_30px_rgba(212,175,55,0.6)] scale-110"
-                    } else {
-                        // Unlocked but not active/completed (Standard State)
-                        // Removed grayscale, made it inviting but neutral
-                        nodeClass += "bg-[#1F1D3A] border-[#D4AF37]/50 text-[#D4AF37] hover:border-[#D4AF37] hover:scale-105"
-                    }
-
-                    // Mascot Logic
-                    // Show on ODD indices (1, 3, 5) to alternate with the timeline curves
-                    // If Node is Right (Index 1), Place Mascot Left.
-                    // If Node is Left (Index 3), Place Mascot Right.
-                    const showMascot = (index % 2 !== 0 && index !== letters.length - 1)
-                    const side = (index % 4 === 1) ? 'left' : 'right'
-
-                    const mascotImg = (index % 3) + 1
-
-                    return (
-                        <div
-                            key={letter.id}
-                            className="absolute transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-                            style={{ left: pos.x, top: pos.y }}
-                        >
-
-                            {/* LAYER 1: Mascot (Z-10) */}
-                            {showMascot && (
-                                <div className={`absolute w-32 pointer-events-none z-10 ${side === 'left' ? '-left-40' : '-right-40'}`}>
-                                    <Image
-                                        src={`/assets/mascot_${mascotImg}.png`}
-                                        alt="Mascot"
-                                        width={128} height={128}
-                                        className={`object-contain transition-transform hover:scale-110 ${side === 'right' ? 'scale-x-[-1]' : ''}`}
-                                    />
-                                </div>
-                            )}
-
-                            {/* LAYER 2: Node (Z-20) */}
-                            <Link href={isLocked ? '#' : `/lesson/${letter.id}`} className={`${isLocked ? 'cursor-not-allowed' : 'cursor-pointer'} z-20`}>
-                                <div className={nodeClass}>
-                                    <span className="text-3xl font-serif font-bold">{letter.brahmi_symbol}</span>
-                                    
-                                    {/* Completion Checkmark */}
-                                    {isCompleted && (
-                                        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#10B981] rounded-full flex items-center justify-center border-4 border-[#1F1D3A] shadow-lg z-50">
-                                            <span className="text-white text-base font-bold">✓</span>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Start Bubble (Only on Next/Active) */}
-                                {isNext && (
-                                    <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-[#E69138] border-2 border-[#FFD6A5] px-4 py-1 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.3)] animate-bounce z-40 whitespace-nowrap">
-                                        <span className="text-white font-black text-xs uppercase tracking-widest">Start</span>
-                                        <div className="absolute bottom-[-6px] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-[#E69138] border-b-2 border-r-2 border-[#FFD6A5] rotate-45"></div>
-                                    </div>
-                                )}
-
-                                {/* LAYER 3: Text Label (Z-30) */}
-                                {/* Added Background Pill for legibility over path */}
-                                <div className="absolute top-[85px] left-1/2 -translate-x-1/2 mt-2 bg-[#1F1D3A] px-3 py-1 rounded-full border border-[#D4AF37]/30 z-30 whitespace-nowrap shadow-lg">
-                                    <span className={`text-xs font-bold uppercase tracking-wider ${isLocked ? 'text-gray-500' : 'text-[#D4AF37]'}`}>
+                {/* Letter Nodes as Temple Stones */}
+                <div className="relative z-20">
+                    {letters.map((letter, index) => {
+                        const pos = getTempleStepPosition(index)
+                        const isCompleted = completedIds.includes(letter.id)
+                        const isNext = (lastCompletedIndex === -1 && index === 0) || (index === lastCompletedIndex + 1)
+                        const isLocked = !isNext && !isCompleted
+                        const isCelebrating = showCelebration && (index === animatingIndex)
+                        
+                        return (
+                            <motion.div
+                                key={letter.id}
+                                ref={(el) => {
+                                    if (el) letterRefs.current.set(index, el)
+                                }}
+                                className="absolute flex flex-col items-center"
+                                style={{ 
+                                    left: pos.x - 60,
+                                    top: pos.y - minY - 80,  // Offset by minY to make coordinates positive
+                                }}
+                                initial={{ scale: 0, y: 20 }}
+                                animate={{ scale: 1, y: 0 }}
+                                transition={{ delay: index * 0.1, type: "spring" }}
+                            >
+                                {/* Temple Stone Step Base */}
+                                <div className="absolute -bottom-4 w-32 h-3 bg-gradient-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
+                                
+                                {/* Letter Stone */}
+                                <Link href={isLocked ? '#' : `/lesson/${letter.id}`}>
+                                    <motion.div
+                                        className={`
+                                            relative w-24 h-24 flex items-center justify-center border-4 transition-all duration-500
+                                            ${isCompleted || isCelebrating 
+                                                ? 'bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_30px_rgba(212,175,55,0.8),0_8px_0_rgba(204,119,34,0.6)]' 
+                                                : isNext 
+                                                ? 'bg-gradient-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613] animate-pulse shadow-[0_0_40px_rgba(230,154,71,0.9),0_8px_0_rgba(204,119,34,0.7)]'
+                                                : 'bg-gradient-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40 hover:border-[#D4AF37] hover:text-[#E6D8B8]'
+                                            }
+                                            ${isCompleted || isNext ? 'rounded-lg' : 'rounded-md'}
+                                        `}
+                                        style={{
+                                            transform: isCompleted || isNext ? 'translateY(-4px)' : 'translateY(0)',
+                                            boxShadow: isCompleted || isNext ? '' : '0 6px 0 rgba(42, 36, 32, 0.8)'
+                                        }}
+                                        whileHover={!isLocked ? { 
+                                            scale: 1.05, 
+                                            translateY: -8,
+                                            boxShadow: '0 0 30px rgba(212, 175, 55, 0.6), 0 10px 0 rgba(42, 36, 32, 0.8)'
+                                        } : {}}
+                                        whileTap={!isLocked ? { scale: 0.95, translateY: 0 } : {}}
+                                    >
+                                        <span className="text-3xl font-serif font-bold">{letter.brahmi_symbol}</span>
+                                        
+                                        {/* Golden torch for completed */}
+                                        {isCompleted && (
+                                            <motion.div 
+                                                className="absolute -top-3 -right-3 w-6 h-6 bg-[#E69A47] rounded-full flex items-center justify-center border-2 border-[#1a1613] shadow-[0_0_15px_rgba(230,154,71,0.8)]"
+                                                initial={{ scale: 0 }}
+                                                animate={{ scale: 1 }}
+                                                transition={{ delay: 0.2, type: "spring" }}
+                                            >
+                                                <span className="text-[#1a1613] text-xs">🔥</span>
+                                            </motion.div>
+                                        )}
+                                        
+                                        {/* Start indicator for next */}
+                                        {isNext && (
+                                            <motion.div 
+                                                className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#E69A47] px-3 py-1 rounded text-xs font-bold text-[#1a1613] border border-[#D4AF37]/50"
+                                                animate={{ y: [-5, 5, -5] }}
+                                                transition={{ duration: 2, repeat: Infinity }}
+                                            >
+                                                प्रारंभ
+                                            </motion.div>
+                                        )}
+                                    </motion.div>
+                                </Link>
+                                
+                                {/* Letter Name on Stone Plaque */}
+                                <motion.div 
+                                    className="mt-4 px-3 py-1 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: index * 0.1 + 0.3 }}
+                                >
+                                    <span className="text-xs font-bold text-[#E6D8B8] uppercase tracking-wider">
                                         {letter.letter_name}
                                     </span>
+                                </motion.div>
+                                
+                                {/* Step number */}
+                                <div className="mt-2 text-xs text-[#D4AF37]/50 font-serif">
+                                    Level {index + 1}
                                 </div>
-                            </Link>
-
+                            </motion.div>
+                        )
+                    })}
+                </div>
+                
+                {/* Temple Summit Achievement */}
+                {lastCompletedIndex === letters.length - 1 && (
+                    <motion.div
+                        className="absolute"
+                        style={{
+                            left: STEPS_START_X + (letters.length * STEP_WIDTH) - 100,
+                            top: STEPS_START_Y - (letters.length * STEP_HEIGHT) - minY - 100  // Offset by minY
+                        }}
+                        initial={{ scale: 0, y: 20 }}
+                        animate={{ scale: 1, y: 0 }}
+                        transition={{ type: "spring", delay: 0.5 }}
+                    >
+                        <div className="bg-gradient-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-4 px-8 rounded-lg text-xl shadow-[0_0_40px_rgba(230,154,71,0.9)] border-2 border-[#F5F1E8]/50">
+                            🕉️ Temple Mastered! 🕉️
                         </div>
-                    )
-                })}
+                        <div className="text-center text-[#E6D8B8] text-sm mt-2">All Vowels Conquered</div>
+                    </motion.div>
+                )}
             </div>
         </div>
     )
