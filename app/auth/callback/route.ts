@@ -7,10 +7,10 @@ export async function GET(request: Request) {
     const code = searchParams.get('code')
     const next = searchParams.get('next') ?? '/letters'
     
-    // Ensure localhost is used in development
-    const baseUrl = process.env.NODE_ENV === 'development' 
-        ? 'http://localhost:3000' 
-        : origin
+    // Ensure localhost is used in development. In production prefer NEXT_PUBLIC_APP_URL
+    const baseUrl = process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : (process.env.NEXT_PUBLIC_APP_URL ?? origin)
 
     if (code) {
         const cookieStore = await cookies()
@@ -37,10 +37,12 @@ export async function GET(request: Request) {
             // Guest progress migration happens client-side
             // The letters page will automatically sync progress when user logs in
             console.log('Auth callback: User authenticated successfully')
-            return NextResponse.redirect(`${baseUrl}${next}`)
+            const successRedirect = new URL(next, baseUrl).toString()
+            return NextResponse.redirect(successRedirect)
         }
     }
 
     // return the user to an error page with instructions
-    return NextResponse.redirect(`${baseUrl}/auth/auth-code-error`)
+    const errorRedirect = new URL('/auth/auth-code-error', baseUrl).toString()
+    return NextResponse.redirect(errorRedirect)
 }

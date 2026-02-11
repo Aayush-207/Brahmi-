@@ -23,15 +23,15 @@ export default function LoginPage() {
     }, [])
 
     const handleLogin = async () => {
-        // Use localhost in development, current origin in production
-        const baseUrl = process.env.NODE_ENV === 'development' 
-            ? 'http://localhost:3000' 
-            : window.location.origin
-            
+        // Use localhost in development. Prefer NEXT_PUBLIC_APP_URL in production if set.
+        const baseUrl = process.env.NODE_ENV === 'development'
+            ? 'http://localhost:3000'
+            : (process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin)
+
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: `${baseUrl}/auth/callback`,
+                redirectTo: new URL('/auth/callback', baseUrl).toString(),
             },
         })
         if (error) setError(error.message)
