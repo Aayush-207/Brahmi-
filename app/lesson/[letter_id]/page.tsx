@@ -311,6 +311,16 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                             letterSymbol={steps[0]?.letters.brahmi_symbol || '?'}
                             onComplete={handleFlowComplete}
                         />
+                        
+                        {/* Skip Button */}
+                        <div className="flex justify-center mt-6">
+                            <button
+                                onClick={handleFlowComplete}
+                                className="px-6 py-3 bg-gray-600 hover:bg-gray-500 text-white rounded-lg font-medium transition-all duration-300 flex items-center gap-2"
+                            >
+                                Skip Tracing →
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
