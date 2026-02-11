@@ -36,11 +36,65 @@ export async function updateLoginStreak(userId: string): Promise<StreakData> {
             .single()
 
         if (todayLogin) {
-            // Already logged in today, return current streak
+            // Already logged in today. If streaks table is already up-to-date, return it.
+            if (streakData && streakData.last_login_date === today) {
+                return {
+                    currentStreak: streakData?.current_streak || 0,
+                    longestStreak: streakData?.longest_streak || 0,
+                    lastLoginDate: streakData?.last_login_date || null,
+                    isNewStreak: false
+                }
+            }
+
+            // Otherwise, recompute the current streak from login_history to avoid inconsistencies
+            const { data: historyData } = await supabase
+                .from('login_history')
+                .select('login_date')
+                .eq('user_id', userId)
+                .order('login_date', { ascending: false })
+                .limit(365)
+
+            const dates: string[] = (historyData as any[] | null)?.map(d => (d && d.login_date) ? d.login_date : '').filter(Boolean) || []
+
+            let computedStreak = 0
+            let lastDate = null
+            if (dates.length > 0) {
+                lastDate = dates[0]
+                // Count consecutive days starting from most recent
+                let prev = new Date(dates[0])
+                computedStreak = 1
+                for (let i = 1; i < dates.length; i++) {
+                    const curr = new Date(dates[i])
+                    const diffDays = Math.floor((prev.getTime() - curr.getTime()) / (1000 * 60 * 60 * 24))
+                    if (diffDays === 0) {
+                        // duplicate date entry, skip
+                        continue
+                    }
+                    if (diffDays === 1) {
+                        computedStreak++
+                        prev = curr
+                    } else {
+                        break
+                    }
+                }
+            }
+
+            const newLongest = Math.max(computedStreak, streakData?.longest_streak || 0)
+
+            await supabase
+                .from('login_streaks')
+                .upsert({
+                    user_id: userId,
+                    current_streak: computedStreak,
+                    longest_streak: newLongest,
+                    last_login_date: lastDate,
+                    updated_at: new Date().toISOString()
+                })
+
             return {
-                currentStreak: streakData?.current_streak || 0,
-                longestStreak: streakData?.longest_streak || 0,
-                lastLoginDate: streakData?.last_login_date || null,
+                currentStreak: computedStreak,
+                longestStreak: newLongest,
+                lastLoginDate: lastDate,
                 isNewStreak: false
             }
         }

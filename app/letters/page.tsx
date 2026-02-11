@@ -7,6 +7,7 @@ import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 
 // --- Types ---
 type Letter = {
@@ -180,6 +181,8 @@ export default function LettersPage() {
             ref={containerRef}
             className="fixed inset-0 bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] text-[#F5F1E8] overflow-auto"
         >
+            {/* Floating Sign In */}
+            <FloatingSignIn />
             {/* Subtle background pattern */}
             <div className="fixed inset-0 opacity-5 pointer-events-none">
                 <div className="absolute inset-0" style={{
@@ -261,7 +264,7 @@ export default function LettersPage() {
                         const pos = getTempleStepPosition(index)
                         const isCompleted = completedIds.includes(letter.id)
                         const isNext = (lastCompletedIndex === -1 && index === 0) || (index === lastCompletedIndex + 1)
-                        const isLocked = !isNext && !isCompleted
+                        const isLocked = false // Allow access to all lessons
                         const isCelebrating = showCelebration && (index === animatingIndex)
                         
                         return (
@@ -283,7 +286,7 @@ export default function LettersPage() {
                                 <div className="absolute -bottom-4 w-32 h-3 bg-gradient-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
                                 
                                 {/* Letter Stone */}
-                                <Link href={isLocked ? '#' : `/lesson/${letter.id}`}>
+                                <Link href={`/lesson/${letter.id}`}>
                                     <motion.div
                                         className={`
                                             relative w-24 h-24 flex items-center justify-center border-4 transition-all duration-500
@@ -299,12 +302,12 @@ export default function LettersPage() {
                                             transform: isCompleted || isNext ? 'translateY(-4px)' : 'translateY(0)',
                                             boxShadow: isCompleted || isNext ? '' : '0 6px 0 rgba(42, 36, 32, 0.8)'
                                         }}
-                                        whileHover={!isLocked ? { 
+                                        whileHover={{ 
                                             scale: 1.05, 
                                             translateY: -8,
                                             boxShadow: '0 0 30px rgba(212, 175, 55, 0.6), 0 10px 0 rgba(42, 36, 32, 0.8)'
-                                        } : {}}
-                                        whileTap={!isLocked ? { scale: 0.95, translateY: 0 } : {}}
+                                        }}
+                                        whileTap={{ scale: 0.95, translateY: 0 }}
                                     >
                                         <span className="text-3xl font-serif font-bold">{letter.brahmi_symbol}</span>
                                         

@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import LessonQuiz, { McqQuestion, McqOption } from '@/components/lesson/LessonQuiz'
 import LessonTracer from '@/components/lesson/LessonTracer'
 import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
+import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 
 // TypeScript types
 type Letter = {
@@ -40,10 +41,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
             setIdentity(currentIdentity)
             setIsLoaded(true)
             
-            // Require authentication for lessons
-            if (currentIdentity.type === 'none' || currentIdentity.type === 'guest') {
-                router.push('/login')
-            }
+            // Allow guest access to lessons - no redirect needed
         }
         loadIdentity()
     }, [supabase, router])
@@ -175,6 +173,11 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
         }
     }
 
+    // Handle jumping to specific step
+    const handleStepJump = (stepIndex: number) => {
+        setCurrentStepIndex(stepIndex)
+    }
+
     // Determine return route based on letter type
     const getReturnRoute = (completedId?: string) => {
         const baseUrl = letterType === 'consonant' ? '/consonants' : '/letters'
@@ -257,6 +260,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-[#1C1C1C]">
+                <FloatingSignIn />
                 <div className="bg-[#2C2C2C] rounded-2xl p-8 shadow-2xl">
                     <h2 className="text-[#D4AF37] text-xl">Loading lesson...</h2>
                 </div>
@@ -268,6 +272,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     if (error || steps.length === 0) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-[#1C1C1C] p-4 text-center">
+                <FloatingSignIn />
                 <div className="bg-[#2C2C2C] rounded-2xl p-8 shadow-2xl max-w-md w-full">
                     <h2 className="text-red-500 mb-2 font-bold text-xl">Error</h2>
                     <p className="text-gray-400 mb-6">{error || 'No steps available'}</p>
@@ -286,6 +291,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     if (traceMode) {
         return (
             <div className="min-h-screen bg-[#1C1C1C] flex items-center justify-center p-8">
+                <FloatingSignIn />
                 <div className="flex items-center gap-8 w-full max-w-7xl">
                     {/* Left Side - Guruji Centered */}
                     <div className="w-1/3 flex items-center justify-center">
@@ -315,6 +321,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     if (quizMode) {
         return (
             <div className="min-h-screen bg-[#1C1C1C] p-4 md:p-8 flex items-center justify-center flex-col">
+                <FloatingSignIn />
                 <div className="max-w-2xl w-full">
                     <JainBabaCharacter 
                         message="समय परीक्षा का! Time to test your knowledge! Show me what you have learned about this character."
@@ -464,6 +471,9 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
     return (
         <div className="min-h-screen bg-[#1C1C1C] text-white flex flex-col">
+            {/* Floating Sign In */}
+            <FloatingSignIn />
+            
             {/* Header / Progress */}
             {/* Header: Progress Bar + Letter Name */}
             <div className="flex items-center justify-between px-6 py-4 bg-[#2C2C2C] border-b border-[#3A3A3A]">
@@ -478,11 +488,31 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                 </button>
 
                 <div className="flex-1 mx-4 md:mx-8">
-                    <div className="h-2 bg-[#1C1C1C] rounded-full overflow-hidden">
+                    <div className="h-2 bg-[#1C1C1C] rounded-full overflow-hidden mb-3">
                         <div
                             className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F2D06B] transition-all duration-500"
                             style={{ width: `${((currentStepIndex + 1) / steps.length) * 100}%` }}
                         />
+                    </div>
+                    
+                    {/* Step Navigation */}
+                    <div className="flex flex-wrap gap-1 justify-center">
+                        {steps.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleStepJump(index)}
+                                className={`
+                                    w-8 h-8 rounded-full text-xs font-bold transition-all duration-300
+                                    ${currentStepIndex === index 
+                                        ? 'bg-[#D4AF37] text-[#1C1C1C] shadow-[0_0_15px_rgba(212,175,55,0.5)]' 
+                                        : 'bg-[#1C1C1C] text-[#D4AF37] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/20'
+                                    }
+                                `}
+                                title={`Step ${index + 1}`}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
                     </div>
                 </div>
                 <div className="w-8" />
