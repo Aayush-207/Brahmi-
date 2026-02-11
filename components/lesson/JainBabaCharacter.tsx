@@ -62,7 +62,7 @@ const JainBabaCharacter: React.FC<JainBabaCharacterProps> = ({
     }, []);
 
     return (
-        <div className={`flex ${alignmentClass} items-start gap-4 mb-6 w-full animate-in fade-in slide-in-from-left-4 duration-500`}>
+        <div className={`flex flex-col sm:flex-row ${alignmentClass} items-center sm:items-start gap-4 mb-6 w-full animate-in fade-in slide-in-from-left-4 duration-500`}>
             {/* Jain Baba Character */}
             <div className="relative flex-shrink-0">
                 <div className={`w-20 h-20 sm:w-24 sm:h-24 animate-in zoom-in duration-700 transition-transform ${isSpeaking ? 'scale-110' : 'scale-100'}`}>
@@ -74,13 +74,16 @@ const JainBabaCharacter: React.FC<JainBabaCharacterProps> = ({
 
             {/* Speech Bubble */}
             <div className="relative flex-1 max-w-md">
-                {/* Speech bubble tail */}
-                <div className="absolute -left-2 top-4 w-0 h-0 border-t-8 border-t-transparent border-r-8 border-r-white border-b-8 border-b-transparent drop-shadow-sm"></div>
+                {/* Speech bubble tail - responsive positioning */}
+                <div className="absolute sm:-left-2 sm:top-4 -top-2 left-1/2 sm:left-auto -translate-x-1/2 sm:translate-x-0 w-0 h-0 
+                               border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-white
+                               sm:border-l-0 sm:border-r-8 sm:border-r-white sm:border-t-8 sm:border-t-transparent sm:border-b-8 sm:border-b-transparent
+                               drop-shadow-sm"></div>
                 
                 {/* Speech bubble content */}
                 <div className="bg-white rounded-2xl px-6 py-4 shadow-lg border-2 border-learning-gold/20 animate-in fade-in slide-in-from-left-2 duration-700 delay-300">
                     <div className="flex items-start gap-3">
-                        <p className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium flex-1">
+                        <p className="text-gray-800 text-sm sm:text-base lg:text-lg leading-relaxed font-medium flex-1 text-center sm:text-left">
                             {message}
                         </p>
                         {canSpeak && (

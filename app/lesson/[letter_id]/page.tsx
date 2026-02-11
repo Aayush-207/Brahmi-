@@ -290,11 +290,11 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     // IF TRACE MODE IS ACTIVE
     if (traceMode) {
         return (
-            <div className="min-h-screen bg-[#1C1C1C] flex items-center justify-center p-8">
-                <FloatingSignIn />
-                <div className="flex items-center gap-8 w-full max-w-7xl">
-                    {/* Left Side - Guruji Centered */}
-                    <div className="w-1/3 flex items-center justify-center">
+            <div className="min-h-screen bg-[#1C1C1C] flex flex-col lg:flex-row lg:items-center lg:justify-center p-4 lg:p-8 pt-8 pb-8">
+                {/* Mobile: Stacked Layout, Desktop: Side by Side */}
+                <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-8 w-full max-w-7xl mx-auto">
+                    {/* Guruji Section */}
+                    <div className="w-full lg:w-1/3 flex items-center justify-center order-1 lg:order-1">
                         <JainBabaCharacter 
                             message={`अब लिखने का समय! Now trace '${steps[0]?.letters.brahmi_symbol}' with your finger or mouse. Follow the strokes carefully. Practice makes perfect!`}
                             variant="encouraging"
@@ -302,9 +302,9 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                         />
                     </div>
                     
-                    {/* Right Side - Blackboard */}
-                    <div className="flex-1 flex flex-col">
-                        <h2 className="text-[#D4AF37] text-2xl font-bold mb-6 text-center uppercase tracking-widest">
+                    {/* Tracer Section */}
+                    <div className="flex-1 lg:flex-1 flex flex-col order-2 lg:order-2">
+                        <h2 className="text-[#D4AF37] text-xl lg:text-2xl font-bold mb-4 lg:mb-6 text-center uppercase tracking-widest">
                             Trace the Letter
                         </h2>
                         <LessonTracer
@@ -320,18 +320,25 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     // IF QUIZ MODE IS ACTIVE
     if (quizMode) {
         return (
-            <div className="min-h-screen bg-[#1C1C1C] p-4 md:p-8 flex items-center justify-center flex-col">
-                <FloatingSignIn />
-                <div className="max-w-2xl w-full">
-                    <JainBabaCharacter 
-                        message="समय परीक्षा का! Time to test your knowledge! Show me what you have learned about this character."
-                        variant="encouraging"
-                        position="center"
-                    />
-                    <LessonQuiz
-                        questions={quizQuestions}
-                        onComplete={handleFlowComplete}
-                    />
+            <div className="min-h-screen bg-[#1C1C1C] flex flex-col items-center justify-center p-4 pt-8 pb-8">
+                {/* Container with proper spacing */}
+                <div className="max-w-2xl w-full mx-auto">
+                    {/* Guruji Character */}
+                    <div className="mb-6">
+                        <JainBabaCharacter 
+                            message="समय परीक्षा का! Time to test your knowledge! Show me what you have learned about this character."
+                            variant="encouraging"
+                            position="center"
+                        />
+                    </div>
+                    
+                    {/* Quiz Component */}
+                    <div className="bg-[#2C2C2C] rounded-2xl p-4 lg:p-6 border border-[#3A3A3A]">
+                        <LessonQuiz
+                            questions={quizQuestions}
+                            onComplete={handleFlowComplete}
+                        />
+                    </div>
                 </div>
             </div>
         )
@@ -360,34 +367,6 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
         const brahmiSymbol = letter.brahmi_symbol
         const stepType = currentStep.step_type
         const content = currentStep.content
-
-        const baseCardStyle = {
-            backgroundColor: '#2C2C2C', // Dark card
-            borderRadius: '24px',
-            padding: '40px 60px',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-            border: '1px solid #3A3A3A',
-            display: 'flex',
-            flexDirection: 'column' as const,
-            alignItems: 'center',
-            gap: '40px',
-            transform: isAnimating ? 'scale(0.95)' : 'scale(1)',
-            opacity: isAnimating ? 0.7 : 1,
-            transition: 'all 0.3s ease-out',
-            position: 'relative' as const,
-            overflow: 'hidden' as const,
-            maxWidth: '100%',
-            color: 'white'
-        }
-
-        const symbolStyle = {
-            fontWeight: 'bold' as const,
-            backgroundImage: `linear-gradient(135deg, ${stepColors.primary}, ${stepColors.secondary})`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            position: 'relative' as const,
-        }
 
         // Get Guruji message based on step type
         const getGurujiMessage = () => {
@@ -427,43 +406,64 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
         switch (stepType) {
             case 'show':
                 return (
-                    <div style={{ ...baseCardStyle, padding: '80px' }}>
+                    <div className="bg-[#2C2C2C] rounded-3xl p-6 md:p-20 shadow-2xl border border-[#3A3A3A] flex flex-col items-center gap-6 md:gap-10 transition-all duration-300 text-white max-w-full" style={{
+                        transform: isAnimating ? 'scale(0.95)' : 'scale(1)',
+                        opacity: isAnimating ? 0.7 : 1,
+                    }}>
                         <JainBabaCharacter 
                             message={getGurujiMessage()}
                             variant={getGurujiVariant()}
                             position="center"
                         />
-                        <div style={{ ...symbolStyle, fontSize: '180px' }}>{brahmiSymbol}</div>
-                        <div style={{ fontSize: '24px', color: '#888', letterSpacing: '2px' }}>{letter.letter_name}</div>
+                        <div 
+                            className="text-6xl sm:text-8xl md:text-9xl font-bold bg-gradient-to-br from-[#D4AF37] to-[#F2D06B] bg-clip-text text-transparent"
+                        >
+                            {brahmiSymbol}
+                        </div>
+                        <div className="text-base md:text-2xl text-gray-400 tracking-wider">
+                            {letter.letter_name}
+                        </div>
                     </div>
                 )
             case 'sound':
                 return (
-                    <div style={{ ...baseCardStyle, maxWidth: '700px' }}>
+                    <div className="bg-[#2C2C2C] rounded-3xl p-6 md:p-16 shadow-2xl border border-[#3A3A3A] flex flex-col items-center gap-6 md:gap-10 transition-all duration-300 text-white w-full max-w-2xl" style={{
+                        transform: isAnimating ? 'scale(0.95)' : 'scale(1)',
+                        opacity: isAnimating ? 0.7 : 1,
+                    }}>
                         <JainBabaCharacter 
                             message={getGurujiMessage()}
                             variant={getGurujiVariant()}
                         />
-                        <div style={{ ...symbolStyle, fontSize: '140px' }}>{brahmiSymbol}</div>
-                        <div className="flex items-center gap-4 bg-[#1C1C1C] p-4 rounded-xl border border-[#3A3A3A]">
+                        <div className="text-5xl sm:text-7xl md:text-8xl font-bold bg-gradient-to-br from-[#E27D60] to-[#FF9E80] bg-clip-text text-transparent">
+                            {brahmiSymbol}
+                        </div>
+                        <div className="flex items-center gap-4 bg-[#1C1C1C] p-4 rounded-xl border border-[#3A3A3A] w-full">
                             <button
                                 onClick={() => pronounce(content)}
-                                className="w-12 h-12 rounded-full bg-[#D4AF37] text-black flex items-center justify-center text-xl hover:scale-110 transition-transform"
+                                className="w-12 h-12 rounded-full bg-[#D4AF37] text-black flex items-center justify-center text-xl hover:scale-110 transition-transform flex-shrink-0"
                             >
                                 {isSpeaking ? '🔊' : '🔉'}
                             </button>
-                            <span className="text-xl text-white">{content}</span>
+                            <span className="text-sm sm:text-lg md:text-xl text-white break-words">{content}</span>
                         </div>
                     </div>
                 )
             default:
                 return (
-                    <div style={{ ...baseCardStyle, maxWidth: '800px' }}>
+                    <div className="bg-[#2C2C2C] rounded-3xl p-6 md:p-16 shadow-2xl border border-[#3A3A3A] flex flex-col items-center gap-6 md:gap-10 transition-all duration-300 text-white w-full max-w-3xl" style={{
+                        transform: isAnimating ? 'scale(0.95)' : 'scale(1)',
+                        opacity: isAnimating ? 0.7 : 1,
+                    }}>
                         <JainBabaCharacter 
                             message={getGurujiMessage()}
                             variant={getGurujiVariant()}
                         />
-                        <div style={{ ...symbolStyle, fontSize: '120px' }}>{brahmiSymbol}</div>
+                        <div className="text-4xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-br bg-clip-text text-transparent" style={{
+                            backgroundImage: `linear-gradient(135deg, ${stepColors.primary}, ${stepColors.secondary})`
+                        }}>
+                            {brahmiSymbol}
+                        </div>
                     </div>
                 )
         }
@@ -471,9 +471,6 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
     return (
         <div className="min-h-screen bg-[#1C1C1C] text-white flex flex-col">
-            {/* Floating Sign In */}
-            <FloatingSignIn />
-            
             {/* Header / Progress */}
             {/* Header: Progress Bar + Letter Name */}
             <div className="flex items-center justify-between px-6 py-4 bg-[#2C2C2C] border-b border-[#3A3A3A]">
@@ -519,12 +516,12 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 flex items-center justify-center p-6 relative">
+            <div className="flex-1 flex items-center justify-center p-2 sm:p-4 md:p-6 relative mx-2 sm:mx-4 md:mx-0">
                 {/* Navigation Buttons (Left/Right) */}
                 <button
                     onClick={handlePrevious}
                     disabled={currentStepIndex === 0}
-                    className={`absolute left-4 md:left-10 p-4 rounded-full bg-[#2C2C2C] text-[#D4AF37] hover:bg-[#3A3A3A] disabled:opacity-30 disabled:cursor-not-allowed transition-all`}
+                    className={`absolute left-2 md:left-10 p-3 md:p-4 rounded-full bg-[#2C2C2C] text-[#D4AF37] hover:bg-[#3A3A3A] disabled:opacity-30 disabled:cursor-not-allowed transition-all text-lg md:text-xl`}
                 >
                     ←
                 </button>
@@ -533,7 +530,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
                 <button
                     onClick={isLastStep ? handleFlowComplete : handleNext}
-                    className="absolute right-4 md:right-10 p-4 rounded-full bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20"
+                    className="absolute right-2 md:right-10 p-3 md:p-4 rounded-full bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 text-lg md:text-xl"
                 >
                     {isLastStep ? (quizQuestions.length > 0 ? 'Quiz →' : 'Trace →') : '→'}
                 </button>
