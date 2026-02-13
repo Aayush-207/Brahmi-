@@ -14,11 +14,11 @@ export const COURSE_MODULES: CourseModule[] = [
         id: 'module-intro',
         title: 'Introduction',
         subtitle: 'History of Brahmi',
-        route: '#', // Placeholder
+        route: '/learn/intro',
         icon: '📜',
         iconType: 'emoji',
         order: 1,
-        locked: true
+        locked: false
     },
     {
         id: 'module-swar',

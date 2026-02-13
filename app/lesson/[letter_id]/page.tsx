@@ -290,7 +290,18 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     // IF TRACE MODE IS ACTIVE
     if (traceMode) {
         return (
-            <div className="min-h-screen bg-[#1C1C1C] flex flex-col lg:flex-row lg:items-center lg:justify-center p-4 lg:p-8 pt-8 pb-8">
+            <div className="min-h-screen bg-[#1C1C1C] flex flex-col lg:flex-row lg:items-center lg:justify-center p-4 lg:p-8 pt-16 pb-8 relative">
+                {/* Floating Back Button */}
+                <button
+                    onClick={() => router.push(getReturnRoute())}
+                    className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
+                >
+                    <span className="text-lg">←</span>
+                    <span className="hidden sm:inline">Exit</span>
+                </button>
+
+                {/* Floating Sign In Button */}
+                <FloatingSignIn />
                 {/* Mobile: Stacked Layout, Desktop: Side by Side */}
                 <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-8 w-full max-w-7xl mx-auto">
                     {/* Guruji Section */}
@@ -330,7 +341,19 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     // IF QUIZ MODE IS ACTIVE
     if (quizMode) {
         return (
-            <div className="min-h-screen bg-[#1C1C1C] flex flex-col items-center justify-center p-4 pt-8 pb-8">
+            <div className="min-h-screen bg-[#1C1C1C] flex flex-col items-center justify-center p-4 pt-16 pb-8 relative">
+                {/* Floating Back Button */}
+                <button
+                    onClick={() => router.push(getReturnRoute())}
+                    className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
+                >
+                    <span className="text-lg">←</span>
+                    <span className="hidden sm:inline">Exit</span>
+                </button>
+
+                {/* Floating Sign In Button */}
+                <FloatingSignIn />
+
                 {/* Container with proper spacing */}
                 <div className="max-w-2xl w-full mx-auto">
                     {/* Guruji Character */}
@@ -480,53 +503,34 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     }
 
     return (
-        <div className="min-h-screen bg-[#1C1C1C] text-white flex flex-col">
-            {/* Header / Progress */}
-            {/* Header: Progress Bar + Letter Name */}
-            <div className="flex items-center justify-between px-6 py-4 bg-[#2C2C2C] border-b border-[#3A3A3A]">
-                {/* Return to Journey Button */}
-                <button
-                    onClick={() => router.push(getReturnRoute())}
-                    className="flex items-center gap-2 text-[#D4AF37] hover:text-[#FFD6A5] transition-colors font-medium text-sm md:text-base"
-                >
-                    <span className="text-lg">←</span>
-                    <span className="hidden sm:inline">Return to Journey</span>
-                    <span className="sm:hidden">Journey</span>
-                </button>
+        <div className="min-h-screen bg-[#1C1C1C] text-white flex flex-col relative">
+            {/* Floating Back Button */}
+            <button
+                onClick={() => router.push(getReturnRoute())}
+                className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
+            >
+                <span className="text-lg">←</span>
+                <span className="hidden sm:inline">Exit</span>
+            </button>
 
-                <div className="flex-1 mx-4 md:mx-8">
-                    <div className="h-2 bg-[#1C1C1C] rounded-full overflow-hidden mb-3">
-                        <div
-                            className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F2D06B] transition-all duration-500"
-                            style={{ width: `${((currentStepIndex + 1) / steps.length) * 100}%` }}
-                        />
-                    </div>
-                    
-                    {/* Step Navigation */}
-                    <div className="flex flex-wrap gap-1 justify-center">
-                        {steps.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => handleStepJump(index)}
-                                className={`
-                                    w-8 h-8 rounded-full text-xs font-bold transition-all duration-300
-                                    ${currentStepIndex === index 
-                                        ? 'bg-[#D4AF37] text-[#1C1C1C] shadow-[0_0_15px_rgba(212,175,55,0.5)]' 
-                                        : 'bg-[#1C1C1C] text-[#D4AF37] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/20'
-                                    }
-                                `}
-                                title={`Step ${index + 1}`}
-                            >
-                                {index + 1}
-                            </button>
-                        ))}
-                    </div>
+            {/* Floating Sign In Button */}
+            <FloatingSignIn />
+
+            {/* Floating Progress Bar */}
+            <div className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-48 sm:w-64 md:w-80">
+                <div className="h-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full overflow-hidden shadow-lg border border-[#D4AF37]/20">
+                    <div
+                        className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F2D06B] transition-all duration-500"
+                        style={{ width: `${((currentStepIndex + 1) / steps.length) * 100}%` }}
+                    />
                 </div>
-                <div className="w-8" />
+                <div className="text-center text-xs text-[#D4AF37]/60 mt-1">
+                    {currentStepIndex + 1} / {steps.length}
+                </div>
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 flex items-center justify-center p-2 sm:p-4 md:p-6 relative mx-2 sm:mx-4 md:mx-0">
+            <div className="flex-1 flex items-center justify-center p-2 sm:p-4 md:p-6 relative mx-2 sm:mx-4 md:mx-0 pt-16">
                 {/* Navigation Buttons (Left/Right) */}
                 <button
                     onClick={handlePrevious}
