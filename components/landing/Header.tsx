@@ -23,9 +23,9 @@ export function Header() {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#1a1613] via-[#2a2420] to-[#1a1613] border-b border-[#E6D8B8]/20 shadow-2xl backdrop-blur-sm"
+                className="fixed top-0 left-0 right-0 z-50 h-[72px] bg-gradient-to-r from-[#1a1613] via-[#2a2420] to-[#1a1613] border-b border-[#E6D8B8]/20 shadow-2xl backdrop-blur-sm"
             >
-                <div className="px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
+                <div className="h-full px-4 md:px-6 flex items-center justify-between">
                     {/* Left: Logo & Brand */}
                     <Link href="/" className="flex items-center gap-3 group">
                         <div className="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-[#D4AF37]/40 group-hover:border-[#D4AF37] transition-all duration-300 shrink-0 shadow-lg">

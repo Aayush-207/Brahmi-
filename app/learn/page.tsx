@@ -176,7 +176,7 @@ export default function LearnPage() {
                                     }}
                                 >
                                     <Image
-                                        src={`/assets/mascot_${mascotImg}.png`}
+                                        src={`/mascot/mascot_${mascotImg}.png`}
                                         alt=""
                                         width={120} height={120}
                                         className={`object-contain ${mascotSide === 'right' ? 'scale-x-[-1]' : ''} ${isLocked ? 'grayscale opacity-50' : ''}`}

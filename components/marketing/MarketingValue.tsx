@@ -26,7 +26,7 @@ export function MarketingValue() {
                             
                             <div className="relative p-12">
                                 <img
-                                    src="/assets/mascot_1.png"
+                                    src="/mascot/mascot_1.png"
                                     alt="Brahmi Mascot"
                                     className="w-72 h-72 md:w-96 md:h-96 object-contain drop-shadow-2xl transform group-hover:scale-110 transition-transform duration-500"
                                 />

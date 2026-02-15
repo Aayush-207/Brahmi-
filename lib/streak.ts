@@ -119,12 +119,15 @@ export async function updateLoginStreak(userId: string): Promise<StreakData> {
 
         const newLongestStreak = Math.max(newStreak, streakData?.longest_streak || 0)
 
-        // 4. Update login_history
+        // 4. Update login_history (use upsert to avoid conflict if already exists)
         await supabase
             .from('login_history')
-            .insert({
+            .upsert({
                 user_id: userId,
                 login_date: today
+            }, {
+                onConflict: 'user_id,login_date',
+                ignoreDuplicates: false
             })
 
         // 5. Upsert streak data

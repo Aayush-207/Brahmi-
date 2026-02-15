@@ -345,7 +345,7 @@ export default function LettersPage() {
                             {showMascot && (
                                 <div className={`absolute w-32 pointer-events-none z-10 ${side === 'left' ? '-left-40' : '-right-40'}`}>
                                     <Image
-                                        src={`/assets/mascot_${mascotImg}.png`}
+                                        src={`/mascot/mascot_${mascotImg}.png`}
                                         alt="Mascot"
                                         width={128} height={128}
                                         className={`object-contain transition-transform hover:scale-110 ${side === 'right' ? 'scale-x-[-1]' : ''}`}

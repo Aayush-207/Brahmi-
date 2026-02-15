@@ -79,7 +79,7 @@ export function MarketingHero() {
                             
                             <div className="relative w-72 h-72 md:w-[550px] md:h-[550px] animate-float">
                                 <img
-                                    src="/assets/mascot_hero.png"
+                                    src="/mascot/mascot_hero.png"
                                     alt="Brahmi Scholar Mascot"
                                     className="w-full h-full object-contain drop-shadow-2xl"
                                 />
