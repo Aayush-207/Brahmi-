@@ -55,7 +55,14 @@ export async function getCurrentIdentity(): Promise<Identity> {
         // No authenticated user, use guest ID
         const guestId = getOrCreateGuestId()
         return { type: 'guest', id: guestId }
-    } catch (error) {
+    } catch (error: any) {
+        // Supabase or fetch may abort requests (navigation, timeout, etc.). Treat AbortError as non-fatal.
+        if (error && error.name === 'AbortError') {
+            // Silently fallback to guest identity without noisy logging
+            const guestId = getOrCreateGuestId()
+            return { type: 'guest', id: guestId }
+        }
+
         console.error('Error getting identity:', error)
         // Fallback to guest
         const guestId = getOrCreateGuestId()

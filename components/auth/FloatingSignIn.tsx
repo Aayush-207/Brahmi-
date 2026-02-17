@@ -6,6 +6,7 @@ import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
 import { User, LogOut } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import SignInPopup from '@/components/auth/SignInPopup'
+import { getAvatarUrl } from '@/lib/getAvatarUrl'
 
 export function FloatingSignIn() {
   const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
@@ -64,16 +65,16 @@ export function FloatingSignIn() {
         {identity.type === 'user' && user ? (
           <div className="flex items-center gap-3 bg-gradient-to-r from-[#1a1613]/90 to-[#2a2420]/90 backdrop-blur-sm border border-[#D4AF37]/30 rounded-full px-4 py-2 shadow-lg">
             {/* User Info */}
-            <div className="flex items-center gap-2">
-              <img
-                src={user.user_metadata?.avatar_url || `https://api.dicebear.com/7.x/initials/svg?seed=${user.email}`}
-                alt="Profile"
-                className="w-8 h-8 rounded-full border border-[#D4AF37]/30"
-              />
-              <span className="text-sm text-gray-300 font-medium hidden sm:block">
-                {user.user_metadata?.full_name?.split(' ')[0] || 'User'}
-              </span>
-            </div>
+              <div className="flex items-center gap-2">
+                <img
+                  src={getAvatarUrl(user)}
+                  alt="Profile"
+                  className="w-8 h-8 rounded-full border border-[#D4AF37]/30"
+                />
+                <span className="text-sm text-gray-300 font-medium hidden sm:block">
+                  {user.user_metadata?.full_name?.split(' ')[0] || 'User'}
+                </span>
+              </div>
             
             {/* Sign Out Button */}
             <button

@@ -89,7 +89,7 @@ export async function updateLoginStreak(userId: string): Promise<StreakData> {
                     longest_streak: newLongest,
                     last_login_date: lastDate,
                     updated_at: new Date().toISOString()
-                })
+                }, { onConflict: 'user_id' })
 
             return {
                 currentStreak: computedStreak,
@@ -139,7 +139,7 @@ export async function updateLoginStreak(userId: string): Promise<StreakData> {
                 longest_streak: newLongestStreak,
                 last_login_date: today,
                 updated_at: new Date().toISOString()
-            })
+            }, { onConflict: 'user_id' })
 
         return {
             currentStreak: newStreak,

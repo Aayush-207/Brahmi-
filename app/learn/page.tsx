@@ -10,6 +10,7 @@ import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
 import { updateLoginStreak, type StreakData } from '@/lib/streak'
 import StreakDisplay from '@/components/StreakDisplay'
 import StreakCelebration from '@/components/StreakCelebration'
+import { AnimatedBirds } from '@/components/animations/AnimatedBird'
 
 // --- Layout Constants ---
 const VERTICAL_GAP = 220     // Reduced for mobile density
@@ -94,6 +95,11 @@ export default function LearnPage() {
                 }}></div>
             </div>
 
+            {/* Animated Birds - Duolingo Style */}
+            <div className="fixed inset-0 pointer-events-none overflow-hidden z-5">
+                <AnimatedBirds />
+            </div>
+
             {/* 2. Header (Consistent with Vowels Page) */}
             <div className="w-full border-b border-[#D4AF37]/20 py-4 md:py-6 text-center bg-[#1a1613]/95 backdrop-blur-sm sticky top-0 z-50 px-4">
                 <button onClick={() => router.push('/')} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#D4AF37] hover:text-[#E69A47] transition-colors text-xs font-bold uppercase tracking-wider flex items-center gap-1">
@@ -128,7 +134,7 @@ export default function LearnPage() {
 
                     {/* The Path Line */}
                     <motion.path
-                        d={generateSVGPath(COURSE_MODULES.length)}
+                        d={generateSVGPath(COURSE_MODULES.length) ?? ''}
                         fill="none"
                         stroke="#D4AF37"
                         strokeOpacity="0.3"
@@ -179,7 +185,7 @@ export default function LearnPage() {
                                         src={`/mascot/mascot_${mascotImg}.png`}
                                         alt=""
                                         width={120} height={120}
-                                        className={`object-contain ${mascotSide === 'right' ? 'scale-x-[-1]' : ''} ${isLocked ? 'grayscale opacity-50' : ''}`}
+                                        className={`object-contain ${isLocked ? 'grayscale opacity-50' : ''}`}
                                     />
                                 </motion.div>
                             </div>

@@ -42,6 +42,7 @@ const JainBabaSVG: React.FC<JainBabaSVGProps> = ({ variant = 'default', size = 1
     };
 
     const expression = getExpression();
+    const mouthPath = expression.mouthPath ?? 'M 48 84 Q 60 92 72 84'
 
     return (
         <svg
@@ -151,16 +152,16 @@ const JainBabaSVG: React.FC<JainBabaSVGProps> = ({ variant = 'default', size = 1
 
             {/* Mouth/Smile with animation - cute kid's smile */}
             <path
-                d={expression.mouthPath}
+                d={mouthPath}
                 stroke="#E85D75"
                 strokeWidth="2.5"
                 fill="none"
                 strokeLinecap="round"
             >
-                {isSpeaking && (
+                {isSpeaking && mouthPath && (
                     <animate
                         attributeName="d"
-                        values={`${expression.mouthPath};M 50 88 Q 60 95 70 88;${expression.mouthPath}`}
+                        values={`${mouthPath};M 50 88 Q 60 95 70 88;${mouthPath}`}
                         dur="0.4s"
                         repeatCount="indefinite"
                     />

@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
+import { AnimatedBirds } from '@/components/animations/AnimatedBird'
 
 // --- Types ---
 type Letter = {
@@ -257,6 +258,11 @@ export default function LettersPage() {
                 }}></div>
             </div>
 
+            {/* Animated Birds - Duolingo Style */}
+            <div className="fixed inset-0 pointer-events-none overflow-hidden z-5">
+                <AnimatedBirds />
+            </div>
+
             {/* Back Button Only */}
             <button 
                 onClick={() => router.push('/learn')} 
@@ -301,7 +307,7 @@ export default function LettersPage() {
                         
                         {/* Background dashed path */}
                         <path
-                            d={generateJourneyPath(letters.length, centerX)}
+                            d={generateJourneyPath(letters.length, centerX) ?? ''}
                             fill="none"
                             stroke="url(#swarJourneyGradient)"
                             strokeWidth="4"
@@ -313,7 +319,7 @@ export default function LettersPage() {
                         {/* Completed solid path */}
                         {lastCompletedIndex >= 0 && (
                             <path
-                                d={generateJourneyPath(lastCompletedIndex + 2, centerX)}
+                                d={generateJourneyPath(lastCompletedIndex + 2, centerX) ?? ''}
                                 fill="none"
                                 stroke="#D4AF37"
                                 strokeWidth="6"
@@ -452,7 +458,7 @@ export default function LettersPage() {
                         
                         {/* Background dashed path */}
                         <path
-                            d={generateTemplePath(letters.length)}
+                            d={generateTemplePath(letters.length) ?? ''}
                             fill="none"
                             stroke="url(#templeGradient)"
                             strokeWidth="6"
@@ -464,7 +470,7 @@ export default function LettersPage() {
                         {/* Completed solid path */}
                         {lastCompletedIndex >= 0 && (
                             <path
-                                d={generateTemplePath(lastCompletedIndex + 2)}
+                                d={generateTemplePath(lastCompletedIndex + 2) ?? ''}
                                 fill="none"
                                 stroke="#D4AF37"
                                 strokeWidth="8"

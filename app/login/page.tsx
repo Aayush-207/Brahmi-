@@ -28,12 +28,19 @@ export default function LoginPage() {
             ? 'http://localhost:3000'
             : (process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin)
 
+        // Build callback URL and include the full current href as `next`
+        const redirectUrl = new URL('/auth/callback', baseUrl)
+        try {
+            const pathOnly = `${window.location.pathname}${window.location.search}${window.location.hash}`
+            redirectUrl.searchParams.set('next', pathOnly)
+        } catch {}
+
         const { error } = await supabase.auth.signInWithOAuth({
-            provider: 'google',
-            options: {
-                redirectTo: new URL('/auth/callback', baseUrl).toString(),
-            },
-        })
+                provider: 'google',
+                options: {
+                    redirectTo: redirectUrl.toString(),
+                },
+            })
         if (error) setError(error.message)
     }
 

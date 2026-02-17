@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { User } from '@supabase/supabase-js';
 import { getCurrentIdentity, Identity } from '@/lib/guestIdentity';
+import { getAvatarUrl } from '@/lib/getAvatarUrl';
 
 export default function AuthButton() {
     const router = useRouter();
@@ -45,9 +46,7 @@ export default function AuthButton() {
                 <button onClick={handleSignOut} className="text-sm font-bold text-[#EDEDED] hover:text-[#D4AF37]">
                     Sign Out
                 </button>
-                {user.user_metadata.avatar_url && (
-                    <img src={user.user_metadata.avatar_url} alt="Profile" className="w-8 h-8 rounded-full" />
-                )}
+                <img src={getAvatarUrl(user)} alt="Profile" className="w-8 h-8 rounded-full" />
             </div>
         );
     }

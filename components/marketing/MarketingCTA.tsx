@@ -48,7 +48,7 @@ export function MarketingCTA() {
                         {/* CTA Button */}
                         <div className="pt-8">
                             <Link href="/learn">
-                                <Button className="group relative h-20 px-16 text-xl font-bold bg-gradient-to-r from-[#D4AF37] via-[#E6D8B8] to-[#D4AF37] text-[#1a1613] rounded-2xl shadow-2xl shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:scale-110 transition-all duration-500 overflow-hidden uppercase tracking-wider">
+                                <Button className="group relative h-16 sm:h-20 px-6 sm:px-16 text-lg sm:text-xl font-bold bg-gradient-to-r from-[#D4AF37] via-[#E6D8B8] to-[#D4AF37] text-[#1a1613] rounded-2xl shadow-2xl shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:scale-110 transition-all duration-500 overflow-hidden uppercase tracking-wider w-full sm:w-auto max-w-full">
                                     <span className="relative z-10 flex items-center gap-3">
                                         अध्ययन प्रारंभ करें
                                         <svg className="w-6 h-6 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

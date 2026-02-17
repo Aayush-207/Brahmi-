@@ -186,6 +186,10 @@ export default function ConsonantsPage() {
     if (solidLimit > letters.length - 1) solidLimit = letters.length - 1
     if (solidLimit < 0) solidLimit = 0
 
+    // Safely compute the animated path segment (may be undefined)
+    const animatedSegments = generatePathSegments(letters.length)
+    const animatedPath = animatingIndex !== null ? animatedSegments[animatingIndex] ?? '' : ''
+
 
     return (
         <div className="min-h-screen bg-[#1F1D3A] text-white overflow-hidden flex flex-col items-center">
@@ -214,7 +218,7 @@ export default function ConsonantsPage() {
                 >
                     {/* Background Dashed Path */}
                     <path
-                        d={generateSVGPath(letters.length)}
+                        d={generateSVGPath(letters.length) ?? ''}
                         fill="none"
                         stroke="#D4AF37"
                         strokeOpacity="0.3"
@@ -224,9 +228,9 @@ export default function ConsonantsPage() {
                     />
 
                     {/* Progress Solid Path */}
-                    {solidLimit > 0 && (
-                        <path
-                            d={generatePathSegments(letters.length).slice(0, solidLimit).join(' ')}
+                        {solidLimit > 0 && (
+                            <path
+                                d={generatePathSegments(letters.length).slice(0, solidLimit).join(' ') || ''}
                             fill="none"
                             stroke="#D4AF37"
                             strokeOpacity="1"
@@ -237,10 +241,10 @@ export default function ConsonantsPage() {
 
                     {/* Animated Segment */}
                     <AnimatePresence>
-                        {animatingIndex !== null && (
+                        {animatedPath && animatedPath.trim().startsWith('M') && (
                             <motion.path
                                 key={`anim-path-${animatingIndex}`}
-                                d={generatePathSegments(letters.length)[animatingIndex]}
+                                d={animatedPath}
                                 fill="none"
                                 stroke="#E69138" // Saffron accent
                                 strokeWidth="8"

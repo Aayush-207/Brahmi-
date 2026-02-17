@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import { getIntroLessons, getCompletedLessonIds, type IntroLesson } from '@/lib/introModule'
 import { getCurrentIdentity, type Identity } from '@/lib/guestIdentity'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
+import { AnimatedBirds } from '@/components/animations/AnimatedBird'
 
 // --- Temple Steps Layout Constants (Desktop) ---
 const STEP_WIDTH = 220          // Horizontal distance between steps
@@ -230,6 +231,11 @@ export default function IntroLessonsPage() {
                 }}></div>
             </div>
 
+            {/* Animated Birds - Duolingo Style */}
+            <div className="fixed inset-0 pointer-events-none overflow-hidden z-5">
+                <AnimatedBirds />
+            </div>
+
             {/* Back Button */}
             <button 
                 onClick={() => router.push('/learn')} 
@@ -274,7 +280,7 @@ export default function IntroLessonsPage() {
                         
                         {/* Background dashed path */}
                         <path
-                            d={generateJourneyPath(lessons.length, centerX)}
+                            d={generateJourneyPath(lessons.length, centerX) ?? ''}
                             fill="none"
                             stroke="url(#introJourneyGradient)"
                             strokeWidth="4"
@@ -286,7 +292,7 @@ export default function IntroLessonsPage() {
                         {/* Completed solid path */}
                         {lastCompletedIndex >= 0 && (
                             <path
-                                d={generateJourneyPath(lastCompletedIndex + 2, centerX)}
+                                d={generateJourneyPath(lastCompletedIndex + 2, centerX) ?? ''}
                                 fill="none"
                                 stroke="#D4AF37"
                                 strokeWidth="6"
@@ -425,7 +431,7 @@ export default function IntroLessonsPage() {
                         
                         {/* Background dashed path */}
                         <path
-                            d={generateTemplePath(lessons.length)}
+                            d={generateTemplePath(lessons.length) ?? ''}
                             fill="none"
                             stroke="url(#introGradient)"
                             strokeWidth="6"
@@ -437,7 +443,7 @@ export default function IntroLessonsPage() {
                         {/* Completed solid path */}
                         {lastCompletedIndex >= 0 && (
                             <path
-                                d={generateTemplePath(lastCompletedIndex + 2)}
+                                d={generateTemplePath(lastCompletedIndex + 2) ?? ''}
                                 fill="none"
                                 stroke="#D4AF37"
                                 strokeWidth="8"
