@@ -21,9 +21,11 @@ export interface ScoringResult {
 }
 
 const LETTER_DETECTION_THRESHOLD = 150; // Gray level above which pixels are considered "letter" (light gray guide)
-const STROKE_DETECTION_THRESHOLD = 100; // Gray level BELOW which pixels are considered "stroke" (dark strokes)
+// Increase stroke threshold to be more permissive for antialiased or light strokes
+const STROKE_DETECTION_THRESHOLD = 180; // Gray level BELOW which pixels are considered "stroke" (dark strokes)
 const TOLERANCE_RADIUS = 5; // pixels - forgiving tolerance for children's handwriting
-const MIN_STUDENT_PIXELS = 20; // Minimum strokes required (lowered for sensitivity)
+// Lower minimum required student pixels to avoid false 'no-draw' on small strokes
+const MIN_STUDENT_PIXELS = 5;
 
 /**
  * Extract pixel data from canvas
@@ -93,9 +95,9 @@ function detectStrokePixels(imageData: ImageData): Set<string> {
       // Detect dark pixels (strokes)
       const luminance = (r + g + b) / 3;
       
-      // Accept dark pixels with any meaningful alpha (not fully transparent)
-      // This catches both solid strokes and antialiased edges
-      if (luminance < STROKE_DETECTION_THRESHOLD && a > 30) {
+      // Accept relatively dark pixels or any pixel with meaningful alpha
+      // This catches solid strokes and antialiased edges from different devices
+      if ((luminance < STROKE_DETECTION_THRESHOLD && a > 10) || a > 120) {
         pixels.add(`${x},${y}`);
       }
     }

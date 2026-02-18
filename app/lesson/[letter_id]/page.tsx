@@ -1,14 +1,24 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { createClient } from '@/lib/supabase/client'
 import { markLessonComplete } from '@/lib/progress'
 import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
 import { useRouter } from 'next/navigation'
 import LessonQuiz, { McqQuestion, McqOption } from '@/components/lesson/LessonQuiz'
-import LessonTracer from '@/components/lesson/LessonTracer'
 import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
+
+// Dynamically import TracerKonva with SSR disabled (Konva requires browser APIs)
+const TracerKonva = dynamic(() => import('@/components/lesson/TracerKonva'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center w-full aspect-square max-w-md border-2 border-dashed border-gray-600 rounded-2xl bg-[#2C2C2C]">
+      <p className="text-gray-400">Loading tracer...</p>
+    </div>
+  ),
+});
 
 // TypeScript types
 type Letter = {
@@ -318,10 +328,20 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                         <h2 className="text-[#D4AF37] text-xl lg:text-2xl font-bold mb-4 lg:mb-6 text-center uppercase tracking-widest">
                             Trace the Letter
                         </h2>
-                        <LessonTracer
-                            letterSymbol={steps[0]?.letters.brahmi_symbol || '?'}
-                            onComplete={handleFlowComplete}
-                        />
+                        <div className="flex justify-center">
+                            <TracerKonva
+                                character={steps[0]?.letters.brahmi_symbol || '?'}
+                                width={400}
+                                height={400}
+                                onScoreComplete={(score) => {
+                                    console.log('[LessonPage] Trace score:', score)
+                                }}
+                                onContinue={() => {
+                                    console.log('[LessonPage] Continue clicked from tracer')
+                                    handleFlowComplete()
+                                }}
+                            />
+                        </div>
                         
                         {/* Skip Button - Desktop Only */}
                         <div className="hidden md:flex justify-center mt-6">
