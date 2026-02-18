@@ -66,23 +66,17 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
     }
 
     const handleContinue = () => {
-        if (quizState === 'answered_correct') {
-            if (currentQuestionIndex < questions.length - 1) {
-                // Next question
-                setCurrentQuestionIndex(prev => prev + 1)
-                setQuizState('active')
-                setSelectedOptionId(null)
-                setIsAnswerCorrect(false)
-            } else {
-                // Formatting for completion
-                setQuizState('completed')
-                onComplete()
-            }
-        } else if (quizState === 'answered_wrong') {
-            // Retry same question
+        // Both correct and wrong answers move to next question
+        if (currentQuestionIndex < questions.length - 1) {
+            // Next question
+            setCurrentQuestionIndex(prev => prev + 1)
             setQuizState('active')
             setSelectedOptionId(null)
             setIsAnswerCorrect(false)
+        } else {
+            // Quiz complete
+            setQuizState('completed')
+            onComplete()
         }
     }
 
@@ -126,16 +120,20 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
             </h2>
 
             {/* Options */}
-            <div className="flex flex-col gap-4 mb-24">
+            <div className="flex flex-col gap-4 mb-8">
                 <AnimatePresence>
                     {currentQuestion.options.map((option) => {
                         const isSelected = selectedOptionId === option.id
                         const isShaking = shakingOptionId === option.id
+                        const isCorrectAnswer = option.is_correct
 
                         // Determine styling based on state
                         let buttonStyle = "bg-[#2C2C2C] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]" // Default
 
-                        if (isSelected) {
+                        // Show correct answer in green when wrong answer is selected
+                        if (quizState === 'answered_wrong' && isCorrectAnswer) {
+                            buttonStyle = "bg-[#d7ffb8] border-[#58CC02] text-[#58a700]" // Correct Green
+                        } else if (isSelected) {
                             if (quizState === 'answered_correct') {
                                 buttonStyle = "bg-[#d7ffb8] border-[#58CC02] text-[#58a700]" // Correct Green
                             } else if (quizState === 'answered_wrong') {
@@ -145,8 +143,8 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
                             }
                         }
 
-                        // Opacity for unselected when answered
-                        const opacityClass = (quizState === 'answered_correct' || quizState === 'answered_wrong') && !isSelected
+                        // Opacity for unselected when answered (but not for correct answer when wrong is selected)
+                        const opacityClass = (quizState === 'answered_correct' || quizState === 'answered_wrong') && !isSelected && !isCorrectAnswer
                             ? "opacity-50 cursor-not-allowed"
                             : "opacity-100"
 
@@ -171,6 +169,9 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
                                     )}
                                     {isSelected && quizState === 'answered_wrong' && (
                                         <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }}>❌</motion.span>
+                                    )}
+                                    {!isSelected && quizState === 'answered_wrong' && isCorrectAnswer && (
+                                        <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }}>✅</motion.span>
                                     )}
                                 </div>
                             </motion.button>
@@ -206,20 +207,19 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
                                         {quizState === 'answered_correct' ? 'Correct!' : 'Incorrect'}
                                     </h3>
                                     <p className="text-sm font-medium opacity-90">
-                                        {quizState === 'answered_correct' ? 'Nicely done.' : 'Try again!'}
+                                        {quizState === 'answered_correct' ? 'Nicely done.' : (() => {
+                                            const correctOption = currentQuestion.options.find(o => o.is_correct);
+                                            return correctOption ? `Correct answer: ${correctOption.option_text}` : 'Review the correct answer above.';
+                                        })()}
                                     </p>
                                 </div>
                             </div>
 
                             <button
                                 onClick={handleContinue}
-                                className={`
-                                    w-full md:w-auto px-8 py-3 rounded-xl font-bold text-white uppercase tracking-wide
-                                    border-b-4 active:border-b-0 active:translate-y-1 transition-all
-                                    ${quizState === 'answered_correct' ? 'bg-[#58CC02] border-[#46a302]' : 'bg-[#ea2b2b] border-[#c01d1d]'}
-                                `}
+                                className="w-full md:w-auto px-8 py-3 rounded-xl font-bold text-white uppercase tracking-wide bg-[#58CC02] border-[#46a302] border-b-4 active:border-b-0 active:translate-y-1 transition-all"
                             >
-                                {quizState === 'answered_correct' ? 'Continue' : 'Try Again'}
+                                Continue
                             </button>
                         </div>
                     </motion.div>

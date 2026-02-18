@@ -97,6 +97,7 @@ export default function IntroLessonsPage() {
     const [animatingIndex, setAnimatingIndex] = useState<number | null>(null)
     const [showCelebration, setShowCelebration] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
+    const [showCompletionModal, setShowCompletionModal] = useState(false)
     
     // Refs for scrolling
     const containerRef = useRef<HTMLDivElement>(null)
@@ -158,6 +159,17 @@ export default function IntroLessonsPage() {
         }
     }, [justCompletedId, lessons, completedIds, router])
 
+    // Show completion modal when intro module is completed
+    useEffect(() => {
+        if (!loading && lessons.length > 0 && completedIds.length === lessons.length && !showCompletionModal) {
+            // All lessons completed - show modal
+            const timer = setTimeout(() => {
+                setShowCompletionModal(true)
+            }, 1000)
+            return () => clearTimeout(timer)
+        }
+    }, [loading, lessons.length, completedIds.length, showCompletionModal])
+
     // Auto-scroll to center current/next lesson
     useEffect(() => {
         if (!containerRef.current || lessons.length === 0 || loading) return
@@ -205,14 +217,14 @@ export default function IntroLessonsPage() {
     // Calculate bounds based on view type
     const centerX = typeof window !== 'undefined' ? window.innerWidth / 2 : 200
     
-    // Desktop: Temple steps bounds
+    // Desktop: Temple steps bounds - add extra space for completion node
     const minY = lessons.length > 0 ? STEPS_START_Y - ((lessons.length - 1) * STEP_HEIGHT) - 200 : 0
     const maxY = STEPS_START_Y + 200
-    const totalWidth = STEPS_START_X + (lessons.length * STEP_WIDTH) + 200
+    const totalWidth = STEPS_START_X + ((lessons.length + 1) * STEP_WIDTH) + 300
     const totalHeight = maxY - minY
     
-    // Mobile: Journey bounds
-    const journeyTotalHeight = JOURNEY_START_Y + (lessons.length * JOURNEY_NODE_SPACING) + 200
+    // Mobile: Journey bounds - add extra space for completion node
+    const journeyTotalHeight = JOURNEY_START_Y + ((lessons.length + 1) * JOURNEY_NODE_SPACING) + 300
 
     return (
         <div 
@@ -280,7 +292,7 @@ export default function IntroLessonsPage() {
                         
                         {/* Background dashed path */}
                         <path
-                            d={generateJourneyPath(lessons.length, centerX) ?? ''}
+                            d={generateJourneyPath(lessons.length + 1, centerX) ?? ''}
                             fill="none"
                             stroke="url(#introJourneyGradient)"
                             strokeWidth="4"
@@ -292,7 +304,12 @@ export default function IntroLessonsPage() {
                         {/* Completed solid path */}
                         {lastCompletedIndex >= 0 && (
                             <path
-                                d={generateJourneyPath(lastCompletedIndex + 2, centerX) ?? ''}
+                                d={generateJourneyPath(
+                                    lastCompletedIndex === lessons.length - 1 
+                                        ? lessons.length + 1 
+                                        : lastCompletedIndex + 2, 
+                                    centerX
+                                ) ?? ''}
                                 fill="none"
                                 stroke="#D4AF37"
                                 strokeWidth="6"
@@ -380,22 +397,52 @@ export default function IntroLessonsPage() {
                                 </motion.div>
                             )
                         })}
+
+                        {/* Completion Node - Journey View */}
+                        {lastCompletedIndex === lessons.length - 1 && (
+                            <motion.div
+                                className="absolute flex flex-col items-center"
+                                style={{ 
+                                    left: getJourneyPosition(lessons.length, centerX).x - 48,
+                                    top: getJourneyPosition(lessons.length, centerX).y - 48,
+                                }}
+                                initial={{ scale: 0, y: 20 }}
+                                animate={{ scale: 1, y: 0 }}
+                                transition={{ delay: lessons.length * 0.08, type: "spring" }}
+                            >
+                                {/* Completion Node */}
+                                <button
+                                    onClick={() => setShowCompletionModal(true)}
+                                    className="relative w-20 h-20 flex items-center justify-center border-4 rounded-full bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_30px_rgba(212,175,55,0.9)] hover:scale-110 transition-all duration-300"
+                                >
+                                    <span className="text-2xl">📜</span>
+                                    
+                                    {/* Completed indicator */}
+                                    <motion.div 
+                                        className="absolute -top-2 -right-2 w-6 h-6 bg-[#E69A47] rounded-full flex items-center justify-center border-2 border-[#1a1613] shadow-[0_0_10px_rgba(230,154,71,0.8)]"
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                    >
+                                        <span className="text-[#1a1613] text-xs">→</span>
+                                    </motion.div>
+                                </button>
+                                
+                                {/* Lesson Title */}
+                                <motion.div 
+                                    className="mt-3 px-2 py-1 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-[120px] text-center"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: lessons.length * 0.08 + 0.2 }}
+                                >
+                                    <span className="text-[10px] font-bold text-[#E6D8B8] leading-tight block">
+                                        Introduction Completed!
+                                    </span>
+                                </motion.div>
+                            </motion.div>
+                        )}
                     </div>
                     
-                    {/* Journey Completion */}
-                    {lastCompletedIndex === lessons.length - 1 && (
-                        <motion.div
-                            className="absolute left-1/2 -translate-x-1/2"
-                            style={{ top: journeyTotalHeight - 150 }}
-                            initial={{ scale: 0, y: 20 }}
-                            animate={{ scale: 1, y: 0 }}
-                            transition={{ type: "spring", delay: 0.5 }}
-                        >
-                            <div className="bg-gradient-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-3 px-6 rounded-lg text-base shadow-[0_0_30px_rgba(230,154,71,0.9)] border-2 border-[#F5F1E8]/50">
-                                📜 Complete! 📜
-                            </div>
-                        </motion.div>
-                    )}
+
                 </div>
             ) : (
                 /* Desktop: Temple Steps Container */
@@ -431,7 +478,7 @@ export default function IntroLessonsPage() {
                         
                         {/* Background dashed path */}
                         <path
-                            d={generateTemplePath(lessons.length) ?? ''}
+                            d={generateTemplePath(lessons.length + 1) ?? ''}
                             fill="none"
                             stroke="url(#introGradient)"
                             strokeWidth="6"
@@ -443,7 +490,11 @@ export default function IntroLessonsPage() {
                         {/* Completed solid path */}
                         {lastCompletedIndex >= 0 && (
                             <path
-                                d={generateTemplePath(lastCompletedIndex + 2) ?? ''}
+                                d={generateTemplePath(
+                                    lastCompletedIndex === lessons.length - 1 
+                                        ? lessons.length + 1 
+                                        : lastCompletedIndex + 2
+                                ) ?? ''}
                                 fill="none"
                                 stroke="#D4AF37"
                                 strokeWidth="8"
@@ -553,27 +604,140 @@ export default function IntroLessonsPage() {
                                 </motion.div>
                             )
                         })}
+
+                        {/* Completion Node - Temple Steps */}
+                        {lastCompletedIndex === lessons.length - 1 && (
+                            <motion.div
+                                className="absolute flex flex-col items-center"
+                                style={{ 
+                                    left: getTempleStepPosition(lessons.length).x - 60,
+                                    top: getTempleStepPosition(lessons.length).y - minY - 80,
+                                }}
+                                initial={{ scale: 0, y: 20 }}
+                                animate={{ scale: 1, y: 0 }}
+                                transition={{ delay: lessons.length * 0.1, type: "spring" }}
+                            >
+                                {/* Temple Stone Step Base */}
+                                <div className="absolute -bottom-4 w-32 h-3 bg-gradient-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
+                                
+                                {/* Completion Stone */}
+                                <button
+                                    onClick={() => setShowCompletionModal(true)}
+                                    className="relative w-24 h-24 flex items-center justify-center border-4 bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_30px_rgba(212,175,55,0.8),0_8px_0_rgba(204,119,34,0.6)] rounded-lg hover:scale-105 hover:shadow-[0_0_40px_rgba(212,175,55,0.9),0_10px_0_rgba(204,119,34,0.7)] transition-all duration-300"
+                                    style={{ transform: 'translateY(-4px)' }}
+                                >
+                                    <span className="text-3xl">📜</span>
+                                    
+                                    {/* Golden indicator */}
+                                    <motion.div 
+                                        className="absolute -top-3 -right-3 w-6 h-6 bg-[#E69A47] rounded-full flex items-center justify-center border-2 border-[#1a1613] shadow-[0_0_15px_rgba(230,154,71,0.8)]"
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ delay: 0.2, type: "spring" }}
+                                    >
+                                        <span className="text-[#1a1613] text-xs">→</span>
+                                    </motion.div>
+                                </button>
+                                
+                                {/* Lesson Title on Stone Plaque */}
+                                <motion.div 
+                                    className="mt-4 px-3 py-2 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-[140px] text-center"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: lessons.length * 0.1 + 0.3 }}
+                                >
+                                    <span className="text-xs font-bold text-[#E6D8B8] leading-tight block">
+                                        Introduction Completed!
+                                    </span>
+                                    <span className="text-[10px] text-[#D4AF37]/70 mt-1 block">
+                                        Continue to Swar
+                                    </span>
+                                </motion.div>
+                                
+                                {/* Level number */}
+                                <div className="mt-2 text-xs text-[#D4AF37]/50 font-serif">
+                                    Complete
+                                </div>
+                            </motion.div>
+                        )}
                     </div>
                     
-                    {/* Temple Summit Achievement */}
-                    {lastCompletedIndex === lessons.length - 1 && (
-                        <motion.div
-                            className="absolute"
-                            style={{
-                                left: STEPS_START_X + (lessons.length * STEP_WIDTH) - 100,
-                                top: STEPS_START_Y - (lessons.length * STEP_HEIGHT) - minY - 100
-                            }}
-                            initial={{ scale: 0, y: 20 }}
-                            animate={{ scale: 1, y: 0 }}
-                            transition={{ type: "spring", delay: 0.5 }}
-                        >
-                            <div className="bg-gradient-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-4 px-8 rounded-lg text-xl shadow-[0_0_40px_rgba(230,154,71,0.9)] border-2 border-[#F5F1E8]/50">
-                                📜 Introduction Complete! 📜
-                            </div>
-                            <div className="text-center text-[#E6D8B8] text-sm mt-2">Ready for Swar (Vowels)</div>
-                        </motion.div>
-                    )}
+
                 </div>
+            )}
+
+            {/* Completion Modal */}
+            {showCompletionModal && (
+                <motion.div
+                    className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0a0a]/80 backdrop-blur-sm"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    <motion.div
+                        className="bg-[#1a1613] border-2 border-[#D4AF37]/50 rounded-2xl p-8 max-w-md w-full mx-4 shadow-[0_0_60px_rgba(212,175,55,0.4)]"
+                        initial={{ scale: 0.8, y: 50 }}
+                        animate={{ scale: 1, y: 0 }}
+                        transition={{ type: "spring", duration: 0.5 }}
+                    >
+                        {/* Celebration Header */}
+                        <div className="text-center mb-6">
+                            <motion.div
+                                className="text-6xl mb-4"
+                                animate={{ rotate: [0, 10, -10, 10, 0] }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                            >
+                                🎉
+                            </motion.div>
+                            <h2 className="text-2xl font-bold text-[#D4AF37] mb-2">
+                                Introduction Completed!
+                            </h2>
+                            <p className="text-[#E6D8B8] text-base">
+                                Great job! What would you like to do next?
+                            </p>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex flex-col gap-3">
+                            {/* Continue to Swar */}
+                            <button
+                                onClick={() => {
+                                    setShowCompletionModal(false)
+                                    router.push('/letters')
+                                }}
+                                className="w-full bg-gradient-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-4 px-6 rounded-lg hover:brightness-110 hover:scale-105 transition-all shadow-lg border-2 border-[#F5F1E8]/50"
+                            >
+                                <div className="flex items-center justify-center gap-2">
+                                    <span className="text-lg">📚</span>
+                                    <span>Continue to Swar (Vowels)</span>
+                                    <span className="text-lg">→</span>
+                                </div>
+                            </button>
+
+                            {/* Go to Learning Path */}
+                            <button
+                                onClick={() => {
+                                    setShowCompletionModal(false)
+                                    router.push('/learn')
+                                }}
+                                className="w-full bg-[#2a2420] text-[#E6D8B8] font-semibold py-4 px-6 rounded-lg hover:bg-[#3a3230] hover:text-[#D4AF37] transition-all border-2 border-[#4a3f2f] hover:border-[#D4AF37]"
+                            >
+                                <div className="flex items-center justify-center gap-2">
+                                    <span className="text-lg">🗺️</span>
+                                    <span>View Learning Path</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        {/* Close button */}
+                        <button
+                            onClick={() => setShowCompletionModal(false)}
+                            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#2a2420] transition-colors text-[#D4AF37] hover:text-[#E69A47]"
+                        >
+                            ✕
+                        </button>
+                    </motion.div>
+                </motion.div>
             )}
         </div>
     )

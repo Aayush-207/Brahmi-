@@ -412,11 +412,9 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                             onComplete={handleFlowComplete}
                         />
                     </div>
-                </div>
 
-                {/* Mobile Complete Quiz Button (Bottom) - Only visible on mobile */}
-                <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-gradient-to-t from-[#1C1C1C] via-[#1C1C1C]/95 to-transparent pointer-events-none">
-                    <div className="flex justify-center pointer-events-auto">
+                    {/* Complete Quiz Button - Static below quiz */}
+                    <div className="mt-6 mb-8 flex justify-center">
                         <button
                             onClick={handleFlowComplete}
                             className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"

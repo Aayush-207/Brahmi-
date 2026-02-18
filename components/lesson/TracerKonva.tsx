@@ -78,21 +78,55 @@ export default function TracerKonva({
     setHasDrawn(false)
   }, [character])
 
+  // Check if a point is within character bounds by checking pixel color
+  const isPointOnCharacter = (x: number, y: number): boolean => {
+    const stage = stageRef.current
+    if (!stage) return false
+    
+    // Get the layer and check if position intersects with the guide text
+    const layer = stage.findOne('Layer')
+    if (!layer) return false
+    
+    // Check if there's the guide text shape at this position
+    const shape = layer.getIntersection({ x, y })
+    
+    // Allow drawing if pointer is over the guide character
+    if (shape && shape.className === 'Text' && shape.name() === 'guideText') return true
+    
+    // Also allow if near existing strokes (within 40px for continuity)
+    const allPoints: { x: number; y: number }[] = []
+    for (const line of linesRef.current) {
+      for (let i = 0; i < line.length; i += 2) {
+        if (line[i] !== undefined && line[i+1] !== undefined) {
+          allPoints.push({ x: line[i], y: line[i + 1] })
+        }
+      }
+    }
+    
+    for (const point of allPoints) {
+      const dist = Math.sqrt((point.x - x) ** 2 + (point.y - y) ** 2)
+      if (dist < 40) return true
+    }
+    
+    return false
+  }
+
   const handlePointerDown = (e: any) => {
     console.log('[TracerKonva] === POINTER DOWN ===')
     e.evt?.preventDefault?.()
-    isDrawing.current = true
     const stage = e.target?.getStage?.()
     console.log('[TracerKonva] Stage object:', stage ? 'exists' : 'null')
     const pos = stage?.getPointerPosition?.()
     console.log('[TracerKonva] Pointer position:', pos)
-    if (pos) {
+    
+    if (pos && isPointOnCharacter(pos.x, pos.y)) {
+      isDrawing.current = true
       const newLine = [pos.x, pos.y]
       setCurrentLine(newLine)
       currentLineRef.current = newLine
       console.log('[TracerKonva] Started new line at:', pos.x, pos.y)
     } else {
-      console.log('[TracerKonva] WARNING: Could not get pointer position!')
+      console.log('[TracerKonva] Point not on character, ignoring')
     }
   }
 
@@ -101,12 +135,34 @@ export default function TracerKonva({
     e.evt?.preventDefault?.()
     const stage = e.target?.getStage?.()
     const pos = stage?.getPointerPosition?.()
+    
     if (pos) {
-      setCurrentLine(prev => {
-        const updated = [...prev, pos.x, pos.y]
-        currentLineRef.current = updated
-        return updated
-      })
+      if (isPointOnCharacter(pos.x, pos.y)) {
+        // Continue drawing
+        setCurrentLine(prev => {
+          const updated = [...prev, pos.x, pos.y]
+          currentLineRef.current = updated
+          return updated
+        })
+      } else {
+        // Stop drawing if pointer goes outside character
+        isDrawing.current = false
+        
+        // Save the current line if it has enough points
+        const lineToAdd = [...currentLineRef.current]
+        if (lineToAdd.length >= 4) {
+          setLines(prev => {
+            const updated = [...prev, lineToAdd]
+            linesRef.current = updated
+            return updated
+          })
+          setHasDrawn(true)
+        }
+        
+        // Reset current line
+        setCurrentLine([])
+        currentLineRef.current = []
+      }
     }
   }
 
@@ -370,6 +426,23 @@ export default function TracerKonva({
           style={{ touchAction: 'none' }}
         >
           <Layer>
+            {/* Invisible hit detection character (for constraining drawing) */}
+            <KonvaText
+              text={character}
+              x={width / 2}
+              y={height / 2}
+              fontSize={Math.min(width, height) * 0.55}
+              fontFamily="serif"
+              fontStyle="bold"
+              fill="transparent"
+              offsetX={Math.min(width, height) * 0.55 * 0.3}
+              offsetY={Math.min(width, height) * 0.55 * 0.45}
+              listening={true}
+              name="guideText"
+              strokeWidth={20}
+              stroke="transparent"
+            />
+            
             {/* Guide character (faint chalk) - centered manually */}
             <KonvaText
               text={character}
