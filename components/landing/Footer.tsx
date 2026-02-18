@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export function Footer() {
     return (
         <footer className="bg-gradient-to-b from-[#2a2420] to-[#1a1613] text-[#E6D8B8] py-16 border-t border-[#E6D8B8]/20 relative overflow-hidden">
@@ -26,45 +24,45 @@ export function Footer() {
                     <div>
                         <h4 className="font-bold mb-6 text-[#E6D8B8] text-lg font-serif">सीखें</h4>
                         <ul className="space-y-3 text-sm text-[#B8AFA0]">
-                            <li><Link href="/letters" className="hover:text-[#CC7722] transition-colors duration-300 flex items-center gap-2">
+                            <li className="flex items-center gap-2">
                                 <span className="text-[#E69A47]">→</span> पाठ्यक्रम
-                            </Link></li>
-                            <li><Link href="/letters" className="hover:text-[#CC7722] transition-colors duration-300 flex items-center gap-2">
+                            </li>
+                            <li className="flex items-center gap-2">
                                 <span className="text-[#E69A47]">→</span> अभ्यास
-                            </Link></li>
-                            <li><Link href="#" className="hover:text-[#CC7722] transition-colors duration-300 flex items-center gap-2">
+                            </li>
+                            <li className="flex items-center gap-2">
                                 <span className="text-[#E69A47]">→</span> शब्दकोश
-                            </Link></li>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 className="font-bold mb-6 text-[#E6D8B8] text-lg font-serif">दर्शन</h4>
                         <ul className="space-y-3 text-sm text-[#B8AFA0]">
-                            <li><Link href="#philosophy" className="hover:text-[#CC7722] transition-colors duration-300 flex items-center gap-2">
+                            <li className="flex items-center gap-2">
                                 <span className="text-[#E69A47]">→</span> जैन सिद्धांत
-                            </Link></li>
-                            <li><Link href="#" className="hover:text-[#CC7722] transition-colors duration-300 flex items-center gap-2">
+                            </li>
+                            <li className="flex items-center gap-2">
                                 <span className="text-[#E69A47]">→</span> इतिहास
-                            </Link></li>
-                            <li><Link href="#" className="hover:text-[#CC7722] transition-colors duration-300 flex items-center gap-2">
+                            </li>
+                            <li className="flex items-center gap-2">
                                 <span className="text-[#E69A47]">→</span> हस्तलेख
-                            </Link></li>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 className="font-bold mb-6 text-[#E6D8B8] text-lg font-serif">संपर्क</h4>
                         <ul className="space-y-3 text-sm text-[#B8AFA0]">
-                            <li><Link href="#about" className="hover:text-[#CC7722] transition-colors duration-300 flex items-center gap-2">
+                            <li className="flex items-center gap-2">
                                 <span className="text-[#E69A47]">→</span> हमारे बारे में
-                            </Link></li>
-                            <li><Link href="#" className="hover:text-[#CC7722] transition-colors duration-300 flex items-center gap-2">
+                            </li>
+                            <li className="flex items-center gap-2">
                                 <span className="text-[#E69A47]">→</span> संपर्क करें
-                            </Link></li>
-                            <li><Link href="#" className="hover:text-[#CC7722] transition-colors duration-300 flex items-center gap-2">
+                            </li>
+                            <li className="flex items-center gap-2">
                                 <span className="text-[#E69A47]">→</span> समुदाय
-                            </Link></li>
+                            </li>
                         </ul>
                     </div>
                 </div>

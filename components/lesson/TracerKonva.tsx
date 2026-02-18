@@ -23,6 +23,7 @@ interface TracerKonvaProps {
   height?: number
   onScoreComplete?: (score: number) => void
   onContinue?: () => void    // Called when user clicks Continue after seeing score
+  showControls?: boolean     // Whether to show Clear/Exit controls (default: true)
 }
 
 export default function TracerKonva({ 
@@ -30,7 +31,8 @@ export default function TracerKonva({
   width = 340, 
   height = 340, 
   onScoreComplete,
-  onContinue
+  onContinue,
+  showControls = true
 }: TracerKonvaProps) {
   console.log('[TracerKonva] ========================================');
   console.log('[TracerKonva] Component function called');
@@ -90,25 +92,8 @@ export default function TracerKonva({
     // Check if there's the guide text shape at this position
     const shape = layer.getIntersection({ x, y })
     
-    // Allow drawing if pointer is over the guide character
-    if (shape && shape.className === 'Text' && shape.name() === 'guideText') return true
-    
-    // Also allow if near existing strokes (within 40px for continuity)
-    const allPoints: { x: number; y: number }[] = []
-    for (const line of linesRef.current) {
-      for (let i = 0; i < line.length; i += 2) {
-        if (line[i] !== undefined && line[i+1] !== undefined) {
-          allPoints.push({ x: line[i], y: line[i + 1] })
-        }
-      }
-    }
-    
-    for (const point of allPoints) {
-      const dist = Math.sqrt((point.x - x) ** 2 + (point.y - y) ** 2)
-      if (dist < 40) return true
-    }
-    
-    return false
+    // Only allow drawing if pointer is over the guide character - no drawing outside allowed
+    return shape && shape.className === 'Text' && shape.name() === 'guideText'
   }
 
   const handlePointerDown = (e: any) => {
@@ -137,32 +122,12 @@ export default function TracerKonva({
     const pos = stage?.getPointerPosition?.()
     
     if (pos) {
-      if (isPointOnCharacter(pos.x, pos.y)) {
-        // Continue drawing
-        setCurrentLine(prev => {
-          const updated = [...prev, pos.x, pos.y]
-          currentLineRef.current = updated
-          return updated
-        })
-      } else {
-        // Stop drawing if pointer goes outside character
-        isDrawing.current = false
-        
-        // Save the current line if it has enough points
-        const lineToAdd = [...currentLineRef.current]
-        if (lineToAdd.length >= 4) {
-          setLines(prev => {
-            const updated = [...prev, lineToAdd]
-            linesRef.current = updated
-            return updated
-          })
-          setHasDrawn(true)
-        }
-        
-        // Reset current line
-        setCurrentLine([])
-        currentLineRef.current = []
-      }
+      // Continue drawing continuously - add all points for smooth drawing
+      setCurrentLine(prev => {
+        const updated = [...prev, pos.x, pos.y]
+        currentLineRef.current = updated
+        return updated
+      })
     }
   }
 
@@ -234,7 +199,6 @@ export default function TracerKonva({
     const score = calculateScore(currentLines)
     console.log('[TracerKonva] === FINAL SCORE:', score, '===')
     
-    setLastScore(score)
     setIsScoring(false)
 
     if (onScoreComplete) {
@@ -242,6 +206,12 @@ export default function TracerKonva({
       onScoreComplete(score)
     } else {
       console.log('[TracerKonva] No onScoreComplete callback provided')
+    }
+
+    // Skip showing score result - directly go to next letter
+    if (onContinue) {
+      console.log('[TracerKonva] Skipping score display, calling onContinue directly')
+      onContinue()
     }
   }
 
@@ -439,7 +409,7 @@ export default function TracerKonva({
               offsetY={Math.min(width, height) * 0.55 * 0.45}
               listening={true}
               name="guideText"
-              strokeWidth={20}
+              strokeWidth={35}
               stroke="transparent"
             />
             
@@ -490,29 +460,28 @@ export default function TracerKonva({
       </div>
 
       {/* Controls - amber/teal theme */}
-      <div className="flex gap-3 w-full">
-        <button
-          onClick={clear}
-          className="flex-1 px-4 py-2 text-sm text-amber-700 hover:text-amber-900 hover:bg-amber-100 rounded-lg transition-colors font-medium border border-amber-200"
-        >
-          🧹 Clear
-        </button>
-        <button
-          onClick={checkTracing}
-          disabled={!hasDrawn}
-          className={`flex-1 px-4 py-2 text-sm font-bold rounded-lg transition-all ${
-            hasDrawn
-              ? 'bg-amber-500 hover:bg-amber-400 text-amber-950 shadow-md active:translate-y-[1px]'
-              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-          }`}
-        >
-          ✓ Check
-        </button>
-      </div>
+      {showControls && (
+        <>
+          <div className="flex gap-3 w-full">
+            <button
+              onClick={clear}
+              className="flex-1 px-4 py-2 text-sm text-amber-700 hover:text-amber-900 hover:bg-amber-100 rounded-lg transition-colors font-medium border border-amber-200"
+            >
+              🧹 Clear
+            </button>
+            <button
+              onClick={onContinue}
+              className="flex-1 px-4 py-2 text-sm font-bold rounded-lg transition-all bg-amber-500 hover:bg-amber-400 text-amber-950 shadow-md active:translate-y-[1px]"
+            >
+              Exit →
+            </button>
+          </div>
 
-      <p className="text-xs text-center text-emerald-700">
-        {!hasDrawn ? `✍️ Trace the character "${character}"` : '✨ Ready! Tap Check to score'}
-      </p>
+          <p className="text-xs text-center text-emerald-700">
+            ✍️ Trace the character "{character}"
+          </p>
+        </>
+      )}
     </div>
   )
 }
