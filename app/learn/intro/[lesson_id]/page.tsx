@@ -508,6 +508,15 @@ export default function LessonPage() {
         <span className="hidden sm:inline">Exit</span>
       </Link>
 
+      {/* Skip Introduction Button */}
+      <Link 
+        href="/letters"
+        className="fixed top-4 left-24 sm:left-32 z-50 flex items-center gap-2 px-4 py-2 bg-[#E69A47]/90 backdrop-blur-sm rounded-full text-[#1C1C1C] hover:bg-[#E69A47] transition-all font-medium text-sm shadow-lg border border-[#E69A47]/30"
+      >
+        <span className="text-lg">⏭</span>
+        <span className="hidden sm:inline">Skip Intro</span>
+      </Link>
+
       {/* Floating Sign In Button */}
       <FloatingSignIn />
 
