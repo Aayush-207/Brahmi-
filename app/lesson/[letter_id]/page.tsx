@@ -70,7 +70,33 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
     // Trace state
     const [traceMode, setTraceMode] = useState(false)
+    const [canvasSize, setCanvasSize] = useState(340)
+    const [isMobile, setIsMobile] = useState(false)
     // Removed strokes state as it's no longer needed
+
+    // Set responsive canvas size
+    useEffect(() => {
+        const updateCanvasSize = () => {
+            const width = window.innerWidth;
+            const mobile = width < 768;
+            setIsMobile(mobile);
+            
+            if (width < 400) {
+                setCanvasSize(280); // Small phones
+            } else if (width < 640) {
+                setCanvasSize(320); // Larger phones
+            } else if (width < 1024) {
+                setCanvasSize(340); // Tablets
+            } else {
+                setCanvasSize(400); // Desktop
+            }
+        };
+        
+        updateCanvasSize();
+        window.addEventListener('resize', updateCanvasSize);
+        
+        return () => window.removeEventListener('resize', updateCanvasSize);
+    }, []);
 
     // Unwrap params
     useEffect(() => {
@@ -331,8 +357,9 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                         <div className="flex justify-center">
                             <TracerKonva
                                 character={steps[0]?.letters.brahmi_symbol || '?'}
-                                width={400}
-                                height={400}
+                                width={canvasSize}
+                                height={canvasSize}
+                                showControls={!isMobile}
                                 onScoreComplete={(score) => {
                                     console.log('[LessonPage] Trace score:', score)
                                 }}

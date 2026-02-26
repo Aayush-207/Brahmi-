@@ -221,45 +221,40 @@ BEGIN
     -- Clear existing intro lessons to avoid conflicts and start fresh
     DELETE FROM public.intro_lessons WHERE module_id = intro_module_id;
 
-    -- Lesson 1: Welcome & Greeting
+    -- Lesson 1: Welcome & Language Selection (Combined)
     INSERT INTO public.intro_lessons (module_id, lesson_id, title, subtitle, description, thumbnail_icon, order_no, estimated_time_minutes)
     VALUES 
-        (intro_module_id, 'intro-lesson-1', 'Welcome & Greeting', 'स्वागतम्', 'Welcome to the world of Brahmi script', '🙏', 1, 1);
+        (intro_module_id, 'intro-lesson-1', 'Welcome & Language Selection', 'स्वागतम्', 'Welcome to the world of Brahmi script', '🙏', 1, 2);
 
-    -- Lesson 2: Language Selection
+    -- Lesson 2: Introduction to Brahmi
     INSERT INTO public.intro_lessons (module_id, lesson_id, title, subtitle, description, thumbnail_icon, order_no, estimated_time_minutes)
     VALUES 
-        (intro_module_id, 'intro-lesson-2', 'Language Selection', 'भाषा चुनें', 'Tell us which language you prefer', '🌐', 2, 1);
+        (intro_module_id, 'intro-lesson-3', 'Introduction to Brahmi', 'परिचय', 'A brief introduction to the ancient script', '📜', 2, 1);
 
-    -- Lesson 3: Introduction to Brahmi
+    -- Lesson 3: Goal Selection
     INSERT INTO public.intro_lessons (module_id, lesson_id, title, subtitle, description, thumbnail_icon, order_no, estimated_time_minutes)
     VALUES 
-        (intro_module_id, 'intro-lesson-3', 'Introduction to Brahmi', 'परिचय', 'A brief introduction to the ancient script', '📜', 3, 1);
+        (intro_module_id, 'intro-lesson-4', 'Goal Selection', 'आपका लक्ष्य', 'What do you hope to achieve?', '🎯', 3, 1);
 
-    -- Lesson 4: Goal Selection
+    -- Lesson 4: History and Origin
     INSERT INTO public.intro_lessons (module_id, lesson_id, title, subtitle, description, thumbnail_icon, order_no, estimated_time_minutes)
     VALUES 
-        (intro_module_id, 'intro-lesson-4', 'Goal Selection', 'आपका लक्ष्य', 'What do you hope to achieve?', '🎯', 4, 1);
+        (intro_module_id, 'intro-lesson-5', 'History and Origin', 'इतिहास और उत्पत्ति', 'Learn about where Brahmi came from', '🏛️', 4, 5);
 
-    -- Lesson 5: History and Origin
+    -- Lesson 5: Script vs. Language Concepts
     INSERT INTO public.intro_lessons (module_id, lesson_id, title, subtitle, description, thumbnail_icon, order_no, estimated_time_minutes)
     VALUES 
-        (intro_module_id, 'intro-lesson-5', 'History and Origin', 'इतिहास और उत्पत्ति', 'Learn about where Brahmi came from', '🏛️', 5, 5);
+        (intro_module_id, 'intro-lesson-6', 'Script vs. Language', 'लिपि और भाषा', 'Understanding the difference between writing and speaking', '✍️', 5, 4);
 
-    -- Lesson 6: Script vs. Language Concepts
+    -- Lesson 6: Spiritual Significance
     INSERT INTO public.intro_lessons (module_id, lesson_id, title, subtitle, description, thumbnail_icon, order_no, estimated_time_minutes)
     VALUES 
-        (intro_module_id, 'intro-lesson-6', 'Script vs. Language', 'लिपि और भाषा', 'Understanding the difference between writing and speaking', '✍️', 6, 4);
+        (intro_module_id, 'intro-lesson-7', 'Spiritual Significance', 'आध्यात्मिक महत्त्व', 'The divine connection of Brahmi script', '✨', 6, 7);
 
-    -- Lesson 7: Spiritual Significance
+    -- Lesson 7: Time Commitment
     INSERT INTO public.intro_lessons (module_id, lesson_id, title, subtitle, description, thumbnail_icon, order_no, estimated_time_minutes)
     VALUES 
-        (intro_module_id, 'intro-lesson-7', 'Spiritual Significance', 'आध्यात्मिक महत्त्व', 'The divine connection of Brahmi script', '✨', 7, 7);
-
-    -- Lesson 8: Time Commitment
-    INSERT INTO public.intro_lessons (module_id, lesson_id, title, subtitle, description, thumbnail_icon, order_no, estimated_time_minutes)
-    VALUES 
-        (intro_module_id, 'intro-lesson-8', 'Time Commitment', 'समय का संकल्प', 'How much time can you dedicate?', '⏱️', 8, 2);
+        (intro_module_id, 'intro-lesson-8', 'Time Commitment', 'समय का संकल्प', 'How much time can you dedicate?', '⏱️', 7, 2);
 
 END $$;
 
@@ -270,7 +265,6 @@ END $$;
 DO $$
 DECLARE
     lesson1_id UUID;
-    lesson2_id UUID;
     lesson3_id UUID;
     lesson4_id UUID;
     lesson5_id UUID;
@@ -280,7 +274,6 @@ DECLARE
 BEGIN
     -- Get lesson IDs
     SELECT id INTO lesson1_id FROM public.intro_lessons WHERE lesson_id = 'intro-lesson-1';
-    SELECT id INTO lesson2_id FROM public.intro_lessons WHERE lesson_id = 'intro-lesson-2';
     SELECT id INTO lesson3_id FROM public.intro_lessons WHERE lesson_id = 'intro-lesson-3';
     SELECT id INTO lesson4_id FROM public.intro_lessons WHERE lesson_id = 'intro-lesson-4';
     SELECT id INTO lesson5_id FROM public.intro_lessons WHERE lesson_id = 'intro-lesson-5';
@@ -289,7 +282,7 @@ BEGIN
     SELECT id INTO lesson8_id FROM public.intro_lessons WHERE lesson_id = 'intro-lesson-8';
 
     -- ====================================================
-    -- LESSON 1: Welcome & Greeting
+    -- LESSON 1: Welcome & Language Selection (Combined)
     -- ====================================================
     
     INSERT INTO public.intro_lesson_content (lesson_id, content_type, title, content, order_no)
@@ -305,18 +298,14 @@ BEGIN
 Welcome
 
 चलिए शुरू करें', 1);
-
-    -- ====================================================
-    -- LESSON 2: Language Selection
-    -- ====================================================
     
     INSERT INTO public.intro_lesson_content (lesson_id, content_type, title, content, metadata, order_no)
     VALUES 
-        (lesson2_id, 'questionnaire', 'भाषा चुनें', 'कृपया अपनी पसंदीदा भाषा चुनें:', 
-         '{"options": ["हिन्दी", "தமிழ்", "తెలుగు", "বাংলা", "ગુજરાતી", "ಕನ್ನಡ", "ଓଡ଼ିଆ", "ਪੰਜਾਬੀ", "English"]}'::jsonb, 1);
+        (lesson1_id, 'questionnaire', 'भाषा चुनें', 'कृपया अपनी पसंदीदा भाषा चुनें:', 
+         '{"options": ["हिन्दी", "தமிழ்", "తెలుగు", "বাংলা", "ગુજરાતી", "ಕನ್ನಡ", "ଓଡ଼ିଆ", "ਪੰਜਾਬੀ", "English"]}'::jsonb, 2);
 
     -- ====================================================
-    -- LESSON 3: Introduction to Brahmi
+    -- LESSON 2: Introduction to Brahmi
     -- ====================================================
     
     INSERT INTO public.intro_lesson_content (lesson_id, content_type, title, content, order_no)
@@ -336,28 +325,28 @@ Welcome
     -- LESSON 5: History and Origin
     -- ====================================================
     
-    INSERT INTO public.intro_lesson_content (lesson_id, content_type, content, order_no)
+    INSERT INTO public.intro_lesson_content (lesson_id, content_type, title, content, metadata, order_no)
     VALUES 
-        (lesson5_id, 'text', 'मेरा छोटा-सा परिचय क्या आप जानना चाहेंगे? या सीधे आगे बढ़ना चाहेंगे?', 1),
-        (lesson5_id, 'text', 'मैं आदि ब्रह्मा, प्रथम तीर्थंकर महाराजा श्री ऋषभदेव जी के द्वारा बनाई गई लिपि हूँ।', 2),
-        (lesson5_id, 'text', 'मुझे उन्होंने अपनी पुत्री ब्राह्मी को पढ़ाते समय रचा।', 3),
-        (lesson5_id, 'text', 'ब्राह्मी के साथ ही महाराज श्री ऋषभदेव जी ने अपनी दूसरी पुत्री सुन्दरी को भी ''अंक विद्या'' सिखाई।', 4),
-        (lesson5_id, 'text', 'उन दोनों ने भगवान श्री ऋषभदेव जी द्वारा प्रदत्त विद्याओं का अत्याधिक प्रचार किया।', 5),
-        (lesson5_id, 'text', 'मेरा नाम ''ब्राह्मी लिपि'' क्यों पड़ा? इस लिपि का ज्ञान सामान्य प्रजा को ब्राह्मी ने दिया, उसके कारण से ही मेरा नाम ''ब्राह्मी लिपि'' पड़ा।', 6),
+        (lesson5_id, 'text', NULL, 'मेरा छोटा-सा परिचय क्या आप जानना चाहेंगे? या सीधे आगे बढ़ना चाहेंगे?', NULL, 1),
+        (lesson5_id, 'text', NULL, 'मैं आदि ब्रह्मा, प्रथम तीर्थंकर महाराजा श्री ऋषभदेव जी के द्वारा बनाई गई लिपि हूँ।', NULL, 2),
+        (lesson5_id, 'text', NULL, 'मुझे उन्होंने अपनी पुत्री ब्राह्मी को पढ़ाते समय रचा।', NULL, 3),
+        (lesson5_id, 'text', NULL, 'ब्राह्मी के साथ ही महाराज श्री ऋषभदेव जी ने अपनी दूसरी पुत्री सुन्दरी को भी ''अंक विद्या'' सिखाई।', NULL, 4),
+        (lesson5_id, 'text', NULL, 'उन दोनों ने भगवान श्री ऋषभदेव जी द्वारा प्रदत्त विद्याओं का अत्याधिक प्रचार किया।', NULL, 5),
+        (lesson5_id, 'text', NULL, 'मेरा नाम ''ब्राह्मी लिपि'' क्यों पड़ा? इस लिपि का ज्ञान सामान्य प्रजा को ब्राह्मी ने दिया, उसके कारण से ही मेरा नाम ''ब्राह्मी लिपि'' पड़ा।', NULL, 6),
         (lesson5_id, 'mcq', 'साधुवाद! एक प्रश्न...', 'ब्राह्मी लिपि की रचना किसने की थी?', '{"options": ["महाराजा भरत", "तीर्थंकर भगवान ऋषभदेव", "सम्राट अशोक"], "correct_answer": "तीर्थंकर भगवान ऋषभदेव"}'::jsonb, 7);
 
     -- ====================================================
     -- LESSON 6: Script vs. Language Concepts
     -- ====================================================
     
-    INSERT INTO public.intro_lesson_content (lesson_id, content_type, content, order_no)
+    INSERT INTO public.intro_lesson_content (lesson_id, content_type, title, content, metadata, order_no)
     VALUES 
-        (lesson6_id, 'text', 'मैं भाषा नहीं हूँ! स्मरण रहे कि मैं कोई भाषा नहीं हूँ, केवल लिखने की पद्धति हूँ।', 1),
-        (lesson6_id, 'text', '1. जिस तरीके से हम बोलते हैं, उसे ''भाषा'' कहते हैं। जैसे हिन्दी, बंगाली, तेलुगू, तमिल, गुजराती, कन्नड़, ओड़िया, पंजाबी, अंग्रेज़ी आदि।', 2),
-        (lesson6_id, 'text', '2. जिस माध्यम से किसी भाषा को लिखा जाता है, उसे ''लिपि'' कहते हैं। जैसे हिन्दी-देवनागरी, बंगाली-बंगाली, गुजराती-गुजराती, तेलुगू-तेलुगू, तमिल-तमिल, कन्नड़-कन्नड़, ओड़िया-ओड़िया, पंजाबी-गुरुमुखी, अंग्रेज़ी-लैटिन आदि।', 3),
-        (lesson6_id, 'text', 'मेरी विशेषता: मैं मूल रूप से ''प्राकृत भाषा'' की लिपि हूँ।', 4),
-        (lesson6_id, 'text', 'परन्तु मुझे देवनागरी लिपि अथवा लैटिन/रोमन लिपि के समान किसी भी भाषा को लिखने में उपयोग कर सकते हैं।', 5),
-        (lesson6_id, 'text', 'और हाँ, मैं आपको एक रहस्य बताती हूँ। आप मुझे आपकी गुप्त लिपि बनाकर सारे रहस्य सामान्य लोगों से छिपाकर रख सकते हैं।', 6),
+        (lesson6_id, 'text', NULL, 'मैं भाषा नहीं हूँ! स्मरण रहे कि मैं कोई भाषा नहीं हूँ, केवल लिखने की पद्धति हूँ।', NULL, 1),
+        (lesson6_id, 'text', NULL, '1. जिस तरीके से हम बोलते हैं, उसे ''भाषा'' कहते हैं। जैसे हिन्दी, बंगाली, तेलुगू, तमिल, गुजराती, कन्नड़, ओड़िया, पंजाबी, अंग्रेज़ी आदि।', NULL, 2),
+        (lesson6_id, 'text', NULL, '2. जिस माध्यम से किसी भाषा को लिखा जाता है, उसे ''लिपि'' कहते हैं। जैसे हिन्दी-देवनागरी, बंगाली-बंगाली, गुजराती-गुजराती, तेलुगू-तेलुगू, तमिल-तमिल, कन्नड़-कन्नड़, ओड़िया-ओड़िया, पंजाबी-गुरुमुखी, अंग्रेज़ी-लैटिन आदि।', NULL, 3),
+        (lesson6_id, 'text', NULL, 'मेरी विशेषता: मैं मूल रूप से ''प्राकृत भाषा'' की लिपि हूँ।', NULL, 4),
+        (lesson6_id, 'text', NULL, 'परन्तु मुझे देवनागरी लिपि अथवा लैटिन/रोमन लिपि के समान किसी भी भाषा को लिखने में उपयोग कर सकते हैं।', NULL, 5),
+        (lesson6_id, 'text', NULL, 'और हाँ, मैं आपको एक रहस्य बताती हूँ। आप मुझे आपकी गुप्त लिपि बनाकर सारे रहस्य सामान्य लोगों से छिपाकर रख सकते हैं।', NULL, 6),
         (lesson6_id, 'mcq', 'थोड़ी परीक्षा हो जाए!', 'क्या ब्राह्मी एक भाषा है?', '{"options": ["हाँ, यह एक भाषा है", "नहीं, यह लिखने की पद्धति (लिपि) है"], "correct_answer": "नहीं, यह लिखने की पद्धति (लिपि) है"}'::jsonb, 7);
 
     -- ====================================================

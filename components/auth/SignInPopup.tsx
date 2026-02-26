@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, User, Sparkles } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { hasGuestIdentity } from '@/lib/guestIdentity'
+import { getGuestProgressForMigration } from '@/lib/progress'
 
 interface SignInPopupProps {
   isVisible: boolean
@@ -13,7 +15,18 @@ interface SignInPopupProps {
 export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [hasGuestProgress, setHasGuestProgress] = useState(false)
   const supabase = createClient()
+
+  useEffect(() => {
+    // Check if user has guest progress
+    if (hasGuestIdentity()) {
+      const guestProgress = getGuestProgressForMigration()
+      if (guestProgress && guestProgress.completedIds.length > 0) {
+        setHasGuestProgress(true)
+      }
+    }
+  }, [isVisible])
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true)
@@ -25,10 +38,17 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
         ? 'http://localhost:3000'
         : (process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin)
 
+      // Build callback URL and include the full current href as `next`
+      const redirectUrl = new URL('/auth/callback', baseUrl)
+      try {
+        const pathOnly = `${window.location.pathname}${window.location.search}${window.location.hash}`
+        redirectUrl.searchParams.set('next', pathOnly)
+      } catch {}
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: new URL('/auth/callback', baseUrl).toString(),
+          redirectTo: redirectUrl.toString(),
         },
       })
       
@@ -59,10 +79,10 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
           
           {/* Popup */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: -20 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md"
+            initial={{ opacity: 0, scale: 0.9, x: 20, y: -20 }}
+            animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, x: 20, y: -20 }}
+            className="fixed top-4 right-4 z-50 w-full max-w-md"
           >
             <div className="bg-gradient-to-br from-[#1a1613] to-[#2a2420] border border-[#D4AF37]/30 rounded-2xl shadow-2xl p-8 mx-4">
               {/* Header */}
@@ -88,6 +108,12 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
                 <p className="text-gray-300 mb-4">
                   Sign in to automatically save your learning progress and access your lessons from any device.
                 </p>
+                
+                {hasGuestProgress && (
+                  <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] p-3 rounded-lg mb-4 text-sm">
+                    ✨ Your progress will be saved to your account
+                  </div>
+                )}
                 
                 <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-lg p-4 mb-6">
                   <div className="flex items-center gap-2 text-[#D4AF37] text-sm font-medium">

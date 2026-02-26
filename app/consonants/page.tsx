@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 
 // --- Types ---
 type Letter = {
@@ -104,11 +105,6 @@ export default function ConsonantsPage() {
             const currentIdentity = await getCurrentIdentity()
             setIdentity(currentIdentity)
             setIsLoaded(true)
-            
-            // Require authentication for lessons
-            if (currentIdentity.type === 'none' || currentIdentity.type === 'guest') {
-                router.push('/login')
-            }
         }
         loadIdentity()
     }, [router])
@@ -192,10 +188,11 @@ export default function ConsonantsPage() {
 
 
     return (
-        <div className="min-h-screen bg-[#1F1D3A] text-white overflow-hidden flex flex-col items-center">
-            {/* Header */}
-            {/* Header */}
-            <div className="w-full border-b border-[#D4AF37]/20 py-4 md:py-6 text-center bg-[#1F1D3A]/95 backdrop-blur-sm sticky top-0 z-50 px-4">
+        <>
+            <div className="min-h-screen bg-[#1F1D3A] text-white overflow-hidden flex flex-col items-center">
+                {/* Header */}
+                {/* Header */}
+                <div className="w-full border-b border-[#D4AF37]/20 py-4 md:py-6 text-center bg-[#1F1D3A]/95 backdrop-blur-sm sticky top-0 z-50 px-4">
                 <button onClick={() => router.push('/learn')} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#D4AF37] hover:text-white transition-colors text-sm font-bold uppercase tracking-wider flex items-center gap-1">
                     ← <span className="hidden sm:inline">Back</span>
                 </button>
@@ -343,8 +340,9 @@ export default function ConsonantsPage() {
 
                         </div>
                     )
-                })}
-            </div>
+                })}            </div>
         </div>
+        <FloatingSignIn />
+        </>
     )
 }
