@@ -33,11 +33,11 @@ export const COURSE_MODULES: CourseModule[] = [
         id: 'module-vyanjan',
         title: 'Vyanjan (Consonants)',
         subtitle: 'The Body of Script',
-        route: '/consonants', // Connected to consonants journey page
+        route: '/learn/vyanjan',
         icon: 'क',
         iconType: 'text',
         order: 3,
-        locked: true
+        locked: false
     },
     {
         id: 'module-matra',

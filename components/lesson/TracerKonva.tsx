@@ -56,6 +56,7 @@ export default function TracerKonva({
   const [lastScore, setLastScore] = useState<number | null>(null)
   const [isScoring, setIsScoring] = useState(false)
   const [hasDrawn, setHasDrawn] = useState(false)
+  const [showRetryMessage, setShowRetryMessage] = useState(false)
 
   // Sync refs with state
   useEffect(() => {
@@ -76,7 +77,34 @@ export default function TracerKonva({
     currentLineRef.current = []
     setLastScore(null)
     setHasDrawn(false)
+    setShowRetryMessage(false)
   }, [character])
+
+  // Auto-continue when score is calculated (only if score is good enough)
+  useEffect(() => {
+    if (lastScore !== null && onContinue) {
+      const PASSING_SCORE = 90 // Minimum score to continue - requires excellent tracing
+      
+      if (lastScore >= PASSING_SCORE) {
+        console.log('[TracerKonva] Score passed (', lastScore, '), auto-continuing...')
+        // Small delay so user sees something happened
+        const timer = setTimeout(() => {
+          onContinue()
+        }, 800)
+        return () => clearTimeout(timer)
+      } else {
+        console.log('[TracerKonva] Score too low (', lastScore, '), showing retry message')
+        setShowRetryMessage(true)
+        // Hide retry message after a delay and reset for another attempt
+        const timer = setTimeout(() => {
+          setShowRetryMessage(false)
+          setLastScore(null)
+          setIsScoring(false)
+        }, 2500)
+        return () => clearTimeout(timer)
+      }
+    }
+  }, [lastScore, onContinue])
 
   // Check if a point is within character bounds by checking pixel color
   const isPointOnCharacter = (x: number, y: number): boolean => {
@@ -204,6 +232,7 @@ export default function TracerKonva({
     currentLineRef.current = []
     setLastScore(null)
     setHasDrawn(false)
+    setShowRetryMessage(false)
   }
 
   const checkTracing = async () => {
@@ -357,36 +386,14 @@ export default function TracerKonva({
     )
   }
 
-  // Show result state
-  if (lastScore !== null) {
-    const grade = lastScore >= 85 ? 'Excellent' : lastScore >= 70 ? 'Very Good' : lastScore >= 50 ? 'Good' : 'Keep Practicing'
-    const emoji = lastScore >= 85 ? '🌟' : lastScore >= 70 ? '⭐' : lastScore >= 50 ? '👍' : '💪'
-    const passed = lastScore >= 50
-
+  // Show retry message if score was too low
+  if (showRetryMessage) {
     return (
-      <div className="flex flex-col items-center justify-center bg-gradient-to-br from-emerald-900 via-teal-800 to-cyan-900 border-8 border-amber-900 rounded-2xl p-6 gap-4 shadow-2xl" style={{ width, minHeight: height }}>
-        <div className="text-5xl">{emoji}</div>
-        <h3 className="text-2xl font-bold text-amber-100">{grade}</h3>
-        <div className="bg-black/30 rounded-xl p-4 w-full text-center backdrop-blur-sm border border-white/10">
-          <div className="text-sm text-amber-200/80 uppercase tracking-wide font-bold mb-1">Score</div>
-          <div className="text-4xl font-bold text-amber-300">{lastScore}%</div>
-        </div>
-        <div className="flex gap-3 w-full">
-          <button
-            onClick={clear}
-            className="flex-1 px-4 py-3 bg-white/10 hover:bg-white/20 text-amber-100 font-bold rounded-xl transition-colors border border-white/20"
-          >
-            Try Again
-          </button>
-          {passed && onContinue && (
-            <button
-              onClick={onContinue}
-              className="flex-1 px-4 py-3 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-xl transition-colors shadow-lg"
-            >
-              Continue →
-            </button>
-          )}
-        </div>
+      <div className="flex flex-col items-center justify-center bg-gradient-to-br from-orange-900 via-red-800 to-orange-900 border-8 border-amber-900 rounded-2xl p-8 gap-4 shadow-2xl" style={{ width, height }}>
+        <div className="text-5xl">💪</div>
+        <h3 className="text-2xl font-bold text-amber-100">Keep Practicing!</h3>
+        <p className="text-amber-200/90 text-center">Try to trace more carefully following the guide</p>
+        <div className="text-sm text-amber-300/70 animate-pulse">Resetting canvas...</div>
       </div>
     )
   }
