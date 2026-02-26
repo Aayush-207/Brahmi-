@@ -41,12 +41,12 @@ export const COURSE_MODULES: CourseModule[] = [
     },
     {
         id: 'module-matra',
-        title: 'Mātrā / Barakhadi',
-        subtitle: 'The Art of Combination',
-        route: '#', // Placeholder
+        title: 'Mātrā (Matras)',
+        subtitle: 'The Art of Vowel Diacritics',
+        route: '/learn/matra',
         icon: 'का',
         iconType: 'text',
         order: 4,
-        locked: true
+        locked: false
     }
 ]
