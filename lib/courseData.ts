@@ -6,6 +6,7 @@ export type CourseModule = {
     icon: string
     iconType: 'text' | 'emoji' // Helper to style emoji vs text differently if needed
     order: number
+    locked?: boolean // If true, module is not yet available
 }
 
 export const COURSE_MODULES: CourseModule[] = [
@@ -13,10 +14,11 @@ export const COURSE_MODULES: CourseModule[] = [
         id: 'module-intro',
         title: 'Introduction',
         subtitle: 'History of Brahmi',
-        route: '#', // Placeholder
+        route: '/learn/intro',
         icon: '📜',
         iconType: 'emoji',
-        order: 1
+        order: 1,
+        locked: false
     },
     {
         id: 'module-swar',
@@ -31,18 +33,20 @@ export const COURSE_MODULES: CourseModule[] = [
         id: 'module-vyanjan',
         title: 'Vyanjan (Consonants)',
         subtitle: 'The Body of Script',
-        route: '/consonants', // Connected to consonants journey page
+        route: '/learn/vyanjan',
         icon: 'क',
         iconType: 'text',
-        order: 3
+        order: 3,
+        locked: false
     },
     {
         id: 'module-matra',
-        title: 'Mātrā / Barakhadi',
-        subtitle: 'The Art of Combination',
-        route: '#', // Placeholder
+        title: 'Mātrā (Matras)',
+        subtitle: 'The Art of Vowel Diacritics',
+        route: '/learn/matra',
         icon: 'का',
         iconType: 'text',
-        order: 4
+        order: 4,
+        locked: false
     }
 ]

@@ -10,11 +10,11 @@ type GuestProgress = {
 }
 
 /**
- * Get guest progress from localStorage
+ * Get guest progress from sessionStorage
  */
 function getGuestProgressFromStorage(): { completedIds: string[], currentId: string | null } {
     try {
-        const stored = localStorage.getItem(GUEST_PROGRESS_KEY)
+        const stored = sessionStorage.getItem(GUEST_PROGRESS_KEY)
         if (!stored) {
             return { completedIds: [], currentId: null }
         }
@@ -31,7 +31,7 @@ function getGuestProgressFromStorage(): { completedIds: string[], currentId: str
 }
 
 /**
- * Save guest progress to localStorage
+ * Save guest progress to sessionStorage
  */
 function saveGuestProgressToStorage(completedIds: string[], currentId: string | null): void {
     try {
@@ -40,7 +40,7 @@ function saveGuestProgressToStorage(completedIds: string[], currentId: string | 
             currentId,
             lastUpdated: new Date().toISOString()
         }
-        localStorage.setItem(GUEST_PROGRESS_KEY, JSON.stringify(progress))
+        sessionStorage.setItem(GUEST_PROGRESS_KEY, JSON.stringify(progress))
     } catch (error) {
         console.error('Error saving guest progress:', error)
     }
@@ -165,7 +165,7 @@ export async function markLessonComplete(identity: Identity, letterId: string) {
  */
 export function getGuestProgressForMigration(): GuestProgress | null {
     try {
-        const stored = localStorage.getItem(GUEST_PROGRESS_KEY)
+        const stored = sessionStorage.getItem(GUEST_PROGRESS_KEY)
         if (!stored) return null
         return JSON.parse(stored)
     } catch (error) {
@@ -175,12 +175,12 @@ export function getGuestProgressForMigration(): GuestProgress | null {
 }
 
 /**
- * Clear guest progress from localStorage
+ * Clear guest progress from sessionStorage
  * Called after successful migration
  */
 export function clearGuestProgress(): void {
     try {
-        localStorage.removeItem(GUEST_PROGRESS_KEY)
+        sessionStorage.removeItem(GUEST_PROGRESS_KEY)
         console.log('Guest progress cleared')
     } catch (error) {
         console.warn('Failed to clear guest progress:', error)

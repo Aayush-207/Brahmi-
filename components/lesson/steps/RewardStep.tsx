@@ -1,6 +1,7 @@
 import React from 'react';
 import { LessonStep } from '@/types/lesson';
 import Link from 'next/link';
+import JainBabaCharacter from '../JainBabaCharacter';
 
 interface RewardStepProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -14,6 +15,11 @@ interface RewardStepProps {
 const RewardStep: React.FC<RewardStepProps> = ({ reward, step, onComplete, nextLessonId }) => {
     return (
         <div className="flex flex-col items-center justify-center space-y-6 p-8 text-center max-w-lg mx-auto">
+            <JainBabaCharacter 
+                message={`साधुवाद! Wonderful work! You have completed this lesson with great dedication. ${reward ? `You earned the '${reward.badge}' badge!` : 'Keep learning!'}`}
+                variant="celebrating"
+                position="center"
+            />
             <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mb-4 text-4xl">
                 🏆
             </div>

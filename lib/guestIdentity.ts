@@ -19,21 +19,22 @@ function generateUUID(): string {
 }
 
 /**
- * Get or create a guest ID from localStorage
+ * Get or create a guest ID from sessionStorage
+ * Data is lost when tab closes
  */
 export function getOrCreateGuestId(): string {
     try {
-        const existing = localStorage.getItem(GUEST_ID_KEY)
+        const existing = sessionStorage.getItem(GUEST_ID_KEY)
         if (existing) {
             return existing
         }
 
         const newGuestId = `guest_${generateUUID()}`
-        localStorage.setItem(GUEST_ID_KEY, newGuestId)
+        sessionStorage.setItem(GUEST_ID_KEY, newGuestId)
         return newGuestId
     } catch (error) {
-        // Fallback if localStorage is unavailable
-        console.warn('localStorage unavailable, using session-only guest ID')
+        // Fallback if sessionStorage is unavailable
+        console.warn('sessionStorage unavailable, using in-memory guest ID')
         return `guest_${generateUUID()}`
     }
 }
@@ -54,7 +55,14 @@ export async function getCurrentIdentity(): Promise<Identity> {
         // No authenticated user, use guest ID
         const guestId = getOrCreateGuestId()
         return { type: 'guest', id: guestId }
-    } catch (error) {
+    } catch (error: any) {
+        // Supabase or fetch may abort requests (navigation, timeout, etc.). Treat AbortError as non-fatal.
+        if (error && error.name === 'AbortError') {
+            // Silently fallback to guest identity without noisy logging
+            const guestId = getOrCreateGuestId()
+            return { type: 'guest', id: guestId }
+        }
+
         console.error('Error getting identity:', error)
         // Fallback to guest
         const guestId = getOrCreateGuestId()
@@ -63,12 +71,12 @@ export async function getCurrentIdentity(): Promise<Identity> {
 }
 
 /**
- * Clear guest identity from localStorage
+ * Clear guest identity from sessionStorage
  * Called after successful migration to authenticated user
  */
 export function clearGuestIdentity(): void {
     try {
-        localStorage.removeItem(GUEST_ID_KEY)
+        sessionStorage.removeItem(GUEST_ID_KEY)
         console.log('Guest identity cleared')
     } catch (error) {
         console.warn('Failed to clear guest identity:', error)
@@ -80,7 +88,7 @@ export function clearGuestIdentity(): void {
  */
 export function hasGuestIdentity(): boolean {
     try {
-        return localStorage.getItem(GUEST_ID_KEY) !== null
+        return sessionStorage.getItem(GUEST_ID_KEY) !== null
     } catch {
         return false
     }
@@ -91,7 +99,7 @@ export function hasGuestIdentity(): boolean {
  */
 export function getGuestIdIfExists(): string | null {
     try {
-        return localStorage.getItem(GUEST_ID_KEY)
+        return sessionStorage.getItem(GUEST_ID_KEY)
     } catch {
         return null
     }

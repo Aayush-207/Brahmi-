@@ -21,7 +21,7 @@ export function Hero() {
             </div>
 
             {/* Content - Left Aligned, No Card, High Contrast */}
-            <div className="relative z-10 container mx-auto px-4 md:px-8 h-full flex items-center pt-20">
+            <div className="relative z-10 mx-auto px-4 md:px-8 h-full flex items-center pt-20">
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -59,11 +59,11 @@ export function Hero() {
 
                     <div className="flex flex-col sm:flex-row gap-5 pt-4">
                         <Link href="/letters">
-                            <Button size="lg" variant="primary" className="text-lg px-10 py-6 h-auto shadow-xl hover:shadow-accent-gold/20 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto">
+                            <Button size="lg" variant="primary" className="text-lg px-6 sm:px-10 py-4 sm:py-6 h-auto shadow-xl hover:shadow-accent-gold/20 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto whitespace-normal text-center">
                                 अध्ययन प्रारंभ करें
                             </Button>
                         </Link>
-                        <Button size="lg" variant="secondary" className="text-lg px-10 py-6 h-auto bg-black/20 backdrop-blur-sm border-white/20 hover:bg-black/40 hover:border-white/40 text-white transition-all duration-300 shadow-lg">
+                        <Button size="lg" variant="secondary" className="text-lg px-6 sm:px-10 py-4 sm:py-6 h-auto bg-black/20 backdrop-blur-sm border-white/20 hover:bg-black/40 hover:border-white/40 text-white transition-all duration-300 shadow-lg whitespace-normal">
                             मूल आधार को समझिए
                         </Button>
                     </div>

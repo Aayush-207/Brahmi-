@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/landing/Header";
+import DevAttributeGuard from "@/components/dev/DevAttributeGuard";
 
 
 const inter = Inter({
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={`${inter.variable} ${playfair.variable} antialiased bg-background text-foreground`}
       >
         <Header />
+        <DevAttributeGuard />
         <main className="min-h-screen">
           {children}
         </main>

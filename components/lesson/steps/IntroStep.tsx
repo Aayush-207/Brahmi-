@@ -1,5 +1,6 @@
 import React from 'react';
 import { LessonStep } from '@/types/lesson';
+import JainBabaCharacter from '../JainBabaCharacter';
 
 interface IntroStepProps {
     step: LessonStep;
@@ -8,12 +9,15 @@ interface IntroStepProps {
 
 const IntroStep: React.FC<IntroStepProps> = ({ step, onComplete }) => {
     return (
-        <div className="flex flex-col items-center justify-center space-y-8 p-8 text-center bg-white rounded-xl shadow-sm border border-orange-100/20 max-w-lg mx-auto">
-            <h2 className="text-3xl font-bold text-gray-800">{step.prompt}</h2>
-            <p className="text-gray-600">Get ready to learn a new Brahmi character!</p>
+        <div className="flex flex-col items-center justify-center space-y-8 p-8 max-w-lg mx-auto">
+            <JainBabaCharacter 
+                message={`नमस्ते! ${step.prompt}. Let me guide you through this beautiful ancient script.`}
+                variant="excited"
+                position="center"
+            />
             <button
                 onClick={onComplete}
-                className="px-8 py-3 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-full transition-colors text-lg"
+                className="px-8 py-3 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-full transition-colors text-lg mt-6"
             >
                 Start Lesson
             </button>

@@ -49,6 +49,11 @@ const LessonRenderer: React.FC<LessonRendererProps> = ({ lesson, nextLessonId })
         }
     };
 
+    // Allow jumping to any step
+    const handleStepJump = (stepIndex: number) => {
+        setCurrentStepIndex(stepIndex);
+    };
+
     const StepComponent = STEP_COMPONENTS[currentStep.type];
 
     if (!StepComponent) {
@@ -72,6 +77,28 @@ const LessonRenderer: React.FC<LessonRendererProps> = ({ lesson, nextLessonId })
                         className="h-full bg-learning-gold shadow-[0_0_10px_rgba(212,175,55,0.5)] transition-all duration-500 ease-out"
                         style={{ width: `${progressPercent}%` }}
                     />
+                </div>
+
+                {/* Step Navigation */}
+                <div className="flex flex-wrap gap-2 mt-4 justify-center">
+                    {lesson.steps.map((step, index) => (
+                        <button
+                            key={step.id}
+                            onClick={() => handleStepJump(index)}
+                            className={`
+                                px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300
+                                ${currentStepIndex === index 
+                                    ? 'bg-learning-gold text-learning-bg shadow-[0_0_15px_rgba(212,175,55,0.5)]' 
+                                    : completedSteps.includes(step.id)
+                                    ? 'bg-learning-surface/30 text-learning-gold border border-learning-gold/30 hover:bg-learning-gold/20'
+                                    : 'bg-learning-surface/20 text-learning-surface/70 hover:bg-learning-surface/30 hover:text-learning-surface'
+                                }
+                            `}
+                            title={`Step ${index + 1}: ${step.type}`}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
                 </div>
             </div>
 

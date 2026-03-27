@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 
 // --- Types ---
 type Letter = {
@@ -101,11 +102,12 @@ export default function ConsonantsPage() {
     // 1. Load User Identity
     useEffect(() => {
         const loadIdentity = async () => {
-            setIdentity(await getCurrentIdentity())
+            const currentIdentity = await getCurrentIdentity()
+            setIdentity(currentIdentity)
             setIsLoaded(true)
         }
         loadIdentity()
-    }, [])
+    }, [router])
 
     // 2. Fetch Letters (CONSONANTS ONLY - Order >= 13)
     useEffect(() => {
@@ -180,12 +182,17 @@ export default function ConsonantsPage() {
     if (solidLimit > letters.length - 1) solidLimit = letters.length - 1
     if (solidLimit < 0) solidLimit = 0
 
+    // Safely compute the animated path segment (may be undefined)
+    const animatedSegments = generatePathSegments(letters.length)
+    const animatedPath = animatingIndex !== null ? animatedSegments[animatingIndex] ?? '' : ''
+
 
     return (
-        <div className="min-h-screen bg-[#1F1D3A] text-white overflow-hidden flex flex-col items-center">
-            {/* Header */}
-            {/* Header */}
-            <div className="w-full border-b border-[#D4AF37]/20 py-4 md:py-6 text-center bg-[#1F1D3A]/95 backdrop-blur-sm sticky top-0 z-50 px-4">
+        <>
+            <div className="min-h-screen bg-[#1F1D3A] text-white overflow-hidden flex flex-col items-center">
+                {/* Header */}
+                {/* Header */}
+                <div className="w-full border-b border-[#D4AF37]/20 py-4 md:py-6 text-center bg-[#1F1D3A]/95 backdrop-blur-sm sticky top-0 z-50 px-4">
                 <button onClick={() => router.push('/learn')} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#D4AF37] hover:text-white transition-colors text-sm font-bold uppercase tracking-wider flex items-center gap-1">
                     ← <span className="hidden sm:inline">Back</span>
                 </button>
@@ -208,7 +215,7 @@ export default function ConsonantsPage() {
                 >
                     {/* Background Dashed Path */}
                     <path
-                        d={generateSVGPath(letters.length)}
+                        d={generateSVGPath(letters.length) ?? ''}
                         fill="none"
                         stroke="#D4AF37"
                         strokeOpacity="0.3"
@@ -218,9 +225,9 @@ export default function ConsonantsPage() {
                     />
 
                     {/* Progress Solid Path */}
-                    {solidLimit > 0 && (
-                        <path
-                            d={generatePathSegments(letters.length).slice(0, solidLimit).join(' ')}
+                        {solidLimit > 0 && (
+                            <path
+                                d={generatePathSegments(letters.length).slice(0, solidLimit).join(' ') || ''}
                             fill="none"
                             stroke="#D4AF37"
                             strokeOpacity="1"
@@ -231,10 +238,10 @@ export default function ConsonantsPage() {
 
                     {/* Animated Segment */}
                     <AnimatePresence>
-                        {animatingIndex !== null && (
+                        {animatedPath && animatedPath.trim().startsWith('M') && (
                             <motion.path
                                 key={`anim-path-${animatingIndex}`}
-                                d={generatePathSegments(letters.length)[animatingIndex]}
+                                d={animatedPath}
                                 fill="none"
                                 stroke="#E69138" // Saffron accent
                                 strokeWidth="8"
@@ -301,7 +308,7 @@ export default function ConsonantsPage() {
                             {showMascot && (
                                 <div className={`absolute w-32 pointer-events-none z-10 ${side === 'left' ? '-left-40' : '-right-40'}`}>
                                     <Image
-                                        src={`/assets/mascot_${mascotImg}.png`}
+                                        src={`/mascot/mascot_${mascotImg}.png`}
                                         alt="Mascot"
                                         width={128} height={128}
                                         className={`object-contain transition-transform hover:scale-110 ${side === 'right' ? 'scale-x-[-1]' : ''}`}
@@ -333,8 +340,9 @@ export default function ConsonantsPage() {
 
                         </div>
                     )
-                })}
-            </div>
+                })}            </div>
         </div>
+        <FloatingSignIn />
+        </>
     )
 }
