@@ -69,7 +69,10 @@ export async function speakAsGuruji(
     };
     
     utterance.onerror = (error) => {
-      console.error('Speech error:', error);
+      // Suppress empty error objects or interrupted errors which are common during navigation
+      if (error && (error as any).error !== 'interrupted') {
+        console.error('Speech error:', error);
+      }
       callbacks?.onError?.(error);
     };
 

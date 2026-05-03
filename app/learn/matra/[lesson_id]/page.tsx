@@ -2,17 +2,19 @@
 
 import React, { useEffect, useState, use } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getMatraLessonContent, saveMatraProgress, type MatraLessonContent } from '@/lib/matraModule'
 import { getCurrentIdentity, type Identity } from '@/lib/guestIdentity'
 import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
+import JainBabaSVG from '@/components/lesson/JainBabaSVG'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 import { useLanguage } from '@/lib/LanguageContext'
 
 export default function MatraLessonPage({ params }: { params: Promise<{ lesson_id: string }> }) {
     const { lesson_id } = use(params)
     const router = useRouter()
+    const searchParams = useSearchParams()
     const { language } = useLanguage()
     
     const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
@@ -21,6 +23,17 @@ export default function MatraLessonPage({ params }: { params: Promise<{ lesson_i
     const [loading, setLoading] = useState(true)
     const [direction, setDirection] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
+
+    // Sync currentSlide with search params if provided
+    useEffect(() => {
+        const slideParam = searchParams.get('slide')
+        if (slideParam) {
+            const slideIdx = parseInt(slideParam)
+            if (!isNaN(slideIdx) && slideIdx >= 0) {
+                setCurrentSlide(slideIdx)
+            }
+        }
+    }, [searchParams])
 
     useEffect(() => {
         async function loadData() {
@@ -152,7 +165,7 @@ export default function MatraLessonPage({ params }: { params: Promise<{ lesson_i
                     >
                         <div className="bg-[#2C2C2C] rounded-3xl p-6 sm:p-10 md:p-16 lg:p-20 shadow-2xl border border-[#3A3A3A] flex flex-col items-center gap-4 md:gap-8 transition-all duration-300 text-white w-full max-w-2xl" style={commonStyle}>
                             <JainBabaCharacter 
-                                message={currentStep.title || ''}
+                                message={`${currentStep.title ? currentStep.title + '. ' : ''}${currentStep.content || ''}`}
                                 variant={currentStep.content_type === 'title_slide' ? 'excited' : 'default'}
                                 position="center"
                             />
@@ -179,7 +192,11 @@ export default function MatraLessonPage({ params }: { params: Promise<{ lesson_i
 
                             {currentStep.content_type === 'writing_practice' && (
                                 <button 
-                                    onClick={() => router.push(`/lesson/${currentStep.metadata.devanagari || lesson_id}?mode=trace`)}
+                                    onClick={() => {
+                                        const nextSlide = currentSlide + 1
+                                        const returnUrl = encodeURIComponent(`${window.location.pathname}?slide=${nextSlide}`)
+                                        router.push(`/lesson/${currentStep.metadata.devanagari || lesson_id}?mode=trace&returnTo=${returnUrl}`)
+                                    }}
                                     className="mt-4 px-8 py-3 bg-[#D4AF37] text-[#1C1C1C] rounded-xl font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 flex items-center gap-2"
                                 >
                                     <span>Start Tracing</span>
@@ -234,10 +251,6 @@ export default function MatraLessonPage({ params }: { params: Promise<{ lesson_i
                 </div>
             </div>
 
-            {/* JainBaba Character Fixed at bottom right */}
-            <div className="fixed bottom-0 right-0 w-64 h-64 pointer-events-none z-0 opacity-40">
-                <JainBabaCharacter />
-            </div>
         </div>
     )
 }

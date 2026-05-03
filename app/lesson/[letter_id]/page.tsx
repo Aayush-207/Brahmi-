@@ -9,6 +9,7 @@ import { useLanguage } from '@/lib/LanguageContext'
 import { getLetterSteps, getLetterQuiz } from '@/lib/introModule'
 import LessonQuiz, { McqQuestion, McqOption } from '@/components/lesson/LessonQuiz'
 import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
+import JainBabaSVG from '@/components/lesson/JainBabaSVG'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 
 // Dynamically import TracerKonva with SSR disabled (Konva requires browser APIs)
@@ -221,12 +222,21 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                 // Mark current lesson as complete
                 await markLessonComplete(identity, letterId)
 
-                // Return to journey page - animation will play there
-                router.push(getReturnRoute(letterId))
+                // Check for returnTo parameter
+                const returnTo = searchParams.get('returnTo')
+                if (returnTo) {
+                    router.push(decodeURIComponent(returnTo))
+                } else {
+                    router.push(getReturnRoute(letterId))
+                }
             } catch (err) {
                 console.error('Error saving progress:', err)
-                // Don't block user on error, just return to journey
-                router.push(getReturnRoute(letterId))
+                const returnTo = searchParams.get('returnTo')
+                if (returnTo) {
+                    router.push(decodeURIComponent(returnTo))
+                } else {
+                    router.push(getReturnRoute(letterId))
+                }
             }
         }
     }
