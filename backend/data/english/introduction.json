@@ -1,0 +1,442 @@
+{
+  "lessons": [
+    {
+      "id": "intro-lesson-001",
+      "module_id": "module-intro",
+      "lesson_id": "intro-welcome",
+      "title": "Welcome",
+      "subtitle": " ",
+      "description": "Begin your journey into the ancient Brahmi Script",
+      "thumbnail_icon": "📜",
+      "order_no": 1,
+      "estimated_time_minutes": 2
+    },
+    {
+      "id": "intro-lesson-002",
+      "module_id": "module-intro",
+      "lesson_id": "intro-lang-select",
+      "title": "Language Selection",
+      "subtitle": " ",
+      "description": "Choose your preferred language",
+      "thumbnail_icon": "🌐",
+      "order_no": 2,
+      "estimated_time_minutes": 1
+    },
+    {
+      "id": "intro-lesson-003",
+      "module_id": "module-intro",
+      "lesson_id": "intro-brahmi-intro",
+      "title": "Brahmi Introduction",
+      "subtitle": " ",
+      "description": "I am the Brahmi Script. Very ancient, extremely important and most beloved!",
+      "thumbnail_icon": "📖",
+      "order_no": 3,
+      "estimated_time_minutes": 3
+    },
+    {
+      "id": "intro-lesson-004",
+      "module_id": "module-intro",
+      "lesson_id": "intro-objectives",
+      "title": "Your Goal",
+      "subtitle": " ",
+      "description": "Understand your learning objectives",
+      "thumbnail_icon": "🎯",
+      "order_no": 4,
+      "estimated_time_minutes": 2
+    },
+    {
+      "id": "intro-lesson-005",
+      "module_id": "module-intro",
+      "lesson_id": "intro-choice",
+      "title": "My Introduction",
+      "subtitle": " ",
+      "description": "Would you like to know more about Brahmi Script?",
+      "thumbnail_icon": "❓",
+      "order_no": 5,
+      "estimated_time_minutes": 1
+    },
+    {
+      "id": "intro-lesson-012",
+      "module_id": "module-intro",
+      "lesson_id": "intro-language-definition",
+      "title": "Script vs Language",
+      "subtitle": " ",
+      "description": "The medium through which we express our feelings",
+      "thumbnail_icon": "💬",
+      "order_no": 12,
+      "estimated_time_minutes": 2
+    },
+    {
+      "id": "intro-lesson-014",
+      "module_id": "module-intro",
+      "lesson_id": "intro-specialty",
+      "title": "My Specialty",
+      "subtitle": " ",
+      "description": "Brahmi Script is the original script of Prakrit language",
+      "thumbnail_icon": "⭐",
+      "order_no": 14,
+      "estimated_time_minutes": 5
+    },
+    {
+      "id": "intro-lesson-018",
+      "module_id": "module-intro",
+      "lesson_id": "intro-spiritual",
+      "title": "Spiritual Importance",
+      "subtitle": " ",
+      "description": "Connecting with the ancient lineage of Tirthankaras",
+      "thumbnail_icon": "🙏",
+      "order_no": 18,
+      "estimated_time_minutes": 5
+    },
+    {
+      "id": "intro-lesson-027",
+      "module_id": "module-intro",
+      "lesson_id": "intro-time-commitment",
+      "title": "Time Commitment",
+      "subtitle": " ",
+      "description": "How much time will you dedicate daily?",
+      "thumbnail_icon": "⏱️",
+      "order_no": 19,
+      "estimated_time_minutes": 1
+    },
+    {
+      "id": "intro-lesson-028",
+      "module_id": "module-intro",
+      "lesson_id": "intro-encouragement",
+      "title": "Let's Begin",
+      "subtitle": " ",
+      "description": "You can learn the complete Brahmi Script in minimal time!",
+      "thumbnail_icon": "🚀",
+      "order_no": 20,
+      "estimated_time_minutes": 1
+    }
+  ],
+  "content": [
+    {
+      "id": "content-001",
+      "lesson_id": "intro-welcome",
+      "content_type": "title_slide",
+      "title": "Welcome",
+      "content": "Swaagatam — Welcome",
+      "metadata": {
+        "multilingual_welcome": {
+          "sanskrit_hindi": "स्वागतम्",
+          "bengali": "স্বাগতম",
+          "telugu": "స్వాగతం",
+          "tamil": "வரவேற்பு",
+          "gujarati": "સ્વાગતમ્",
+          "kannada": "ಸ್ವಾಗತಮ್",
+          "odia": "ସ୍ୱାଗତମ୍",
+          "punjabi": "ਸਵਾਗਤਮ੍",
+          "english": "Welcome"
+        },
+        "cta_button": "Let's Begin"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-002",
+      "lesson_id": "intro-lang-select",
+      "content_type": "questionnaire",
+      "title": "Choose Language:",
+      "content": "Select your preferred language for the course",
+      "metadata": {
+        "options": [
+          "Hindi",
+          "தமிழ்",
+          "తెలుగు",
+          "বাংলা",
+          "ગુજરાતી",
+          "ಕನ್ನಡ",
+          "ଓଡ଼ିଆ",
+          "ਪੰਜਾਬੀ",
+          "English"
+        ],
+        "buttonText": "Next"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-003",
+      "lesson_id": "intro-brahmi-intro",
+      "content_type": "text",
+      "title": "I am the Brahmi Script.",
+      "content": "Extremely ancient, immensely significant, and most beloved!",
+      "order_no": 1
+    },
+    {
+      "id": "content-004",
+      "lesson_id": "intro-objectives",
+      "content_type": "mcq",
+      "title": "What is your goal?",
+      "content": "What is your goal?",
+      "metadata": {
+        "options": [
+          {
+            "text": "For religious knowledge",
+            "translation": " "
+          },
+          {
+            "text": "Historical research",
+            "translation": " "
+          },
+          {
+            "text": "Skill development",
+            "translation": " "
+          },
+          {
+            "text": "Exam / Career",
+            "translation": " "
+          }
+        ],
+        "buttonText": "Next"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-005",
+      "lesson_id": "intro-choice",
+      "content_type": "title_slide",
+      "title": "My brief introduction",
+      "content": "Would you like to know?",
+      "metadata": {
+        "option1": "Would you like to know?",
+        "option2": "Continue directly?"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-006",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": " ",
+      "content": "I am the script created by Aadi Brahma, the first Tirthankara, Maharaja Shri Rishabhdev Ji.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-007",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "",
+      "content": "He created me while teaching his daughter Brahmi.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 3
+    },
+    {
+      "id": "content-008",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": " ",
+      "content": "Along with Brahmi, Maharaja Shri Rishabhdev Ji also taught 'Ank Vidya' (Mathematics) to his second daughter Sundari.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 4
+    },
+    {
+      "id": "content-009",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "Propagation",
+      "content": "Both of them extensively propagated the knowledge bestowed upon them by Lord Shri Rishabhdev Ji.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 5
+    },
+    {
+      "id": "content-010",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "Why was I named 'Brahmi Lipi'?",
+      "content": "Princess Brahmi shared the knowledge of this script with the common people — that is why I came to be called 'Brahmi Lipi'.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 6
+    },
+    {
+      "id": "content-011",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "I am not a language!",
+      "content": "Remember — I am not a language; I am only a system of writing.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 7
+    },
+    {
+      "id": "content-012",
+      "lesson_id": "intro-language-definition",
+      "content_type": "text",
+      "title": "What is Bhasha (Language)?",
+      "content": "The medium through which we express our thoughts and feelings to one another is called a 'language'.\n\nExamples: Hindi, Punjabi, Bengali, Telugu, Tamil, Gujarati, Kannada, Odia, English, etc.",
+      "metadata": {
+        "examplesLabel": "Examples:",
+        "buttonText": "Next"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-013",
+      "lesson_id": "intro-language-definition",
+      "content_type": "text",
+      "title": "What is Lipi (Script)?",
+      "content": "The medium used to write any language is called a 'script'. OR: The symbols used to represent spoken sounds in written form are called a 'script'.\n\nLanguage → Script:\nHindi → Devanagari\nPunjabi → Gurmukhi\nBengali → Bengali\nTelugu → Telugu\nTamil → Tamil\nGujarati → Gujarati\nKannada → Kannada\nOdia → Odia\nEnglish → Latin (Roman)",
+      "metadata": {
+        "examplesLabel": "Language → Script:",
+        "buttonText": "Next"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-014",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "My Specialty",
+      "content": "I am originally the script of the Prakrit language.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-015",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "Versatility",
+      "content": "However, just like Devanagari or Latin/Roman script, I can be used to write any language.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-016",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "Secret Script",
+      "content": "And yes, let me share a secret with you — you can make me your personal secret script and keep all your secrets hidden from ordinary people!",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 3
+    },
+    {
+      "id": "content-017",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "My Importance",
+      "content": "• My vowels and consonants are just like Devanagari (Hindi).\n\n• I can connect you directly to Tirthankara Shri Rishabhdev Ji.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 4
+    },
+    {
+      "id": "content-018",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "Please, do not leave my side.",
+      "content": "I will make every effort to connect you directly to Tirthankara Rishabhdev Ji Maharaja — because today, I alone am the true living memory of the Tirthankara Lord.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-019",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "I know what you are thinking.",
+      "content": "The scriptures we have are called Jinvani — meaning the divine voice of the Jinas.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-020",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "Alas — the Tirthankaras are no longer physically present among us.",
+      "content": "Yes, you are absolutely right. But consider this — the scriptures we hold, those very texts are what we regard as the form of Jinvani and revere.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 3
+    },
+    {
+      "id": "content-021",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "Tradition",
+      "content": "The divine voice of the Lord was woven by the Ganadharas and handed to the Acharyas; through tradition, only a little has reached us.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 4
+    },
+    {
+      "id": "content-022",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "Not Direct Jinvani",
+      "content": "But that is not the direct Jinvani — it is Jinvani in the form of tradition.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 5
+    },
+    {
+      "id": "content-023",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "Divine Touch",
+      "content": "Having crossed an immeasurable journey of countless ages since Lord Shri Rishabhdev Ji's nirvan, I stand before you today — carrying memories of infinite ages, sacred unbroken knowledge, and the divine touch of Lord Rishabhdev.",
+      "metadata": {
+        "buttonText": "Next"
+      },
+      "order_no": 6
+    },
+    {
+      "id": "content-027",
+      "lesson_id": "intro-time-commitment",
+      "content_type": "mcq",
+      "title": "How much time would you like to give me each day for learning?",
+      "content": " ",
+      "metadata": {
+        "options": [
+          "3 minutes",
+          "5 minutes",
+          "8 minutes",
+          "10 minutes",
+          "15 minutes"
+        ]
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-028",
+      "lesson_id": "intro-encouragement",
+      "content_type": "title_slide",
+      "title": "Wow!",
+      "content": "Wow! That means you can learn the complete Brahmi script in very little time.\n\nCome! Let us begin from the very beginning.",
+      "metadata": {
+        "buttonText": "Next",
+        "slide28": "Wow! That means you can learn the complete Brahmi script in very little time.",
+        "slide29": "Come! Let us begin from the very beginning.",
+        "cta_button": "",
+        "created_by": "",
+        "course_title": ""
+      },
+      "order_no": 1
+    }
+  ]
+}

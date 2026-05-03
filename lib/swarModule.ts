@@ -1,5 +1,5 @@
 import { Identity } from './guestIdentity'
-import swarData from '@/backend/data/swar.json'
+import { getDataForLanguage } from '@/backend/data/index'
 
 const GUEST_SWAR_PROGRESS_KEY = 'brahmi_guest_swar_progress'
 
@@ -146,16 +146,16 @@ export type Reward = {
 /**
  * Get all 12 vowels (स्वर)
  */
-export async function getVowels(): Promise<Vowel[]> {
-  console.log('[getVowels] Returning hardcoded swar data: 12 vowels')
+export async function getVowels(language: string = "hi"): Promise<Vowel[]> {
+  const swarData = getDataForLanguage(language).swar;
   return swarData.vowels as Vowel[]
 }
 
 /**
  * Get a specific vowel by ID
  */
-export async function getVowel(vowelId: string): Promise<Vowel | null> {
-  console.log(`[getVowel] Fetching vowel: ${vowelId}`)
+export async function getVowel(vowelId: string, language: string = "hi"): Promise<Vowel | null> {
+  const swarData = getDataForLanguage(language).swar;
   const vowel = (swarData.vowels as Vowel[]).find((v) => v.id === vowelId)
   return vowel || null
 }
@@ -163,16 +163,16 @@ export async function getVowel(vowelId: string): Promise<Vowel | null> {
 /**
  * Get Quiz 1 questions (Devanagari to Brahmi matching)
  */
-export async function getQuiz1Questions(): Promise<Quiz1Question[]> {
-  console.log('[getQuiz1Questions] Returning hardcoded Quiz 1 data: 12 Devanagari→Brahmi questions')
+export async function getQuiz1Questions(language: string = "hi"): Promise<Quiz1Question[]> {
+  const swarData = getDataForLanguage(language).swar;
   return swarData.quiz1_devanagari_to_brahmi as Quiz1Question[]
 }
 
 /**
  * Get a specific Quiz 1 question by order
  */
-export async function getQuiz1Question(order: number): Promise<Quiz1Question | null> {
-  console.log(`[getQuiz1Question] Fetching Quiz 1 question: order=${order}`)
+export async function getQuiz1Question(order: number, language: string = "hi"): Promise<Quiz1Question | null> {
+  const swarData = getDataForLanguage(language).swar;
   const question = (swarData.quiz1_devanagari_to_brahmi as Quiz1Question[]).find((q) => q.order === order)
   return question || null
 }
@@ -180,16 +180,16 @@ export async function getQuiz1Question(order: number): Promise<Quiz1Question | n
 /**
  * Get Quiz 2 questions (Brahmi to Devanagari matching)
  */
-export async function getQuiz2Questions(): Promise<Quiz2Question[]> {
-  console.log('[getQuiz2Questions] Returning hardcoded Quiz 2 data: 12 Brahmi→Devanagari questions')
+export async function getQuiz2Questions(language: string = "hi"): Promise<Quiz2Question[]> {
+  const swarData = getDataForLanguage(language).swar;
   return swarData.quiz2_brahmi_to_devanagari as Quiz2Question[]
 }
 
 /**
  * Get a specific Quiz 2 question by order
  */
-export async function getQuiz2Question(order: number): Promise<Quiz2Question | null> {
-  console.log(`[getQuiz2Question] Fetching Quiz 2 question: order=${order}`)
+export async function getQuiz2Question(order: number, language: string = "hi"): Promise<Quiz2Question | null> {
+  const swarData = getDataForLanguage(language).swar;
   const question = (swarData.quiz2_brahmi_to_devanagari as Quiz2Question[]).find((q) => q.order === order)
   return question || null
 }
@@ -197,16 +197,16 @@ export async function getQuiz2Question(order: number): Promise<Quiz2Question | n
 /**
  * Get tracing sequence (writing practice for all vowels)
  */
-export async function getTracingSequence(): Promise<TracingSequence[]> {
-  console.log('[getTracingSequence] Returning hardcoded tracing data: 12 writing exercises')
+export async function getTracingSequence(language: string = "hi"): Promise<TracingSequence[]> {
+  const swarData = getDataForLanguage(language).swar;
   return swarData.tracing_sequence as TracingSequence[]
 }
 
 /**
  * Get a specific tracing exercise by order
  */
-export async function getTracingExercise(order: number): Promise<TracingSequence | null> {
-  console.log(`[getTracingExercise] Fetching tracing exercise: order=${order}`)
+export async function getTracingExercise(order: number, language: string = "hi"): Promise<TracingSequence | null> {
+  const swarData = getDataForLanguage(language).swar;
   const exercise = (swarData.tracing_sequence as TracingSequence[]).find((t) => t.order === order)
   return exercise || null
 }
@@ -214,16 +214,16 @@ export async function getTracingExercise(order: number): Promise<TracingSequence
 /**
  * Get true/false questions (सत्य/असत्य)
  */
-export async function getTrueFalseQuestions(): Promise<TrueFalseQuestion[]> {
-  console.log('[getTrueFalseQuestions] Returning hardcoded true/false data: 12 questions')
+export async function getTrueFalseQuestions(language: string = "hi"): Promise<TrueFalseQuestion[]> {
+  const swarData = getDataForLanguage(language).swar;
   return swarData.true_false_questions as TrueFalseQuestion[]
 }
 
 /**
  * Get a specific true/false question by order
  */
-export async function getTrueFalseQuestion(order: number): Promise<TrueFalseQuestion | null> {
-  console.log(`[getTrueFalseQuestion] Fetching true/false question: order=${order}`)
+export async function getTrueFalseQuestion(order: number, language: string = "hi"): Promise<TrueFalseQuestion | null> {
+  const swarData = getDataForLanguage(language).swar;
   const question = (swarData.true_false_questions as TrueFalseQuestion[]).find((q) => q.order === order)
   return question || null
 }
@@ -231,16 +231,16 @@ export async function getTrueFalseQuestion(order: number): Promise<TrueFalseQues
 /**
  * Get all rewards/badges for swar module
  */
-export async function getRewards(): Promise<Reward[]> {
-  console.log('[getRewards] Returning hardcoded rewards data: 5 badges')
+export async function getRewards(language: string = "hi"): Promise<Reward[]> {
+  const swarData = getDataForLanguage(language).swar;
   return swarData.rewards as Reward[]
 }
 
 /**
  * Get a specific reward by ID
  */
-export async function getReward(rewardId: string): Promise<Reward | null> {
-  console.log(`[getReward] Fetching reward: ${rewardId}`)
+export async function getReward(rewardId: string, language: string = "hi"): Promise<Reward | null> {
+  const swarData = getDataForLanguage(language).swar;
   const reward = (swarData.rewards as Reward[]).find((r) => r.id === rewardId)
   return reward || null
 }
@@ -253,7 +253,8 @@ export async function saveQuizAnswer(
   quizType: 'quiz1' | 'quiz2' | 'true_false',
   questionId: string,
   answer: string,
-  isCorrect: boolean
+  isCorrect: boolean,
+  language: string = "hi"
 ): Promise<void> {
   // For guest users, save to sessionStorage
   if (!userId) {
@@ -274,15 +275,15 @@ export async function saveQuizAnswer(
 /**
  * Get guest progress for swar module
  */
-export async function getGuestSwarProgress(): Promise<{ completedIds: string[], progressMap: Record<string, number> }> {
-  return getGuestSwarProgressFromStorage()
+export async function getGuestSwarProgress(language: string = "hi"): Promise<{ completedIds: string[], progressMap: Record<string, number> }> {
+    return getGuestSwarProgressFromStorage()
 }
 
 /**
  * Save guest completion milestone
  */
-export async function saveSwarMilestone(milestone: 'quiz1_completed' | 'quiz2_completed' | 'tracing_completed' | 'true_false_completed'): Promise<void> {
-  if (typeof window === 'undefined') return
+export async function saveSwarMilestone(milestone: 'quiz1_completed' | 'quiz2_completed' | 'tracing_completed' | 'true_false_completed', language: string = "hi"): Promise<void> {
+    if (typeof window === 'undefined') return
   try {
     const key = `brahmi_swar_milestone_${milestone}`
     sessionStorage.setItem(key, JSON.stringify({ completed: true, timestamp: new Date().toISOString() }))
@@ -294,8 +295,8 @@ export async function saveSwarMilestone(milestone: 'quiz1_completed' | 'quiz2_co
 /**
  * Check if guest has completed a swar milestone
  */
-export async function checkSwarMilestone(milestone: 'quiz1_completed' | 'quiz2_completed' | 'tracing_completed' | 'true_false_completed'): Promise<boolean> {
-  if (typeof window === 'undefined') return false
+export async function checkSwarMilestone(milestone: 'quiz1_completed' | 'quiz2_completed' | 'tracing_completed' | 'true_false_completed', language: string = "hi"): Promise<boolean> {
+    if (typeof window === 'undefined') return false
   try {
     const key = `brahmi_swar_milestone_${milestone}`
     const stored = sessionStorage.getItem(key)

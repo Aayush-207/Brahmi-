@@ -68,5 +68,24 @@
         "description": "Designed to safeguard Jain philosophical knowledge in its original script and structure."
       }
     ]
+  },
+  "courses": {
+    "title": "Course Overview",
+    "intro": {
+      "title": "Introduction",
+      "subtitle": "History of Brahmi"
+    },
+    "swar": {
+      "title": "Swar (Vowels)",
+      "subtitle": "The Soul of Script"
+    },
+    "vyanjan": {
+      "title": "Vyanjan (Consonants)",
+      "subtitle": "The Body of Script"
+    },
+    "matra": {
+      "title": "Mātrā (Matras)",
+      "subtitle": "The Art of Vowel Diacritics"
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Identity } from './guestIdentity'
-import introData from '@/backend/data/introduction.json'
+import { getDataForLanguage } from '@/backend/data/index'
 
 const GUEST_INTRO_PROGRESS_KEY = 'brahmi_guest_intro_progress'
 
@@ -7,6 +7,40 @@ type GuestIntroProgress = {
   completedIds: string[]
   progressMap: Record<string, number>
   lastUpdated: string
+}
+
+// Types for introduction lessons
+export type IntroLesson = {
+  id: string
+  module_id: string
+  lesson_id: string
+  title: string
+  subtitle: string
+  description: string
+  thumbnail_icon: string
+  order_no: number
+  estimated_time_minutes: number
+  is_completed?: boolean
+}
+
+export type IntroLessonContent = {
+  id: string
+  lesson_id: string
+  content_type: 'title_slide' | 'text' | 'mcq' | 'questionnaire'
+  title: string
+  content: string
+  metadata?: any
+  order_no: number
+}
+
+export type LetterStep = {
+  id: string
+  title: string
+  content: string
+  brahmi_symbol?: string
+  devanagari_symbol?: string
+  image_url?: string
+  order_no: number
 }
 
 /**
@@ -18,24 +52,23 @@ function getGuestIntroProgressFromStorage(): { completedIds: string[], progressM
   }
   try {
     const stored = sessionStorage.getItem(GUEST_INTRO_PROGRESS_KEY)
-    if (!stored) {
-      return { completedIds: [], progressMap: {} }
-    }
-    const progress: GuestIntroProgress = JSON.parse(stored)
-    return {
-      completedIds: progress.completedIds || [],
-      progressMap: progress.progressMap || {}
+    if (stored) {
+      const parsed = JSON.parse(stored) as GuestIntroProgress
+      return {
+        completedIds: parsed.completedIds || [],
+        progressMap: parsed.progressMap || {}
+      }
     }
   } catch (error) {
-    console.error('Error reading guest intro progress:', error)
-    return { completedIds: [], progressMap: {} }
+    console.error('Error parsing guest intro progress:', error)
   }
+  return { completedIds: [], progressMap: {} }
 }
 
 /**
  * Save guest intro progress to sessionStorage
  */
-function saveGuestIntroProgressToStorage(completedIds: string[], progressMap: Record<string, number>): void {
+function saveGuestIntroProgressToStorage(completedIds: string[], progressMap: Record<string, number>) {
   if (typeof window === 'undefined') return
   try {
     const progress: GuestIntroProgress = {
@@ -49,318 +82,416 @@ function saveGuestIntroProgressToStorage(completedIds: string[], progressMap: Re
   }
 }
 
-// Types matching database schema
-export type Module = {
-  id: string
-  module_id: string
-  title: string
-  subtitle: string
-  description: string
-  icon: string
-  icon_type: 'emoji' | 'text'
-  order_no: number
-  is_locked: boolean
-  route: string
-}
-
-export type IntroLesson = {
-  id: string
-  module_id: string
-  lesson_id: string
-  title: string
-  subtitle: string
-  description: string
-  thumbnail_icon: string
-  order_no: number
-  estimated_time_minutes: number
-}
-
-export type ContentType = 
-  | 'title_slide'
-  | 'text'
-  | 'text_with_image'
-  | 'quote'
-  | 'timeline'
-  | 'comparison'
-  | 'key_points'
-  | 'interactive_map'
-  | 'video'
-  | 'summary'
-  | 'questionnaire'
-  | 'staircase_swar'
-  | 'mcq'
-
-export type IntroLessonContent = {
-  id: string
-  lesson_id: string
-  content_type: ContentType
-  title?: string
-  content?: string
-  image_url?: string
-  metadata?: any
-  order_no: number
-}
-
-export type ModuleProgress = {
-  id: string
-  user_id: string
-  module_id: string
-  lesson_id: string
-  status: 'not_started' | 'in_progress' | 'completed'
-  progress_percentage: number
-  completed_at?: string
-}
-
-export type IntroLessonAnswer = {
-  id: string
-  user_id?: string
-  guest_id?: string
-  lesson_id: string
-  content_id: string
-  answer: string
-  is_correct: boolean | null
-  attempt_number: number
-  answered_at: string
-}
-
-export type Letter = {
-  id: string
-  letter_name: string
-  brahmi_symbol: string
-  order_no: number
-  letter_type: 'vowel' | 'consonant'
-}
-
-export type LetterStep = {
-  id: string
-  letter_id: string
-  step_type: 'show' | 'sound' | 'explanation' | 'example' | 'practice' | 'complete'
-  content: string
-  order_no: number
-  language: string
-  letters: Letter
-}
-
-// Fetch all modules (language-independent structure)
-export async function getModules(language: string = 'hi'): Promise<Module[]> {
-  // Backend data will be provided by backend service
-  console.log('getModules: Waiting for backend implementation')
-  return []
-}
-
-// Fetch introduction lessons for a specific language
-export async function getIntroLessons(language: string = 'hi'): Promise<IntroLesson[]> {
-  // Return all intro lessons from hardcoded data
-  console.log('getIntroLessons: Returning hardcoded introduction lessons')
-  return introData.lessons
-}
-
-// Fetch lesson content for a specific language
-export async function getLessonContent(lessonId: string, language: string = 'hi'): Promise<IntroLessonContent[]> {
-  // Return content for this lesson from hardcoded data
-  console.log(`[getLessonContent] Returning hardcoded content: lessonId=${lessonId}, language=${language}`)
-  const lessonContent = introData.content.filter(c => c.lesson_id === lessonId) as IntroLessonContent[]
-  return lessonContent
-}
-
-// Get lesson info by lesson_id for a specific language
-export async function getLessonInfo(lessonId: string, language: string = 'hi'): Promise<IntroLesson | null> {
-  // Return lesson info from hardcoded data
-  console.log(`[getLessonInfo] Returning hardcoded lesson info: lessonId=${lessonId}, language=${language}`)
-  const lesson = introData.lessons.find(l => l.lesson_id === lessonId)
-  return lesson || null
-}
-
-// Save progress
+/**
+ * Update progress for a lesson
+ */
+/**
+ * Update progress for a lesson
+ */
 export async function saveProgress(
-  lessonId: string, 
-  status: 'in_progress' | 'completed',
-  progressPercentage: number,
-  identity?: Identity
-): Promise<boolean> {
-  // Handle guest progress
-  if (!identity || identity.type === 'guest') {
-    // Save to sessionStorage for quick access
+  lessonId: string,
+  status: 'not_started' | 'in_progress' | 'completed',
+  progress: number,
+  identity: Identity
+): Promise<void> {
+  if (identity.type === 'guest') {
     const { completedIds, progressMap } = getGuestIntroProgressFromStorage()
-    const newProgressMap = { ...progressMap, [lessonId]: progressPercentage }
-    
+    progressMap[lessonId] = progress
     if (status === 'completed' && !completedIds.includes(lessonId)) {
-      saveGuestIntroProgressToStorage([...completedIds, lessonId], newProgressMap)
-    } else {
-      saveGuestIntroProgressToStorage(completedIds, newProgressMap)
+      completedIds.push(lessonId)
     }
-    
-    // Backend will be implemented later
-    console.log('saveProgress: Progress saved locally, backend sync pending')
-    return true
+    saveGuestIntroProgressToStorage(completedIds, progressMap)
   }
-
-  // Handle authenticated user progress - backend implementation pending
-  console.log('saveProgress: User progress will be synced with backend when available')
-  return true
 }
-
-// Get user progress for intro module
-export async function getUserIntroProgress(userId: string): Promise<ModuleProgress[]> {
-  // Backend data will be provided by backend service
-  console.log('getUserIntroProgress: Waiting for backend implementation')
-  return []
-}
-
-// Get completed lesson IDs for current user or guest
-export async function getCompletedLessonIds(identity?: Identity): Promise<string[]> {
-  // Handle guest progress from local storage
-  if (!identity || identity.type === 'guest') {
-    // First try sessionStorage for quick access
-    const { completedIds } = getGuestIntroProgressFromStorage()
-    return completedIds
-  }
-
-  // Handle authenticated user - backend implementation pending
-  console.log('getCompletedLessonIds: User progress will be fetched from backend when available')
-  return []
-}
-
-// =====================================================
-// ANSWER TRACKING FUNCTIONS
-// =====================================================
 
 /**
- * Save a user's answer to a question (MCQ, questionnaire, etc.)
+ * Save answer for interactive content
  */
 export async function saveAnswer(
   lessonId: string,
   contentId: string,
   answer: string,
-  isCorrect: boolean | null,
+  isCorrect: boolean,
   identity: Identity
-): Promise<boolean> {
-  // Backend implementation pending
-  console.log(`saveAnswer: Answer saved locally. Backend sync pending: ${lessonId}, ${contentId}`)
-  return true
+): Promise<void> {
+  console.log(`[saveAnswer] Saving answer: lesson=${lessonId}, content=${contentId}, correct=${isCorrect}`)
+  // Guest progress logic for answers could be added here if needed
 }
 
 /**
- * Get user's answers for a specific lesson
+ * Get progress for all intro lessons
  */
-export async function getAnswersForLesson(
-  lessonId: string,
-  identity: Identity
-): Promise<IntroLessonAnswer[]> {
-  // Backend implementation pending
-  console.log(`getAnswersForLesson: Waiting for backend implementation for ${lessonId}`)
-  return []
+export async function getIntroProgress(identity: Identity): Promise<{ completedIds: string[], progressMap: Record<string, number> }> {
+  if (identity.type === 'guest') {
+    return getGuestIntroProgressFromStorage()
+  } else {
+    // Persistent user progress would go here
+    return { completedIds: [], progressMap: {} }
+  }
 }
 
 /**
- * Save guest progress to database
+ * Get only completed lesson IDs for intro
  */
-export async function saveGuestProgressToDB(
-  lessonId: string,
-  status: 'in_progress' | 'completed',
-  progressPercentage: number,
-  guestId: string
-): Promise<boolean> {
-  // Backend implementation pending
-  console.log(`saveGuestProgressToDB: Waiting for backend implementation for guest ${guestId}`)
-  return true
+export async function getCompletedLessonIds(identity: Identity): Promise<string[]> {
+  const { completedIds } = await getIntroProgress(identity)
+  return completedIds
 }
 
-// =====================================================
-// LETTER STEPS FUNCTIONS (FOR LESSONS WITH LANGUAGE SUPPORT)
-// =====================================================
+// Fetch introduction lessons for a specific language
+export async function getIntroLessons(language: string = 'hi'): Promise<IntroLesson[]> {
+  const data = getDataForLanguage(language)
+  console.log(`getIntroLessons: Returning ${language} introduction lessons`)
+  return data.introduction.lessons
+}
+
+// Fetch lesson content for a specific language
+export async function getLessonContent(lessonId: string, language: string = 'hi'): Promise<IntroLessonContent[]> {
+  const data = getDataForLanguage(language)
+  console.log(`[getLessonContent] Returning ${language} content: lessonId=${lessonId}`)
+  const lessonContent = data.introduction.content.filter((c: any) => c.lesson_id === lessonId) as IntroLessonContent[]
+  return lessonContent
+}
+
+// Get lesson info by lesson_id for a specific language
+export async function getLessonInfo(lessonId: string, language: string = 'hi'): Promise<IntroLesson | null> {
+  const data = getDataForLanguage(language)
+  console.log(`[getLessonInfo] Returning ${language} lesson info: lessonId=${lessonId}`)
+  const lesson = data.introduction.lessons.find((l: any) => l.lesson_id === lessonId)
+  return lesson || null
+}
 
 /**
  * Fetch letter steps for a specific letter and language.
- * Generates steps dynamically from swar.json (vowels) data.
  */
 export async function getLetterSteps(letterId: string, language: string = 'hi'): Promise<LetterStep[]> {
-  console.log(`[getLetterSteps] Generating steps from local data: letterId=${letterId}, language=${language}`)
+  console.log(`[getLetterSteps] Generating steps: letterId=${letterId}, language=${language}`)
+  const data = getDataForLanguage(language)
 
-  // --- Try swar (vowel) data first ---
+  // Helper to build a Letter object compatible with LessonPage
+  const buildLetter = (id: string, name: string, brahmi: string | null, order: number, type: 'vowel' | 'consonant') => ({
+    id,
+    letter_name: name,
+    brahmi_symbol: brahmi || '',
+    order_no: order || 0,
+    letter_type: type
+  })
+
+  // Try swar (vowel) data first
   try {
-    const swarData = (await import('@/backend/data/swar.json')).default
-    const vowels = swarData.vowels as Array<{
-      id: string
-      order: number
-      devanagari: string
-      brahmi: string
-      romanized: string
-      title_hindi: string
-      title_english: string
-      description_hindi: string
-      description_english: string
-      pronunciation: string
-      special_mark?: string
-    }>
-
-    const vowel = vowels.find((v) => v.id === letterId)
-
+    const swarData = data.swar
+    const vowel = swarData.vowels.find((v: any) => v.id === letterId || v.devanagari === letterId)
     if (vowel) {
-      const isHindi = language === 'hi'
-      const title = isHindi ? vowel.title_hindi : vowel.title_english
-      const description = isHindi ? vowel.description_hindi : vowel.description_english
-
-      const letterObj: Letter = {
-        id: vowel.id,
-        letter_name: vowel.devanagari,
-        brahmi_symbol: vowel.brahmi,
-        order_no: vowel.order,
-        letter_type: 'vowel',
-      }
-
-      const steps: LetterStep[] = [
+      const letters = buildLetter(vowel.id, vowel.devanagari || vowel.title_hindi || '', vowel.brahmi || '', vowel.order || 0, 'vowel')
+      const steps: any[] = [
         {
-          id: `${letterId}-step-show`,
-          letter_id: letterId,
+          id: `${letterId}-step-1`,
           step_type: 'show',
-          content: isHindi
-            ? `यह है "${vowel.devanagari}" (${title}) का ब्राह्मी लिपि में रूप।`
-            : `This is "${vowel.devanagari}" (${title}) in Brahmi script.`,
+          title: language === 'hi' ? 'पहचान' : 'Identification',
+          content: language === 'hi' ? `यह स्वर '${vowel.devanagari}' है।` : `This is the vowel '${vowel.devanagari}'.`,
           order_no: 1,
-          language,
-          letters: letterObj,
-        },
-        {
-          id: `${letterId}-step-sound`,
-          letter_id: letterId,
-          step_type: 'sound',
-          content: isHindi
-            ? `"${vowel.devanagari}" की ध्वनि: "${vowel.pronunciation}" — इसे "${vowel.romanized}" के रूप में रोमन में लिखा जाता है।`
-            : `Sound of "${vowel.devanagari}": "${vowel.pronunciation}" — romanized as "${vowel.romanized}".`,
-          order_no: 2,
-          language,
-          letters: letterObj,
-        },
-        {
-          id: `${letterId}-step-explanation`,
-          letter_id: letterId,
-          step_type: 'explanation',
-          content: description,
-          order_no: 3,
-          language,
-          letters: letterObj,
-        },
-        {
-          id: `${letterId}-step-complete`,
-          letter_id: letterId,
-          step_type: 'complete',
-          content: isHindi
-            ? `शाबाश! आपने "${vowel.devanagari}" (${title}) सीख लिया। अब अभ्यास करें।`
-            : `Well done! You've learned "${vowel.devanagari}" (${title}). Now let's practice!`,
-          order_no: 4,
-          language,
-          letters: letterObj,
-        },
+          letters
+        }
       ]
 
-      console.log(`[getLetterSteps] Generated ${steps.length} steps for vowel ${letterId}`)
-      return steps
+      // Add Pronunciation step
+      if (vowel.devanagari) {
+        steps.push({
+          id: `${letterId}-step-pronunciation`,
+          step_type: 'sound',
+          title: language === 'hi' ? 'उच्चारण' : 'Pronunciation',
+          content: language === 'hi' 
+            ? `इस स्वर का उच्चारण ‘${vowel.devanagari}’ होता है।` 
+            : `This vowel is pronounced as '${vowel.romanized || vowel.devanagari}'.`,
+          order_no: 2,
+          letters
+        })
+      }
+
+      // Add More Info step
+      const description = language === 'hi' ? (vowel.description_hindi || vowel.description_english) : (vowel.description_english || vowel.description_hindi);
+      if (description) {
+        steps.push({
+          id: `${letterId}-step-description`,
+          step_type: 'explanation',
+          title: language === 'hi' ? 'विवरण' : 'More Info',
+          content: description,
+          order_no: 3,
+          letters
+        })
+      }
+
+      // Add Example step (try to find matching matra)
+      const matraData = data.matras
+      const matra = (matraData.matras || []).find((m: any) => m.vowelDevanagari === vowel.devanagari)
+      if (matra && matra.example_combination) {
+        steps.push({
+          id: `${letterId}-step-example`,
+          step_type: 'example',
+          title: language === 'hi' ? 'उदाहरण' : 'Example',
+          content: language === 'hi' ? `मात्रा के साथ: ${matra.example_combination}` : `With matra: ${matra.example_combination}`,
+          order_no: 4,
+          letters
+        })
+      }
+
+      return steps as unknown as LetterStep[]
     }
-  } catch (err) {
-    console.error('[getLetterSteps] Error reading swar data:', err)
+  } catch (e) {
+    console.error('Error reading swar data in getLetterSteps', e)
   }
 
-  console.warn(`[getLetterSteps] No data found for letterId=${letterId}`)
+  // Try vyanjan (consonant) data next
+  try {
+    const vyanjanData = data.vyanjan
+    const consonant = vyanjanData.consonants.find((c: any) => c.id === letterId || c.devanagari === letterId)
+    if (consonant) {
+      const letters = buildLetter(consonant.id, consonant.devanagari || '', consonant.brahmi || '', consonant.order || 0, 'consonant')
+      const steps: any[] = [
+        {
+          id: `${letterId}-step-1`,
+          step_type: 'show',
+          title: language === 'hi' ? 'पहचान' : 'Identification',
+          content: language === 'hi' ? `यह व्यंजन '${consonant.devanagari}' है।` : `This is the consonant '${consonant.devanagari}'.`,
+          order_no: 1,
+          letters
+        }
+      ]
+
+      // Add Pronunciation step
+      if (consonant.devanagari) {
+        steps.push({
+          id: `${letterId}-step-pronunciation`,
+          step_type: 'sound',
+          title: language === 'hi' ? 'उच्चारण' : 'Pronunciation',
+          content: language === 'hi' 
+            ? `इस व्यंजन का उच्चारण ‘${consonant.devanagari}’ होता है।` 
+            : `This consonant is pronounced as '${consonant.romanized || consonant.devanagari}'.`,
+          order_no: 2,
+          letters
+        })
+      }
+
+      // Add Category step
+      const category = language === 'hi' ? (consonant.categoryHindi || consonant.categoryEnglish) : (consonant.categoryEnglish || consonant.categoryHindi);
+      if (category) {
+        steps.push({
+          id: `${letterId}-step-category`,
+          step_type: 'explanation',
+          title: language === 'hi' ? 'वर्ग' : 'Category',
+          content: language === 'hi' ? `यह '${category}' वर्ग का व्यंजन है।` : `This consonant belongs to the '${category}' category.`,
+          order_no: 3,
+          letters
+        })
+      }
+
+      // Add More Info step
+      const note = language === 'hi' ? (consonant.pronunciationNote || consonant.pronunciationNoteEnglish) : (consonant.pronunciationNoteEnglish || consonant.pronunciationNote);
+      if (note) {
+        steps.push({
+          id: `${letterId}-step-description`,
+          step_type: 'explanation',
+          title: language === 'hi' ? 'विवरण' : 'More Info',
+          content: note,
+          order_no: 4,
+          letters
+        })
+      }
+
+      // Add Example step
+      if (consonant.exampleWords && consonant.exampleWords.length > 0) {
+        const examples = consonant.exampleWords.map((ex: any) => `${ex.devanagari} (${ex.romanized})`).join(', ')
+        steps.push({
+          id: `${letterId}-step-example`,
+          step_type: 'example',
+          title: language === 'hi' ? 'उदाहरण' : 'Examples',
+          content: language === 'hi' ? `उदाहरण शब्द: ${examples}` : `Example words: ${examples}`,
+          order_no: 5,
+          letters
+        })
+      }
+
+      return steps as unknown as LetterStep[]
+    }
+  } catch (e) {
+    console.error('Error reading vyanjan data in getLetterSteps', e)
+  }
+
+  // Try matras data (example / fallback)
+  try {
+    const matraData = data.matras
+    const matra = (matraData.matras || []).find((m: any) => m.id === letterId || m.matraId === letterId)
+    if (matra) {
+      const letters = buildLetter(matra.id || letterId, matra.vowelDevanagari || matra.matraName || '', matra.matraSign || matra.exampleBrahmi || '', matra.order || 0, 'vowel')
+      const steps: any[] = [
+        {
+          id: `${letterId}-step-1`,
+          step_type: 'show',
+          title: language === 'hi' ? 'पहचान' : 'Identification',
+          content: language === 'hi' ? `यह मात्रा '${matra.vowelDevanagari || matra.matraName}' है।` : `This is the matra '${matra.vowelDevanagari || matra.matraName}'.`,
+          order_no: 1,
+          letters
+        }
+      ]
+
+      // Add More Info step
+      const description = language === 'hi' ? (matra.description || matra.descriptionEnglish) : (matra.descriptionEnglish || matra.description);
+      if (description) {
+        steps.push({
+          id: `${letterId}-step-2`,
+          step_type: 'explanation',
+          title: language === 'hi' ? 'विवरण' : 'More Info',
+          content: description,
+          order_no: 2,
+          letters
+        })
+      }
+
+      // Add Example step
+      if (matra.example_combination) {
+        steps.push({
+          id: `${letterId}-step-3`,
+          step_type: 'example',
+          title: language === 'hi' ? 'उदाहरण' : 'Example',
+          content: language === 'hi' ? `संयोजन: ${matra.example_combination}` : `Combination: ${matra.example_combination}`,
+          order_no: 3,
+          letters
+        })
+      }
+
+      return steps as unknown as LetterStep[]
+    }
+  } catch (e) {
+    console.error('Error reading matra data in getLetterSteps', e)
+  }
+
+  // If nothing found, return empty
+  console.warn(`[getLetterSteps] No letter found for id=${letterId}`)
   return []
+}
+
+/**
+ * Fetch quiz questions for a specific letter and language.
+ */
+export async function getLetterQuiz(letterId: string, language: string = 'hi'): Promise<any[]> {
+  console.log(`[getLetterQuiz] Fetching quiz: letterId=${letterId}, language=${language}`)
+  const data = getDataForLanguage(language)
+  const quizQuestions: any[] = []
+
+  // 1. Try Swar Quizzes
+  if (data.swar) {
+    const swar = data.swar
+    
+    // Quiz 1: Devanagari to Brahmi
+    const q1 = (swar.quiz1_devanagari_to_brahmi || []).filter((q: any) => q.correct_vowel_id === letterId)
+    q1.forEach((q: any) => {
+      quizQuestions.push({
+        id: q.id,
+        letter_id: letterId,
+        question: language === 'hi' ? q.title_hindi : q.title_english,
+        order_no: q.order,
+        options: [
+          { id: `${q.id}-opt-correct`, question_id: q.id, option_text: q.correct_answer, is_correct: true, order_no: 1 },
+          ...q.wrong_options.map((w: any, idx: number) => ({
+            id: `${q.id}-opt-wrong-${idx}`,
+            question_id: q.id,
+            option_text: w.brahmi,
+            is_correct: false,
+            order_no: idx + 2
+          }))
+        ].sort(() => Math.random() - 0.5)
+      })
+    })
+
+    // Quiz 2: Brahmi to Devanagari
+    const q2 = (swar.quiz2_brahmi_to_devanagari || []).filter((q: any) => q.correct_vowel_id === letterId)
+    q2.forEach((q: any) => {
+      quizQuestions.push({
+        id: q.id,
+        letter_id: letterId,
+        question: language === 'hi' ? q.title_hindi : q.title_english,
+        order_no: q.order,
+        options: [
+          { id: `${q.id}-opt-correct`, question_id: q.id, option_text: q.correct_answer, is_correct: true, order_no: 1 },
+          ...q.wrong_options.map((w: any, idx: number) => ({
+            id: `${q.id}-opt-wrong-${idx}`,
+            question_id: q.id,
+            option_text: w.devanagari,
+            is_correct: false,
+            order_no: idx + 2
+          }))
+        ].sort(() => Math.random() - 0.5)
+      })
+    })
+
+    // True/False questions
+    const tf = (swar.true_false_questions || []).filter((q: any) => q.vowel_id === letterId)
+    tf.forEach((q: any) => {
+      quizQuestions.push({
+        id: q.id,
+        letter_id: letterId,
+        question: language === 'hi' ? q.question_hindi : q.question_english,
+        order_no: q.order,
+        options: [
+          { id: `${q.id}-opt-true`, question_id: q.id, option_text: language === 'hi' ? 'सत्य (True)' : 'True', is_correct: q.correct_answer === true, order_no: 1 },
+          { id: `${q.id}-opt-false`, question_id: q.id, option_text: language === 'hi' ? 'असत्य (False)' : 'False', is_correct: q.correct_answer === false, order_no: 2 }
+        ]
+      })
+    })
+  }
+
+  // 2. Try Vyanjan Quizzes (Auto-generated matching)
+  if (data.vyanjan) {
+    const vyanjan = data.vyanjan
+    const consonant = (vyanjan.consonants || []).find((c: any) => c.id === letterId)
+    if (consonant) {
+      // Add a Devanagari to Brahmi matching question
+      quizQuestions.push({
+        id: `quiz-vyanjan-${letterId}-1`,
+        letter_id: letterId,
+        question: language === 'hi' ? `देवनागरी '${consonant.devanagari}' के लिए सही ब्राह्मी अक्षर चुनें:` : `Choose the correct Brahmi for Devanagari '${consonant.devanagari}':`,
+        order_no: 1,
+        options: [
+          { id: `opt-v1-correct`, question_id: `quiz-vyanjan-${letterId}-1`, option_text: consonant.brahmi, is_correct: true, order_no: 1 },
+          // Pick 3 random wrong options from other consonants
+          ...vyanjan.consonants
+            .filter((c: any) => c.id !== letterId)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3)
+            .map((w: any, idx: number) => ({
+              id: `opt-v1-wrong-${idx}`,
+              question_id: `quiz-vyanjan-${letterId}-1`,
+              option_text: w.brahmi,
+              is_correct: false,
+              order_no: idx + 2
+            }))
+        ].sort(() => Math.random() - 0.5)
+      })
+
+      // Add a Brahmi to Devanagari matching question
+      quizQuestions.push({
+        id: `quiz-vyanjan-${letterId}-2`,
+        letter_id: letterId,
+        question: language === 'hi' ? `ब्राह्मी '${consonant.brahmi}' के लिए सही देवनागरी अक्षर चुनें:` : `Choose the correct Devanagari for Brahmi '${consonant.brahmi}':`,
+        order_no: 2,
+        options: [
+          { id: `opt-v2-correct`, question_id: `quiz-vyanjan-${letterId}-2`, option_text: consonant.devanagari, is_correct: true, order_no: 1 },
+          // Pick 3 random wrong options from other consonants
+          ...vyanjan.consonants
+            .filter((c: any) => c.id !== letterId)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3)
+            .map((w: any, idx: number) => ({
+              id: `opt-v2-wrong-${idx}`,
+              question_id: `quiz-vyanjan-${letterId}-2`,
+              option_text: w.devanagari,
+              is_correct: false,
+              order_no: idx + 2
+            }))
+        ].sort(() => Math.random() - 0.5)
+      })
+    }
+  }
+
+  return quizQuestions
 }

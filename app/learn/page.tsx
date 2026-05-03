@@ -11,6 +11,7 @@ import { updateLoginStreak, type StreakData } from '@/lib/streak'
 import StreakDisplay from '@/components/StreakDisplay'
 import StreakCelebration from '@/components/StreakCelebration'
 import { AnimatedBirds } from '@/components/animations/AnimatedBird'
+import { useLanguage } from '@/lib/LanguageContext'
 
 // --- Layout Constants ---
 const VERTICAL_GAP = 220     // Reduced for mobile density
@@ -55,6 +56,7 @@ function generateSVGPath(count: number): string {
 
 export default function LearnPage() {
     const router = useRouter()
+    const { language, t } = useLanguage()
     const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
     const [streakData, setStreakData] = useState<StreakData | null>(null)
     const [showCelebration, setShowCelebration] = useState(false)
@@ -106,8 +108,8 @@ export default function LearnPage() {
                     ← <span className="hidden sm:inline">Home</span>
                 </button>
                 
-                <div className="text-[#E69A47]/70 font-bold tracking-[0.2em] text-[10px] mb-1 uppercase">Ancient Echoes</div>
-                <h1 className="text-2xl md:text-3xl font-serif text-[#F5F1E8] font-bold tracking-wide">Course Overview</h1>
+                <div className="text-[#E69A47]/70 font-bold tracking-[0.2em] text-[10px] mb-1 uppercase">{t('hero.tag')}</div>
+                <h1 className="text-2xl md:text-3xl font-serif text-[#F5F1E8] font-bold tracking-wide">{t('courses.title')}</h1>
             </div>
 
             {/* 3. Main Journey Container */}
@@ -216,10 +218,10 @@ export default function LearnPage() {
                                     {/* Hover Tooltip */}
                                     <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
                                         <h3 className="text-[#E6D8B8]/50 font-bold text-lg md:text-xl leading-tight font-serif">
-                                            {module.title}
+                                            {t(`courses.${module.id.split('-')[1]}.title`)}
                                         </h3>
                                         <p className="text-[#E6D8B8]/30 text-[10px] uppercase tracking-[0.15em] mt-1 md:mt-2 font-bold">
-                                            {module.subtitle}
+                                            {t(`courses.${module.id.split('-')[1]}.subtitle`)}
                                         </p>
                                         {/* Development in Progress message on hover */}
                                         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 mt-2 bg-[#2a2420] text-[#E69A47] text-xs py-1.5 px-3 rounded-lg border border-[#E69A47]/30">
@@ -259,10 +261,10 @@ export default function LearnPage() {
                                     {/* Text Label (Below) - Z-30 */}
                                     <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
                                         <h3 className="text-[#D4AF37] font-bold text-lg md:text-xl leading-tight group-hover:text-[#E69A47] transition-colors font-serif">
-                                            {module.title}
+                                            {t(`courses.${module.id.split('-')[1]}.title`)}
                                         </h3>
                                         <p className="text-[#E6D8B8] text-[10px] uppercase tracking-[0.15em] mt-1 md:mt-2 font-bold opacity-80 group-hover:opacity-100 transition-opacity">
-                                            {module.subtitle}
+                                            {t(`courses.${module.id.split('-')[1]}.subtitle`)}
                                         </p>
                                     </div>
                                 </Link>

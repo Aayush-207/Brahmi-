@@ -23,7 +23,8 @@
           "romanized": "kaksha",
           "english": "कक्षा"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-002",
@@ -48,7 +49,8 @@
           "romanized": "khel",
           "english": "खेल"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-003",
@@ -73,7 +75,8 @@
           "romanized": "gaman",
           "english": "गमन"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-004",
@@ -98,7 +101,8 @@
           "romanized": "ghadi",
           "english": "घड़ी"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-005",
@@ -112,7 +116,8 @@
       "unicode_codepoint": "U+11017",
       "romanized": "nga",
       "pronunciationNote": "अनुनासिक ध्वनि, स्वतंत्र रूप से कम प्रयुक्त",
-      "exampleWords": []
+      "exampleWords": [],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-006",
@@ -137,7 +142,8 @@
           "romanized": "chalna",
           "english": "चलना"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-007",
@@ -162,7 +168,8 @@
           "romanized": "chhota",
           "english": "छोटा"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-008",
@@ -187,7 +194,8 @@
           "romanized": "jag",
           "english": "जग"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-009",
@@ -212,7 +220,8 @@
           "romanized": "jhoola",
           "english": "झूला"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-010",
@@ -226,7 +235,8 @@
       "unicode_codepoint": "U+1101C",
       "romanized": "nya",
       "pronunciationNote": "अनुनासिक ध्वनि, स्वतंत्र रूप से कम प्रयुक्त",
-      "exampleWords": []
+      "exampleWords": [],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-011",
@@ -251,7 +261,8 @@
           "romanized": "tamatar",
           "english": "टमाटर"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-012",
@@ -276,7 +287,8 @@
           "romanized": "thag",
           "english": "ठग"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-013",
@@ -301,7 +313,8 @@
           "romanized": "damroo",
           "english": "डमरू/ढोल"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-014",
@@ -326,7 +339,8 @@
           "romanized": "dhakkan",
           "english": "ढक्कन"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-015",
@@ -340,7 +354,8 @@
       "unicode_codepoint": "U+11021",
       "romanized": "na",
       "pronunciationNote": "मूर्धन्य 'ण' ध्वनि, स्वतंत्र रूप से कम प्रयुक्त",
-      "exampleWords": []
+      "exampleWords": [],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-016",
@@ -365,7 +380,8 @@
           "romanized": "taran",
           "english": "तरण"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-017",
@@ -390,7 +406,8 @@
           "romanized": "thali",
           "english": "थाली"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-018",
@@ -415,7 +432,8 @@
           "romanized": "daan",
           "english": "दान"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-019",
@@ -440,7 +458,8 @@
           "romanized": "dharti",
           "english": "धरती"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-020",
@@ -465,7 +484,8 @@
           "romanized": "naam",
           "english": "नाम"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-021",
@@ -490,7 +510,8 @@
           "romanized": "paani",
           "english": "जल"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-022",
@@ -515,7 +536,8 @@
           "romanized": "phool",
           "english": "फूल"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-023",
@@ -540,7 +562,8 @@
           "romanized": "baadal",
           "english": "बादल"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-024",
@@ -565,7 +588,8 @@
           "romanized": "bhasha",
           "english": "भाषा"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-025",
@@ -590,7 +614,8 @@
           "romanized": "maata",
           "english": "माता"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-026",
@@ -615,7 +640,8 @@
           "romanized": "yatra",
           "english": "यात्रा"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-027",
@@ -640,7 +666,8 @@
           "romanized": "raaj",
           "english": "राज"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-028",
@@ -665,7 +692,8 @@
           "romanized": "lahar",
           "english": "लहर"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-029",
@@ -690,7 +718,8 @@
           "romanized": "vayu",
           "english": "वायु"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-030",
@@ -715,7 +744,8 @@
           "romanized": "shabd",
           "english": "शब्द"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-031",
@@ -735,7 +765,8 @@
           "romanized": "shat",
           "english": "छह"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-032",
@@ -760,7 +791,8 @@
           "romanized": "saral",
           "english": "सरल"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     },
     {
       "id": "vyanjan-033",
@@ -785,7 +817,8 @@
           "romanized": "hari",
           "english": "भगवान"
         }
-      ]
+      ],
+      "pronunciationNoteEnglish": ""
     }
   ],
   "categories": {

@@ -14,7 +14,9 @@
       "title_english": "A",
       "description_hindi": "पहला स्वर - सबसे बुनियादी ध्वनि",
       "description_english": "First vowel - the most basic sound",
-      "pronunciation": "uh"
+      "pronunciation": "uh",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-002",
@@ -30,7 +32,9 @@
       "title_english": "AA",
       "description_hindi": "लंबा 'अ' ध्वनि",
       "description_english": "Extended 'a' sound",
-      "pronunciation": "aah"
+      "pronunciation": "aah",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-003",
@@ -46,7 +50,9 @@
       "title_english": "I",
       "description_hindi": "'इ' की ध्वनि - छोटा रूप",
       "description_english": "Short 'i' sound",
-      "pronunciation": "ih"
+      "pronunciation": "ih",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-004",
@@ -62,7 +68,9 @@
       "title_english": "II",
       "description_hindi": "लंबा 'इ' ध्वनि",
       "description_english": "Extended 'i' sound",
-      "pronunciation": "ee"
+      "pronunciation": "ee",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-005",
@@ -78,7 +86,9 @@
       "title_english": "U",
       "description_hindi": "'उ' की ध्वनि - छोटा रूप",
       "description_english": "Short 'u' sound",
-      "pronunciation": "uh"
+      "pronunciation": "uh",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-006",
@@ -94,7 +104,9 @@
       "title_english": "UU",
       "description_hindi": "लंबा 'उ' ध्वनि",
       "description_english": "Extended 'u' sound",
-      "pronunciation": "oo"
+      "pronunciation": "oo",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-007",
@@ -110,7 +122,9 @@
       "title_english": "E",
       "description_hindi": "'ए' की ध्वनि",
       "description_english": "'E' sound",
-      "pronunciation": "eh"
+      "pronunciation": "eh",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-008",
@@ -126,7 +140,9 @@
       "title_english": "AI",
       "description_hindi": "'ऐ' की ध्वनि",
       "description_english": "'AI' sound",
-      "pronunciation": "eye"
+      "pronunciation": "eye",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-009",
@@ -142,7 +158,9 @@
       "title_english": "O",
       "description_hindi": "'ओ' की ध्वनि",
       "description_english": "'O' sound",
-      "pronunciation": "oh"
+      "pronunciation": "oh",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-010",
@@ -158,7 +176,9 @@
       "title_english": "AU",
       "description_hindi": "'औ' की ध्वनि",
       "description_english": "'AU' sound",
-      "pronunciation": "ow"
+      "pronunciation": "ow",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-011",
@@ -175,7 +195,9 @@
       "description_hindi": "अनुस्वार - नाक से आने वाली ध्वनि",
       "description_english": "Anusvara - nasal sound",
       "pronunciation": "um",
-      "special_mark": "anusvara"
+      "special_mark": "anusvara",
+      "englishName": "",
+      "matra_position_label": ""
     },
     {
       "id": "swar-012",
@@ -192,7 +214,9 @@
       "description_hindi": "विसर्ग - हल्की हवा की ध्वनि",
       "description_english": "Visarga - aspirate sound",
       "pronunciation": "uh-huh",
-      "special_mark": "visarga"
+      "special_mark": "visarga",
+      "englishName": "",
+      "matra_position_label": ""
     }
   ],
   "quiz1_devanagari_to_brahmi": [
@@ -1128,7 +1152,9 @@
       "trigger": "completed_quiz1",
       "icon": "🎯",
       "color": "#D4AF37",
-      "unlock_condition": "Complete Quiz 1 (Devanagari to Brahmi)"
+      "unlock_condition": "Complete Quiz 1 (Devanagari to Brahmi)",
+      "title_english": "",
+      "description_english": ""
     },
     {
       "id": "reward-002",
@@ -1140,7 +1166,9 @@
       "trigger": "completed_quiz2",
       "icon": "🔤",
       "color": "#D4AF37",
-      "unlock_condition": "Complete Quiz 2 (Brahmi to Devanagari)"
+      "unlock_condition": "Complete Quiz 2 (Brahmi to Devanagari)",
+      "title_english": "",
+      "description_english": ""
     },
     {
       "id": "reward-003",
@@ -1152,7 +1180,9 @@
       "trigger": "completed_tracing",
       "icon": "✏️",
       "color": "#D4AF37",
-      "unlock_condition": "Complete all tracing exercises"
+      "unlock_condition": "Complete all tracing exercises",
+      "title_english": "",
+      "description_english": ""
     },
     {
       "id": "reward-004",
@@ -1164,7 +1194,9 @@
       "trigger": "completed_true_false",
       "icon": "🏆",
       "color": "#D4AF37",
-      "unlock_condition": "Complete all true/false questions"
+      "unlock_condition": "Complete all true/false questions",
+      "title_english": "",
+      "description_english": ""
     },
     {
       "id": "reward-005",
@@ -1178,7 +1210,9 @@
       "color": "#FFD700",
       "unlock_condition": "Advance to Vyanjan module (recommended path)",
       "bonus": true,
-      "xp_reward": 100
+      "xp_reward": 100,
+      "title_english": "",
+      "description_english": ""
     }
   ]
 }

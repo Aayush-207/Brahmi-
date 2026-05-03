@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { markLessonComplete } from '@/lib/progress'
 import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useLanguage } from '@/lib/LanguageContext'
-import { getLetterSteps } from '@/lib/introModule'
+import { getLetterSteps, getLetterQuiz } from '@/lib/introModule'
 import LessonQuiz, { McqQuestion, McqOption } from '@/components/lesson/LessonQuiz'
 import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
@@ -43,6 +43,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
     const [isLoaded, setIsLoaded] = useState(false)
     const router = useRouter()
+    const searchParams = useSearchParams()
     const { language } = useLanguage()
     const [steps, setSteps] = useState<LetterStep[]>([])
 
@@ -133,11 +134,20 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                 setLetterType(firstStep.letters.letter_type || 'vowel')
             }
 
-            // 2. Quiz questions will be provided by backend
-            console.log('Quiz data: Waiting for backend implementation')
-            setQuizQuestions([])
+            // 2. Fetch Quiz Questions support
+            console.log(`[LessonPage] Fetching quiz for letterId=${letterId}, language=${language}`)
+            const quizData = await getLetterQuiz(letterId as string, language)
+            setQuizQuestions(quizData)
 
             setLoading(false)
+
+            // Handle initial mode from search params
+            const mode = searchParams.get('mode')
+            if (mode === 'trace') {
+                setTraceMode(true)
+            } else if (mode === 'quiz') {
+                setQuizMode(true)
+            }
         }
 
         fetchLessonData()
@@ -177,46 +187,48 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
     // Handle lesson/quiz/trace completion flow
     const handleFlowComplete = async () => {
-        // FLOW: Lesson Steps -> Quiz (if available) -> Trace -> Complete
+        // FLOW: Lesson Steps -> Trace -> Quiz (if available) -> Complete
 
-        // 1. If currently in Quiz mode, finish Quiz and go to Trace
-        if (quizMode) {
-            setQuizMode(false)
+        // 1. If currently in Lesson mode, go to Trace
+        if (!quizMode && !traceMode) {
             setTraceMode(true)
             return
         }
 
-        // 2. If currently in Trace mode, finish everything
+        // 2. If currently in Trace mode, go to Quiz (if exists) or Complete
         if (traceMode) {
-            console.log('Completing lesson...', { identity, letterId })
-            if (!isLoaded) return
-
-            if (letterId) {
-                try {
-                    // Mark current lesson as complete
-                    await markLessonComplete(identity, letterId)
-
-                    // Return to journey page - animation will play there
-                    router.push(getReturnRoute(letterId))
-                } catch (err) {
-                    console.error('Error saving progress:', err)
-                    // Don't block user on error, just return to journey
-                    router.push(getReturnRoute(letterId))
-                }
+            setTraceMode(false)
+            if (quizQuestions.length > 0) {
+                setQuizMode(true)
+            } else {
+                await finishLesson()
             }
             return
         }
 
-        // 3. If currently in Lesson mode (default implied by !quizMode && !traceMode)
-
-        // a. If quiz exists, go to Quiz
-        if (quizQuestions.length > 0) {
-            setQuizMode(true)
-            return
+        // 3. If currently in Quiz mode, finish everything
+        if (quizMode) {
+            await finishLesson()
         }
+    }
 
-        // b. If no quiz, go straight to Trace
-        setTraceMode(true)
+    const finishLesson = async () => {
+        console.log('Completing lesson...', { identity, letterId })
+        if (!isLoaded) return
+
+        if (letterId) {
+            try {
+                // Mark current lesson as complete
+                await markLessonComplete(identity, letterId)
+
+                // Return to journey page - animation will play there
+                router.push(getReturnRoute(letterId))
+            } catch (err) {
+                console.error('Error saving progress:', err)
+                // Don't block user on error, just return to journey
+                router.push(getReturnRoute(letterId))
+            }
+        }
     }
 
     // Pronounce text using Web Speech API
@@ -401,7 +413,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                             onClick={handleFlowComplete}
                             className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
                         >
-                            <span>Continue to Trace</span>
+                            <span>{language === 'hi' ? 'लिखने का अभ्यास करें' : 'Continue to Trace'}</span>
                             <span className="text-lg">→</span>
                         </button>
                     </div>
@@ -471,16 +483,16 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
         switch (stepType) {
             case 'show':
                 return (
-                    <div className="bg-[#2C2C2C] rounded-3xl p-6 md:p-20 shadow-2xl border border-[#3A3A3A] flex flex-col items-center gap-6 md:gap-10 transition-all duration-300 text-white max-w-full" style={commonStyle}>
+                    <div className="bg-[#2C2C2C] rounded-3xl p-6 sm:p-10 md:p-16 lg:p-20 shadow-2xl border border-[#3A3A3A] flex flex-col items-center gap-4 md:gap-8 transition-all duration-300 text-white w-full max-w-xl" style={commonStyle}>
                         <JainBabaCharacter 
                             message={content || `${letter.letter_name}`}
                             variant={getGurujiVariant()}
                             position="center"
                         />
-                        <div className="text-6xl sm:text-8xl md:text-9xl font-bold bg-gradient-to-br from-[#D4AF37] to-[#F2D06B] bg-clip-text text-transparent">
+                        <div className="text-7xl sm:text-8xl md:text-9xl font-bold bg-gradient-to-br from-[#D4AF37] to-[#F2D06B] bg-clip-text text-transparent py-2">
                             {brahmiSymbol}
                         </div>
-                        <div className="text-base md:text-2xl text-gray-400 tracking-wider">
+                        <div className="text-lg md:text-2xl text-gray-400 font-medium tracking-widest uppercase">
                             {letter.letter_name}
                         </div>
                     </div>
@@ -488,22 +500,22 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
             case 'sound':
                 return (
-                    <div className="bg-[#2C2C2C] rounded-3xl p-6 md:p-16 shadow-2xl border border-[#3A3A3A] flex flex-col items-center gap-6 md:gap-10 transition-all duration-300 text-white w-full max-w-2xl" style={commonStyle}>
+                    <div className="bg-[#2C2C2C] rounded-3xl p-6 sm:p-10 md:p-16 shadow-2xl border border-[#3A3A3A] flex flex-col items-center gap-6 md:gap-8 transition-all duration-300 text-white w-full max-w-2xl" style={commonStyle}>
                         <JainBabaCharacter 
                             message={content}
                             variant={getGurujiVariant()}
                         />
-                        <div className="text-5xl sm:text-7xl md:text-8xl font-bold bg-gradient-to-br from-[#E27D60] to-[#FF9E80] bg-clip-text text-transparent">
+                        <div className="text-6xl sm:text-7xl md:text-8xl font-bold bg-gradient-to-br from-[#E27D60] to-[#FF9E80] bg-clip-text text-transparent py-1">
                             {brahmiSymbol}
                         </div>
-                        <div className="flex items-center gap-4 bg-[#1C1C1C] p-4 rounded-xl border border-[#3A3A3A] w-full">
+                        <div className="flex items-center gap-4 bg-[#1C1C1C]/50 backdrop-blur-sm p-4 rounded-2xl border border-[#3A3A3A] w-full">
                             <button
                                 onClick={() => onPronounce(content)}
-                                className="w-12 h-12 rounded-full bg-[#D4AF37] text-black flex items-center justify-center text-xl hover:scale-110 transition-transform flex-shrink-0"
+                                className="w-14 h-14 rounded-full bg-[#D4AF37] text-black flex items-center justify-center text-2xl hover:scale-110 active:scale-95 transition-all flex-shrink-0 shadow-lg shadow-[#D4AF37]/20"
                             >
                                 {isSpeaking ? '🔊' : '🔉'}
                             </button>
-                            <span className="text-sm sm:text-lg md:text-xl text-white break-words">{content}</span>
+                            <span className="text-base sm:text-lg md:text-xl text-white/90 font-medium break-words">{content}</span>
                         </div>
                     </div>
                 )
@@ -514,23 +526,23 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
             case 'complete':
             default:
                 return (
-                    <div className="bg-[#2C2C2C] rounded-3xl p-6 md:p-16 shadow-2xl border border-[#3A3A3A] flex flex-col items-center gap-6 md:gap-10 transition-all duration-300 text-white w-full max-w-3xl" style={commonStyle}>
+                    <div className="bg-[#2C2C2C] rounded-3xl p-6 sm:p-10 md:p-16 shadow-2xl border border-[#3A3A3A] flex flex-col items-center gap-4 md:gap-6 transition-all duration-300 text-white w-full max-w-3xl" style={commonStyle}>
                         <JainBabaCharacter 
                             message={content}
                             variant={getGurujiVariant()}
                         />
                         <div 
-                            className="text-4xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-br bg-clip-text text-transparent" 
+                            className="text-5xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-br bg-clip-text text-transparent py-1" 
                             style={{
                                 backgroundImage: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`
                             }}
                         >
                             {brahmiSymbol}
                         </div>
-                        <div className="text-2xl md:text-3xl text-gray-400 tracking-wider font-bold -mt-2 mb-2">
+                        <div className="text-xl md:text-2xl text-gray-400 font-bold tracking-widest uppercase -mt-2">
                             {letter.letter_name}
                         </div>
-                        <div className="text-base sm:text-lg md:text-xl text-[#E6D8B8]/90 text-center leading-relaxed max-w-2xl px-4">
+                        <div className="text-base sm:text-lg md:text-xl text-[#E6D8B8]/90 text-center font-medium leading-relaxed max-w-2xl px-4 mt-2">
                             {content}
                         </div>
                     </div>
@@ -625,8 +637,8 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                         onClick={isLastStep ? handleFlowComplete : handleNext}
                         className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
                     >
-                        <span>{isLastStep ? (quizQuestions.length > 0 ? 'Quiz' : 'Trace') : 'Next'}</span>
-                        <span className="text-lg">{isLastStep ? '→' : '→'}</span>
+                        <span>{isLastStep ? (quizQuestions.length > 0 ? (language === 'hi' ? 'क्विज़' : 'Quiz') : (language === 'hi' ? 'लिखें' : 'Trace')) : (language === 'hi' ? 'अगला' : 'Next')}</span>
+                        <span className="text-lg">→</span>
                     </button>
                 </div>
             </div>

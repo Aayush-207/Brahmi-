@@ -1,5 +1,5 @@
 import { Identity } from './guestIdentity'
-import vyanjanData from '@/backend/data/vyanjan.json'
+import { getDataForLanguage } from '@/backend/data/index'
 
 const GUEST_VYANJAN_PROGRESS_KEY = 'brahmi_guest_vyanjan_progress'
 
@@ -7,67 +7,6 @@ type GuestVyanjanProgress = {
   completedIds: string[]
   progressMap: Record<string, number>
   lastUpdated: string
-}
-
-/**
- * Get guest vyanjan progress from sessionStorage
- */
-function getGuestVyanjanProgressFromStorage(): { completedIds: string[], progressMap: Record<string, number> } {
-  if (typeof window === 'undefined') {
-    return { completedIds: [], progressMap: {} }
-  }
-  try {
-    const stored = sessionStorage.getItem(GUEST_VYANJAN_PROGRESS_KEY)
-    if (!stored) {
-      return { completedIds: [], progressMap: {} }
-    }
-    const progress: GuestVyanjanProgress = JSON.parse(stored)
-    return {
-      completedIds: progress.completedIds || [],
-      progressMap: progress.progressMap || {}
-    }
-  } catch (error) {
-    console.error('Error reading guest vyanjan progress:', error)
-    return { completedIds: [], progressMap: {} }
-  }
-}
-
-/**
- * Save guest vyanjan progress to sessionStorage
- */
-function saveGuestVyanjanProgressToStorage(completedIds: string[], progressMap: Record<string, number>): void {
-  if (typeof window === 'undefined') return
-  try {
-    const progress: GuestVyanjanProgress = {
-      completedIds,
-      progressMap,
-      lastUpdated: new Date().toISOString()
-    }
-    sessionStorage.setItem(GUEST_VYANJAN_PROGRESS_KEY, JSON.stringify(progress))
-  } catch (error) {
-    console.error('Error saving guest vyanjan progress:', error)
-  }
-}
-
-// Types matching database schema
-
-export type Consonant = {
-  id: string
-  order: number
-  category: 'kanthya' | 'talavya' | 'murdhanya' | 'dantya' | 'osthya' | 'antahstha' | 'ushma'
-  categoryHindi: string
-  categoryEnglish: string
-  categoryDescription: string
-  devanagari: string
-  brahmi: string
-  unicode_codepoint: string
-  romanized: string
-  pronunciationNote: string
-  exampleWords: Array<{
-    devanagari: string
-    romanized: string
-    english: string
-  }>
 }
 
 export type VyanjanLesson = {
@@ -78,77 +17,104 @@ export type VyanjanLesson = {
   subtitle: string
   description: string
   thumbnail_icon: string
-  consonant_group: string
   order_no: number
   estimated_time_minutes: number
+  consonant_group: string
 }
-
-export type VyanjanContentType = 
-  | 'title_slide'
-  | 'text'
-  | 'text_with_image'
-  | 'consonant_intro'
-  | 'pronunciation'
-  | 'writing_practice'
-  | 'examples'
-  | 'comparison'
-  | 'key_points'
-  | 'video'
-  | 'mcq'
-  | 'summary'
 
 export type VyanjanLessonContent = {
   id: string
   lesson_id: string
-  content_type: VyanjanContentType
-  title?: string
-  content?: string
-  image_url?: string
+  content_type: 'title_slide' | 'text' | 'mcq' | 'writing_practice' | 'pronunciation'
+  title: string
+  content: string
   metadata?: any
   order_no: number
 }
 
-export type VyanjanProgress = {
+export type Consonant = {
   id: string
-  user_id: string
-  module_id: string
-  lesson_id: string
-  status: 'not_started' | 'in_progress' | 'completed'
-  progress_percentage: number
-  score?: number
-  completed_at?: string
+  order: number
+  category: string
+  categoryHindi: string
+  categoryEnglish: string
+  categoryDescription: string
+  devanagari: string
+  brahmi: string
+  romanized: string
+  pronunciationNote: string
+  exampleWords: Array<{ devanagari: string, romanized: string, english: string }>
 }
 
-export type VyanjanLessonAnswer = {
-  id: string
-  user_id?: string
-  guest_id?: string
-  lesson_id: string
-  content_id: string
-  answer: string
-  is_correct: boolean | null
-  attempt_number: number
-  answered_at: string
+// Progress functions
+function getGuestVyanjanProgressFromStorage(): { completedIds: string[], progressMap: Record<string, number> } {
+  if (typeof window === 'undefined') return { completedIds: [], progressMap: {} }
+  try {
+    const stored = sessionStorage.getItem(GUEST_VYANJAN_PROGRESS_KEY)
+    if (stored) {
+      const parsed = JSON.parse(stored) as GuestVyanjanProgress
+      return { completedIds: parsed.completedIds || [], progressMap: parsed.progressMap || {} }
+    }
+  } catch (error) {}
+  return { completedIds: [], progressMap: {} }
 }
 
-/**
- * Fetch all vyanjan lessons for a specific language
- */
+function saveGuestVyanjanProgressToStorage(completedIds: string[], progressMap: Record<string, number>) {
+  if (typeof window === 'undefined') return
+  try {
+    const progress: GuestVyanjanProgress = {
+      completedIds,
+      progressMap,
+      lastUpdated: new Date().toISOString()
+    }
+    sessionStorage.setItem(GUEST_VYANJAN_PROGRESS_KEY, JSON.stringify(progress))
+  } catch (error) {}
+}
+
+export async function saveVyanjanProgress(
+  lessonId: string,
+  status: 'not_started' | 'in_progress' | 'completed',
+  progress: number,
+  identity: Identity,
+  unused?: any,
+  language: string = 'hi'
+): Promise<void> {
+  if (identity.type === 'guest') {
+    const { completedIds, progressMap } = getGuestVyanjanProgressFromStorage()
+    progressMap[lessonId] = progress
+    if (status === 'completed' && !completedIds.includes(lessonId)) {
+      completedIds.push(lessonId)
+    }
+    saveGuestVyanjanProgressToStorage(completedIds, progressMap)
+  }
+}
+
+export async function getVyanjanProgress(identity: Identity): Promise<{ completedIds: string[], progressMap: Record<string, number> }> {
+  if (identity.type === 'guest') {
+    return getGuestVyanjanProgressFromStorage()
+  }
+  return { completedIds: [], progressMap: {} }
+}
+
+// Added this to fix common pattern
+export async function getCompletedVyanjanLessonIds(identity: Identity): Promise<string[]> {
+  const { completedIds } = await getVyanjanProgress(identity)
+  return completedIds
+}
+
 export async function getVyanjanLessons(language: string = 'hi'): Promise<VyanjanLesson[]> {
-  console.log(`[getVyanjanLessons] Returning hardcoded vyanjan data: 8 lessons`)
-  return vyanjanData.lessons as unknown as VyanjanLesson[]
+  const data = getDataForLanguage(language)
+  return data.vyanjan.lessons
 }
 
-/**
- * Fetch vyanjan lesson content for a specific language
- */
 export async function getVyanjanLessonContent(lessonId: string, language: string = 'hi'): Promise<VyanjanLessonContent[]> {
-  console.log(`[getVyanjanLessonContent] Returning vyanjan content for lesson: ${lessonId}`)
-  // Find the lesson
-  const lesson = (vyanjanData.lessons as unknown as VyanjanLesson[]).find(l => l.lesson_id === lessonId)
-  if (!lesson) return []
+  const data = getDataForLanguage(language)
+  const vyanjanData = data.vyanjan
+  const matraData = data.matras
   
-  // Generate content based on lesson category
+  const lesson = vyanjanData.lessons.find((l: any) => l.lesson_id === lessonId)
+  if (!lesson) return []
+
   const content: VyanjanLessonContent[] = []
   
   // Title slide
@@ -161,10 +127,21 @@ export async function getVyanjanLessonContent(lessonId: string, language: string
     order_no: 1
   })
   
-  // Consonant introduction slides
   const categoriesMap = vyanjanData.categories as any
   const categoryKey = lesson.consonant_group
   const categoryData = categoriesMap[categoryKey]
+  
+  // Category Intro slide
+  if (categoryData) {
+    content.push({
+      id: `${lessonId}-category-intro`,
+      lesson_id: lessonId,
+      content_type: 'text',
+      title: language === 'hi' ? (categoryData.nameHindi || categoryData.name) : (categoryData.english || categoryData.name),
+      content: language === 'hi' ? (categoryData.descriptionHindi || categoryData.description) : (categoryData.descriptionEnglish || categoryData.description),
+      order_no: 1.5
+    })
+  }
   
   let orderNo = 2;
 
@@ -173,13 +150,13 @@ export async function getVyanjanLessonContent(lessonId: string, language: string
     for (const consonantId of categoryData.consonantIds) {
       const c = consonantsList.find(x => x.id === consonantId);
       if (c) {
-        // Add pronunciation/intro slide for individual letter
+        // Pronunciation slide
         content.push({
           id: `${lessonId}-letter-${c.id}`,
           lesson_id: lessonId,
           content_type: 'pronunciation',
           title: `${c.devanagari} (${c.romanized})`,
-          content: `${c.categoryHindi} - ${c.categoryDescription}\n\nध्वनि: ${c.pronunciationNote}\n\nउदाहरण: ${c.exampleWords && c.exampleWords.length > 0 ? c.exampleWords.map((ex: any) => ex.devanagari).join(", ") : ""}`,
+          content: `${language === 'hi' ? c.categoryHindi : c.categoryEnglish} - ${c.categoryDescription}\n\n${language === 'hi' ? 'ध्वनि' : 'Sound'}: ${c.pronunciationNote}\n\n${language === 'hi' ? 'उदाहरण' : 'Example'}: ${c.exampleWords && c.exampleWords.length > 0 ? c.exampleWords.map((ex: any) => ex.devanagari).join(", ") : ""}`,
           metadata: {
             brahmi_symbol: c.brahmi,
             devanagari: c.devanagari,
@@ -188,138 +165,40 @@ export async function getVyanjanLessonContent(lessonId: string, language: string
           order_no: orderNo++
         });
 
-        // Add tracer
+        // Writing practice
         content.push({
           id: `${lessonId}-tracer-${c.id}`,
           lesson_id: lessonId,
           content_type: 'writing_practice',
-          title: `अभ्यास (Practice) - ${c.devanagari}`,
-          content: `ब्राह्मी लिपि में '${c.devanagari}' का अभ्यास करें`,
+          title: `${language === 'hi' ? 'अभ्यास' : 'Practice'} - ${c.devanagari}`,
+          content: `${language === 'hi' ? 'लिखने का अभ्यास करें' : 'Practice writing the consonant'}`,
           metadata: {
-            character: c.brahmi
+            id: c.id,
+            brahmi_symbol: c.brahmi,
+            devanagari: c.devanagari
           },
           order_no: orderNo++
         });
+
+        // Combination practice
+        const combo = matraData.consonantMatraCombinations?.find((x: any) => x.consonantId === c.id);
+        if (combo && combo.forms) {
+           const sampleForms = combo.forms.slice(1, 4); // AA, I, II
+           sampleForms.forEach((f: any) => {
+               content.push({
+                   id: `${lessonId}-combo-${c.id}-${f.matraOrder}`,
+                   lesson_id: lessonId,
+                   content_type: 'text',
+                   title: `${c.devanagari} + ${f.matraName} = ${f.combinedDevanagari}`,
+                   content: `${language === 'hi' ? 'ब्राह्मी रूप' : 'Brahmi form'}: ${f.combinedBrahmi}`,
+                   metadata: { brahmi: f.combinedBrahmi, devanagari: f.combinedDevanagari },
+                   order_no: orderNo++
+               });
+           });
+        }
       }
     }
-  } else if (categoryKey === 'all') {
-    content.push({
-      id: `${lessonId}-intro`,
-      lesson_id: lessonId,
-      content_type: 'text',
-      title: lesson.title,
-      content: lesson.description || '',
-      order_no: orderNo++
-    });
   }
-
+  
   return content
-}
-
-/**
- * Get vyanjan lesson info by lesson_id for a specific language
- */
-export async function getVyanjanLessonInfo(lessonId: string, language: string = 'hi'): Promise<VyanjanLesson | null> {
-  console.log(`[getVyanjanLessonInfo] Fetching vyanjan lesson: ${lessonId}`)
-  const lesson = (vyanjanData.lessons as unknown as VyanjanLesson[]).find(l => l.lesson_id === lessonId)
-  return lesson || null
-}
-
-/**
- * Get all consonants (व्यञ्जन)
- */
-export async function getConsonants(): Promise<Consonant[]> {
-  console.log('[getConsonants] Returning hardcoded vyanjan data: 33 consonants')
-  return vyanjanData.consonants as unknown as Consonant[]
-}
-
-/**
- * Get a specific consonant by ID
- */
-export async function getConsonant(consonantId: string): Promise<Consonant | null> {
-  console.log(`[getConsonant] Fetching consonant: ${consonantId}`)
-  const consonant = (vyanjanData.consonants as unknown as Consonant[]).find((c) => c.id === consonantId)
-  return consonant || null
-}
-
-/**
- * Save vyanjan progress
- */
-export async function saveVyanjanProgress(
-  lessonId: string, 
-  status: 'in_progress' | 'completed',
-  progressPercentage: number,
-  identity?: Identity,
-  score?: number,
-  language: string = 'hi'
-): Promise<boolean> {
-  // Save to sessionStorage for quick access
-  const { completedIds, progressMap } = getGuestVyanjanProgressFromStorage()
-  const newProgressMap = { ...progressMap, [lessonId]: progressPercentage }
-  
-  if (status === 'completed' && !completedIds.includes(lessonId)) {
-    saveGuestVyanjanProgressToStorage([...completedIds, lessonId], newProgressMap)
-  } else {
-    saveGuestVyanjanProgressToStorage(completedIds, newProgressMap)
-  }
-  
-  console.log('Vyanjan progress: Waiting for backend implementation')
-  return true
-}
-
-/**
- * Get user vyanjan progress
- */
-export async function getUserVyanjanProgress(userId: string): Promise<VyanjanProgress[]> {
-  console.log('User vyanjan progress: Waiting for backend implementation')
-  return []
-}
-
-/**
- * Get completed vyanjan lesson IDs for current user or guest
- */
-export async function getCompletedVyanjanLessonIds(identity?: Identity): Promise<string[]> {
-  // Return guest progress from sessionStorage
-  const { completedIds } = getGuestVyanjanProgressFromStorage()
-  return completedIds
-}
-
-/**
- * Save guest vyanjan progress to database
- */
-export async function saveGuestVyanjanProgressToDB(
-  lessonId: string,
-  status: 'in_progress' | 'completed',
-  progressPercentage: number,
-  guestId: string,
-  score?: number,
-  language: string = 'hi'
-): Promise<boolean> {
-  console.log('Guest vyanjan progress: Waiting for backend implementation')
-  return true
-}
-
-/**
- * Save a user's answer to a vyanjan question
- */
-export async function saveVyanjanAnswer(
-  lessonId: string,
-  contentId: string,
-  answer: string,
-  isCorrect: boolean | null,
-  identity: Identity
-): Promise<boolean> {
-  console.log('Vyanjan answer: Waiting for backend implementation')
-  return true
-}
-
-/**
- * Get user's answers for a specific vyanjan lesson
- */
-export async function getVyanjanAnswersForLesson(
-  lessonId: string,
-  identity: Identity
-): Promise<VyanjanLessonAnswer[]> {
-  console.log('Vyanjan lesson answers: Waiting for backend implementation')
-  return []
 }

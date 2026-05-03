@@ -6,7 +6,7 @@
  */
 
 import type { Identity } from './guestIdentity'
-import matraData from '@/backend/data/matras.json'
+import { getDataForLanguage } from '@/backend/data/index'
 
 // ============================================
 // TYPE DEFINITIONS
@@ -26,7 +26,6 @@ export type MatraLesson = {
   estimated_time: number
   language: string
   created_at: string
-  // Progress fields (joined from matra_progress)
   status?: 'not_started' | 'in_progress' | 'completed'
   progress_percentage?: number
 }
@@ -95,10 +94,12 @@ function saveGuestMatraProgressToStorage(progress: GuestMatraProgress): void {
 
 /**
  * Get all matra lessons with optional progress information
- * Works for both authenticated users and guests
  */
 export async function getMatraLessons(identity: Identity, language: string = 'hi'): Promise<MatraLesson[]> {
+  const data = getDataForLanguage(language);
+  const matraData = data.matras;
   const lessons = [...(matraData.lessons as unknown as MatraLesson[])];
+  
   if (identity.type === 'guest' || !identity.id) {
     const progress = getGuestMatraProgressFromStorage();
     return lessons.map(lesson => ({
@@ -111,28 +112,29 @@ export async function getMatraLessons(identity: Identity, language: string = 'hi
 }
 
 /**
- * Get a single matra lesson by ID for a specific language
+ * Get a single matra lesson by ID
  */
 export async function getMatraLessonInfo(lessonId: string, language: string = 'hi'): Promise<MatraLesson | null> {
-  console.log(`[getMatraLessonInfo] Fetching matra lesson: ${lessonId}`)
+  const data = getDataForLanguage(language);
+  const matraData = data.matras;
   const lesson = (matraData.lessons as unknown as MatraLesson[]).find(l => l.lesson_id === lessonId)
   return lesson || null
 }
 
 /**
- * Get all content for a specific matra lesson for a specific language
+ * Get all content for a specific matra lesson
  */
 export async function getMatraLessonContent(lessonId: string, language: string = 'hi'): Promise<MatraLessonContent[]> {
-  console.log(`[getMatraLessonContent] Returning matra content for lesson: ${lessonId}`)
-  // Find the lesson
+  const data = getDataForLanguage(language);
+  const matraData = data.matras;
+  
   const lesson = (matraData.lessons as unknown as MatraLesson[]).find(l => l.lesson_id === lessonId)
   if (!lesson) return []
   
-  // Generate content based on lesson
   const content: MatraLessonContent[] = []
   
   // Find corresponding matra
-  const matraIndex = lesson.id - 2 // lessons 2-13 map to matras 1-12
+  const matraIndex = lesson.id - 2 
   let matra: any = null;
   if (matraIndex >= 0 && matraIndex < (matraData.matras as unknown as any[]).length) {
     matra = (matraData.matras as unknown as any[])[matraIndex]
@@ -153,7 +155,7 @@ export async function getMatraLessonContent(lessonId: string, language: string =
       latin: matra ? matra.matraName : null
     },
     order_no: 1,
-    language: 'hi',
+    language: language,
     created_at: new Date().toISOString()
   })
   
@@ -162,7 +164,7 @@ export async function getMatraLessonContent(lessonId: string, language: string =
       id: 2,
       lesson_id: lessonId,
       content_type: 'pronunciation',
-      title: 'मात्रा संयोजन',
+      title: language === 'hi' ? 'मात्रा संयोजन' : 'Matra Combination',
       content: matra.description || '',
       audio_url: null,
       metadata: { 
@@ -171,7 +173,7 @@ export async function getMatraLessonContent(lessonId: string, language: string =
         sound: matra.example_combination
       },
       order_no: 2,
-      language: 'hi',
+      language: language,
       created_at: new Date().toISOString()
     })
 
@@ -180,12 +182,12 @@ export async function getMatraLessonContent(lessonId: string, language: string =
         id: 3,
         lesson_id: lessonId,
         content_type: 'writing_practice',
-        title: 'मात्रा अभ्यास',
-        content: `ब्राह्मी मात्रा '${matra.matraSign}' का अभ्यास करें`,
+        title: language === 'hi' ? 'मात्रा अभ्यास' : 'Matra Practice',
+        content: language === 'hi' ? `ब्राह्मी मात्रा '${matra.matraSign}' का अभ्यास करें` : `Practice the Brahmi matra '${matra.matraSign}'`,
         audio_url: null,
         metadata: { character: matra.matraSign },
         order_no: 3,
-        language: 'hi',
+        language: language,
         created_at: new Date().toISOString()
       })
     }
@@ -193,7 +195,7 @@ export async function getMatraLessonContent(lessonId: string, language: string =
   
   // Add rules slide for introduction lesson
   if (lessonId === 'matras-lesson-001') {
-    (matraData.matraRules as unknown as any[]).forEach((rule, idx) => {
+    (matraData.matraRules as unknown as any[]).forEach((rule: any, idx: number) => {
       content.push({
         id: 10 + idx,
         lesson_id: lessonId,
@@ -203,7 +205,7 @@ export async function getMatraLessonContent(lessonId: string, language: string =
         audio_url: null,
         metadata: { rule_data: rule },
         order_no: 3 + idx,
-        language: 'hi',
+        language: language,
         created_at: new Date().toISOString()
       })
     })
@@ -214,12 +216,12 @@ export async function getMatraLessonContent(lessonId: string, language: string =
     id: 100,
     lesson_id: lessonId,
     content_type: 'summary',
-    title: 'सारांश',
-    content: `${lesson.title} को सफलतापूर्वक पूरा किया!`,
+    title: language === 'hi' ? 'सारांश' : 'Summary',
+    content: language === 'hi' ? `${lesson.title} को सफलतापूर्वक पूरा किया!` : `Successfully completed ${lesson.title}!`,
     audio_url: null,
     metadata: null,
     order_no: 50,
-    language: 'hi',
+    language: language,
     created_at: new Date().toISOString()
   })
   
@@ -231,15 +233,15 @@ export async function getMatraLessonContent(lessonId: string, language: string =
 // ============================================
 
 /**
- * Save matra lesson progress for authenticated users or guests
+ * Save matra lesson progress
  */
 export async function saveMatraProgress(
   lessonId: string,
   status: 'not_started' | 'in_progress' | 'completed',
   progressPercentage: number,
-  identity: Identity
+  identity: Identity,
+  language: string = "hi"
 ): Promise<boolean> {
-  // For guests, save to sessionStorage
   if (identity.type === 'guest' || !identity.id) {
     const guestProgress = getGuestMatraProgressFromStorage()
     guestProgress[lessonId] = {
@@ -251,17 +253,14 @@ export async function saveMatraProgress(
     saveGuestMatraProgressToStorage(guestProgress)
     return true
   }
-
-  // For authenticated users, backend implementation pending
-  console.log('saveMatraProgress: User progress will be synced with backend when available')
   return true
 }
 
 /**
  * Get overall progress across all matra lessons
  */
-export async function getMatraModuleProgress(identity: Identity): Promise<number> {
-  const lessons = await getMatraLessons(identity)
+export async function getMatraModuleProgress(identity: Identity, language: string = "hi"): Promise<number> {
+  const lessons = await getMatraLessons(identity, language)
   if (lessons.length === 0) return 0
 
   const totalProgress = lessons.reduce((sum, lesson) => {
@@ -275,30 +274,23 @@ export async function getMatraModuleProgress(identity: Identity): Promise<number
 // QUIZ/ANSWER TRACKING FUNCTIONS
 // ============================================
 
-/**
- * Save answer for MCQ or other interactive content
- */
 export async function saveMatraAnswer(
   lessonId: string,
   contentId: number,
   answer: string,
   isCorrect: boolean,
-  identity: Identity
+  identity: Identity,
+  language: string = "hi"
 ): Promise<boolean> {
-  // Backend implementation pending
-  console.log(`saveMatraAnswer: Answer saved locally. Backend sync pending: ${lessonId}`)
+  console.log(`saveMatraAnswer: Answer saved locally for lesson ${lessonId}`)
   return true
 }
 
-/**
- * Get user's previous answers for a lesson (for review/analytics)
- */
 export async function getMatraAnswers(
   lessonId: string,
-  userId: string
+  userId: string,
+  language: string = "hi"
 ): Promise<any[]> {
-  // Backend implementation pending
-  console.log(`getMatraAnswers: Waiting for backend implementation for lesson ${lessonId}`)
   return []
 }
 
@@ -306,9 +298,6 @@ export async function getMatraAnswers(
 // UTILITY FUNCTIONS
 // ============================================
 
-/**
- * Reset guest progress (useful for testing or user request)
- */
 export function resetGuestMatraProgress(): void {
   if (typeof window === 'undefined') return
   try {
@@ -318,18 +307,14 @@ export function resetGuestMatraProgress(): void {
   }
 }
 
-/**
- * Check if a specific lesson is completed
- */
 export async function isMatraLessonCompleted(
   lessonId: string,
-  identity: Identity
+  identity: Identity,
+  language: string = "hi"
 ): Promise<boolean> {
   if (identity.type === 'guest') {
     const guestProgress = getGuestMatraProgressFromStorage()
     return guestProgress[lessonId]?.status === 'completed'
   }
-
-  // For authenticated users, backend implementation pending
   return false
 }

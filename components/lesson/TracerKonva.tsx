@@ -411,13 +411,13 @@ export default function TracerKonva({
               fontSize={Math.min(width, height) * 0.55}
               fontFamily="serif"
               fontStyle="bold"
-              fill="transparent"
+              fill="rgba(0,0,0,0.01)"
               offsetX={Math.min(width, height) * 0.55 * 0.3}
               offsetY={Math.min(width, height) * 0.55 * 0.45}
               listening={true}
               name="guideText"
-              strokeWidth={35}
-              stroke="transparent"
+              strokeWidth={40}
+              stroke="rgba(0,0,0,0.01)"
             />
             
             {/* Guide character (faint chalk) - centered manually */}

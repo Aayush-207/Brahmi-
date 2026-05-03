@@ -1,0 +1,1218 @@
+{
+  "vowels": [
+    {
+      "id": "swar-001",
+      "order": 1,
+      "devanagari": "अ",
+      "brahmi": "𑀅",
+      "unicode_codepoint": "U+11005",
+      "romanized": "a",
+      "matra_sign": null,
+      "matra_unicode": null,
+      "matra_position": "none",
+      "title_hindi": "अ",
+      "title_english": "a (Short A)",
+      "description_hindi": "पहला स्वर - सबसे बुनियादी ध्वनि",
+      "description_english": "First vowel - the most basic sound",
+      "pronunciation": "uh",
+      "englishName": "a (Short A)",
+      "matra_position_label": "No sign"
+    },
+    {
+      "id": "swar-002",
+      "order": 2,
+      "devanagari": "आ",
+      "brahmi": "𑀆",
+      "unicode_codepoint": "U+11006",
+      "romanized": "aa",
+      "matra_sign": "𑀸",
+      "matra_unicode": "U+11038",
+      "matra_position": "after",
+      "title_hindi": "आ",
+      "title_english": "aa (Long A)",
+      "description_hindi": "लंबा 'अ' ध्वनि",
+      "description_english": "Extended 'a' sound",
+      "pronunciation": "aah",
+      "englishName": "aa (Long A)",
+      "matra_position_label": "After"
+    },
+    {
+      "id": "swar-003",
+      "order": 3,
+      "devanagari": "इ",
+      "brahmi": "𑀇",
+      "unicode_codepoint": "U+11007",
+      "romanized": "i",
+      "matra_sign": "𑀹",
+      "matra_unicode": "U+1103A",
+      "matra_position": "before",
+      "title_hindi": "इ",
+      "title_english": "i (Short I)",
+      "description_hindi": "'इ' की ध्वनि - छोटा रूप",
+      "description_english": "Short 'i' sound",
+      "pronunciation": "ih",
+      "englishName": "i (Short I)",
+      "matra_position_label": "Before"
+    },
+    {
+      "id": "swar-004",
+      "order": 4,
+      "devanagari": "ई",
+      "brahmi": "𑀈",
+      "unicode_codepoint": "U+11008",
+      "romanized": "ii",
+      "matra_sign": "𑀺",
+      "matra_unicode": "U+1103B",
+      "matra_position": "after",
+      "title_hindi": "ई",
+      "title_english": "ii (Long I)",
+      "description_hindi": "लंबा 'इ' ध्वनि",
+      "description_english": "Extended 'i' sound",
+      "pronunciation": "ee",
+      "englishName": "ii (Long I)",
+      "matra_position_label": "After"
+    },
+    {
+      "id": "swar-005",
+      "order": 5,
+      "devanagari": "उ",
+      "brahmi": "𑀉",
+      "unicode_codepoint": "U+11009",
+      "romanized": "u",
+      "matra_sign": "𑀻",
+      "matra_unicode": "U+1103C",
+      "matra_position": "below",
+      "title_hindi": "उ",
+      "title_english": "u (Short U)",
+      "description_hindi": "'उ' की ध्वनि - छोटा रूप",
+      "description_english": "Short 'u' sound",
+      "pronunciation": "uh",
+      "englishName": "u (Short U)",
+      "matra_position_label": "Below"
+    },
+    {
+      "id": "swar-006",
+      "order": 6,
+      "devanagari": "ऊ",
+      "brahmi": "𑀊",
+      "unicode_codepoint": "U+1100A",
+      "romanized": "uu",
+      "matra_sign": "𑀼",
+      "matra_unicode": "U+1103D",
+      "matra_position": "below",
+      "title_hindi": "ऊ",
+      "title_english": "uu (Long U)",
+      "description_hindi": "लंबा 'उ' ध्वनि",
+      "description_english": "Extended 'u' sound",
+      "pronunciation": "oo",
+      "englishName": "uu (Long U)",
+      "matra_position_label": "Below"
+    },
+    {
+      "id": "swar-007",
+      "order": 7,
+      "devanagari": "ए",
+      "brahmi": "𑀏",
+      "unicode_codepoint": "U+1100F",
+      "romanized": "e",
+      "matra_sign": "𑁂",
+      "matra_unicode": "U+11042",
+      "matra_position": "after",
+      "title_hindi": "ए",
+      "title_english": "e (E)",
+      "description_hindi": "'ए' की ध्वनि",
+      "description_english": "'E' sound",
+      "pronunciation": "eh",
+      "englishName": "e (E)",
+      "matra_position_label": "After"
+    },
+    {
+      "id": "swar-008",
+      "order": 8,
+      "devanagari": "ऐ",
+      "brahmi": "𑀐",
+      "unicode_codepoint": "U+11010",
+      "romanized": "ai",
+      "matra_sign": "𑁃",
+      "matra_unicode": "U+11043",
+      "matra_position": "after",
+      "title_hindi": "ऐ",
+      "title_english": "ai (AI)",
+      "description_hindi": "'ऐ' की ध्वनि",
+      "description_english": "'AI' sound",
+      "pronunciation": "eye",
+      "englishName": "ai (AI)",
+      "matra_position_label": "After"
+    },
+    {
+      "id": "swar-009",
+      "order": 9,
+      "devanagari": "ओ",
+      "brahmi": "𑀑",
+      "unicode_codepoint": "U+11011",
+      "romanized": "o",
+      "matra_sign": "𑁄",
+      "matra_unicode": "U+11044",
+      "matra_position": "after",
+      "title_hindi": "ओ",
+      "title_english": "o (O)",
+      "description_hindi": "'ओ' की ध्वनि",
+      "description_english": "'O' sound",
+      "pronunciation": "oh",
+      "englishName": "o (O)",
+      "matra_position_label": "After"
+    },
+    {
+      "id": "swar-010",
+      "order": 10,
+      "devanagari": "औ",
+      "brahmi": "𑀒",
+      "unicode_codepoint": "U+11012",
+      "romanized": "au",
+      "matra_sign": "𑁅",
+      "matra_unicode": "U+11045",
+      "matra_position": "after",
+      "title_hindi": "औ",
+      "title_english": "au (AU)",
+      "description_hindi": "'औ' की ध्वनि",
+      "description_english": "'AU' sound",
+      "pronunciation": "ow",
+      "englishName": "au (AU)",
+      "matra_position_label": "After"
+    },
+    {
+      "id": "swar-011",
+      "order": 11,
+      "devanagari": "अं",
+      "brahmi": "𑀅𑁀",
+      "unicode_codepoint": "U+11005 + U+11040",
+      "romanized": "am",
+      "matra_sign": "𑁀",
+      "matra_unicode": "U+11040",
+      "matra_position": "after",
+      "title_hindi": "अं",
+      "title_english": "am (Anusvara — nasal sound)",
+      "description_hindi": "अनुस्वार - नाक से आने वाली ध्वनि",
+      "description_english": "Anusvara - nasal sound",
+      "pronunciation": "um",
+      "special_mark": "anusvara",
+      "englishName": "am (Anusvara — nasal sound)",
+      "matra_position_label": "After"
+    },
+    {
+      "id": "swar-012",
+      "order": 12,
+      "devanagari": "अः",
+      "brahmi": "𑀅𑀂",
+      "unicode_codepoint": "U+11005 + U+11002",
+      "romanized": "ah",
+      "matra_sign": "𑀂",
+      "matra_unicode": "U+11002",
+      "matra_position": "after",
+      "title_hindi": "अः",
+      "title_english": "ah (Visarga — aspirated h)",
+      "description_hindi": "विसर्ग - हल्की हवा की ध्वनि",
+      "description_english": "Visarga - aspirate sound",
+      "pronunciation": "uh-huh",
+      "special_mark": "visarga",
+      "englishName": "ah (Visarga — aspirated h)",
+      "matra_position_label": "After"
+    }
+  ],
+  "quiz1_devanagari_to_brahmi": [
+    {
+      "id": "quiz1-001",
+      "order": 1,
+      "question": "अ",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀅",
+      "correct_vowel_id": "swar-001",
+      "wrong_options": [
+        {
+          "id": "wrong-001-a",
+          "brahmi": "𑀆",
+          "vowel_id": "swar-002"
+        },
+        {
+          "id": "wrong-001-b",
+          "brahmi": "𑀇",
+          "vowel_id": "swar-003"
+        },
+        {
+          "id": "wrong-001-c",
+          "brahmi": "𑀉",
+          "vowel_id": "swar-005"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for अ?",
+      "title_english": "What is the Brahmi symbol for अ?"
+    },
+    {
+      "id": "quiz1-002",
+      "order": 2,
+      "question": "आ",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀆",
+      "correct_vowel_id": "swar-002",
+      "wrong_options": [
+        {
+          "id": "wrong-002-a",
+          "brahmi": "𑀐",
+          "vowel_id": "swar-008"
+        },
+        {
+          "id": "wrong-002-b",
+          "brahmi": "𑀏",
+          "vowel_id": "swar-007"
+        },
+        {
+          "id": "wrong-002-c",
+          "brahmi": "𑀊",
+          "vowel_id": "swar-006"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for आ?",
+      "title_english": "What is the Brahmi symbol for आ?"
+    },
+    {
+      "id": "quiz1-003",
+      "order": 3,
+      "question": "इ",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀇",
+      "correct_vowel_id": "swar-003",
+      "wrong_options": [
+        {
+          "id": "wrong-003-a",
+          "brahmi": "𑀑",
+          "vowel_id": "swar-009"
+        },
+        {
+          "id": "wrong-003-b",
+          "brahmi": "𑀉",
+          "vowel_id": "swar-005"
+        },
+        {
+          "id": "wrong-003-c",
+          "brahmi": "𑀅",
+          "vowel_id": "swar-001"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for इ?",
+      "title_english": "What is the Brahmi symbol for इ?"
+    },
+    {
+      "id": "quiz1-004",
+      "order": 4,
+      "question": "ई",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀈",
+      "correct_vowel_id": "swar-004",
+      "wrong_options": [
+        {
+          "id": "wrong-004-a",
+          "brahmi": "𑀐",
+          "vowel_id": "swar-008"
+        },
+        {
+          "id": "wrong-004-b",
+          "brahmi": "𑀊",
+          "vowel_id": "swar-006"
+        },
+        {
+          "id": "wrong-004-c",
+          "brahmi": "𑀒",
+          "vowel_id": "swar-010"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for ई?",
+      "title_english": "What is the Brahmi symbol for ई?"
+    },
+    {
+      "id": "quiz1-005",
+      "order": 5,
+      "question": "उ",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀉",
+      "correct_vowel_id": "swar-005",
+      "wrong_options": [
+        {
+          "id": "wrong-005-a",
+          "brahmi": "𑀒",
+          "vowel_id": "swar-010"
+        },
+        {
+          "id": "wrong-005-b",
+          "brahmi": "𑀏",
+          "vowel_id": "swar-007"
+        },
+        {
+          "id": "wrong-005-c",
+          "brahmi": "𑀈",
+          "vowel_id": "swar-004"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for उ?",
+      "title_english": "What is the Brahmi symbol for उ?"
+    },
+    {
+      "id": "quiz1-006",
+      "order": 6,
+      "question": "ऊ",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀊",
+      "correct_vowel_id": "swar-006",
+      "wrong_options": [
+        {
+          "id": "wrong-006-a",
+          "brahmi": "𑀐",
+          "vowel_id": "swar-008"
+        },
+        {
+          "id": "wrong-006-b",
+          "brahmi": "𑀅",
+          "vowel_id": "swar-001"
+        },
+        {
+          "id": "wrong-006-c",
+          "brahmi": "𑀈",
+          "vowel_id": "swar-004"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for ऊ?",
+      "title_english": "What is the Brahmi symbol for ऊ?"
+    },
+    {
+      "id": "quiz1-007",
+      "order": 7,
+      "question": "ए",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀏",
+      "correct_vowel_id": "swar-007",
+      "wrong_options": [
+        {
+          "id": "wrong-007-a",
+          "brahmi": "𑀈",
+          "vowel_id": "swar-004"
+        },
+        {
+          "id": "wrong-007-b",
+          "brahmi": "𑀅",
+          "vowel_id": "swar-001"
+        },
+        {
+          "id": "wrong-007-c",
+          "brahmi": "𑀆",
+          "vowel_id": "swar-002"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for ए?",
+      "title_english": "What is the Brahmi symbol for ए?"
+    },
+    {
+      "id": "quiz1-008",
+      "order": 8,
+      "question": "ऐ",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀐",
+      "correct_vowel_id": "swar-008",
+      "wrong_options": [
+        {
+          "id": "wrong-008-a",
+          "brahmi": "𑀒",
+          "vowel_id": "swar-010"
+        },
+        {
+          "id": "wrong-008-b",
+          "brahmi": "𑀉",
+          "vowel_id": "swar-005"
+        },
+        {
+          "id": "wrong-008-c",
+          "brahmi": "𑀑",
+          "vowel_id": "swar-009"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for ऐ?",
+      "title_english": "What is the Brahmi symbol for ऐ?"
+    },
+    {
+      "id": "quiz1-009",
+      "order": 9,
+      "question": "ओ",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀑",
+      "correct_vowel_id": "swar-009",
+      "wrong_options": [
+        {
+          "id": "wrong-009-a",
+          "brahmi": "𑀊",
+          "vowel_id": "swar-006"
+        },
+        {
+          "id": "wrong-009-b",
+          "brahmi": "𑀏",
+          "vowel_id": "swar-007"
+        },
+        {
+          "id": "wrong-009-c",
+          "brahmi": "𑀈",
+          "vowel_id": "swar-004"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for ओ?",
+      "title_english": "What is the Brahmi symbol for ओ?"
+    },
+    {
+      "id": "quiz1-010",
+      "order": 10,
+      "question": "औ",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀒",
+      "correct_vowel_id": "swar-010",
+      "wrong_options": [
+        {
+          "id": "wrong-010-a",
+          "brahmi": "𑀉",
+          "vowel_id": "swar-005"
+        },
+        {
+          "id": "wrong-010-b",
+          "brahmi": "𑀐",
+          "vowel_id": "swar-008"
+        },
+        {
+          "id": "wrong-010-c",
+          "brahmi": "𑀇",
+          "vowel_id": "swar-003"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for औ?",
+      "title_english": "What is the Brahmi symbol for औ?"
+    },
+    {
+      "id": "quiz1-011",
+      "order": 11,
+      "question": "अं",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀅",
+      "correct_vowel_id": "swar-011",
+      "wrong_options": [
+        {
+          "id": "wrong-011-a",
+          "brahmi": "𑀆",
+          "vowel_id": "swar-002"
+        },
+        {
+          "id": "wrong-011-b",
+          "brahmi": "𑀒",
+          "vowel_id": "swar-010"
+        },
+        {
+          "id": "wrong-011-c",
+          "brahmi": "𑀈",
+          "vowel_id": "swar-004"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for अं?",
+      "title_english": "What is the Brahmi symbol for अं?",
+      "note": "anusvara"
+    },
+    {
+      "id": "quiz1-012",
+      "order": 12,
+      "question": "अः",
+      "question_type": "devanagari_to_brahmi",
+      "correct_answer": "𑀅",
+      "correct_vowel_id": "swar-012",
+      "wrong_options": [
+        {
+          "id": "wrong-012-a",
+          "brahmi": "𑀏",
+          "vowel_id": "swar-007"
+        },
+        {
+          "id": "wrong-012-b",
+          "brahmi": "𑀑",
+          "vowel_id": "swar-009"
+        },
+        {
+          "id": "wrong-012-c",
+          "brahmi": "𑀉",
+          "vowel_id": "swar-005"
+        }
+      ],
+      "title_hindi": "What is the Brahmi symbol for अः?",
+      "title_english": "What is the Brahmi symbol for अः?",
+      "note": "visarga"
+    }
+  ],
+  "quiz2_brahmi_to_devanagari": [
+    {
+      "id": "quiz2-001",
+      "order": 1,
+      "question": "𑀅",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "अ",
+      "correct_vowel_id": "swar-001",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-001-a",
+          "devanagari": "ओ",
+          "vowel_id": "swar-009"
+        },
+        {
+          "id": "wrong-quiz2-001-b",
+          "devanagari": "इ",
+          "vowel_id": "swar-003"
+        },
+        {
+          "id": "wrong-quiz2-001-c",
+          "devanagari": "उ",
+          "vowel_id": "swar-005"
+        }
+      ],
+      "title_hindi": "𑀅 का देवनागरी चिह्न क्या है?",
+      "title_english": "What is the Devanagari symbol for 𑀅?"
+    },
+    {
+      "id": "quiz2-002",
+      "order": 2,
+      "question": "𑀆",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "आ",
+      "correct_vowel_id": "swar-002",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-002-a",
+          "devanagari": "अ",
+          "vowel_id": "swar-001"
+        },
+        {
+          "id": "wrong-quiz2-002-b",
+          "devanagari": "ई",
+          "vowel_id": "swar-004"
+        },
+        {
+          "id": "wrong-quiz2-002-c",
+          "devanagari": "ओ",
+          "vowel_id": "swar-009"
+        }
+      ],
+      "title_hindi": "𑀆 का देवनागरी चिह्न क्या है?",
+      "title_english": "What is the Devanagari symbol for 𑀆?"
+    },
+    {
+      "id": "quiz2-003",
+      "order": 3,
+      "question": "𑀇",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "इ",
+      "correct_vowel_id": "swar-003",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-003-a",
+          "devanagari": "ऊ",
+          "vowel_id": "swar-006"
+        },
+        {
+          "id": "wrong-quiz2-003-b",
+          "devanagari": "ए",
+          "vowel_id": "swar-007"
+        },
+        {
+          "id": "wrong-quiz2-003-c",
+          "devanagari": "ऐ",
+          "vowel_id": "swar-008"
+        }
+      ],
+      "title_hindi": "𑀇 का देवनागरी चिह्न क्या है?",
+      "title_english": "What is the Devanagari symbol for 𑀇?"
+    },
+    {
+      "id": "quiz2-004",
+      "order": 4,
+      "question": "𑀈",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "ई",
+      "correct_vowel_id": "swar-004",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-004-a",
+          "devanagari": "ए",
+          "vowel_id": "swar-007"
+        },
+        {
+          "id": "wrong-quiz2-004-b",
+          "devanagari": "अ",
+          "vowel_id": "swar-001"
+        },
+        {
+          "id": "wrong-quiz2-004-c",
+          "devanagari": "ओ",
+          "vowel_id": "swar-009"
+        }
+      ],
+      "title_hindi": "𑀈 का देवनागरी चिह्न क्या है?",
+      "title_english": "What is the Devanagari symbol for 𑀈?"
+    },
+    {
+      "id": "quiz2-005",
+      "order": 5,
+      "question": "𑀉",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "उ",
+      "correct_vowel_id": "swar-005",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-005-a",
+          "devanagari": "इ",
+          "vowel_id": "swar-003"
+        },
+        {
+          "id": "wrong-quiz2-005-b",
+          "devanagari": "ओ",
+          "vowel_id": "swar-009"
+        },
+        {
+          "id": "wrong-quiz2-005-c",
+          "devanagari": "अः",
+          "vowel_id": "swar-012"
+        }
+      ],
+      "title_hindi": "𑀉 का देवनागरी चिह्न क्या है?",
+      "title_english": "What is the Devanagari symbol for 𑀉?"
+    },
+    {
+      "id": "quiz2-006",
+      "order": 6,
+      "question": "𑀊",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "ऊ",
+      "correct_vowel_id": "swar-006",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-006-a",
+          "devanagari": "ऐ",
+          "vowel_id": "swar-008"
+        },
+        {
+          "id": "wrong-quiz2-006-b",
+          "devanagari": "अ",
+          "vowel_id": "swar-001"
+        },
+        {
+          "id": "wrong-quiz2-006-c",
+          "devanagari": "ए",
+          "vowel_id": "swar-007"
+        }
+      ],
+      "title_hindi": "𑀊 का देवनागरी चिह्न क्या है?",
+      "title_english": "What is the Devanagari symbol for 𑀊?"
+    },
+    {
+      "id": "quiz2-007",
+      "order": 7,
+      "question": "𑀏",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "ए",
+      "correct_vowel_id": "swar-007",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-007-a",
+          "devanagari": "ओ",
+          "vowel_id": "swar-009"
+        },
+        {
+          "id": "wrong-quiz2-007-b",
+          "devanagari": "अ",
+          "vowel_id": "swar-001"
+        },
+        {
+          "id": "wrong-quiz2-007-c",
+          "devanagari": "अः",
+          "vowel_id": "swar-012"
+        }
+      ],
+      "title_hindi": "𑀏 का देवनागरी चिह्न क्या है?",
+      "title_english": "What is the Devanagari symbol for 𑀏?"
+    },
+    {
+      "id": "quiz2-008",
+      "order": 8,
+      "question": "𑀐",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "ऐ",
+      "correct_vowel_id": "swar-008",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-008-a",
+          "devanagari": "ए",
+          "vowel_id": "swar-007"
+        },
+        {
+          "id": "wrong-quiz2-008-b",
+          "devanagari": "ऊ",
+          "vowel_id": "swar-006"
+        },
+        {
+          "id": "wrong-quiz2-008-c",
+          "devanagari": "उ",
+          "vowel_id": "swar-005"
+        }
+      ],
+      "title_hindi": "𑀐 का देवनागरी चिह्न क्या है?",
+      "title_english": "What is the Devanagari symbol for 𑀐?"
+    },
+    {
+      "id": "quiz2-009",
+      "order": 9,
+      "question": "𑀑",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "ओ",
+      "correct_vowel_id": "swar-009",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-009-a",
+          "devanagari": "औ",
+          "vowel_id": "swar-010"
+        },
+        {
+          "id": "wrong-quiz2-009-b",
+          "devanagari": "अः",
+          "vowel_id": "swar-012"
+        },
+        {
+          "id": "wrong-quiz2-009-c",
+          "devanagari": "ओ",
+          "vowel_id": "swar-009"
+        }
+      ],
+      "title_hindi": "𑀑 का देवनागरी चिह्न क्या है?",
+      "title_english": "What is the Devanagari symbol for 𑀑?"
+    },
+    {
+      "id": "quiz2-010",
+      "order": 10,
+      "question": "𑀒",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "औ",
+      "correct_vowel_id": "swar-010",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-010-a",
+          "devanagari": "ओ",
+          "vowel_id": "swar-009"
+        },
+        {
+          "id": "wrong-quiz2-010-b",
+          "devanagari": "अ",
+          "vowel_id": "swar-001"
+        },
+        {
+          "id": "wrong-quiz2-010-c",
+          "devanagari": "अं",
+          "vowel_id": "swar-011"
+        }
+      ],
+      "title_hindi": "𑀒 का देवनागरी चिह्न क्या है?",
+      "title_english": "What is the Devanagari symbol for 𑀒?"
+    },
+    {
+      "id": "quiz2-011",
+      "order": 11,
+      "question": "𑀅𑁀",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "अं",
+      "correct_vowel_id": "swar-011",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-011-a",
+          "devanagari": "अ",
+          "vowel_id": "swar-001"
+        },
+        {
+          "id": "wrong-quiz2-011-b",
+          "devanagari": "अः",
+          "vowel_id": "swar-012"
+        },
+        {
+          "id": "wrong-quiz2-011-c",
+          "devanagari": "ओ",
+          "vowel_id": "swar-009"
+        }
+      ],
+      "title_hindi": "𑀅𑁀 का देवनागरी चिह्न क्या है? (अनुस्वार)",
+      "title_english": "What is the Devanagari symbol for 𑀅𑁀?",
+      "note": "anusvara"
+    },
+    {
+      "id": "quiz2-012",
+      "order": 12,
+      "question": "𑀅𑀂",
+      "question_type": "brahmi_to_devanagari",
+      "correct_answer": "अः",
+      "correct_vowel_id": "swar-012",
+      "wrong_options": [
+        {
+          "id": "wrong-quiz2-012-a",
+          "devanagari": "अ",
+          "vowel_id": "swar-001"
+        },
+        {
+          "id": "wrong-quiz2-012-b",
+          "devanagari": "ए",
+          "vowel_id": "swar-007"
+        },
+        {
+          "id": "wrong-quiz2-012-c",
+          "devanagari": "ई",
+          "vowel_id": "swar-004"
+        }
+      ],
+      "title_hindi": "𑀅𑀂 का देवनागरी चिह्न क्या है? (विसर्ग)",
+      "title_english": "What is the Devanagari symbol for 𑀅𑀂?",
+      "note": "visarga"
+    }
+  ],
+  "tracing_sequence": [
+    {
+      "id": "trace-001",
+      "order": 1,
+      "devanagari": "अ",
+      "brahmi": "𑀅",
+      "vowel_id": "swar-001",
+      "title_hindi": "अ → 𑀅",
+      "title_english": "A → 𑀅",
+      "instruction_hindi": "अ को ब्राह्मी में लिखें",
+      "instruction_english": "Write अ in Brahmi script"
+    },
+    {
+      "id": "trace-002",
+      "order": 2,
+      "devanagari": "आ",
+      "brahmi": "𑀆",
+      "vowel_id": "swar-002",
+      "title_hindi": "आ → 𑀆",
+      "title_english": "AA → 𑀆",
+      "instruction_hindi": "आ को ब्राह्मी में लिखें",
+      "instruction_english": "Write आ in Brahmi script"
+    },
+    {
+      "id": "trace-003",
+      "order": 3,
+      "devanagari": "इ",
+      "brahmi": "𑀇",
+      "vowel_id": "swar-003",
+      "title_hindi": "इ → 𑀇",
+      "title_english": "I → 𑀇",
+      "instruction_hindi": "इ को ब्राह्मी में लिखें",
+      "instruction_english": "Write इ in Brahmi script"
+    },
+    {
+      "id": "trace-004",
+      "order": 4,
+      "devanagari": "ई",
+      "brahmi": "𑀈",
+      "vowel_id": "swar-004",
+      "title_hindi": "ई → 𑀈",
+      "title_english": "II → 𑀈",
+      "instruction_hindi": "ई को ब्राह्मी में लिखें",
+      "instruction_english": "Write ई in Brahmi script"
+    },
+    {
+      "id": "trace-005",
+      "order": 5,
+      "devanagari": "उ",
+      "brahmi": "𑀉",
+      "vowel_id": "swar-005",
+      "title_hindi": "उ → 𑀉",
+      "title_english": "U → 𑀉",
+      "instruction_hindi": "उ को ब्राह्मी में लिखें",
+      "instruction_english": "Write उ in Brahmi script"
+    },
+    {
+      "id": "trace-006",
+      "order": 6,
+      "devanagari": "ऊ",
+      "brahmi": "𑀊",
+      "vowel_id": "swar-006",
+      "title_hindi": "ऊ → 𑀊",
+      "title_english": "UU → 𑀊",
+      "instruction_hindi": "ऊ को ब्राह्मी में लिखें",
+      "instruction_english": "Write ऊ in Brahmi script"
+    },
+    {
+      "id": "trace-007",
+      "order": 7,
+      "devanagari": "ए",
+      "brahmi": "𑀏",
+      "vowel_id": "swar-007",
+      "title_hindi": "ए → 𑀏",
+      "title_english": "E → 𑀏",
+      "instruction_hindi": "ए को ब्राह्मी में लिखें",
+      "instruction_english": "Write ए in Brahmi script"
+    },
+    {
+      "id": "trace-008",
+      "order": 8,
+      "devanagari": "ऐ",
+      "brahmi": "𑀐",
+      "vowel_id": "swar-008",
+      "title_hindi": "ऐ → 𑀐",
+      "title_english": "AI → 𑀐",
+      "instruction_hindi": "ऐ को ब्राह्मी में लिखें",
+      "instruction_english": "Write ऐ in Brahmi script"
+    },
+    {
+      "id": "trace-009",
+      "order": 9,
+      "devanagari": "ओ",
+      "brahmi": "𑀑",
+      "vowel_id": "swar-009",
+      "title_hindi": "ओ → 𑀑",
+      "title_english": "O → 𑀑",
+      "instruction_hindi": "ओ को ब्राह्मी में लिखें",
+      "instruction_english": "Write ओ in Brahmi script"
+    },
+    {
+      "id": "trace-010",
+      "order": 10,
+      "devanagari": "औ",
+      "brahmi": "𑀒",
+      "vowel_id": "swar-010",
+      "title_hindi": "औ → 𑀒",
+      "title_english": "AU → 𑀒",
+      "instruction_hindi": "औ को ब्राह्मी में लिखें",
+      "instruction_english": "Write औ in Brahmi script"
+    },
+    {
+      "id": "trace-011",
+      "order": 11,
+      "devanagari": "अं",
+      "brahmi": "𑀅𑁀",
+      "vowel_id": "swar-011",
+      "title_hindi": "अं → 𑀅𑁀",
+      "title_english": "AM (Anusvara) → 𑀅𑁀",
+      "instruction_hindi": "अं को ब्राह्मी में लिखें (अनुस्वार)",
+      "instruction_english": "Write अं in Brahmi script (Anusvara)",
+      "special_mark": "anusvara"
+    },
+    {
+      "id": "trace-012",
+      "order": 12,
+      "devanagari": "अः",
+      "brahmi": "𑀅𑀂",
+      "vowel_id": "swar-012",
+      "title_hindi": "अः → 𑀅𑀂",
+      "title_english": "AH (Visarga) → 𑀅𑀂",
+      "instruction_hindi": "अः को ब्राह्मी में लिखें (विसर्ग)",
+      "instruction_english": "Write अः in Brahmi script (Visarga)",
+      "special_mark": "visarga"
+    }
+  ],
+  "true_false_questions": [
+    {
+      "id": "tf-001",
+      "order": 1,
+      "question_hindi": "\"अ\" का चिह्न [𑀅] है?",
+      "question_english": "Is the symbol for \"अ\" [𑀅]?",
+      "correct_answer": true,
+      "vowel_id": "swar-001",
+      "explanation_hindi": "हाँ, [𑀅] अ का ब्राह्मी चिह्न है।",
+      "explanation_english": "Yes, [𑀅] is the Brahmi symbol for अ."
+    },
+    {
+      "id": "tf-002",
+      "order": 2,
+      "question_hindi": "\"आ\" का चिह्न [𑀇] है?",
+      "question_english": "Is the symbol for \"आ\" [𑀇]?",
+      "correct_answer": false,
+      "vowel_id": "swar-002",
+      "correct_symbol": "𑀆",
+      "explanation_hindi": "नहीं, [𑀇] इ का चिह्न है। आ का चिह्न [𑀆] है।",
+      "explanation_english": "No, [𑀇] is the symbol for इ. The symbol for आ is [𑀆]."
+    },
+    {
+      "id": "tf-003",
+      "order": 3,
+      "question_hindi": "\"इ\" का चिह्न [𑀆] है?",
+      "question_english": "Is the symbol for \"इ\" [𑀆]?",
+      "correct_answer": false,
+      "vowel_id": "swar-003",
+      "correct_symbol": "𑀇",
+      "explanation_hindi": "नहीं, [𑀆] आ का चिह्न है। इ का चिह्न [𑀇] है।",
+      "explanation_english": "No, [𑀆] is the symbol for आ. The symbol for इ is [𑀇]."
+    },
+    {
+      "id": "tf-004",
+      "order": 4,
+      "question_hindi": "\"ई\" का चिह्न [𑀈] है?",
+      "question_english": "Is the symbol for \"ई\" [𑀈]?",
+      "correct_answer": true,
+      "vowel_id": "swar-004",
+      "explanation_hindi": "हाँ, [𑀈] ई का ब्राह्मी चिह्न है।",
+      "explanation_english": "Yes, [𑀈] is the Brahmi symbol for ई."
+    },
+    {
+      "id": "tf-005",
+      "order": 5,
+      "question_hindi": "\"उ\" का चिह्न [𑀊] है?",
+      "question_english": "Is the symbol for \"उ\" [𑀊]?",
+      "correct_answer": false,
+      "vowel_id": "swar-005",
+      "correct_symbol": "𑀉",
+      "explanation_hindi": "नहीं, [𑀊] ऊ का चिह्न है। उ का चिह्न [𑀉] है।",
+      "explanation_english": "No, [𑀊] is the symbol for ऊ. The symbol for उ is [𑀉]."
+    },
+    {
+      "id": "tf-006",
+      "order": 6,
+      "question_hindi": "\"ऊ\" का चिह्न [𑀐] है?",
+      "question_english": "Is the symbol for \"ऊ\" [𑀐]?",
+      "correct_answer": false,
+      "vowel_id": "swar-006",
+      "correct_symbol": "𑀊",
+      "explanation_hindi": "नहीं, [𑀐] ऐ का चिह्न है। ऊ का चिह्न [𑀊] है।",
+      "explanation_english": "No, [𑀐] is the symbol for ऐ. The symbol for ऊ is [𑀊]."
+    },
+    {
+      "id": "tf-007",
+      "order": 7,
+      "question_hindi": "\"ए\" का चिह्न [𑀏] है?",
+      "question_english": "Is the symbol for \"ए\" [𑀏]?",
+      "correct_answer": true,
+      "vowel_id": "swar-007",
+      "explanation_hindi": "हाँ, [𑀏] ए का ब्राह्मी चिह्न है।",
+      "explanation_english": "Yes, [𑀏] is the Brahmi symbol for ए."
+    },
+    {
+      "id": "tf-008",
+      "order": 8,
+      "question_hindi": "\"ऐ\" का चिह्न [𑀐] है?",
+      "question_english": "Is the symbol for \"ऐ\" [𑀐]?",
+      "correct_answer": true,
+      "vowel_id": "swar-008",
+      "explanation_hindi": "हाँ, [𑀐] ऐ का ब्राह्मी चिह्न है।",
+      "explanation_english": "Yes, [𑀐] is the Brahmi symbol for ऐ."
+    },
+    {
+      "id": "tf-009",
+      "order": 9,
+      "question_hindi": "\"ओ\" का चिह्न [𑀊] है?",
+      "question_english": "Is the symbol for \"ओ\" [𑀊]?",
+      "correct_answer": false,
+      "vowel_id": "swar-009",
+      "correct_symbol": "𑀑",
+      "explanation_hindi": "नहीं, [𑀊] ऊ का चिह्न है। ओ का चिह्न [𑀑] है।",
+      "explanation_english": "No, [𑀊] is the symbol for ऊ. The symbol for ओ is [𑀑]."
+    },
+    {
+      "id": "tf-010",
+      "order": 10,
+      "question_hindi": "\"औ\" का चिह्न [𑀈] है?",
+      "question_english": "Is the symbol for \"औ\" [𑀈]?",
+      "correct_answer": false,
+      "vowel_id": "swar-010",
+      "correct_symbol": "𑀒",
+      "explanation_hindi": "नहीं, [𑀈] ई का चिह्न है। औ का चिह्न [𑀒] है।",
+      "explanation_english": "No, [𑀈] is the symbol for ई. The symbol for औ is [𑀒]."
+    },
+    {
+      "id": "tf-011",
+      "order": 11,
+      "question_hindi": "\"अं\" का चिह्न [𑀅] है?",
+      "question_english": "Is the symbol for \"अं\" [𑀅]?",
+      "correct_answer": true,
+      "vowel_id": "swar-011",
+      "explanation_hindi": "हाँ, [𑀅] अं का ब्राह्मी चिह्न है (अनुस्वार के साथ)।",
+      "explanation_english": "Yes, [𑀅] is the Brahmi symbol for अं (with Anusvara mark).",
+      "note": "anusvara"
+    },
+    {
+      "id": "tf-012",
+      "order": 12,
+      "question_hindi": "\"अः\" का चिह्न [𑀅] है?",
+      "question_english": "Is the symbol for \"अः\" [𑀅]?",
+      "correct_answer": true,
+      "vowel_id": "swar-012",
+      "explanation_hindi": "हाँ, [𑀅] अः का ब्राह्मी चिह्न है (विसर्ग के साथ)।",
+      "explanation_english": "Yes, [𑀅] is the Brahmi symbol for अः (with Visarga mark).",
+      "note": "visarga"
+    }
+  ],
+  "rewards": [
+    {
+      "id": "reward-001",
+      "order": 1,
+      "badge_name_hindi": "सम्यक् प्रज्ञा सम्मान",
+      "badge_name_english": "Samyak Prajna Honor",
+      "badge_description_hindi": "देवनागरी से ब्राह्मी पहचान कर सफल हुआ",
+      "badge_description_english": "Successfully recognized Brahmi symbols from Devanagari",
+      "trigger": "completed_quiz1",
+      "icon": "🎯",
+      "color": "#D4AF37",
+      "unlock_condition": "Complete Quiz 1 (Devanagari to Brahmi)",
+      "title_english": "Samyak Pragya Award",
+      "description_english": "You have successfully completed the first stage — 'Samyak Pragya Samman' is now yours!"
+    },
+    {
+      "id": "reward-002",
+      "order": 2,
+      "badge_name_hindi": "लिपि आस्था सम्मान",
+      "badge_name_english": "Lipi Ashtha Honor",
+      "badge_description_hindi": "ब्राह्मी से देवनागरी पहचान कर सफल हुआ",
+      "badge_description_english": "Successfully recognized Devanagari from Brahmi symbols",
+      "trigger": "completed_quiz2",
+      "icon": "🔤",
+      "color": "#D4AF37",
+      "unlock_condition": "Complete Quiz 2 (Brahmi to Devanagari)",
+      "title_english": "Lipi Astha Award",
+      "description_english": "You completed the second stage — outstanding! You've crossed another milestone. 'Lipi Astha Samman' is now yours."
+    },
+    {
+      "id": "reward-003",
+      "order": 3,
+      "badge_name_hindi": "अक्षर साधना",
+      "badge_name_english": "Akshara Sadhana",
+      "badge_description_hindi": "सभी 12 स्वरों को ब्राह्मी में लिखा",
+      "badge_description_english": "Successfully wrote all 12 vowels in Brahmi script",
+      "trigger": "completed_tracing",
+      "icon": "✏️",
+      "color": "#D4AF37",
+      "unlock_condition": "Complete all tracing exercises",
+      "title_english": "Akshar Sadhana Award",
+      "description_english": "You completed the third stage — excellent! Your confidence is admirable. You have earned the 'Akshar Sadhana' honour."
+    },
+    {
+      "id": "reward-004",
+      "order": 4,
+      "badge_name_hindi": "लक्ष्य साधक",
+      "badge_name_english": "Goal Achiever",
+      "badge_description_hindi": "सत्य-असत्य प्रश्नों में सफल हुआ",
+      "badge_description_english": "Successfully answered all true/false questions",
+      "trigger": "completed_true_false",
+      "icon": "🏆",
+      "color": "#D4AF37",
+      "unlock_condition": "Complete all true/false questions",
+      "title_english": "Lakshya Sadhak Award",
+      "description_english": "You completed the fourth stage. You hit the mark perfectly — you have earned the 'Lakshya Sadhak' honour."
+    },
+    {
+      "id": "reward-005",
+      "order": 5,
+      "badge_name_hindi": "श्रेष्ठ ज्ञानी",
+      "badge_name_english": "Supreme Scholar",
+      "badge_description_hindi": "स्वर सीखने के बाद व्यञ्जन (consonants) को चुना",
+      "badge_description_english": "Chose to learn Vyanjan (Consonants) next after mastering vowels",
+      "trigger": "chose_vyanjan_next",
+      "icon": "👑",
+      "color": "#FFD700",
+      "unlock_condition": "Advance to Vyanjan module (recommended path)",
+      "bonus": true,
+      "xp_reward": 100,
+      "title_english": "Shreshtha Gyani Award",
+      "description_english": "Congratulations, Champion! You not only made the right choice but also made the best use of your knowledge. Bonus: 5 points + 'Shreshtha Gyani' honour."
+    }
+  ]
+}
