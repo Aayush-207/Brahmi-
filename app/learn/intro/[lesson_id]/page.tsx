@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
+import { toHindiNum } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   getLessonContent, 
@@ -15,6 +16,7 @@ import {
 import { getCurrentIdentity, type Identity } from '@/lib/guestIdentity'
 import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
+import { useLanguage } from '@/lib/LanguageContext'
 
 // Unified Slide Component - Renders all content types dynamically
 function UnifiedSlide({ 
@@ -295,28 +297,36 @@ function UnifiedSlide({
             <p className="text-lg md:text-xl text-[#E6D8B8]/80 mb-6 md:mb-8 text-center">{content}</p>
           )}
           <div className="grid grid-cols-1 gap-4">
-            {options.map((option: string, idx: number) => (
-              <motion.button
-                key={idx}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleMCQSelect(option)}
-                className={`
-                  p-6 rounded-2xl border-2 text-xl font-medium transition-all text-left flex justify-between items-center
-                  ${selected === option
-                    ? isCorrect 
-                      ? 'bg-green-600/20 border-green-500 text-green-400' 
-                      : 'bg-red-600/20 border-red-500 text-red-400'
-                    : 'bg-[#2a2420] border-[#D4AF37]/30 text-[#E6D8B8] hover:border-[#D4AF37]'
-                  }
-                `}
-              >
-                {option}
-                {selected === option && (
-                  <span>{isCorrect ? '✅' : '❌'}</span>
-                )}
-              </motion.button>
-            ))}
+            {options.map((opt: any, idx: number) => {
+              const optionText = typeof opt === 'object' ? opt.text : opt;
+              const optionSubtext = typeof opt === 'object' ? opt.translation : null;
+              
+              return (
+                <motion.button
+                  key={idx}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleMCQSelect(optionText)}
+                  className={`
+                    p-6 rounded-2xl border-2 text-xl font-medium transition-all text-left flex justify-between items-center
+                    ${selected === optionText
+                      ? isCorrect 
+                        ? 'bg-green-600/20 border-green-500 text-green-400' 
+                        : 'bg-red-600/20 border-red-500 text-red-400'
+                      : 'bg-[#2a2420] border-[#D4AF37]/30 text-[#E6D8B8] hover:border-[#D4AF37]'
+                    }
+                  `}
+                >
+                  <div>
+                    <div>{optionText}</div>
+                    {optionSubtext && <div className="text-sm opacity-70 mt-1">{optionSubtext}</div>}
+                  </div>
+                  {selected === optionText && (
+                    <span>{isCorrect ? '✅' : '❌'}</span>
+                  )}
+                </motion.button>
+              )
+            })}
           </div>
         </div>
       )
@@ -360,7 +370,7 @@ function UnifiedSlide({
                     {pair.long}
                   </div>
                   <div className="ml-4">
-                    <div className="text-sm text-[#D4AF37]/60 uppercase tracking-widest font-bold">Level {idx + 1}</div>
+                    <div className="text-sm text-[#D4AF37]/60 uppercase tracking-widest font-bold">स्तर {toHindiNum(idx + 1)}</div>
                     <div className="text-[#E6D8B8]/80">{pair.label}</div>
                   </div>
                 </div>
@@ -416,6 +426,7 @@ function UnifiedSlide({
 export default function LessonPage() {
   const params = useParams()
   const router = useRouter()
+  const { language } = useLanguage()
   const lessonId = params?.lesson_id as string
   
   const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
@@ -430,10 +441,14 @@ export default function LessonPage() {
       const currentIdentity = await getCurrentIdentity()
       setIdentity(currentIdentity)
       
-      const lessonInfo = await getLessonInfo(lessonId)
+      console.log(`[LessonPage] Loading lesson: ${lessonId}, language: ${language}`)
+      
+      const lessonInfo = await getLessonInfo(lessonId, language)
+      console.log(`[LessonPage] getLessonInfo returned:`, lessonInfo)
       setLesson(lessonInfo)
       
-      const lessonContents = await getLessonContent(lessonId)
+      const lessonContents = await getLessonContent(lessonId, language)
+      console.log(`[LessonPage] getLessonContent returned ${lessonContents.length} slides`)
       setContents(lessonContents)
       
       setLoading(false)
@@ -445,7 +460,7 @@ export default function LessonPage() {
     }
     
     loadData()
-  }, [lessonId])
+  }, [lessonId, language])
 
   const handleNext = async () => {
     if (currentSlide < contents.length - 1) {
@@ -531,7 +546,7 @@ export default function LessonPage() {
           />
         </div>
         <div className="text-center text-xs text-[#D4AF37]/60 mt-1">
-          {currentSlide + 1} / {contents.length}
+          {toHindiNum(currentSlide + 1)} / {toHindiNum(contents.length)}
         </div>
       </div>
 
@@ -595,9 +610,9 @@ export default function LessonPage() {
           {/* Progress Indicator - Center */}
           <div className="flex flex-col items-center gap-1 px-3">
             <div className="flex items-center gap-1.5">
-              <span className="text-[#D4AF37] font-bold text-sm">{currentSlide + 1}</span>
+              <span className="text-[#D4AF37] font-bold text-sm">{toHindiNum(currentSlide + 1)}</span>
               <span className="text-[#D4AF37]/40 text-xs">/</span>
-              <span className="text-[#D4AF37]/60 text-xs">{contents.length}</span>
+              <span className="text-[#D4AF37]/60 text-xs">{toHindiNum(contents.length)}</span>
             </div>
             <div className="w-16 h-1 bg-[#2C2C2C] rounded-full overflow-hidden">
               <div 

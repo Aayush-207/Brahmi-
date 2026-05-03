@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, User, Sparkles } from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
-import { hasGuestIdentity } from '@/lib/guestIdentity'
-import { getGuestProgressForMigration } from '@/lib/progress'
+import { X, Sparkles } from 'lucide-react'
 
 interface SignInPopupProps {
   isVisible: boolean
@@ -15,51 +12,19 @@ interface SignInPopupProps {
 export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [hasGuestProgress, setHasGuestProgress] = useState(false)
-  const supabase = createClient()
-
-  useEffect(() => {
-    // Check if user has guest progress
-    if (hasGuestIdentity()) {
-      const guestProgress = getGuestProgressForMigration()
-      if (guestProgress && guestProgress.completedIds.length > 0) {
-        setHasGuestProgress(true)
-      }
-    }
-  }, [isVisible])
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true)
     setError(null)
     
     try {
-      // Use localhost in development. Prefer NEXT_PUBLIC_APP_URL in production if set.
-      const baseUrl = process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3000'
-        : (process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin)
-
-      // Build callback URL and include the full current href as `next`
-      const redirectUrl = new URL('/auth/callback', baseUrl)
-      try {
-        const pathOnly = `${window.location.pathname}${window.location.search}${window.location.hash}`
-        redirectUrl.searchParams.set('next', pathOnly)
-      } catch {}
-
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: redirectUrl.toString(),
-        },
-      })
-      
-      if (error) {
-        setError(error.message)
-      } else {
-        onClose()
-      }
+      // Backend sign-in will be implemented when backend is available
+      console.log('Sign in: Backend authentication will be implemented')
+      // For now, show a message to the user
+      setError('Sign-in feature coming soon! Backend integration in progress.')
+      setIsLoading(false)
     } catch (err) {
-      setError('Failed to sign in. Please try again.')
-    } finally {
+      setError('Sign-in feature coming soon!')
       setIsLoading(false)
     }
   }
@@ -79,25 +44,19 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
           
           {/* Popup */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, x: 20, y: -20 }}
-            animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, x: 20, y: -20 }}
-            className="fixed top-4 right-4 z-50 w-full max-w-md"
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md z-50 px-4"
           >
-            <div className="bg-gradient-to-br from-[#1a1613] to-[#2a2420] border border-[#D4AF37]/30 rounded-2xl shadow-2xl p-8 mx-4">
+            <div className="bg-gradient-to-br from-[#2a2420] to-[#1a1613] border border-[#D4AF37]/30 rounded-2xl p-6 shadow-2xl shadow-black/50">
               {/* Header */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-[#D4AF37]/20 rounded-full">
-                    <Sparkles className="w-5 h-5 text-[#D4AF37]" />
-                  </div>
-                  <h2 className="text-xl font-serif font-bold text-[#D4AF37]">
-                    Save Your Progress
-                  </h2>
-                </div>
+              <div className="flex items-center gap-3 mb-6">
+                <Sparkles className="w-6 h-6 text-[#D4AF37]" />
+                <h2 className="text-2xl font-bold text-[#D4AF37]">Save Your Progress</h2>
                 <button
                   onClick={onClose}
-                  className="p-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-white/10"
+                  className="p-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-white/10 ml-auto"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -109,23 +68,17 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
                   Sign in to automatically save your learning progress and access your lessons from any device.
                 </p>
                 
-                {hasGuestProgress && (
-                  <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] p-3 rounded-lg mb-4 text-sm">
-                    ✨ Your progress will be saved to your account
-                  </div>
-                )}
-                
                 <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-lg p-4 mb-6">
                   <div className="flex items-center gap-2 text-[#D4AF37] text-sm font-medium">
-                    <User className="w-4 h-4" />
-                    <span>Continue learning without losing progress</span>
+                    <Sparkles className="w-4 h-4" />
+                    <span>Backend integration coming soon!</span>
                   </div>
                 </div>
               </div>
 
               {/* Error Message */}
               {error && (
-                <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-3 rounded-lg mb-4 text-sm text-center">
+                <div className="bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 p-3 rounded-lg mb-4 text-sm text-center">
                   {error}
                 </div>
               )}
@@ -155,7 +108,7 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
                 onClick={onClose}
                 className="w-full mt-3 text-gray-400 hover:text-white transition-colors text-sm py-2"
               >
-                Continue as guest (progress won't be saved)
+                Continue as guest
               </button>
             </div>
           </motion.div>

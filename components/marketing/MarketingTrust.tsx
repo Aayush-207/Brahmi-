@@ -1,26 +1,35 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const TRUST_ITEMS = [
     {
         icon: "🏛️",
-        title: "पवित्र उत्पत्ति",
-        desc: "भगवान ऋषभदेव द्वारा रचित, उनकी पुत्री ब्रह्मी को प्रदान की गई। जैन आगमों की मूल लिपि।"
+        title: "trust.items.0.title",
+        desc: "trust.items.0.description"
     },
     {
         icon: "🧘‍♂️",
-        title: "अनुशासित अध्ययन",
-        desc: "चरणबद्ध, धैर्यपूर्ण पद्धति। जैन शिक्षण परंपरा और आध्यात्मिक अध्ययन के अनुरूप।"
+        title: "trust.items.1.title",
+        desc: "trust.items.1.description"
     },
     {
         icon: "📜",
-        title: "ज्ञान का संरक्षण",
-        desc: "जैन दार्शनिक ज्ञान को उसकी मूल लिपि और संरचना में सुरक्षित रखने के लिए डिज़ाइन किया गया।"
+        title: "trust.items.2.title",
+        desc: "trust.items.2.description"
     }
 ];
 
 export function MarketingTrust() {
+    const { t } = useLanguage();
+
+    const translatedItems = TRUST_ITEMS.map(item => ({
+        ...item,
+        title: t(item.title),
+        desc: t(item.desc)
+    }));
+    
     return (
         <section className="py-32 bg-gradient-to-b from-[#2a2420] to-[#1a1613] relative overflow-hidden">
             {/* Decorative background elements */}
@@ -39,19 +48,19 @@ export function MarketingTrust() {
                     className="text-center mb-20 space-y-6"
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#8B3A3A]/10 border border-[#8B3A3A]/40">
-                        <span className="text-[#E69A47] text-sm font-bold tracking-[0.3em] uppercase">प्रामाणिकता</span>
+                        <span className="text-[#E69A47] text-sm font-bold tracking-[0.3em] uppercase">{t('trust.badge')}</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#F5F1E8] leading-tight">
-                        विश्वास का आधार
+                        {t('trust.title')}
                     </h2>
                     <p className="text-xl text-[#B8AFA0] max-w-3xl mx-auto leading-relaxed">
-                        हमारी पद्धति जैन परंपरा और शास्त्रीय अध्ययन के प्राचीन सिद्धांतों पर आधारित है
+                        {t('trust.description')}
                     </p>
                 </motion.div>
 
                 {/* Trust Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
-                    {TRUST_ITEMS.map((item, index) => (
+                    {translatedItems.map((item, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 50 }}

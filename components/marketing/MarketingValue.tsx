@@ -2,8 +2,11 @@
 
 import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function MarketingValue() {
+    const { t } = useLanguage();
+
     return (
         <section className="py-32 bg-gradient-to-b from-[#2a2420] to-[#1a1613] relative overflow-hidden">
             {/* Decorative Elements */}
@@ -45,21 +48,20 @@ export function MarketingValue() {
                         {/* Decorative line */}
                         <div className="flex items-center gap-4 justify-center md:justify-start">
                             <div className="h-1 w-16 bg-gradient-to-r from-[#E69A47] to-transparent rounded-full"></div>
-                            <span className="text-[#E69A47] text-sm font-bold tracking-[0.3em] uppercase">महत्वपूर्ण</span>
+                            <span className="text-[#E69A47] text-sm font-bold tracking-[0.3em] uppercase">{t('value.tag')}</span>
                         </div>
 
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#F5F1E8] leading-tight">
-                            लिपि, भाषा नहीं।
+                            {t('value.title')}
                         </h2>
                         
                         <p className="text-xl md:text-2xl text-[#B8AFA0] font-medium leading-relaxed">
-                            जैन परंपरा में ब्राह्मी को एक <span className="text-[#E6D8B8] font-bold">लिपि</span> के रूप में समझा जाता है, न कि बोली जाने वाली भाषा के रूप में।
-                            यह जैन दार्शनिक सिद्धांत, आगम, और शिक्षाओं को लिखित रूप में संरक्षित करने का सटीक माध्यम है।
+                            {t('value.description')}
                         </p>
                         
                         <div className="pt-4">
                             <Button className="group px-8 py-4 text-base font-bold text-[#CC7722] border-2 border-[#CC7722]/40 bg-transparent hover:bg-[#CC7722]/10 hover:border-[#CC7722] rounded-xl uppercase tracking-widest transition-all duration-300">
-                                मूल आधार को समझिए
+                                {t('value.button')}
                                 <span className="inline-block ml-2 transform group-hover:translate-x-2 transition-transform duration-300">→</span>
                             </Button>
                         </div>

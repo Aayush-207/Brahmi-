@@ -3,8 +3,11 @@
 import { Button } from "@/components/ui/Button";
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export function MarketingHero() {
+    const { t, language } = useLanguage();
+
     return (
         <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-6 overflow-hidden bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613]">
             {/* Animated Background Pattern */}
@@ -33,35 +36,35 @@ export function MarketingHero() {
                         {/* Decorative Tag */}
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E69A47]/10 border border-[#E69A47]/40 backdrop-blur-sm">
                             <span className="w-2 h-2 rounded-full bg-[#E69A47] animate-pulse"></span>
-                            <span className="text-[#E69A47] text-sm font-medium tracking-wider">प्राचीन ज्ञान की प्रतिध्वनि</span>
+                            <span className="text-[#E69A47] text-sm font-medium tracking-wider">{t('hero.tag')}</span>
                         </div>
 
                         <div className="space-y-6">
                             <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#F5F1E8] font-bold leading-[1.1] tracking-tight">
-                                ब्राह्मी लिपि में{' '}
+                                {language === 'hi' ? 'ब्राह्मी लिपि में' : 'Brahmi Script in'} {' '}
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E69A47] via-[#D4AF37] to-[#CC7722] animate-gradient">
-                                    जैन दर्शन
+                                    {t('hero.titleGradient')}
                                 </span>
                             </h1>
                             
                             <h2 className="text-2xl md:text-3xl text-[#E6D8B8] font-semibold leading-relaxed">
-                                ब्राह्मी लिपि के माध्यम से संरक्षित शाश्वत जैन ज्ञान।
+                                {t('hero.subtitle')}
                             </h2>
                             
                             <p className="text-lg md:text-xl text-[#B8AFA0] font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                                यह पाठ्यक्रम ब्राह्मी लिपि को उस माध्यम के रूप में प्रस्तुत करता है जिसके द्वारा जैन दर्शन, मूल्य और आध्यात्मिक सिद्धांत पीढ़ी दर पीढ़ी सुरक्षित रहे हैं।
+                                {t('hero.description')}
                             </p>
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-5 pt-4 justify-center lg:justify-start">
                             <Link href="/learn" className="w-full sm:w-auto">
                                 <Button className="w-full sm:w-auto group relative h-16 px-12 text-lg font-bold bg-gradient-to-r from-[#D4AF37] to-[#C5A059] text-[#1a1613] rounded-2xl shadow-xl shadow-[#D4AF37]/20 hover:shadow-2xl hover:shadow-[#D4AF37]/30 hover:scale-105 transition-all duration-300 overflow-hidden">
-                                    <span className="relative z-10 uppercase tracking-wider">अध्ययन प्रारंभ करें</span>
+                                    <span className="relative z-10 uppercase tracking-wider">{t('hero.primaryBtn')}</span>
                                     <div className="absolute inset-0 bg-gradient-to-r from-[#E6D8B8] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </Button>
                             </Link>
                             <Button className="w-full sm:w-auto h-16 px-12 text-lg font-medium bg-transparent border-2 border-[#D4A373]/40 text-[#D4A373] rounded-2xl hover:bg-[#D4A373]/10 hover:border-[#D4A373] transition-all duration-300 backdrop-blur-sm">
-                                मूल आधार को समझिए
+                                {t('hero.secondaryBtn')}
                             </Button>
                         </div>
                     </motion.div>

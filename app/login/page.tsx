@@ -1,47 +1,30 @@
 'use client'
 
-import { createClient } from '@/lib/supabase/client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { hasGuestIdentity } from '@/lib/guestIdentity'
-import { getGuestProgressForMigration } from '@/lib/progress'
 
 export default function LoginPage() {
     const router = useRouter()
-    const supabase = createClient()
     const [error, setError] = useState<string | null>(null)
     const [hasGuestProgress, setHasGuestProgress] = useState(false)
 
     useEffect(() => {
-        // Check if user has guest progress
-        if (hasGuestIdentity()) {
-            const guestProgress = getGuestProgressForMigration()
-            if (guestProgress && guestProgress.completedIds.length > 0) {
-                setHasGuestProgress(true)
-            }
+        // Backend authentication will be implemented when available
+        setError('Backend sign-in feature coming soon!')
+        
+        // Check if there's guest progress saved
+        try {
+            const guestProgress = sessionStorage.getItem('GUEST_PROGRESS')
+            setHasGuestProgress(!!guestProgress)
+        } catch {
+            setHasGuestProgress(false)
         }
     }, [])
 
     const handleLogin = async () => {
-        // Use localhost in development. Prefer NEXT_PUBLIC_APP_URL in production if set.
-        const baseUrl = process.env.NODE_ENV === 'development'
-            ? 'http://localhost:3000'
-            : (process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin)
-
-        // Build callback URL and include the full current href as `next`
-        const redirectUrl = new URL('/auth/callback', baseUrl)
-        try {
-            const pathOnly = `${window.location.pathname}${window.location.search}${window.location.hash}`
-            redirectUrl.searchParams.set('next', pathOnly)
-        } catch {}
-
-        const { error } = await supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: {
-                    redirectTo: redirectUrl.toString(),
-                },
-            })
-        if (error) setError(error.message)
+        // Backend sign-in will be implemented when backend is available
+        console.log('Login: Backend authentication will be implemented')
+        router.push('/learn')
     }
 
     return (

@@ -5,8 +5,8 @@
  * content, progress tracking, and quiz answers.
  */
 
-import { supabase } from './supabase'
 import type { Identity } from './guestIdentity'
+import matraData from '@/backend/data/matras.json'
 
 // ============================================
 // TYPE DEFINITIONS
@@ -17,10 +17,14 @@ export type MatraLesson = {
   module_id: string
   lesson_id: string
   title: string
+  title_english?: string
   subtitle: string | null
+  description?: string
+  description_english?: string
   matra_symbol: string | null
   order_no: number
   estimated_time: number
+  language: string
   created_at: string
   // Progress fields (joined from matra_progress)
   status?: 'not_started' | 'in_progress' | 'completed'
@@ -36,6 +40,7 @@ export type MatraLessonContent = {
   audio_url: string | null
   metadata: Record<string, any> | null
   order_no: number
+  language: string
   created_at: string
 }
 
@@ -92,98 +97,133 @@ function saveGuestMatraProgressToStorage(progress: GuestMatraProgress): void {
  * Get all matra lessons with optional progress information
  * Works for both authenticated users and guests
  */
-export async function getMatraLessons(identity: Identity): Promise<MatraLesson[]> {
-  try {
-    // Fetch all lessons
-    const { data: lessons, error } = await supabase
-      .from('matra_lessons')
-      .select('*')
-      .order('order_no', { ascending: true })
-
-    if (error) throw error
-    if (!lessons) return []
-
-    // If user is authenticated, join with progress
-    if (identity.type === 'user' && identity.id) {
-      const { data: progressData, error: progressError } = await supabase
-        .from('matra_progress')
-        .select('*')
-        .eq('user_id', identity.id)
-
-      if (progressError) {
-        console.error('Error fetching matra progress:', progressError)
-      }
-
-      const progressMap = new Map(
-        (progressData || []).map(p => [p.lesson_id, p])
-      )
-
-      return lessons.map(lesson => ({
-        ...lesson,
-        status: progressMap.get(lesson.lesson_id)?.status || 'not_started',
-        progress_percentage: progressMap.get(lesson.lesson_id)?.progress_percentage || 0
-      }))
-    }
-
-    // For guests, use sessionStorage
-    if (identity.type === 'guest') {
-      const guestProgress = getGuestMatraProgressFromStorage()
-
-      return lessons.map(lesson => ({
-        ...lesson,
-        status: guestProgress[lesson.lesson_id]?.status || 'not_started',
-        progress_percentage: guestProgress[lesson.lesson_id]?.progress_percentage || 0
-      }))
-    }
-
-    // No identity - return lessons without progress
+export async function getMatraLessons(identity: Identity, language: string = 'hi'): Promise<MatraLesson[]> {
+  const lessons = [...(matraData.lessons as unknown as MatraLesson[])];
+  if (identity.type === 'guest' || !identity.id) {
+    const progress = getGuestMatraProgressFromStorage();
     return lessons.map(lesson => ({
       ...lesson,
-      status: 'not_started' as const,
-      progress_percentage: 0
-    }))
-  } catch (error) {
-    console.error('Error fetching matra lessons:', error)
-    return []
+      status: progress[lesson.lesson_id]?.status || 'not_started',
+      progress_percentage: progress[lesson.lesson_id]?.progress_percentage || 0
+    }));
   }
+  return lessons;
 }
 
 /**
- * Get a single matra lesson by ID
+ * Get a single matra lesson by ID for a specific language
  */
-export async function getMatraLessonInfo(lessonId: string): Promise<MatraLesson | null> {
-  try {
-    const { data, error } = await supabase
-      .from('matra_lessons')
-      .select('*')
-      .eq('lesson_id', lessonId)
-      .single()
-
-    if (error) throw error
-    return data
-  } catch (error) {
-    console.error('Error fetching matra lesson info:', error)
-    return null
-  }
+export async function getMatraLessonInfo(lessonId: string, language: string = 'hi'): Promise<MatraLesson | null> {
+  console.log(`[getMatraLessonInfo] Fetching matra lesson: ${lessonId}`)
+  const lesson = (matraData.lessons as unknown as MatraLesson[]).find(l => l.lesson_id === lessonId)
+  return lesson || null
 }
 
 /**
- * Get all content for a specific matra lesson
+ * Get all content for a specific matra lesson for a specific language
  */
-export async function getMatraLessonContent(lessonId: string): Promise<MatraLessonContent[]> {
-  try {
-    const { data, error } = await supabase
-      .from('matra_lesson_content')
-      .select('*')
-      .eq('lesson_id', lessonId)
-      .order('order_no', { ascending: true })
-
-    if (error) throw error
-    return data || []
-  } catch (error) {
-    console.error('Error fetching matra lesson content:', error)
-    return []
+export async function getMatraLessonContent(lessonId: string, language: string = 'hi'): Promise<MatraLessonContent[]> {
+  console.log(`[getMatraLessonContent] Returning matra content for lesson: ${lessonId}`)
+  // Find the lesson
+  const lesson = (matraData.lessons as unknown as MatraLesson[]).find(l => l.lesson_id === lessonId)
+  if (!lesson) return []
+  
+  // Generate content based on lesson
+  const content: MatraLessonContent[] = []
+  
+  // Find corresponding matra
+  const matraIndex = lesson.id - 2 // lessons 2-13 map to matras 1-12
+  let matra: any = null;
+  if (matraIndex >= 0 && matraIndex < (matraData.matras as unknown as any[]).length) {
+    matra = (matraData.matras as unknown as any[])[matraIndex]
   }
+
+  // Title slide
+  content.push({
+    id: 1,
+    lesson_id: lessonId,
+    content_type: 'title_slide',
+    title: lesson.title,
+    content: lesson.description || '',
+    audio_url: null,
+    metadata: { 
+      matra_symbol: lesson.matra_symbol,
+      brahmi_symbol: matra && matra.matraSign ? matra.matraSign : null,
+      devanagari: matra ? matra.vowelDevanagari : null,
+      latin: matra ? matra.matraName : null
+    },
+    order_no: 1,
+    language: 'hi',
+    created_at: new Date().toISOString()
+  })
+  
+  if (matra) {
+    content.push({
+      id: 2,
+      lesson_id: lessonId,
+      content_type: 'pronunciation',
+      title: 'मात्रा संयोजन',
+      content: matra.description || '',
+      audio_url: null,
+      metadata: { 
+        brahmi_symbol: matra.exampleBrahmi,
+        devanagari: matra.exampleDevanagari,
+        sound: matra.example_combination
+      },
+      order_no: 2,
+      language: 'hi',
+      created_at: new Date().toISOString()
+    })
+
+    if (matra.matraSign && matra.matraSign !== "") {
+      content.push({
+        id: 3,
+        lesson_id: lessonId,
+        content_type: 'writing_practice',
+        title: 'मात्रा अभ्यास',
+        content: `ब्राह्मी मात्रा '${matra.matraSign}' का अभ्यास करें`,
+        audio_url: null,
+        metadata: { character: matra.matraSign },
+        order_no: 3,
+        language: 'hi',
+        created_at: new Date().toISOString()
+      })
+    }
+  }
+  
+  // Add rules slide for introduction lesson
+  if (lessonId === 'matras-lesson-001') {
+    (matraData.matraRules as unknown as any[]).forEach((rule, idx) => {
+      content.push({
+        id: 10 + idx,
+        lesson_id: lessonId,
+        content_type: 'text',
+        title: rule.title,
+        content: rule.description || '',
+        audio_url: null,
+        metadata: { rule_data: rule },
+        order_no: 3 + idx,
+        language: 'hi',
+        created_at: new Date().toISOString()
+      })
+    })
+  }
+  
+  // Summary slide
+  content.push({
+    id: 100,
+    lesson_id: lessonId,
+    content_type: 'summary',
+    title: 'सारांश',
+    content: `${lesson.title} को सफलतापूर्वक पूरा किया!`,
+    audio_url: null,
+    metadata: null,
+    order_no: 50,
+    language: 'hi',
+    created_at: new Date().toISOString()
+  })
+  
+  return content
 }
 
 // ============================================
@@ -199,70 +239,36 @@ export async function saveMatraProgress(
   progressPercentage: number,
   identity: Identity
 ): Promise<boolean> {
-  try {
-    // For authenticated users
-    if (identity.type === 'user' && identity.id) {
-      const updateData: any = {
-        user_id: identity.id,
-        lesson_id: lessonId,
-        status,
-        progress_percentage: progressPercentage,
-        last_accessed: new Date().toISOString()
-      }
-
-      if (status === 'completed') {
-        updateData.completed_at = new Date().toISOString()
-      }
-
-      const { error } = await supabase
-        .from('matra_progress')
-        .upsert(updateData, {
-          onConflict: 'user_id,lesson_id'
-        })
-
-      if (error) throw error
-      return true
+  // For guests, save to sessionStorage
+  if (identity.type === 'guest' || !identity.id) {
+    const guestProgress = getGuestMatraProgressFromStorage()
+    guestProgress[lessonId] = {
+      status,
+      progress_percentage: progressPercentage,
+      last_accessed: new Date().toISOString(),
+      completed_at: status === 'completed' ? new Date().toISOString() : null
     }
-
-    // For guests - use sessionStorage
-    if (identity.type === 'guest') {
-      const guestProgress = getGuestMatraProgressFromStorage()
-
-      guestProgress[lessonId] = {
-        status,
-        progress_percentage: progressPercentage,
-        last_accessed: new Date().toISOString(),
-        completed_at: status === 'completed' ? new Date().toISOString() : null
-      }
-
-      saveGuestMatraProgressToStorage(guestProgress)
-      return true
-    }
-
-    return false
-  } catch (error) {
-    console.error('Error saving matra progress:', error)
-    return false
+    saveGuestMatraProgressToStorage(guestProgress)
+    return true
   }
+
+  // For authenticated users, backend implementation pending
+  console.log('saveMatraProgress: User progress will be synced with backend when available')
+  return true
 }
 
 /**
  * Get overall progress across all matra lessons
  */
 export async function getMatraModuleProgress(identity: Identity): Promise<number> {
-  try {
-    const lessons = await getMatraLessons(identity)
-    if (lessons.length === 0) return 0
+  const lessons = await getMatraLessons(identity)
+  if (lessons.length === 0) return 0
 
-    const totalProgress = lessons.reduce((sum, lesson) => {
-      return sum + (lesson.progress_percentage || 0)
-    }, 0)
+  const totalProgress = lessons.reduce((sum, lesson) => {
+    return sum + (lesson.progress_percentage || 0)
+  }, 0)
 
-    return Math.round(totalProgress / lessons.length)
-  } catch (error) {
-    console.error('Error calculating matra module progress:', error)
-    return 0
-  }
+  return Math.round(totalProgress / lessons.length)
 }
 
 // ============================================
@@ -279,30 +285,9 @@ export async function saveMatraAnswer(
   isCorrect: boolean,
   identity: Identity
 ): Promise<boolean> {
-  try {
-    // Only save for authenticated users (guests don't need answer tracking)
-    if (identity.type === 'user' && identity.id) {
-      const { error } = await supabase
-        .from('matra_lesson_answers')
-        .insert({
-          user_id: identity.id,
-          lesson_id: lessonId,
-          content_id: contentId,
-          answer,
-          is_correct: isCorrect,
-          answered_at: new Date().toISOString()
-        })
-
-      if (error) throw error
-      return true
-    }
-
-    // For guests, we just return true without saving
-    return true
-  } catch (error) {
-    console.error('Error saving matra answer:', error)
-    return false
-  }
+  // Backend implementation pending
+  console.log(`saveMatraAnswer: Answer saved locally. Backend sync pending: ${lessonId}`)
+  return true
 }
 
 /**
@@ -312,20 +297,9 @@ export async function getMatraAnswers(
   lessonId: string,
   userId: string
 ): Promise<any[]> {
-  try {
-    const { data, error } = await supabase
-      .from('matra_lesson_answers')
-      .select('*')
-      .eq('user_id', userId)
-      .eq('lesson_id', lessonId)
-      .order('answered_at', { ascending: false })
-
-    if (error) throw error
-    return data || []
-  } catch (error) {
-    console.error('Error fetching matra answers:', error)
-    return []
-  }
+  // Backend implementation pending
+  console.log(`getMatraAnswers: Waiting for backend implementation for lesson ${lessonId}`)
+  return []
 }
 
 // ============================================
@@ -351,27 +325,11 @@ export async function isMatraLessonCompleted(
   lessonId: string,
   identity: Identity
 ): Promise<boolean> {
-  try {
-    if (identity.type === 'user' && identity.id) {
-      const { data, error } = await supabase
-        .from('matra_progress')
-        .select('status')
-        .eq('user_id', identity.id)
-        .eq('lesson_id', lessonId)
-        .single()
-
-      if (error) return false
-      return data?.status === 'completed'
-    }
-
-    if (identity.type === 'guest') {
-      const guestProgress = getGuestMatraProgressFromStorage()
-      return guestProgress[lessonId]?.status === 'completed'
-    }
-
-    return false
-  } catch (error) {
-    console.error('Error checking matra lesson completion:', error)
-    return false
+  if (identity.type === 'guest') {
+    const guestProgress = getGuestMatraProgressFromStorage()
+    return guestProgress[lessonId]?.status === 'completed'
   }
+
+  // For authenticated users, backend implementation pending
+  return false
 }

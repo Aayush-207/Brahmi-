@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { getUserProgress } from '@/lib/progress'
 import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
+import { getUserProgress } from '@/lib/progress'
+import { getVowels } from '@/lib/swarModule'
 import Link from 'next/link'
+import { toHindiNum } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
@@ -117,7 +118,6 @@ export default function LettersPage() {
     const lastCompletedIndex = lastCompletedLetter ? letters.findIndex(l => l.id === lastCompletedLetter.id) : -1
 
     const router = useRouter()
-    const supabase = createClient()
 
     // --- Effects ---
 
@@ -129,67 +129,72 @@ export default function LettersPage() {
         return () => window.removeEventListener('resize', checkMobile)
     }, [])
 
-    // 1. Load User Identity
+    // 1. Load User Identity then immediately load completed IDs
     useEffect(() => {
         const loadIdentity = async () => {
-            setIdentity(await getCurrentIdentity())
+            const id = await getCurrentIdentity()
+            setIdentity(id)
             setIsLoaded(true)
+            // Load persisted progress right after identity resolves
+            const { completedIds: saved } = await getUserProgress(id)
+            setCompletedIds(saved)
         }
         loadIdentity()
     }, [])
 
-    // 2. Fetch Letters (VOWELS ONLY)
+    // 2. Fetch Swar (Vowels) Data
     useEffect(() => {
-        async function fetchLetters() {
-            const { data, error } = await supabase
-                .from('letters')
-                .select('*')
-                .eq('letter_type', 'vowel')
-                .order('order_no', { ascending: true })
-
-            if (!error) setLetters(data || [])
-            setLoading(false)
+        async function fetchVowels() {
+            try {
+                console.log('[LettersPage] Fetching vowels from swarModule')
+                const vowels = await getVowels()
+                
+                // Transform Vowel type to Letter type
+                const transformedLetters: Letter[] = vowels.map(vowel => ({
+                    id: vowel.id,
+                    letter_name: vowel.devanagari,  // Show Devanagari name
+                    brahmi_symbol: vowel.brahmi,    // Brahmi symbol
+                    order_no: vowel.order
+                }))
+                
+                setLetters(transformedLetters)
+                console.log(`[LettersPage] Loaded ${transformedLetters.length} vowels`)
+            } catch (error) {
+                console.error('[LettersPage] Error fetching vowels:', error)
+                setLetters([])
+            } finally {
+                setLoading(false)
+            }
         }
-        fetchLetters()
+        
+        fetchVowels()
     }, [])
-
-    // 3. Fetch Progress & Handle New Completions
-    useEffect(() => {
-        if (!isLoaded || letters.length === 0) return
-
-        async function fetchProgress() {
-            const { completedIds: fetchedIds } = await getUserProgress(identity)
-            setCompletedIds(fetchedIds)
-        }
-
-        fetchProgress()
-    }, [isLoaded, letters.length, identity.type, identity.id])
 
     // Animation Trigger via Search Params
     const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
     const justCompletedId = searchParams ? searchParams.get('completed') : null
 
     useEffect(() => {
-        if (justCompletedId && letters.length > 0 && completedIds.length > 0) {
-            if (completedIds.includes(justCompletedId)) {
-                const letter = letters.find(l => l.id === justCompletedId)
-                if (letter) {
-                    const idx = letters.findIndex(l => l.id === letter.id)
-                    if (idx < letters.length - 1) {
-                        setAnimatingIndex(idx)
-                        setTimeout(() => {
-                            setShowCelebration(true)
-                            setTimeout(() => {
-                                setShowCelebration(false)
-                                setAnimatingIndex(null)
-                                router.replace('/letters', { scroll: false })
-                            }, 2000)
-                        }, 1000)
-                    }
-                }
+        if (!justCompletedId || letters.length === 0) return
+        // Add to completedIds in state if not already there
+        setCompletedIds(prev => prev.includes(justCompletedId) ? prev : [...prev, justCompletedId])
+        // Trigger celebration animation
+        const letter = letters.find(l => l.id === justCompletedId)
+        if (letter) {
+            const idx = letters.findIndex(l => l.id === letter.id)
+            if (idx < letters.length - 1) {
+                setAnimatingIndex(idx)
+                setTimeout(() => {
+                    setShowCelebration(true)
+                    setTimeout(() => {
+                        setShowCelebration(false)
+                        setAnimatingIndex(null)
+                        router.replace('/letters', { scroll: false })
+                    }, 2000)
+                }, 1000)
             }
         }
-    }, [justCompletedId, letters, completedIds, router])
+    }, [justCompletedId, letters, router])
 
     // Auto-scroll to center current/next letter
     useEffect(() => {
@@ -305,8 +310,8 @@ export default function LettersPage() {
                             </filter>
                         </defs>
                         
-                        {/* Background dashed path */}
-                        <path
+                        {/* Background dashed path - draws in */}
+                        <motion.path
                             d={generateJourneyPath(letters.length, centerX) ?? ''}
                             fill="none"
                             stroke="url(#swarJourneyGradient)"
@@ -314,6 +319,9 @@ export default function LettersPage() {
                             strokeLinecap="round"
                             strokeDasharray="10 8"
                             opacity="0.4"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{ pathLength: 1, opacity: 0.4 }}
+                            transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.2 }}
                         />
                         
                         {/* Completed solid path */}
@@ -340,50 +348,76 @@ export default function LettersPage() {
                             return (
                                 <motion.div
                                     key={letter.id}
-                                    ref={(el) => {
-                                        if (el) letterRefs.current.set(index, el)
-                                    }}
+                                    ref={(el) => { if (el) letterRefs.current.set(index, el) }}
                                     className="absolute flex flex-col items-center"
-                                    style={{ 
-                                        left: pos.x - 48,
-                                        top: pos.y - 48,
-                                    }}
-                                    initial={{ scale: 0, y: 20 }}
-                                    animate={{ scale: 1, y: 0 }}
-                                    transition={{ delay: index * 0.08, type: "spring" }}
+                                    style={{ left: pos.x - 48, top: pos.y - 48 }}
+                                    initial={{ opacity: 0, scale: 0, y: 40, rotate: -10 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                                    transition={{ delay: index * 0.1, type: 'spring', stiffness: 240, damping: 18 }}
                                 >
                                     {/* Letter Node */}
                                     <Link href={`/lesson/${letter.id}`}>
                                         <motion.div
-                                            className={`
-                                                relative w-20 h-20 flex items-center justify-center border-4 rounded-full transition-all duration-500
-                                                ${isCompleted || isCelebrating 
-                                                    ? 'bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_25px_rgba(212,175,55,0.8)]' 
-                                                    : isNext 
-                                                    ? 'bg-gradient-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613] animate-pulse shadow-[0_0_35px_rgba(230,154,71,0.9)]'
+                                            className={`relative w-20 h-20 flex items-center justify-center border-4 rounded-full
+                                                ${isCompleted || isCelebrating
+                                                    ? 'bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613]'
+                                                    : isNext
+                                                    ? 'bg-gradient-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613]'
                                                     : 'bg-gradient-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40'
-                                                }
-                                            `}
-                                            whileHover={{ scale: 1.1 }}
-                                            whileTap={{ scale: 0.95 }}
+                                                }`}
+                                            animate={
+                                                isCelebrating
+                                                    ? { scale: [1, 1.2, 0.9, 1.1, 1], rotate: [0, -6, 6, -3, 0] }
+                                                    : isCompleted
+                                                    ? { boxShadow: ['0 0 15px rgba(212,175,55,0.5)', '0 0 30px rgba(212,175,55,0.9)', '0 0 15px rgba(212,175,55,0.5)'] }
+                                                    : isNext
+                                                    ? { y: [0, -6, 0], boxShadow: ['0 0 25px rgba(230,154,71,0.7)', '0 0 45px rgba(230,154,71,1)', '0 0 25px rgba(230,154,71,0.7)'] }
+                                                    : {}
+                                            }
+                                            transition={
+                                                isCelebrating ? { duration: 0.6 }
+                                                    : isCompleted || isNext ? { duration: 2, repeat: Infinity, ease: 'easeInOut' }
+                                                    : {}
+                                            }
+                                            whileHover={{ scale: 1.12, boxShadow: '0 0 40px rgba(212,175,55,0.9)' }}
+                                            whileTap={{ scale: 0.92 }}
                                         >
-                                            <span className="text-2xl font-serif font-bold">{letter.brahmi_symbol}</span>
-                                            
-                                            {/* Completed indicator */}
+                                            {/* Symbol with micro-pulse */}
+                                            <motion.span
+                                                className="text-2xl font-serif font-bold"
+                                                animate={isNext ? { scale: [1, 1.1, 1] } : {}}
+                                                transition={isNext ? { duration: 1.6, repeat: Infinity, ease: 'easeInOut' } : {}}
+                                            >
+                                                {letter.brahmi_symbol}
+                                            </motion.span>
+
+                                            {/* Shimmer for completed */}
                                             {isCompleted && (
-                                                <motion.div 
+                                                <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
+                                                    <motion.div
+                                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
+                                                        animate={{ x: ['-120%', '200%'] }}
+                                                        transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
+                                                    />
+                                                </div>
+                                            )}
+
+                                            {/* Completed badge */}
+                                            {isCompleted && (
+                                                <motion.div
                                                     className="absolute -top-2 -right-2 w-6 h-6 bg-[#E69A47] rounded-full flex items-center justify-center border-2 border-[#1a1613] shadow-[0_0_10px_rgba(230,154,71,0.8)]"
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
+                                                    initial={{ scale: 0, rotate: -180 }}
+                                                    animate={{ scale: 1, rotate: 0 }}
+                                                    transition={{ delay: 0.2, type: 'spring', stiffness: 300 }}
                                                 >
                                                     <span className="text-[#1a1613] text-xs">🔥</span>
                                                 </motion.div>
                                             )}
-                                            
-                                            {/* Next indicator */}
+
+                                            {/* Next label */}
                                             {isNext && (
-                                                <motion.div 
-                                                    className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#E69A47] px-2 py-1 rounded text-xs font-bold text-[#1a1613]"
+                                                <motion.div
+                                                    className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#E69A47] px-2 py-1 rounded text-xs font-bold text-[#1a1613] whitespace-nowrap"
                                                     animate={{ y: [-3, 3, -3] }}
                                                     transition={{ duration: 2, repeat: Infinity }}
                                                 >
@@ -392,17 +426,15 @@ export default function LettersPage() {
                                             )}
                                         </motion.div>
                                     </Link>
-                                    
+
                                     {/* Letter Name */}
-                                    <motion.div 
+                                    <motion.div
                                         className="mt-3 px-2 py-1 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30"
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ delay: index * 0.08 + 0.2 }}
+                                        initial={{ opacity: 0, y: 8 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.1 + 0.25, duration: 0.4 }}
                                     >
-                                        <span className="text-[10px] font-bold text-[#E6D8B8] uppercase tracking-wider">
-                                            {letter.letter_name}
-                                        </span>
+                                        <span className="text-[10px] font-bold text-[#E6D8B8] uppercase tracking-wider">{letter.letter_name}</span>
                                     </motion.div>
                                 </motion.div>
                             )
@@ -456,8 +488,8 @@ export default function LettersPage() {
                             </filter>
                         </defs>
                         
-                        {/* Background dashed path */}
-                        <path
+                        {/* Background dashed path - draws in */}
+                        <motion.path
                             d={generateTemplePath(letters.length) ?? ''}
                             fill="none"
                             stroke="url(#templeGradient)"
@@ -465,6 +497,9 @@ export default function LettersPage() {
                             strokeLinecap="square"
                             strokeDasharray="15 10"
                             opacity="0.3"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{ pathLength: 1, opacity: 0.3 }}
+                            transition={{ duration: 1.8, ease: 'easeInOut', delay: 0.3 }}
                         />
                         
                         {/* Completed solid path */}
@@ -496,59 +531,79 @@ export default function LettersPage() {
                                         if (el) letterRefs.current.set(index, el)
                                     }}
                                     className="absolute flex flex-col items-center"
-                                    style={{ 
-                                        left: pos.x - 60,
-                                        top: pos.y - minY - 80,  // Offset by minY to make coordinates positive
-                                    }}
-                                    initial={{ scale: 0, y: 20 }}
-                                    animate={{ scale: 1, y: 0 }}
-                                    transition={{ delay: index * 0.1, type: "spring" }}
+                                    style={{ left: pos.x - 60, top: pos.y - minY - 80 }}
+                                    initial={{ opacity: 0, scale: 0, y: 50, rotate: -12 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                                    transition={{ delay: index * 0.12, type: 'spring', stiffness: 220, damping: 16 }}
                                 >
-                                    {/* Temple Stone Step Base */}
+                                    {/* Stone shadow base */}
                                     <div className="absolute -bottom-4 w-32 h-3 bg-gradient-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
-                                    
+
                                     {/* Letter Stone */}
                                     <Link href={`/lesson/${letter.id}`}>
                                         <motion.div
-                                            className={`
-                                                relative w-24 h-24 flex items-center justify-center border-4 transition-all duration-500
-                                                ${isCompleted || isCelebrating 
-                                                    ? 'bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_30px_rgba(212,175,55,0.8),0_8px_0_rgba(204,119,34,0.6)]' 
-                                                    : isNext 
-                                                    ? 'bg-gradient-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613] animate-pulse shadow-[0_0_40px_rgba(230,154,71,0.9),0_8px_0_rgba(204,119,34,0.7)]'
-                                                    : 'bg-gradient-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40 hover:border-[#D4AF37] hover:text-[#E6D8B8]'
-                                                }
-                                                ${isCompleted || isNext ? 'rounded-lg' : 'rounded-md'}
-                                            `}
-                                            style={{
-                                                transform: isCompleted || isNext ? 'translateY(-4px)' : 'translateY(0)',
-                                                boxShadow: isCompleted || isNext ? '' : '0 6px 0 rgba(42, 36, 32, 0.8)'
-                                            }}
-                                            whileHover={{ 
-                                                scale: 1.05, 
-                                                translateY: -8,
-                                                boxShadow: '0 0 30px rgba(212, 175, 55, 0.6), 0 10px 0 rgba(42, 36, 32, 0.8)'
-                                            }}
-                                            whileTap={{ scale: 0.95, translateY: 0 }}
+                                            className={`relative w-24 h-24 flex items-center justify-center border-4
+                                                ${isCompleted || isCelebrating
+                                                    ? 'bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] rounded-lg'
+                                                    : isNext
+                                                    ? 'bg-gradient-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613] rounded-lg'
+                                                    : 'bg-gradient-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40 rounded-md'
+                                                }`}
+                                            animate={
+                                                isCelebrating
+                                                    ? { scale: [1, 1.2, 0.9, 1.1, 1], rotate: [0, -6, 6, -3, 0] }
+                                                    : isCompleted
+                                                    ? { y: -4, boxShadow: ['0 0 20px rgba(212,175,55,0.5)', '0 0 40px rgba(212,175,55,0.9)', '0 0 20px rgba(212,175,55,0.5)'] }
+                                                    : isNext
+                                                    ? { y: [0, -7, 0], boxShadow: ['0 0 35px rgba(230,154,71,0.7)', '0 0 55px rgba(230,154,71,1)', '0 0 35px rgba(230,154,71,0.7)'] }
+                                                    : { y: 0, boxShadow: '0 6px 0 rgba(42,36,32,0.8)' }
+                                            }
+                                            transition={
+                                                isCelebrating
+                                                    ? { duration: 0.6 }
+                                                    : isCompleted || isNext
+                                                    ? { duration: 2.2, repeat: Infinity, ease: 'easeInOut' }
+                                                    : {}
+                                            }
+                                            whileHover={{ scale: 1.1, y: -10, boxShadow: '0 0 45px rgba(212,175,55,0.9), 0 12px 0 rgba(42,36,32,0.8)' }}
+                                            whileTap={{ scale: 0.92, y: 0 }}
                                         >
-                                            <span className="text-3xl font-serif font-bold">{letter.brahmi_symbol}</span>
-                                            
-                                            {/* Golden torch for completed */}
+                                            {/* Brahmi symbol with micro-pulse on next */}
+                                            <motion.span
+                                                className="text-3xl font-serif font-bold"
+                                                animate={isNext ? { scale: [1, 1.08, 1] } : {}}
+                                                transition={isNext ? { duration: 1.6, repeat: Infinity, ease: 'easeInOut' } : {}}
+                                            >
+                                                {letter.brahmi_symbol}
+                                            </motion.span>
+
+                                            {/* Shimmer sweep for completed */}
                                             {isCompleted && (
-                                                <motion.div 
+                                                <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
+                                                    <motion.div
+                                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-12"
+                                                        animate={{ x: ['-120%', '200%'] }}
+                                                        transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
+                                                    />
+                                                </div>
+                                            )}
+
+                                            {/* Completed badge */}
+                                            {isCompleted && (
+                                                <motion.div
                                                     className="absolute -top-3 -right-3 w-6 h-6 bg-[#E69A47] rounded-full flex items-center justify-center border-2 border-[#1a1613] shadow-[0_0_15px_rgba(230,154,71,0.8)]"
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
-                                                    transition={{ delay: 0.2, type: "spring" }}
+                                                    initial={{ scale: 0, rotate: -180 }}
+                                                    animate={{ scale: 1, rotate: 0 }}
+                                                    transition={{ delay: 0.2, type: 'spring', stiffness: 300 }}
                                                 >
                                                     <span className="text-[#1a1613] text-xs">🔥</span>
                                                 </motion.div>
                                             )}
-                                            
-                                            {/* Start indicator for next */}
+
+                                            {/* Next label */}
                                             {isNext && (
-                                                <motion.div 
-                                                    className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#E69A47] px-3 py-1 rounded text-xs font-bold text-[#1a1613] border border-[#D4AF37]/50"
+                                                <motion.div
+                                                    className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#E69A47] px-3 py-1 rounded text-xs font-bold text-[#1a1613] border border-[#D4AF37]/50 whitespace-nowrap"
                                                     animate={{ y: [-5, 5, -5] }}
                                                     transition={{ duration: 2, repeat: Infinity }}
                                                 >
@@ -557,23 +612,26 @@ export default function LettersPage() {
                                             )}
                                         </motion.div>
                                     </Link>
-                                    
-                                    {/* Letter Name on Stone Plaque */}
-                                    <motion.div 
+
+                                    {/* Name plaque */}
+                                    <motion.div
                                         className="mt-4 px-3 py-1 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30"
+                                        initial={{ opacity: 0, y: 8 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.12 + 0.35, duration: 0.4 }}
+                                    >
+                                        <span className="text-xs font-bold text-[#E6D8B8] uppercase tracking-wider">{letter.letter_name}</span>
+                                    </motion.div>
+
+                                    {/* Level number */}
+                                    <motion.div
+                                        className="mt-2 text-xs text-[#D4AF37]/50 font-serif"
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        transition={{ delay: index * 0.1 + 0.3 }}
+                                        transition={{ delay: index * 0.12 + 0.5 }}
                                     >
-                                        <span className="text-xs font-bold text-[#E6D8B8] uppercase tracking-wider">
-                                            {letter.letter_name}
-                                        </span>
+                                        स्तर {toHindiNum(index + 1)}
                                     </motion.div>
-                                    
-                                    {/* Step number */}
-                                    <div className="mt-2 text-xs text-[#D4AF37]/50 font-serif">
-                                        Level {index + 1}
-                                    </div>
                                 </motion.div>
                             )
                         })}

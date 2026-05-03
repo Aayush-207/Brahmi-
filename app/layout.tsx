@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/landing/Header";
 import DevAttributeGuard from "@/components/dev/DevAttributeGuard";
+import { LanguageProvider } from "@/lib/LanguageContext";
 
 
 const inter = Inter({
@@ -30,11 +31,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} antialiased bg-background text-foreground`}
       >
-        <Header />
-        <DevAttributeGuard />
-        <main className="min-h-screen">
-          {children}
-        </main>
+        <LanguageProvider>
+          <Header />
+          <DevAttributeGuard />
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -1,29 +1,38 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const STEPS = [
     {
-        title: "चरण 1: दर्शन एवं संदर्भ",
-        desc: "जैन दर्शन का परिचय और ब्राह्मी लिपि की भूमिका। धर्म, अहिंसा, मोक्ष जैसी अवधारणाओं को समझना।",
+        title: "method.steps.0.title",
+        desc: "method.steps.0.description",
         image: "/mascot/mascot_2.png",
         icon: "🏛️"
     },
     {
-        title: "चरण 2: स्वर एवं व्यंजन",
-        desc: "स्वरों और व्यंजनों की पहचान, अभ्यास और परीक्षण। जैन शब्दों और पवित्र अभिव्यक्तियों में इनका प्रयोग।",
+        title: "method.steps.1.title",
+        desc: "method.steps.1.description",
         image: "/mascot/mascot_3.png",
         icon: "📝"
     },
     {
-        title: "चरण 3: मात्राओं की कला",
-        desc: "मात्राओं का सही प्रयोग और संयोजन। जैन दार्शनिक शब्दों को स्पष्टता से पढ़ने और लिखने के लिए।",
+        title: "method.steps.2.title",
+        desc: "method.steps.2.description",
         image: "/mascot/mascot_1.png",
         icon: "✨"
     }
 ];
 
 export function MarketingMethod() {
+    const { t } = useLanguage();
+    
+    const translatedSteps = STEPS.map(step => ({
+        ...step,
+        title: t(step.title),
+        desc: t(step.desc)
+    }));
+    
     return (
         <section className="py-32 bg-gradient-to-b from-[#1a1613] to-[#2a2420] relative overflow-hidden">
             {/* Section Header */}
@@ -36,10 +45,10 @@ export function MarketingMethod() {
                     className="space-y-4"
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D4A373]/10 border border-[#D4A373]/40">
-                        <span className="text-[#D4A373] text-sm font-bold tracking-[0.3em] uppercase">सीखने की यात्रा</span>
+                        <span className="text-[#D4A373] text-sm font-bold tracking-[0.3em] uppercase">{t('method.tag')}</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#F5F1E8] leading-tight">
-                        तीन चरणों में महारत
+                        {t('method.title')}
                     </h2>
                 </motion.div>
             </div>
@@ -49,7 +58,7 @@ export function MarketingMethod() {
                 <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#D4AF37]/50 via-[#E6D8B8]/30 to-[#D4AF37]/50 transform -translate-x-1/2"></div>
 
                 <div className="space-y-32">
-                    {STEPS.map((step, index) => (
+                    {translatedSteps.map((step, index) => (
                         <motion.div 
                             key={index}
                             initial={{ opacity: 0, y: 50 }}

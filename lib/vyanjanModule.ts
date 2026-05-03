@@ -1,5 +1,5 @@
-import { createClient } from '@/lib/supabase/client'
 import { Identity } from './guestIdentity'
+import vyanjanData from '@/backend/data/vyanjan.json'
 
 const GUEST_VYANJAN_PROGRESS_KEY = 'brahmi_guest_vyanjan_progress'
 
@@ -50,6 +50,26 @@ function saveGuestVyanjanProgressToStorage(completedIds: string[], progressMap: 
 }
 
 // Types matching database schema
+
+export type Consonant = {
+  id: string
+  order: number
+  category: 'kanthya' | 'talavya' | 'murdhanya' | 'dantya' | 'osthya' | 'antahstha' | 'ushma'
+  categoryHindi: string
+  categoryEnglish: string
+  categoryDescription: string
+  devanagari: string
+  brahmi: string
+  unicode_codepoint: string
+  romanized: string
+  pronunciationNote: string
+  exampleWords: Array<{
+    devanagari: string
+    romanized: string
+    english: string
+  }>
+}
+
 export type VyanjanLesson = {
   id: string
   module_id: string
@@ -112,86 +132,114 @@ export type VyanjanLessonAnswer = {
 }
 
 /**
- * Fetch all vyanjan lessons
+ * Fetch all vyanjan lessons for a specific language
  */
-export async function getVyanjanLessons(): Promise<VyanjanLesson[]> {
-  const supabase = createClient()
-  
-  // First get the vyanjan module id
-  const { data: moduleData, error: moduleError } = await supabase
-    .from('modules')
-    .select('id')
-    .eq('module_id', 'module-vyanjan')
-    .single()
-  
-  if (moduleError || !moduleData) {
-    console.error('Error fetching vyanjan module:', moduleError)
-    return []
-  }
-  
-  // Then get lessons for that module
-  const { data, error } = await supabase
-    .from('vyanjan_lessons')
-    .select('*')
-    .eq('module_id', moduleData.id)
-    .order('order_no', { ascending: true })
-  
-  if (error) {
-    console.error('Error fetching vyanjan lessons:', error)
-    return []
-  }
-  return data || []
+export async function getVyanjanLessons(language: string = 'hi'): Promise<VyanjanLesson[]> {
+  console.log(`[getVyanjanLessons] Returning hardcoded vyanjan data: 8 lessons`)
+  return vyanjanData.lessons as unknown as VyanjanLesson[]
 }
 
 /**
- * Fetch vyanjan lesson content
+ * Fetch vyanjan lesson content for a specific language
  */
-export async function getVyanjanLessonContent(lessonId: string): Promise<VyanjanLessonContent[]> {
-  const supabase = createClient()
+export async function getVyanjanLessonContent(lessonId: string, language: string = 'hi'): Promise<VyanjanLessonContent[]> {
+  console.log(`[getVyanjanLessonContent] Returning vyanjan content for lesson: ${lessonId}`)
+  // Find the lesson
+  const lesson = (vyanjanData.lessons as unknown as VyanjanLesson[]).find(l => l.lesson_id === lessonId)
+  if (!lesson) return []
   
-  // First get the lesson UUID from lesson_id
-  const { data: lessonData, error: lessonError } = await supabase
-    .from('vyanjan_lessons')
-    .select('id')
-    .eq('lesson_id', lessonId)
-    .single()
+  // Generate content based on lesson category
+  const content: VyanjanLessonContent[] = []
   
-  if (lessonError || !lessonData) {
-    console.error('Error fetching vyanjan lesson:', lessonError)
-    return []
+  // Title slide
+  content.push({
+    id: `${lessonId}-title`,
+    lesson_id: lessonId,
+    content_type: 'title_slide',
+    title: lesson.title,
+    content: lesson.description,
+    order_no: 1
+  })
+  
+  // Consonant introduction slides
+  const categoriesMap = vyanjanData.categories as any
+  const categoryKey = lesson.consonant_group
+  const categoryData = categoriesMap[categoryKey]
+  
+  let orderNo = 2;
+
+  if (categoryData && categoryData.consonantIds) {
+    const consonantsList = vyanjanData.consonants as unknown as Consonant[];
+    for (const consonantId of categoryData.consonantIds) {
+      const c = consonantsList.find(x => x.id === consonantId);
+      if (c) {
+        // Add pronunciation/intro slide for individual letter
+        content.push({
+          id: `${lessonId}-letter-${c.id}`,
+          lesson_id: lessonId,
+          content_type: 'pronunciation',
+          title: `${c.devanagari} (${c.romanized})`,
+          content: `${c.categoryHindi} - ${c.categoryDescription}\n\nध्वनि: ${c.pronunciationNote}\n\nउदाहरण: ${c.exampleWords && c.exampleWords.length > 0 ? c.exampleWords.map((ex: any) => ex.devanagari).join(", ") : ""}`,
+          metadata: {
+            brahmi_symbol: c.brahmi,
+            devanagari: c.devanagari,
+            sound: c.romanized
+          },
+          order_no: orderNo++
+        });
+
+        // Add tracer
+        content.push({
+          id: `${lessonId}-tracer-${c.id}`,
+          lesson_id: lessonId,
+          content_type: 'writing_practice',
+          title: `अभ्यास (Practice) - ${c.devanagari}`,
+          content: `ब्राह्मी लिपि में '${c.devanagari}' का अभ्यास करें`,
+          metadata: {
+            character: c.brahmi
+          },
+          order_no: orderNo++
+        });
+      }
+    }
+  } else if (categoryKey === 'all') {
+    content.push({
+      id: `${lessonId}-intro`,
+      lesson_id: lessonId,
+      content_type: 'text',
+      title: lesson.title,
+      content: lesson.description || '',
+      order_no: orderNo++
+    });
   }
-  
-  // Then get content for that lesson
-  const { data, error } = await supabase
-    .from('vyanjan_lesson_content')
-    .select('*')
-    .eq('lesson_id', lessonData.id)
-    .order('order_no', { ascending: true })
-  
-  if (error) {
-    console.error('Error fetching vyanjan lesson content:', error)
-    return []
-  }
-  return data || []
+
+  return content
 }
 
 /**
- * Get vyanjan lesson info by lesson_id
+ * Get vyanjan lesson info by lesson_id for a specific language
  */
-export async function getVyanjanLessonInfo(lessonId: string): Promise<VyanjanLesson | null> {
-  const supabase = createClient()
-  
-  const { data, error } = await supabase
-    .from('vyanjan_lessons')
-    .select('*')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (error) {
-    console.error('Error fetching vyanjan lesson info:', error)
-    return null
-  }
-  return data
+export async function getVyanjanLessonInfo(lessonId: string, language: string = 'hi'): Promise<VyanjanLesson | null> {
+  console.log(`[getVyanjanLessonInfo] Fetching vyanjan lesson: ${lessonId}`)
+  const lesson = (vyanjanData.lessons as unknown as VyanjanLesson[]).find(l => l.lesson_id === lessonId)
+  return lesson || null
+}
+
+/**
+ * Get all consonants (व्यञ्जन)
+ */
+export async function getConsonants(): Promise<Consonant[]> {
+  console.log('[getConsonants] Returning hardcoded vyanjan data: 33 consonants')
+  return vyanjanData.consonants as unknown as Consonant[]
+}
+
+/**
+ * Get a specific consonant by ID
+ */
+export async function getConsonant(consonantId: string): Promise<Consonant | null> {
+  console.log(`[getConsonant] Fetching consonant: ${consonantId}`)
+  const consonant = (vyanjanData.consonants as unknown as Consonant[]).find((c) => c.id === consonantId)
+  return consonant || null
 }
 
 /**
@@ -202,68 +250,20 @@ export async function saveVyanjanProgress(
   status: 'in_progress' | 'completed',
   progressPercentage: number,
   identity?: Identity,
-  score?: number
+  score?: number,
+  language: string = 'hi'
 ): Promise<boolean> {
-  // Handle guest progress
-  if (!identity || identity.type === 'guest') {
-    // Save to sessionStorage for quick access
-    const { completedIds, progressMap } = getGuestVyanjanProgressFromStorage()
-    const newProgressMap = { ...progressMap, [lessonId]: progressPercentage }
-    
-    if (status === 'completed' && !completedIds.includes(lessonId)) {
-      saveGuestVyanjanProgressToStorage([...completedIds, lessonId], newProgressMap)
-    } else {
-      saveGuestVyanjanProgressToStorage(completedIds, newProgressMap)
-    }
-    
-    // Also save to database if we have a guest ID
-    if (identity?.id) {
-      await saveGuestVyanjanProgressToDB(lessonId, status, progressPercentage, identity.id, score)
-    }
-    return true
-  }
-
-  // Handle authenticated user progress
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  // Save to sessionStorage for quick access
+  const { completedIds, progressMap } = getGuestVyanjanProgressFromStorage()
+  const newProgressMap = { ...progressMap, [lessonId]: progressPercentage }
   
-  if (!user) {
-    console.error('User not authenticated')
-    return false
+  if (status === 'completed' && !completedIds.includes(lessonId)) {
+    saveGuestVyanjanProgressToStorage([...completedIds, lessonId], newProgressMap)
+  } else {
+    saveGuestVyanjanProgressToStorage(completedIds, newProgressMap)
   }
   
-  // Get lesson UUID and module UUID
-  const { data: lessonData, error: lessonError } = await supabase
-    .from('vyanjan_lessons')
-    .select('id, module_id')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (lessonError || !lessonData) {
-    console.error('Error fetching vyanjan lesson data:', lessonError)
-    return false
-  }
-  
-  // Upsert progress
-  const { error } = await supabase
-    .from('vyanjan_progress')
-    .upsert({
-      user_id: user.id,
-      module_id: lessonData.module_id,
-      lesson_id: lessonData.id,
-      status,
-      progress_percentage: progressPercentage,
-      score: score || null,
-      completed_at: status === 'completed' ? new Date().toISOString() : null,
-      updated_at: new Date().toISOString()
-    }, {
-      onConflict: 'user_id,lesson_id'
-    })
-  
-  if (error) {
-    console.error('Error saving vyanjan progress:', error)
-    return false
-  }
+  console.log('Vyanjan progress: Waiting for backend implementation')
   return true
 }
 
@@ -271,84 +271,17 @@ export async function saveVyanjanProgress(
  * Get user vyanjan progress
  */
 export async function getUserVyanjanProgress(userId: string): Promise<VyanjanProgress[]> {
-  const supabase = createClient()
-  
-  // Get vyanjan module id
-  const { data: moduleData } = await supabase
-    .from('modules')
-    .select('id')
-    .eq('module_id', 'module-vyanjan')
-    .single()
-  
-  if (!moduleData) return []
-  
-  const { data, error } = await supabase
-    .from('vyanjan_progress')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('module_id', moduleData.id)
-  
-  if (error) {
-    console.error('Error fetching vyanjan user progress:', error)
-    return []
-  }
-  return data || []
+  console.log('User vyanjan progress: Waiting for backend implementation')
+  return []
 }
 
 /**
  * Get completed vyanjan lesson IDs for current user or guest
  */
 export async function getCompletedVyanjanLessonIds(identity?: Identity): Promise<string[]> {
-  // Handle guest progress from DB
-  if (!identity || identity.type === 'guest') {
-    // First try sessionStorage for quick access
-    const { completedIds } = getGuestVyanjanProgressFromStorage()
-    if (completedIds.length > 0) return completedIds
-    
-    // Then try database
-    if (identity?.id) {
-      const supabase = createClient()
-      const { data } = await supabase
-        .from('vyanjan_guest_progress')
-        .select('lesson_id')
-        .eq('guest_id', identity.id)
-        .eq('status', 'completed')
-      
-      if (data && data.length > 0) {
-        // Get lesson_ids from UUIDs
-        const { data: lessons } = await supabase
-          .from('vyanjan_lessons')
-          .select('lesson_id')
-          .in('id', data.map(d => d.lesson_id))
-        
-        return lessons?.map(l => l.lesson_id) || []
-      }
-    }
-    return completedIds
-  }
-
-  // Handle authenticated user progress
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  
-  if (!user) return []
-  
-  const progress = await getUserVyanjanProgress(user.id)
-  
-  // Get lesson_ids for completed lessons
-  const completedUUIDs = progress
-    .filter(p => p.status === 'completed')
-    .map(p => p.lesson_id)
-  
-  if (completedUUIDs.length === 0) return []
-  
-  // Map UUIDs back to lesson_ids
-  const { data: lessons } = await supabase
-    .from('vyanjan_lessons')
-    .select('lesson_id')
-    .in('id', completedUUIDs)
-  
-  return lessons?.map(l => l.lesson_id) || []
+  // Return guest progress from sessionStorage
+  const { completedIds } = getGuestVyanjanProgressFromStorage()
+  return completedIds
 }
 
 /**
@@ -359,41 +292,10 @@ export async function saveGuestVyanjanProgressToDB(
   status: 'in_progress' | 'completed',
   progressPercentage: number,
   guestId: string,
-  score?: number
+  score?: number,
+  language: string = 'hi'
 ): Promise<boolean> {
-  const supabase = createClient()
-  
-  // Get lesson UUID and module UUID
-  const { data: lessonData, error: lessonError } = await supabase
-    .from('vyanjan_lessons')
-    .select('id, module_id')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (lessonError || !lessonData) {
-    console.error('Error fetching vyanjan lesson data:', lessonError)
-    return false
-  }
-  
-  // Upsert progress
-  const { error } = await supabase
-    .from('vyanjan_guest_progress')
-    .upsert({
-      guest_id: guestId,
-      module_id: lessonData.module_id,
-      lesson_id: lessonData.id,
-      status,
-      progress_percentage: progressPercentage,
-      completed_at: status === 'completed' ? new Date().toISOString() : null,
-      updated_at: new Date().toISOString()
-    }, {
-      onConflict: 'guest_id,lesson_id'
-    })
-  
-  if (error) {
-    console.error('Error saving guest vyanjan progress to DB:', error)
-    return false
-  }
+  console.log('Guest vyanjan progress: Waiting for backend implementation')
   return true
 }
 
@@ -407,94 +309,8 @@ export async function saveVyanjanAnswer(
   isCorrect: boolean | null,
   identity: Identity
 ): Promise<boolean> {
-  const supabase = createClient()
-  
-  // Get lesson UUID from lesson_id
-  const { data: lessonData, error: lessonError } = await supabase
-    .from('vyanjan_lessons')
-    .select('id')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (lessonError || !lessonData) {
-    console.error('Error fetching vyanjan lesson for answer:', lessonError)
-    return false
-  }
-  
-  // Handle guest answers
-  if (identity.type === 'guest' && identity.id) {
-    // Get current attempt number
-    const { data: existingAnswers } = await supabase
-      .from('vyanjan_guest_answers')
-      .select('attempt_number')
-      .eq('guest_id', identity.id)
-      .eq('content_id', contentId)
-      .order('attempt_number', { ascending: false })
-      .limit(1)
-    
-    const attemptNumber = existingAnswers && existingAnswers.length > 0
-      ? existingAnswers[0].attempt_number + 1
-      : 1
-    
-    const { error } = await supabase
-      .from('vyanjan_guest_answers')
-      .insert({
-        guest_id: identity.id,
-        lesson_id: lessonData.id,
-        content_id: contentId,
-        answer,
-        is_correct: isCorrect,
-        attempt_number: attemptNumber
-      })
-    
-    if (error) {
-      console.error('Error saving guest vyanjan answer:', error)
-      return false
-    }
-    return true
-  }
-  
-  // Handle authenticated user answers
-  if (identity.type === 'user') {
-    const { data: { user } } = await supabase.auth.getUser()
-    
-    if (!user) {
-      console.error('User not authenticated')
-      return false
-    }
-    
-    // Get current attempt number
-    const { data: existingAnswers } = await supabase
-      .from('vyanjan_lesson_answers')
-      .select('attempt_number')
-      .eq('user_id', user.id)
-      .eq('content_id', contentId)
-      .order('attempt_number', { ascending: false })
-      .limit(1)
-    
-    const attemptNumber = existingAnswers && existingAnswers.length > 0
-      ? existingAnswers[0].attempt_number + 1
-      : 1
-    
-    const { error } = await supabase
-      .from('vyanjan_lesson_answers')
-      .insert({
-        user_id: user.id,
-        lesson_id: lessonData.id,
-        content_id: contentId,
-        answer,
-        is_correct: isCorrect,
-        attempt_number: attemptNumber
-      })
-    
-    if (error) {
-      console.error('Error saving user vyanjan answer:', error)
-      return false
-    }
-    return true
-  }
-  
-  return false
+  console.log('Vyanjan answer: Waiting for backend implementation')
+  return true
 }
 
 /**
@@ -504,47 +320,6 @@ export async function getVyanjanAnswersForLesson(
   lessonId: string,
   identity: Identity
 ): Promise<VyanjanLessonAnswer[]> {
-  const supabase = createClient()
-  
-  // Get lesson UUID
-  const { data: lessonData, error: lessonError } = await supabase
-    .from('vyanjan_lessons')
-    .select('id')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (lessonError || !lessonData) {
-    return []
-  }
-  
-  // Handle guest
-  if (identity.type === 'guest' && identity.id) {
-    const { data, error } = await supabase
-      .from('vyanjan_guest_answers')
-      .select('*')
-      .eq('guest_id', identity.id)
-      .eq('lesson_id', lessonData.id)
-      .order('answered_at', { ascending: false })
-    
-    if (error || !data) return []
-    return data.map(d => ({ ...d, guest_id: d.guest_id }))
-  }
-  
-  // Handle authenticated user
-  if (identity.type === 'user') {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return []
-    
-    const { data, error } = await supabase
-      .from('vyanjan_lesson_answers')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('lesson_id', lessonData.id)
-      .order('answered_at', { ascending: false })
-    
-    if (error || !data) return []
-    return data
-  }
-  
+  console.log('Vyanjan lesson answers: Waiting for backend implementation')
   return []
 }

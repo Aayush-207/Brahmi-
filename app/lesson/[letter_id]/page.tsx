@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { createClient } from '@/lib/supabase/client'
 import { markLessonComplete } from '@/lib/progress'
 import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
 import { useRouter } from 'next/navigation'
+import { useLanguage } from '@/lib/LanguageContext'
+import { getLetterSteps } from '@/lib/introModule'
 import LessonQuiz, { McqQuestion, McqOption } from '@/components/lesson/LessonQuiz'
 import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
@@ -42,8 +43,8 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
     const [isLoaded, setIsLoaded] = useState(false)
     const router = useRouter()
+    const { language } = useLanguage()
     const [steps, setSteps] = useState<LetterStep[]>([])
-    const supabase = createClient()
 
     useEffect(() => {
         const loadIdentity = async () => {
@@ -54,7 +55,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
             // Allow guest access to lessons - no redirect needed
         }
         loadIdentity()
-    }, [supabase, router])
+    }, [router])
     const [currentStepIndex, setCurrentStepIndex] = useState(0)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -113,32 +114,9 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
             setLoading(true)
             setError(null)
 
-            // 1. Fetch Steps
-            const { data: stepsData, error: fetchError } = await supabase
-                .from('letter_steps')
-                .select(`
-          id,
-          letter_id,
-          step_type,
-          content,
-          order_no,
-          letters (
-            id,
-            letter_name,
-            brahmi_symbol,
-            order_no,
-            letter_type
-          )
-        `)
-                .eq('letter_id', letterId)
-                .order('order_no', { ascending: true })
-
-            if (fetchError) {
-                console.error('Error fetching lesson steps:', fetchError)
-                setError(`Failed to load lesson. Error: ${fetchError.message}`)
-                setLoading(false)
-                return
-            }
+            // 1. Fetch Steps using getLetterSteps with language support
+            console.log(`[LessonPage] Fetching steps for letterId=${letterId}, language=${language}`)
+            const stepsData = await getLetterSteps(letterId as string, language)
 
             if (!stepsData || stepsData.length === 0) {
                 setError('No steps found for this letter.')
@@ -155,38 +133,15 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                 setLetterType(firstStep.letters.letter_type || 'vowel')
             }
 
-            // 2. Fetch Quiz Questions
-            const { data: quizData, error: quizError } = await supabase
-                .from('mcq_questions')
-                .select(`
-                    id,
-                    letter_id,
-                    question,
-                    order_no,
-                    mcq_options (
-                        id,
-                        question_id,
-                        option_text,
-                        is_correct,
-                        order_no
-                    )
-                `)
-                .eq('letter_id', letterId)
-                .order('order_no', { ascending: true })
-
-            if (quizData && quizData.length > 0) {
-                const formattedQuiz = quizData.map(q => ({
-                    ...q,
-                    options: (q.mcq_options as unknown as McqOption[]).sort((a, b) => a.order_no - b.order_no)
-                }))
-                setQuizQuestions(formattedQuiz)
-            }
+            // 2. Quiz questions will be provided by backend
+            console.log('Quiz data: Waiting for backend implementation')
+            setQuizQuestions([])
 
             setLoading(false)
         }
 
         fetchLessonData()
-    }, [letterId])
+    }, [letterId, language])
 
     // Trigger animation on step change
     useEffect(() => {
@@ -327,9 +282,9 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     if (traceMode) {
         return (
             <div className="min-h-screen bg-[#1C1C1C] flex flex-col lg:flex-row lg:items-center lg:justify-center lg:p-8 pt-16 pb-20 md:pb-8 relative overflow-hidden">
-                {/* Floating Back Button */}
+                {/* Floating Back Button - marks lesson complete */}
                 <button
-                    onClick={() => router.push(getReturnRoute())}
+                    onClick={handleFlowComplete}
                     className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
                 >
                     <span className="text-lg">←</span>
@@ -464,7 +419,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
         const colors = {
             show: { primary: '#D4AF37', secondary: '#F2D06B' }, // Gold
             sound: { primary: '#E27D60', secondary: '#FF9E80' }, // Terracotta
-            explanation: { primary: '#41B3A3', secondary: '#85DCB' }, // Teal
+            explanation: { primary: '#41B3A3', secondary: '#85DCB0' }, // Teal
             example: { primary: '#C38D9E', secondary: '#E8A7B8' }, // Rose
             practice: { primary: '#E8A87C', secondary: '#FFD4B8' }, // Orange
             complete: { primary: '#85DCB0', secondary: '#A8F2C8' }  // Green
@@ -571,6 +526,9 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                             }}
                         >
                             {brahmiSymbol}
+                        </div>
+                        <div className="text-2xl md:text-3xl text-gray-400 tracking-wider font-bold -mt-2 mb-2">
+                            {letter.letter_name}
                         </div>
                         <div className="text-base sm:text-lg md:text-xl text-[#E6D8B8]/90 text-center leading-relaxed max-w-2xl px-4">
                             {content}

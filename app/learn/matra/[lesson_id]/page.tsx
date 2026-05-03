@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
+import { toHindiNum } from '@/lib/utils'
 import dynamic from 'next/dynamic'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLanguage } from '@/lib/LanguageContext'
 import { 
   getMatraLessonContent, 
   getMatraLessonInfo, 
@@ -468,6 +470,7 @@ function UnifiedSlide({
 export default function MatraLessonPage() {
   const params = useParams()
   const router = useRouter()
+  const { language } = useLanguage()
   const lessonId = params?.lesson_id as string
   
   const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
@@ -482,10 +485,12 @@ export default function MatraLessonPage() {
       const currentIdentity = await getCurrentIdentity()
       setIdentity(currentIdentity)
       
-      const lessonInfo = await getMatraLessonInfo(lessonId)
+      console.log(`[MatraLessonPage] Fetching lesson: ${lessonId}, language: ${language}`)
+      
+      const lessonInfo = await getMatraLessonInfo(lessonId, language)
       setLesson(lessonInfo)
       
-      const lessonContents = await getMatraLessonContent(lessonId)
+      const lessonContents = await getMatraLessonContent(lessonId, language)
       setContents(lessonContents)
       
       setLoading(false)
@@ -497,7 +502,7 @@ export default function MatraLessonPage() {
     }
     
     loadData()
-  }, [lessonId])
+  }, [lessonId, language])
 
   const handleNext = async () => {
     if (currentSlide < contents.length - 1) {
@@ -574,7 +579,7 @@ export default function MatraLessonPage() {
           />
         </div>
         <div className="text-center text-xs text-[#D4AF37]/60 mt-1">
-          {currentSlide + 1} / {contents.length}
+          {toHindiNum(currentSlide + 1)} / {toHindiNum(contents.length)}
         </div>
       </div>
 
@@ -635,9 +640,9 @@ export default function MatraLessonPage() {
           {/* Progress Indicator - Center */}
           <div className="flex flex-col items-center gap-1 px-3">
             <div className="flex items-center gap-1.5">
-              <span className="text-[#D4AF37] font-bold text-sm">{currentSlide + 1}</span>
+              <span className="text-[#D4AF37] font-bold text-sm">{toHindiNum(currentSlide + 1)}</span>
               <span className="text-[#D4AF37]/40 text-xs">/</span>
-              <span className="text-[#D4AF37]/60 text-xs">{contents.length}</span>
+              <span className="text-[#D4AF37]/60 text-xs">{toHindiNum(contents.length)}</span>
             </div>
             <div className="w-16 h-1 bg-[#2C2C2C] rounded-full overflow-hidden">
               <div 

@@ -3,8 +3,10 @@
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { toHindiNum } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { getVyanjanLessons, getCompletedVyanjanLessonIds, type VyanjanLesson } from '@/lib/vyanjanModule'
+import { useLanguage } from '@/lib/LanguageContext'
 import { getCurrentIdentity, type Identity } from '@/lib/guestIdentity'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 import { AnimatedBirds } from '@/components/animations/AnimatedBird'
@@ -89,6 +91,7 @@ function generateJourneyPath(count: number, centerX: number): string {
 
 export default function VyanjanLessonsPage() {
     const router = useRouter()
+    const { language } = useLanguage()
     const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
     const [lessons, setLessons] = useState<VyanjanLesson[]>([])
     const [completedIds, setCompletedIds] = useState<string[]>([])
@@ -119,7 +122,7 @@ export default function VyanjanLessonsPage() {
             const currentIdentity = await getCurrentIdentity()
             setIdentity(currentIdentity)
             
-            const lessonsData = await getVyanjanLessons()
+            const lessonsData = await getVyanjanLessons(language)
             setLessons(lessonsData)
             
             // Get completed lessons for both guests and authenticated users
@@ -130,7 +133,7 @@ export default function VyanjanLessonsPage() {
         }
         
         loadData()
-    }, [])
+    }, [language])
 
     // Animation Trigger via Search Params
     const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
@@ -595,7 +598,7 @@ export default function VyanjanLessonsPage() {
                                     
                                     {/* Level number */}
                                     <div className="mt-2 text-xs text-[#D4AF37]/50 font-serif">
-                                        Level {index + 1}
+                                        स्तर {toHindiNum(index + 1)}
                                     </div>
                                 </motion.div>
                             )

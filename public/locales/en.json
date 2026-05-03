@@ -1,0 +1,72 @@
+{
+  "header": {
+    "brandName": "Good Life Jain Foundation",
+    "brandTagline": "Brahmi Script Revival",
+    "startLearning": "Start Learning",
+    "selectLanguage": "Select Language"
+  },
+  "hero": {
+    "tag": "Ancient Wisdom Echoes",
+    "title": "Brahmi Script in Jain Philosophy",
+    "titleGradient": "Jain Philosophy",
+    "subtitle": "Eternal Jain knowledge preserved through the Brahmi Script.",
+    "description": "This course presents the Brahmi Script as the medium through which Jain philosophy, values, and spiritual principles have been preserved from generation to generation.",
+    "primaryBtn": "Start Learning",
+    "secondaryBtn": "Understand the Foundations"
+  },
+  "value": {
+    "tag": "Important",
+    "title": "Script, Not Language.",
+    "description": "In the Jain tradition, Brahmi is understood as a script, not a spoken language. It is the precise medium for preserving Jain philosophical principles, scriptures, and teachings in written form.",
+    "button": "Understand the Foundations"
+  },
+  "method": {
+    "tag": "Learning Journey",
+    "title": "Master in Three Steps",
+    "steps": [
+      {
+        "title": "Step 1: Philosophy & Context",
+        "description": "Introduction to Jain philosophy and the role of Brahmi Script. Understanding concepts like Dharma, Ahimsa, and Moksha."
+      },
+      {
+        "title": "Step 2: Vowels & Consonants",
+        "description": "Recognition, practice, and testing of vowels and consonants. Their application in Jain words and sacred expressions."
+      },
+      {
+        "title": "Step 3: The Art of Matras",
+        "description": "Proper usage and combination of matras. Reading and writing Jain philosophical words with clarity."
+      }
+    ]
+  },
+  "footer": {
+    "title": "Brahmi Script",
+    "description": "Preserving ancient wisdom through modern technology.",
+    "copyright": "© {{year}} Brahmi Script Learning Platform. All rights reserved."
+  },
+  "cta": {
+    "badge": "Start Today",
+    "title": "Begin Your Journey",
+    "titleGradient": "Today",
+    "description": "Connect with the ancient script of Jain knowledge. Every letter is a step towards tradition.",
+    "button": "Start Learning"
+  },
+  "trust": {
+    "badge": "Authenticity",
+    "title": "Foundation of Trust",
+    "description": "Our methodology is based on ancient principles of Jain tradition and classical scholarship",
+    "items": [
+      {
+        "title": "Sacred Origin",
+        "description": "Created by Lord Rishabhadev and given to his daughter Brahmi. The original script of Jain scriptures."
+      },
+      {
+        "title": "Disciplined Study",
+        "description": "Step-by-step, patient methodology. Aligned with Jain teaching tradition and spiritual learning."
+      },
+      {
+        "title": "Knowledge Preservation",
+        "description": "Designed to safeguard Jain philosophical knowledge in its original script and structure."
+      }
+    ]
+  }
+}

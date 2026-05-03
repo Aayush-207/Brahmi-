@@ -3,8 +3,11 @@
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function MarketingCTA() {
+    const { t, language } = useLanguage();
+
     return (
         <section className="py-32 bg-gradient-to-b from-[#1a1613] to-[#2a2420] text-center px-6 relative overflow-hidden">
             {/* Animated background elements */}
@@ -29,20 +32,20 @@ export function MarketingCTA() {
                         {/* Badge */}
                         <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#8B3A3A]/20 border border-[#8B3A3A]/50">
                             <span className="w-2 h-2 rounded-full bg-[#E69A47] animate-pulse"></span>
-                            <span className="text-[#E69A47] text-sm font-bold tracking-[0.3em] uppercase">आज ही शुरुआत करें</span>
+                            <span className="text-[#E69A47] text-sm font-bold tracking-[0.3em] uppercase">{t('cta.badge')}</span>
                         </div>
 
                         {/* Heading */}
                         <h2 className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-[#F5F1E8] leading-tight">
-                            अपनी यात्रा आज ही{' '}
+                            {t('cta.title')}{' '}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E69A47] via-[#CC7722] to-[#D4AF37]">
-                                शुरू करें
+                                {t('cta.titleGradient')}
                             </span>
                         </h2>
                         
                         {/* Description */}
                         <p className="text-xl md:text-2xl text-[#B8AFA0] font-medium leading-relaxed max-w-3xl mx-auto">
-                            जैन ज्ञान की प्राचीन लिपि के साथ अपना जुड़ाव बनाएं। हर अक्षर एक कदम है परंपरा की ओर।
+                            {t('cta.description')}
                         </p>
                         
                         {/* CTA Button */}
@@ -50,7 +53,7 @@ export function MarketingCTA() {
                             <Link href="/learn">
                                 <Button className="group relative h-16 sm:h-20 px-6 sm:px-16 text-lg sm:text-xl font-bold bg-gradient-to-r from-[#D4AF37] via-[#E6D8B8] to-[#D4AF37] text-[#1a1613] rounded-2xl shadow-2xl shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:scale-110 transition-all duration-500 overflow-hidden uppercase tracking-wider w-full sm:w-auto max-w-full">
                                     <span className="relative z-10 flex items-center gap-3">
-                                        अध्ययन प्रारंभ करें
+                                        {t('cta.button')}
                                         <svg className="w-6 h-6 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                         </svg>

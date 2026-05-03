@@ -1,5 +1,3 @@
-import { createClient } from '@/lib/supabase/client'
-
 const GUEST_ID_KEY = 'brahmi_guest_id'
 
 export type Identity =
@@ -41,28 +39,15 @@ export function getOrCreateGuestId(): string {
 
 /**
  * Get the current identity (user or guest)
- * This is async because it needs to check Supabase auth
+ * Backend authentication will be implemented when available
  */
 export async function getCurrentIdentity(): Promise<Identity> {
     try {
-        const supabase = createClient()
-        const { data: { user } } = await supabase.auth.getUser()
-
-        if (user?.id) {
-            return { type: 'user', id: user.id }
-        }
-
-        // No authenticated user, use guest ID
+        // For now, always return guest identity
+        // Backend authentication will be implemented when available
         const guestId = getOrCreateGuestId()
         return { type: 'guest', id: guestId }
     } catch (error: any) {
-        // Supabase or fetch may abort requests (navigation, timeout, etc.). Treat AbortError as non-fatal.
-        if (error && error.name === 'AbortError') {
-            // Silently fallback to guest identity without noisy logging
-            const guestId = getOrCreateGuestId()
-            return { type: 'guest', id: guestId }
-        }
-
         console.error('Error getting identity:', error)
         // Fallback to guest
         const guestId = getOrCreateGuestId()

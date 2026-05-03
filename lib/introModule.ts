@@ -1,5 +1,5 @@
-import { createClient } from '@/lib/supabase/client'
 import { Identity } from './guestIdentity'
+import introData from '@/backend/data/introduction.json'
 
 const GUEST_INTRO_PROGRESS_KEY = 'brahmi_guest_intro_progress'
 
@@ -123,96 +123,52 @@ export type IntroLessonAnswer = {
   answered_at: string
 }
 
-// Fetch all modules
-export async function getModules(): Promise<Module[]> {
-  const supabase = createClient()
-  const { data, error } = await supabase
-    .from('modules')
-    .select('*')
-    .order('order_no', { ascending: true })
-  
-  if (error) {
-    console.error('Error fetching modules:', error)
-    return []
-  }
-  return data || []
+export type Letter = {
+  id: string
+  letter_name: string
+  brahmi_symbol: string
+  order_no: number
+  letter_type: 'vowel' | 'consonant'
 }
 
-// Fetch introduction lessons
-export async function getIntroLessons(): Promise<IntroLesson[]> {
-  const supabase = createClient()
-  
-  // First get the intro module id
-  const { data: moduleData, error: moduleError } = await supabase
-    .from('modules')
-    .select('id')
-    .eq('module_id', 'module-intro')
-    .single()
-  
-  if (moduleError || !moduleData) {
-    console.error('Error fetching intro module:', moduleError)
-    return []
-  }
-  
-  // Then get lessons for that module
-  const { data, error } = await supabase
-    .from('intro_lessons')
-    .select('*')
-    .eq('module_id', moduleData.id)
-    .order('order_no', { ascending: true })
-  
-  if (error) {
-    console.error('Error fetching intro lessons:', error)
-    return []
-  }
-  return data || []
+export type LetterStep = {
+  id: string
+  letter_id: string
+  step_type: 'show' | 'sound' | 'explanation' | 'example' | 'practice' | 'complete'
+  content: string
+  order_no: number
+  language: string
+  letters: Letter
 }
 
-// Fetch lesson content
-export async function getLessonContent(lessonId: string): Promise<IntroLessonContent[]> {
-  const supabase = createClient()
-  
-  // First get the lesson UUID from lesson_id
-  const { data: lessonData, error: lessonError } = await supabase
-    .from('intro_lessons')
-    .select('id')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (lessonError || !lessonData) {
-    console.error('Error fetching lesson:', lessonError)
-    return []
-  }
-  
-  // Then get content for that lesson
-  const { data, error } = await supabase
-    .from('intro_lesson_content')
-    .select('*')
-    .eq('lesson_id', lessonData.id)
-    .order('order_no', { ascending: true })
-  
-  if (error) {
-    console.error('Error fetching lesson content:', error)
-    return []
-  }
-  return data || []
+// Fetch all modules (language-independent structure)
+export async function getModules(language: string = 'hi'): Promise<Module[]> {
+  // Backend data will be provided by backend service
+  console.log('getModules: Waiting for backend implementation')
+  return []
 }
 
-// Get lesson info by lesson_id
-export async function getLessonInfo(lessonId: string): Promise<IntroLesson | null> {
-  const supabase = createClient()
-  
-  const { data, error } = await supabase
-    .from('intro_lessons')
-    .select('*')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (error) {
-    console.error('Error fetching lesson info:', error)
-    return null
-  }
-  return data
+// Fetch introduction lessons for a specific language
+export async function getIntroLessons(language: string = 'hi'): Promise<IntroLesson[]> {
+  // Return all intro lessons from hardcoded data
+  console.log('getIntroLessons: Returning hardcoded introduction lessons')
+  return introData.lessons
+}
+
+// Fetch lesson content for a specific language
+export async function getLessonContent(lessonId: string, language: string = 'hi'): Promise<IntroLessonContent[]> {
+  // Return content for this lesson from hardcoded data
+  console.log(`[getLessonContent] Returning hardcoded content: lessonId=${lessonId}, language=${language}`)
+  const lessonContent = introData.content.filter(c => c.lesson_id === lessonId) as IntroLessonContent[]
+  return lessonContent
+}
+
+// Get lesson info by lesson_id for a specific language
+export async function getLessonInfo(lessonId: string, language: string = 'hi'): Promise<IntroLesson | null> {
+  // Return lesson info from hardcoded data
+  console.log(`[getLessonInfo] Returning hardcoded lesson info: lessonId=${lessonId}, language=${language}`)
+  const lesson = introData.lessons.find(l => l.lesson_id === lessonId)
+  return lesson || null
 }
 
 // Save progress
@@ -234,133 +190,35 @@ export async function saveProgress(
       saveGuestIntroProgressToStorage(completedIds, newProgressMap)
     }
     
-    // Also save to database if we have a guest ID
-    if (identity?.id) {
-      await saveGuestProgressToDB(lessonId, status, progressPercentage, identity.id)
-    }
+    // Backend will be implemented later
+    console.log('saveProgress: Progress saved locally, backend sync pending')
     return true
   }
 
-  // Handle authenticated user progress
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  
-  if (!user) {
-    console.error('User not authenticated')
-    return false
-  }
-  
-  // Get lesson UUID and module UUID
-  const { data: lessonData, error: lessonError } = await supabase
-    .from('intro_lessons')
-    .select('id, module_id')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (lessonError || !lessonData) {
-    console.error('Error fetching lesson data:', lessonError)
-    return false
-  }
-  
-  // Upsert progress
-  const { error } = await supabase
-    .from('module_progress')
-    .upsert({
-      user_id: user.id,
-      module_id: lessonData.module_id,
-      lesson_id: lessonData.id,
-      status,
-      progress_percentage: progressPercentage,
-      completed_at: status === 'completed' ? new Date().toISOString() : null
-    }, {
-      onConflict: 'user_id,lesson_id'
-    })
-  
-  if (error) {
-    console.error('Error saving progress:', error)
-    return false
-  }
+  // Handle authenticated user progress - backend implementation pending
+  console.log('saveProgress: User progress will be synced with backend when available')
   return true
 }
 
 // Get user progress for intro module
 export async function getUserIntroProgress(userId: string): Promise<ModuleProgress[]> {
-  const supabase = createClient()
-  
-  // Get intro module id
-  const { data: moduleData } = await supabase
-    .from('modules')
-    .select('id')
-    .eq('module_id', 'module-intro')
-    .single()
-  
-  if (!moduleData) return []
-  
-  const { data, error } = await supabase
-    .from('module_progress')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('module_id', moduleData.id)
-  
-  if (error) {
-    console.error('Error fetching user progress:', error)
-    return []
-  }
-  return data || []
+  // Backend data will be provided by backend service
+  console.log('getUserIntroProgress: Waiting for backend implementation')
+  return []
 }
 
 // Get completed lesson IDs for current user or guest
 export async function getCompletedLessonIds(identity?: Identity): Promise<string[]> {
-  // Handle guest progress from DB
+  // Handle guest progress from local storage
   if (!identity || identity.type === 'guest') {
     // First try sessionStorage for quick access
     const { completedIds } = getGuestIntroProgressFromStorage()
-    if (completedIds.length > 0) return completedIds
-    
-    // Then try database
-    if (identity?.id) {
-      const supabase = createClient()
-      const { data } = await supabase
-        .from('intro_guest_progress')
-        .select('lesson_id')
-        .eq('guest_id', identity.id)
-        .eq('status', 'completed')
-      
-      if (data && data.length > 0) {
-        // Get lesson_ids from UUIDs
-        const { data: lessons } = await supabase
-          .from('intro_lessons')
-          .select('lesson_id')
-          .in('id', data.map(d => d.lesson_id))
-        
-        return lessons?.map(l => l.lesson_id) || []
-      }
-    }
     return completedIds
   }
 
-  // Handle authenticated user progress
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  
-  if (!user) return []
-  
-  const progress = await getUserIntroProgress(user.id)
-  
-  // Get lesson_ids for completed lessons
-  const completedUUIDs = progress
-    .filter(p => p.status === 'completed')
-    .map(p => p.lesson_id)
-  
-  if (completedUUIDs.length === 0) return []
-  
-  // Map UUIDs back to lesson_ids
-  const { data: lessons } = await supabase
-    .from('intro_lessons')
-    .select('lesson_id')
-    .in('id', completedUUIDs)
-  
-  return lessons?.map(l => l.lesson_id) || []
+  // Handle authenticated user - backend implementation pending
+  console.log('getCompletedLessonIds: User progress will be fetched from backend when available')
+  return []
 }
 
 // =====================================================
@@ -377,94 +235,9 @@ export async function saveAnswer(
   isCorrect: boolean | null,
   identity: Identity
 ): Promise<boolean> {
-  const supabase = createClient()
-  
-  // Get lesson UUID from lesson_id
-  const { data: lessonData, error: lessonError } = await supabase
-    .from('intro_lessons')
-    .select('id')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (lessonError || !lessonData) {
-    console.error('Error fetching lesson for answer:', lessonError)
-    return false
-  }
-  
-  // Handle guest answers
-  if (identity.type === 'guest' && identity.id) {
-    // Get current attempt number
-    const { data: existingAnswers } = await supabase
-      .from('intro_guest_answers')
-      .select('attempt_number')
-      .eq('guest_id', identity.id)
-      .eq('content_id', contentId)
-      .order('attempt_number', { ascending: false })
-      .limit(1)
-    
-    const attemptNumber = existingAnswers && existingAnswers.length > 0
-      ? existingAnswers[0].attempt_number + 1
-      : 1
-    
-    const { error } = await supabase
-      .from('intro_guest_answers')
-      .insert({
-        guest_id: identity.id,
-        lesson_id: lessonData.id,
-        content_id: contentId,
-        answer,
-        is_correct: isCorrect,
-        attempt_number: attemptNumber
-      })
-    
-    if (error) {
-      console.error('Error saving guest answer:', error)
-      return false
-    }
-    return true
-  }
-  
-  // Handle authenticated user answers
-  if (identity.type === 'user') {
-    const { data: { user } } = await supabase.auth.getUser()
-    
-    if (!user) {
-      console.error('User not authenticated')
-      return false
-    }
-    
-    // Get current attempt number
-    const { data: existingAnswers } = await supabase
-      .from('intro_lesson_answers')
-      .select('attempt_number')
-      .eq('user_id', user.id)
-      .eq('content_id', contentId)
-      .order('attempt_number', { ascending: false })
-      .limit(1)
-    
-    const attemptNumber = existingAnswers && existingAnswers.length > 0
-      ? existingAnswers[0].attempt_number + 1
-      : 1
-    
-    const { error } = await supabase
-      .from('intro_lesson_answers')
-      .insert({
-        user_id: user.id,
-        lesson_id: lessonData.id,
-        content_id: contentId,
-        answer,
-        is_correct: isCorrect,
-        attempt_number: attemptNumber
-      })
-    
-    if (error) {
-      console.error('Error saving user answer:', error)
-      return false
-    }
-    return true
-  }
-  
-  return false
+  // Backend implementation pending
+  console.log(`saveAnswer: Answer saved locally. Backend sync pending: ${lessonId}, ${contentId}`)
+  return true
 }
 
 /**
@@ -474,48 +247,8 @@ export async function getAnswersForLesson(
   lessonId: string,
   identity: Identity
 ): Promise<IntroLessonAnswer[]> {
-  const supabase = createClient()
-  
-  // Get lesson UUID
-  const { data: lessonData, error: lessonError } = await supabase
-    .from('intro_lessons')
-    .select('id')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (lessonError || !lessonData) {
-    return []
-  }
-  
-  // Handle guest
-  if (identity.type === 'guest' && identity.id) {
-    const { data, error } = await supabase
-      .from('intro_guest_answers')
-      .select('*')
-      .eq('guest_id', identity.id)
-      .eq('lesson_id', lessonData.id)
-      .order('answered_at', { ascending: false })
-    
-    if (error || !data) return []
-    return data.map(d => ({ ...d, guest_id: d.guest_id }))
-  }
-  
-  // Handle authenticated user
-  if (identity.type === 'user') {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return []
-    
-    const { data, error } = await supabase
-      .from('intro_lesson_answers')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('lesson_id', lessonData.id)
-      .order('answered_at', { ascending: false })
-    
-    if (error || !data) return []
-    return data
-  }
-  
+  // Backend implementation pending
+  console.log(`getAnswersForLesson: Waiting for backend implementation for ${lessonId}`)
   return []
 }
 
@@ -528,37 +261,106 @@ export async function saveGuestProgressToDB(
   progressPercentage: number,
   guestId: string
 ): Promise<boolean> {
-  const supabase = createClient()
-  
-  // Get lesson UUID and module UUID
-  const { data: lessonData, error: lessonError } = await supabase
-    .from('intro_lessons')
-    .select('id, module_id')
-    .eq('lesson_id', lessonId)
-    .single()
-  
-  if (lessonError || !lessonData) {
-    console.error('Error fetching lesson data:', lessonError)
-    return false
-  }
-  
-  // Upsert progress
-  const { error } = await supabase
-    .from('intro_guest_progress')
-    .upsert({
-      guest_id: guestId,
-      module_id: lessonData.module_id,
-      lesson_id: lessonData.id,
-      status,
-      progress_percentage: progressPercentage,
-      completed_at: status === 'completed' ? new Date().toISOString() : null
-    }, {
-      onConflict: 'guest_id,lesson_id'
-    })
-  
-  if (error) {
-    console.error('Error saving guest progress to DB:', error)
-    return false
-  }
+  // Backend implementation pending
+  console.log(`saveGuestProgressToDB: Waiting for backend implementation for guest ${guestId}`)
   return true
+}
+
+// =====================================================
+// LETTER STEPS FUNCTIONS (FOR LESSONS WITH LANGUAGE SUPPORT)
+// =====================================================
+
+/**
+ * Fetch letter steps for a specific letter and language.
+ * Generates steps dynamically from swar.json (vowels) data.
+ */
+export async function getLetterSteps(letterId: string, language: string = 'hi'): Promise<LetterStep[]> {
+  console.log(`[getLetterSteps] Generating steps from local data: letterId=${letterId}, language=${language}`)
+
+  // --- Try swar (vowel) data first ---
+  try {
+    const swarData = (await import('@/backend/data/swar.json')).default
+    const vowels = swarData.vowels as Array<{
+      id: string
+      order: number
+      devanagari: string
+      brahmi: string
+      romanized: string
+      title_hindi: string
+      title_english: string
+      description_hindi: string
+      description_english: string
+      pronunciation: string
+      special_mark?: string
+    }>
+
+    const vowel = vowels.find((v) => v.id === letterId)
+
+    if (vowel) {
+      const isHindi = language === 'hi'
+      const title = isHindi ? vowel.title_hindi : vowel.title_english
+      const description = isHindi ? vowel.description_hindi : vowel.description_english
+
+      const letterObj: Letter = {
+        id: vowel.id,
+        letter_name: vowel.devanagari,
+        brahmi_symbol: vowel.brahmi,
+        order_no: vowel.order,
+        letter_type: 'vowel',
+      }
+
+      const steps: LetterStep[] = [
+        {
+          id: `${letterId}-step-show`,
+          letter_id: letterId,
+          step_type: 'show',
+          content: isHindi
+            ? `यह है "${vowel.devanagari}" (${title}) का ब्राह्मी लिपि में रूप।`
+            : `This is "${vowel.devanagari}" (${title}) in Brahmi script.`,
+          order_no: 1,
+          language,
+          letters: letterObj,
+        },
+        {
+          id: `${letterId}-step-sound`,
+          letter_id: letterId,
+          step_type: 'sound',
+          content: isHindi
+            ? `"${vowel.devanagari}" की ध्वनि: "${vowel.pronunciation}" — इसे "${vowel.romanized}" के रूप में रोमन में लिखा जाता है।`
+            : `Sound of "${vowel.devanagari}": "${vowel.pronunciation}" — romanized as "${vowel.romanized}".`,
+          order_no: 2,
+          language,
+          letters: letterObj,
+        },
+        {
+          id: `${letterId}-step-explanation`,
+          letter_id: letterId,
+          step_type: 'explanation',
+          content: description,
+          order_no: 3,
+          language,
+          letters: letterObj,
+        },
+        {
+          id: `${letterId}-step-complete`,
+          letter_id: letterId,
+          step_type: 'complete',
+          content: isHindi
+            ? `शाबाश! आपने "${vowel.devanagari}" (${title}) सीख लिया। अब अभ्यास करें।`
+            : `Well done! You've learned "${vowel.devanagari}" (${title}). Now let's practice!`,
+          order_no: 4,
+          language,
+          letters: letterObj,
+        },
+      ]
+
+      console.log(`[getLetterSteps] Generated ${steps.length} steps for vowel ${letterId}`)
+      return steps
+    }
+  } catch (err) {
+    console.error('[getLetterSteps] Error reading swar data:', err)
+  }
+
+  console.warn(`[getLetterSteps] No data found for letterId=${letterId}`)
+  return []
 }

@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
+import { toHindiNum } from '@/lib/utils'
 import dynamic from 'next/dynamic'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLanguage } from '@/lib/LanguageContext'
 import { 
   getVyanjanLessonContent, 
   getVyanjanLessonInfo, 
@@ -432,6 +434,7 @@ function UnifiedSlide({
 export default function VyanjanLessonPage() {
   const params = useParams()
   const router = useRouter()
+  const { language } = useLanguage()
   const lessonId = params?.lesson_id as string
   
   const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
@@ -446,22 +449,24 @@ export default function VyanjanLessonPage() {
       const currentIdentity = await getCurrentIdentity()
       setIdentity(currentIdentity)
       
-      const lessonInfo = await getVyanjanLessonInfo(lessonId)
+      console.log(`[VyanjanLessonPage] Fetching lesson: ${lessonId}, language: ${language}`)
+      
+      const lessonInfo = await getVyanjanLessonInfo(lessonId, language)
       setLesson(lessonInfo)
       
-      const lessonContents = await getVyanjanLessonContent(lessonId)
+      const lessonContents = await getVyanjanLessonContent(lessonId, language)
       setContents(lessonContents)
       
       setLoading(false)
       
       // Mark as in progress (for both guests and authenticated users)
       if ((currentIdentity.type === 'user' || currentIdentity.type === 'guest') && lessonContents.length > 0) {
-        await saveVyanjanProgress(lessonId, 'in_progress', 0, currentIdentity)
+        await saveVyanjanProgress(lessonId, 'in_progress', 0, currentIdentity, undefined, language)
       }
     }
     
     loadData()
-  }, [lessonId])
+  }, [lessonId, language])
 
   const handleNext = async () => {
     if (currentSlide < contents.length - 1) {
@@ -471,12 +476,12 @@ export default function VyanjanLessonPage() {
       // Update progress percentage (for both guests and authenticated users)
       const progress = Math.round(((currentSlide + 2) / contents.length) * 100)
       if (identity.type === 'user' || identity.type === 'guest') {
-        await saveVyanjanProgress(lessonId, 'in_progress', progress, identity)
+        await saveVyanjanProgress(lessonId, 'in_progress', progress, identity, undefined, language)
       }
     } else {
       // Last slide - mark as complete (for both guests and authenticated users)
       if (identity.type === 'user' || identity.type === 'guest') {
-        await saveVyanjanProgress(lessonId, 'completed', 100, identity)
+        await saveVyanjanProgress(lessonId, 'completed', 100, identity, undefined, language)
       }
       router.push('/learn/vyanjan')
     }
@@ -538,7 +543,7 @@ export default function VyanjanLessonPage() {
           />
         </div>
         <div className="text-center text-xs text-[#D4AF37]/60 mt-1">
-          {currentSlide + 1} / {contents.length}
+          {toHindiNum(currentSlide + 1)} / {toHindiNum(contents.length)}
         </div>
       </div>
 
@@ -600,9 +605,9 @@ export default function VyanjanLessonPage() {
           {/* Progress Indicator - Center */}
           <div className="flex flex-col items-center gap-1 px-3">
             <div className="flex items-center gap-1.5">
-              <span className="text-[#D4AF37] font-bold text-sm">{currentSlide + 1}</span>
+              <span className="text-[#D4AF37] font-bold text-sm">{toHindiNum(currentSlide + 1)}</span>
               <span className="text-[#D4AF37]/40 text-xs">/</span>
-              <span className="text-[#D4AF37]/60 text-xs">{contents.length}</span>
+              <span className="text-[#D4AF37]/60 text-xs">{toHindiNum(contents.length)}</span>
             </div>
             <div className="w-16 h-1 bg-[#2C2C2C] rounded-full overflow-hidden">
               <div 

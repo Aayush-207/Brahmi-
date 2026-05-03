@@ -1,8 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { getUserProgress } from '@/lib/progress'
 import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -95,7 +93,6 @@ export default function ConsonantsPage() {
     const lastCompletedIndex = lastCompletedLetter ? letters.findIndex(l => l.id === lastCompletedLetter.id) : -1
 
     const router = useRouter()
-    const supabase = createClient()
 
     // --- Effects ---
 
@@ -109,33 +106,13 @@ export default function ConsonantsPage() {
         loadIdentity()
     }, [router])
 
-    // 2. Fetch Letters (CONSONANTS ONLY - Order >= 13)
+    // 2. Backend data will be provided by backend service
     useEffect(() => {
-        async function fetchLetters() {
-            // FIX: Using order_no filter as requested by user
-            const { data, error } = await supabase
-                .from('letters')
-                .select('*')
-                .gte('order_no', 13)
-                .order('order_no', { ascending: true })
-
-            if (!error) setLetters(data as unknown as Letter[] || [])
-            setLoading(false)
-        }
-        fetchLetters()
+        // For now, show empty state - backend will provide data
+        console.log('Consonants page: Waiting for backend implementation')
+        setLetters([])
+        setLoading(false)
     }, [])
-
-    // 3. Fetch Progress & Handle New Completions (Via URL Params)
-    useEffect(() => {
-        if (!isLoaded || letters.length === 0) return
-
-        async function fetchProgress() {
-            const { completedIds: fetchedIds } = await getUserProgress(identity)
-            setCompletedIds(fetchedIds)
-        }
-
-        fetchProgress()
-    }, [isLoaded, letters.length, identity.type, identity.id])
 
     // Animation Trigger via Search Params
     const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null

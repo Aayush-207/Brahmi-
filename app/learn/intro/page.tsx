@@ -3,11 +3,13 @@
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { toHindiNum } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { getIntroLessons, getCompletedLessonIds, type IntroLesson } from '@/lib/introModule'
 import { getCurrentIdentity, type Identity } from '@/lib/guestIdentity'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 import { AnimatedBirds } from '@/components/animations/AnimatedBird'
+import { useLanguage } from '@/lib/LanguageContext'
 
 // --- Temple Steps Layout Constants (Desktop) ---
 const STEP_WIDTH = 220          // Horizontal distance between steps
@@ -90,6 +92,7 @@ function generateJourneyPath(count: number, centerX: number): string {
 
 export default function IntroLessonsPage() {
     const router = useRouter()
+    const { language } = useLanguage()
     const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
     const [lessons, setLessons] = useState<IntroLesson[]>([])
     const [completedIds, setCompletedIds] = useState<string[]>([])
@@ -120,7 +123,7 @@ export default function IntroLessonsPage() {
             const currentIdentity = await getCurrentIdentity()
             setIdentity(currentIdentity)
             
-            const lessonsData = await getIntroLessons()
+            const lessonsData = await getIntroLessons(language)
             setLessons(lessonsData)
             
             // Get completed lessons for both guests and authenticated users
@@ -131,7 +134,7 @@ export default function IntroLessonsPage() {
         }
         
         loadData()
-    }, [])
+    }, [language])
 
     // Animation Trigger via Search Params
     const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
@@ -612,7 +615,7 @@ export default function IntroLessonsPage() {
                                     
                                     {/* Level number */}
                                     <div className="mt-2 text-xs text-[#D4AF37]/50 font-serif">
-                                        Level {index + 1}
+                                        स्तर {toHindiNum(index + 1)}
                                     </div>
                                     
                                     {/* Skip Introduction Button for first lesson */}
