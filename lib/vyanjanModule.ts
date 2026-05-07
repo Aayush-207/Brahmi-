@@ -46,6 +46,36 @@ export type Consonant = {
   exampleWords: Array<{ devanagari: string, romanized: string, english: string }>
 }
 
+const VYANJAN_ENGLISH_SUBTITLES: Record<string, string> = {
+  all: '',
+  kanthya: 'Guttural',
+  talavya: 'Palatal',
+  murdhanya: 'Retroflex',
+  dantya: 'Dental',
+  osthya: 'Labial',
+  antahstha: 'Semi-vowels',
+  ushma: 'Sibilants'
+}
+
+const VYANJAN_ENGLISH_DESCRIPTIONS: Record<string, string> = {
+  all: 'Learn about the 33 Brahmi consonants arranged into 7 groups.',
+  kanthya: 'Learn the 5 guttural consonants (ka, kha, ga, gha, nga).',
+  talavya: 'Learn the 5 palatal consonants (cha, chha, ja, jha, nya).',
+  murdhanya: 'Learn the 5 retroflex consonants (ta, tha, da, dha, na).',
+  dantya: 'Learn the 5 dental consonants (ta, tha, da, dha, na).',
+  osthya: 'Learn the 5 labial consonants (pa, pha, ba, bha, ma).',
+  antahstha: 'Learn the 4 semi-vowels (ya, ra, la, va).',
+  ushma: 'Learn the 4 fricative consonants (sha, sha, sa, ha).'
+}
+
+function getEnglishVyanjanSubtitle(category: string, fallback: string): string {
+  return VYANJAN_ENGLISH_SUBTITLES[category] ?? fallback
+}
+
+function getEnglishVyanjanDescription(category: string, fallback: string): string {
+  return VYANJAN_ENGLISH_DESCRIPTIONS[category] ?? fallback
+}
+
 // Progress functions
 function getGuestVyanjanProgressFromStorage(): { completedIds: string[], progressMap: Record<string, number> } {
   if (typeof window === 'undefined') return { completedIds: [], progressMap: {} }
@@ -104,7 +134,18 @@ export async function getCompletedVyanjanLessonIds(identity: Identity): Promise<
 
 export async function getVyanjanLessons(language: string = 'hi'): Promise<VyanjanLesson[]> {
   const data = getDataForLanguage(language)
-  return data.vyanjan.lessons
+  const lessons = data.vyanjan.lessons as VyanjanLesson[]
+
+  if (language === 'hi') {
+    return lessons
+  }
+
+  return lessons.map((lesson: any) => ({
+    ...lesson,
+    title: lesson.title_english || lesson.title,
+    subtitle: getEnglishVyanjanSubtitle(lesson.consonant_group, lesson.subtitle),
+    description: getEnglishVyanjanDescription(lesson.consonant_group, lesson.description)
+  }))
 }
 
 export async function getVyanjanLessonContent(lessonId: string, language: string = 'hi'): Promise<VyanjanLessonContent[]> {
@@ -156,7 +197,7 @@ export async function getVyanjanLessonContent(lessonId: string, language: string
           lesson_id: lessonId,
           content_type: 'pronunciation',
           title: `${c.devanagari} (${c.romanized})`,
-          content: `${language === 'hi' ? c.categoryHindi : c.categoryEnglish} - ${c.categoryDescription}\n\n${language === 'hi' ? 'ध्वनि' : 'Sound'}: ${c.pronunciationNote}\n\n${language === 'hi' ? 'उदाहरण' : 'Example'}: ${c.exampleWords && c.exampleWords.length > 0 ? c.exampleWords.map((ex: any) => ex.devanagari).join(", ") : ""}`,
+          content: `${language === 'hi' ? c.categoryHindi : c.categoryEnglish} - ${language === 'hi' ? c.categoryDescription : getEnglishVyanjanDescription(c.category, c.categoryDescription)}\n\n${language === 'hi' ? 'ध्वनि' : 'Sound'}: ${language === 'hi' ? c.pronunciationNote : (c.pronunciationNoteEnglish || c.pronunciationNote)}\n\n${language === 'hi' ? 'उदाहरण' : 'Examples'}: ${c.exampleWords && c.exampleWords.length > 0 ? c.exampleWords.map((ex: any) => language === 'hi' ? ex.devanagari : (ex.english || ex.devanagari)).join(", ") : ""}`,
           metadata: {
             brahmi_symbol: c.brahmi,
             devanagari: c.devanagari,

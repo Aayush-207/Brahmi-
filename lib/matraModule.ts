@@ -53,6 +53,26 @@ export type MatraProgress = {
   completed_at: string | null
 }
 
+const MATRA_ENGLISH_SUBTITLES: Record<string, string> = {
+  'matras-lesson-001': 'Matra Introduction',
+  'matras-lesson-002': 'Inherent A',
+  'matras-lesson-003': 'AA Matra',
+  'matras-lesson-004': 'I Matra',
+  'matras-lesson-005': 'II Matra',
+  'matras-lesson-006': 'U Matra',
+  'matras-lesson-007': 'UU Matra',
+  'matras-lesson-008': 'E Matra',
+  'matras-lesson-009': 'AI Matra',
+  'matras-lesson-010': 'O Matra',
+  'matras-lesson-011': 'AU Matra',
+  'matras-lesson-012': 'Anusvara',
+  'matras-lesson-013': 'Visarga'
+}
+
+function getEnglishMatraSubtitle(lessonId: string, fallback: string | null): string | null {
+  return MATRA_ENGLISH_SUBTITLES[lessonId] ?? fallback
+}
+
 // ============================================
 // GUEST STORAGE FUNCTIONS
 // ============================================
@@ -99,6 +119,15 @@ export async function getMatraLessons(identity: Identity, language: string = 'hi
   const data = getDataForLanguage(language);
   const matraData = data.matras;
   const lessons = [...(matraData.lessons as unknown as MatraLesson[])];
+
+  if (language !== 'hi') {
+    return lessons.map((lesson) => ({
+      ...lesson,
+      title: lesson.title_english || lesson.title,
+      subtitle: getEnglishMatraSubtitle(lesson.lesson_id, lesson.subtitle),
+      description: lesson.description_english || lesson.description || ''
+    }));
+  }
   
   if (identity.type === 'guest' || !identity.id) {
     const progress = getGuestMatraProgressFromStorage();
@@ -130,6 +159,9 @@ export async function getMatraLessonContent(lessonId: string, language: string =
   
   const lesson = (matraData.lessons as unknown as MatraLesson[]).find(l => l.lesson_id === lessonId)
   if (!lesson) return []
+
+  const displayTitle = language === 'hi' ? lesson.title : (lesson.title_english || lesson.title)
+  const displayDescription = language === 'hi' ? (lesson.description || '') : (lesson.description_english || lesson.description || '')
   
   const content: MatraLessonContent[] = []
   
@@ -145,13 +177,13 @@ export async function getMatraLessonContent(lessonId: string, language: string =
     id: 1,
     lesson_id: lessonId,
     content_type: 'title_slide',
-    title: lesson.title,
-    content: lesson.description || '',
+    title: displayTitle,
+    content: displayDescription,
     audio_url: null,
     metadata: { 
       matra_symbol: lesson.matra_symbol,
-      brahmi_symbol: matra && matra.matraSign ? matra.matraSign : null,
-      devanagari: matra ? matra.vowelDevanagari : null,
+      brahmi_symbol: matra ? matra.exampleBrahmi : null,
+      devanagari: matra ? matra.exampleDevanagari : null,
       latin: matra ? matra.matraName : null
     },
     order_no: 1,
@@ -160,12 +192,13 @@ export async function getMatraLessonContent(lessonId: string, language: string =
   })
   
   if (matra) {
+    const matraDescription = language === 'hi' ? (matra.description || '') : (matra.descriptionEnglish || matra.description || '')
     content.push({
       id: 2,
       lesson_id: lessonId,
       content_type: 'pronunciation',
       title: language === 'hi' ? 'मात्रा संयोजन' : 'Matra Combination',
-      content: matra.description || '',
+      content: matraDescription,
       audio_url: null,
       metadata: { 
         brahmi_symbol: matra.exampleBrahmi,
@@ -185,7 +218,7 @@ export async function getMatraLessonContent(lessonId: string, language: string =
         title: language === 'hi' ? 'मात्रा अभ्यास' : 'Matra Practice',
         content: language === 'hi' ? `ब्राह्मी मात्रा '${matra.matraSign}' का अभ्यास करें` : `Practice the Brahmi matra '${matra.matraSign}'`,
         audio_url: null,
-        metadata: { character: matra.matraSign },
+        metadata: { character: matra.exampleBrahmi },
         order_no: 3,
         language: language,
         created_at: new Date().toISOString()
@@ -217,7 +250,7 @@ export async function getMatraLessonContent(lessonId: string, language: string =
     lesson_id: lessonId,
     content_type: 'summary',
     title: language === 'hi' ? 'सारांश' : 'Summary',
-    content: language === 'hi' ? `${lesson.title} को सफलतापूर्वक पूरा किया!` : `Successfully completed ${lesson.title}!`,
+    content: language === 'hi' ? `${lesson.title} को सफलतापूर्वक पूरा किया!` : `Successfully completed ${displayTitle}!`,
     audio_url: null,
     metadata: null,
     order_no: 50,

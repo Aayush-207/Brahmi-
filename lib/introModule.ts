@@ -320,9 +320,42 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
   // Try matras data (example / fallback)
   try {
     const matraData = data.matras
-    const matra = (matraData.matras || []).find((m: any) => m.id === letterId || m.matraId === letterId)
+
+    // First try to resolve matra by lesson mapping: some routes pass a lesson_id like 'matras-lesson-005'
+    const matraLesson = (matraData.lessons || []).find((l: any) => l.lesson_id === letterId)
+    let matra: any | undefined
+
+    if (matraLesson) {
+      const lessonSymbol = matraLesson.matra_symbol
+      // Try to find a matra entry matching the lesson's matra symbol or order
+      matra = (matraData.matras || []).find((m: any) =>
+        m.matraSign === lessonSymbol || m.vowelBrahmi === lessonSymbol || (m.exampleBrahmi && m.exampleBrahmi.includes(lessonSymbol)) || m.order === matraLesson.order_no
+      )
+
+      // If not found, construct a minimal matra object from the lesson data as a fallback
+      if (!matra) {
+        matra = {
+          id: matraLesson.lesson_id,
+          order: matraLesson.order_no || 0,
+          vowelDevanagari: matraLesson.title || '',
+          matraName: matraLesson.title || '',
+          matraSign: matraLesson.matra_symbol || '',
+          exampleBrahmi: matraLesson.matra_symbol || ''
+        }
+      }
+    } else {
+      matra = (matraData.matras || []).find((m: any) => m.id === letterId || m.matraId === letterId)
+    }
+
     if (matra) {
-      const letters = buildLetter(matra.id || letterId, matra.vowelDevanagari || matra.matraName || '', matra.matraSign || matra.exampleBrahmi || '', matra.order || 0, 'vowel')
+      const letters = buildLetter(
+        matra.id || letterId,
+        matra.exampleDevanagari || matra.matraName || '',
+        // Prefer the standalone matra sign if available for tracing, otherwise fallback to example brahmi
+        matra.matraSign || matra.exampleBrahmi || matra.vowelBrahmi || '',
+        matra.order || 0,
+        'vowel'
+      )
       const steps: any[] = [
         {
           id: `${letterId}-step-1`,

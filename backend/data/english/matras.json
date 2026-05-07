@@ -302,7 +302,7 @@
       "exampleBrahmi": "𑀓",
       "example_combination": "Consonant alone",
       "description": "बिना किसी मात्रा के, व्यञ्जन में अंतर्निहित 'अ' ध्वनि होती है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "Inherent A (no matra sign needed). No sign — inherent vowel",
       "englishName": "Inherent A (no matra sign needed)",
       "matraPositionLabel": "No sign — inherent vowel"
     },
@@ -320,7 +320,7 @@
       "exampleBrahmi": "𑀓𑀸",
       "example_combination": "क + 𑀸 = का",
       "description": "आ ध्वनि का मात्रा चिह्न, व्यञ्जन के बाद लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "AA matra (Long A sign). After consonant",
       "englishName": "AA matra (Long A sign)",
       "matraPositionLabel": "After consonant"
     },
@@ -338,7 +338,7 @@
       "exampleBrahmi": "𑀓𑀹",
       "example_combination": "क + 𑀹 = कि",
       "description": "इ ध्वनि का मात्रा चिह्न, व्यञ्जन से पहले/ऊपर लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "I matra (Short I sign). Before consonant",
       "englishName": "I matra (Short I sign)",
       "matraPositionLabel": "Before consonant"
     },
@@ -356,7 +356,7 @@
       "exampleBrahmi": "𑀓𑀺",
       "example_combination": "क + 𑀺 = की",
       "description": "ई ध्वनि का मात्रा चिह्न, व्यञ्जन के बाद लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "II matra (Long I sign). After consonant",
       "englishName": "II matra (Long I sign)",
       "matraPositionLabel": "After consonant"
     },
@@ -374,7 +374,7 @@
       "exampleBrahmi": "𑀓𑀻",
       "example_combination": "क + 𑀻 = कु",
       "description": "उ ध्वनि का मात्रा चिह्न, व्यञ्जन के नीचे लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "U matra (Short U sign). Below",
       "englishName": "U matra (Short U sign)",
       "matraPositionLabel": "Below"
     },
@@ -392,7 +392,7 @@
       "exampleBrahmi": "𑀓𑀼",
       "example_combination": "क + 𑀼 = कू",
       "description": "ऊ ध्वनि का मात्रा चिह्न, व्यञ्जन के नीचे लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "UU matra (Long U sign). Below",
       "englishName": "UU matra (Long U sign)",
       "matraPositionLabel": "Below"
     },
@@ -410,7 +410,7 @@
       "exampleBrahmi": "𑀓𑁂",
       "example_combination": "क + 𑁂 = के",
       "description": "ए ध्वनि का मात्रा चिह्न, व्यञ्जन के बाद लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "E matra (E sign). After consonant",
       "englishName": "E matra (E sign)",
       "matraPositionLabel": "After consonant"
     },
@@ -428,7 +428,7 @@
       "exampleBrahmi": "𑀓𑁃",
       "example_combination": "क + 𑁃 = कै",
       "description": "ऐ ध्वनि का मात्रा चिह्न, व्यञ्जन के बाद लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "AI matra (AI sign). After consonant",
       "englishName": "AI matra (AI sign)",
       "matraPositionLabel": "After consonant"
     },
@@ -446,7 +446,7 @@
       "exampleBrahmi": "𑀓𑁄",
       "example_combination": "क + 𑁄 = को",
       "description": "ओ ध्वनि का मात्रा चिह्न, व्यञ्जन के बाद लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "O matra (O sign). After consonant",
       "englishName": "O matra (O sign)",
       "matraPositionLabel": "After consonant"
     },
@@ -464,7 +464,7 @@
       "exampleBrahmi": "𑀓𑁅",
       "example_combination": "क + 𑁅 = कौ",
       "description": "औ ध्वनि का मात्रा चिह्न, व्यञ्जन के बाद लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "AU matra (AU sign). After consonant",
       "englishName": "AU matra (AU sign)",
       "matraPositionLabel": "After consonant"
     },
@@ -482,7 +482,7 @@
       "exampleBrahmi": "𑀓𑁀",
       "example_combination": "क + 𑁀 = कं",
       "description": "अनुस्वार - नासिका ध्वनि चिह्न, व्यञ्जन के ऊपर लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "Anusvara (nasal dot sign). Above",
       "englishName": "Anusvara (nasal dot sign)",
       "matraPositionLabel": "Above"
     },
@@ -500,7 +500,7 @@
       "exampleBrahmi": "𑀓𑀂",
       "example_combination": "क + 𑀂 = कः",
       "description": "विसर्ग - दूसरी नासिका ध्वनि, व्यञ्जन के बाद लगता है",
-      "descriptionEnglish": "",
+      "descriptionEnglish": "Visarga (aspirated-H sign). After consonant",
       "englishName": "Visarga (aspirated-H sign)",
       "matraPositionLabel": "After consonant"
     }
