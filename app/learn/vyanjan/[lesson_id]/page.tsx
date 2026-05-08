@@ -209,7 +209,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
                                     }}
                                     className="mt-4 px-8 py-3 bg-[#D4AF37] text-[#1C1C1C] rounded-xl font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 flex items-center gap-2"
                                 >
-                                    <span>Start Tracing</span>
+                                    <span>{language === 'hi' ? 'अभ्यास करें→' : 'Start Tracing'}</span>
                                     <span>✍️</span>
                                 </button>
                             )}

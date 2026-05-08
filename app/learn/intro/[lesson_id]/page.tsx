@@ -439,6 +439,7 @@ export default function LessonPage() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [loading, setLoading] = useState(true)
   const [direction, setDirection] = useState(0)
+  const [mcqSelected, setMcqSelected] = useState(false)
 
   useEffect(() => {
     async function loadData() {
@@ -465,6 +466,11 @@ export default function LessonPage() {
     
     loadData()
   }, [lessonId, language])
+
+  // Reset MCQ selection state when slide changes
+  useEffect(() => {
+    setMcqSelected(false)
+  }, [currentSlide])
 
   const handleNext = async () => {
     if (currentSlide < contents.length - 1) {
@@ -596,21 +602,35 @@ export default function LessonPage() {
                 slideIndex={currentSlide}
                 onMCQSelect={(val, isCorrect) => {
                   saveAnswer(lessonId, currentContent.id, val, isCorrect, identity)
+                  setMcqSelected(true)
                 }}
                 onQuestionnaireSelect={(val) => {
                   saveAnswer(lessonId, currentContent.id, val, false, identity)
+                  setMcqSelected(true)
                 }}
               />
             </motion.div>
           </AnimatePresence>
         </div>
 
-        <button
-          onClick={handleNext}
-          className="hidden md:block absolute right-2 md:right-10 z-10 p-3 md:p-4 rounded-full bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 text-lg md:text-xl"
-        >
-          {isLastSlide ? '✓' : '→'}
-        </button>
+        {/* Desktop Next / Arrow: For MCQ slides hide until selection; show arrow-only after select */}
+        {currentContent.content_type === 'mcq' ? (
+          mcqSelected && (
+            <button
+              onClick={handleNext}
+              className="hidden md:block absolute right-2 md:right-10 z-10 p-3 md:p-4 rounded-full bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 text-lg md:text-xl"
+            >
+              →
+            </button>
+          )
+        ) : (
+          <button
+            onClick={handleNext}
+            className="hidden md:block absolute right-2 md:right-10 z-10 p-3 md:p-4 rounded-full bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 text-lg md:text-xl"
+          >
+            {isLastSlide ? '✓' : '→'}
+          </button>
+        )}
       </div>
 
       {/* Mobile Navigation Buttons (Bottom) - Only visible on mobile */}
@@ -642,13 +662,27 @@ export default function LessonPage() {
           </div>
 
           {/* Next/Complete Button - Bottom Right */}
-          <button
-            onClick={handleNext}
-            className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
-          >
-            <span>{isLastSlide ? 'Complete' : 'Next'}</span>
-            <span className="text-lg">{isLastSlide ? '✓' : '→'}</span>
-          </button>
+          {/* Mobile Next: For MCQ slides hide until selection, show arrow-only after select */}
+          {currentContent.content_type === 'mcq' ? (
+            mcqSelected ? (
+              <button
+                onClick={handleNext}
+                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
+              >
+                <span className="text-lg">→</span>
+              </button>
+            ) : (
+              <div className="w-24" />
+            )
+          ) : (
+            <button
+              onClick={handleNext}
+              className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
+            >
+              <span>{isLastSlide ? 'Complete' : 'Next'}</span>
+              <span className="text-lg">{isLastSlide ? '✓' : '→'}</span>
+            </button>
+          )}
         </div>
       </div>
 

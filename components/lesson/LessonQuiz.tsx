@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useLanguage } from '@/lib/LanguageContext'
 import { motion, AnimatePresence } from 'framer-motion'
 import { speakAsGuruji } from '@/lib/gurujispeech'
 
@@ -28,6 +29,7 @@ interface LessonQuizProps {
 }
 
 export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
+    const { language } = useLanguage()
     const [quizState, setQuizState] = useState<QuizState>('idle')
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null)
@@ -217,9 +219,9 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
 
                             <button
                                 onClick={handleContinue}
-                                className="w-full md:w-auto px-8 py-3 rounded-xl font-bold text-white uppercase tracking-wide bg-[#58CC02] border-[#46a302] border-b-4 active:border-b-0 active:translate-y-1 transition-all"
+                                className="w-full md:w-auto px-6 py-3 rounded-xl font-bold text-white uppercase tracking-wide bg-[#58CC02] border-[#46a302] border-b-4 active:border-b-0 active:translate-y-1 transition-all"
                             >
-                                Continue
+                                {language === 'hi' ? '→' : 'Continue'}
                             </button>
                         </div>
                     </motion.div>

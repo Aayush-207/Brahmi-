@@ -214,7 +214,7 @@ export async function getVyanjanLessonContent(lessonId: string, language: string
           lesson_id: lessonId,
           content_type: 'writing_practice',
           title: `${language === 'hi' ? 'अभ्यास' : 'Practice'} - ${c.devanagari}`,
-          content: `${language === 'hi' ? 'लिखने का अभ्यास करें' : 'Practice writing the consonant'}`,
+          content: `${language === 'hi' ? 'अभ्यास करें' : 'Practice writing the consonant'}`,
           metadata: {
             id: c.id,
             brahmi_symbol: c.brahmi,

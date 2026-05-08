@@ -218,7 +218,7 @@ export async function getMatraLessonContent(lessonId: string, language: string =
         lesson_id: lessonId,
         content_type: 'writing_practice',
         title: language === 'hi' ? 'मात्रा अभ्यास' : 'Matra Practice',
-        content: language === 'hi' ? `ब्राह्मी मात्रा '${matra.matraSign}' का अभ्यास करें` : `Practice the Brahmi matra '${matra.matraSign}'`,
+        content: language === 'hi' ? `अभ्यास करें` : `Practice the Brahmi matra '${matra.matraSign}'`,
         audio_url: null,
         metadata: { character: matra.exampleBrahmi },
         order_no: 3,
