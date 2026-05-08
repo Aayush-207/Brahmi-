@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { toHindiNum } from '@/lib/utils'
 import { motion } from 'framer-motion'
+import { getNextModuleRoute } from '@/lib/lessonFlow'
 import { getVyanjanLessons, getCompletedVyanjanLessonIds, type VyanjanLesson } from '@/lib/vyanjanModule'
 import { useLanguage } from '@/lib/LanguageContext'
 import { getCurrentIdentity, type Identity } from '@/lib/guestIdentity'
@@ -696,17 +697,18 @@ export default function VyanjanLessonsPage() {
 
                         {/* Action Buttons */}
                         <div className="flex flex-col gap-3">
-                            {/* Continue to Learning Path */}
+                            {/* Continue to Next Module (Matra) */}
                             <button
                                 onClick={() => {
                                     setShowCompletionModal(false)
-                                    router.push('/learn')
+                                    const nextRoute = getNextModuleRoute('module-vyanjan')
+                                    router.push(nextRoute || '/learn')
                                 }}
                                 className="w-full bg-gradient-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-4 px-6 rounded-lg hover:brightness-110 hover:scale-105 transition-all shadow-lg border-2 border-[#F5F1E8]/50"
                             >
                                 <div className="flex items-center justify-center gap-2">
-                                    <span className="text-lg">🗺️</span>
-                                    <span>View Learning Path</span>
+                                    <span className="text-lg">📖</span>
+                                    <span>Continue to Matra (Diacritics)</span>
                                     <span className="text-lg">→</span>
                                 </div>
                             </button>

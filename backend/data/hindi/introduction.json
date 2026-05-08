@@ -12,17 +12,6 @@
       "estimated_time_minutes": 2
     },
     {
-      "id": "intro-lesson-002",
-      "module_id": "module-intro",
-      "lesson_id": "intro-lang-select",
-      "title": "भाषा चयन",
-      "subtitle": " ",
-      "description": "अपनी पसंदीदा भाषा चुनें",
-      "thumbnail_icon": "🌐",
-      "order_no": 2,
-      "estimated_time_minutes": 1
-    },
-    {
       "id": "intro-lesson-003",
       "module_id": "module-intro",
       "lesson_id": "intro-brahmi-intro",
@@ -135,28 +124,6 @@
       "order_no": 1
     },
     {
-      "id": "content-002",
-      "lesson_id": "intro-lang-select",
-      "content_type": "questionnaire",
-      "title": "भाषा चुनें:",
-      "content": "पाठ्यक्रम के लिए अपनी पसंदीदा भाषा चुनें",
-      "metadata": {
-        "options": [
-          "Hindi",
-          "தமிழ்",
-          "తెలుగు",
-          "বাংলা",
-          "ગુજરાતી",
-          "ಕನ್ನಡ",
-          "ଓଡ଼ିଆ",
-          "ਪੰਜਾਬੀ",
-          "English"
-        ],
-        "buttonText": "अगला"
-      },
-      "order_no": 1
-    },
-    {
       "id": "content-003",
       "lesson_id": "intro-brahmi-intro",
       "content_type": "text",
@@ -189,6 +156,7 @@
             "translation": " "
           }
         ],
+        "accept_any_answer": true,
         "buttonText": ""
       },
       "order_no": 1
@@ -377,7 +345,8 @@
           "8 मिनट",
           "10 मिनट",
           "15 मिनट"
-        ]
+        ],
+        "accept_any_answer": true
       },
       "order_no": 1
     },

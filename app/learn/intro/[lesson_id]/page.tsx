@@ -5,9 +5,11 @@ import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { toHindiNum } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
+import { getNextModuleRoute } from '@/lib/lessonFlow'
+import {
   getLessonContent, 
-  getLessonInfo, 
+  getLessonInfo,
+  getNextIntroLessonId,
   saveProgress,
   saveAnswer,
   type IntroLessonContent,
@@ -36,9 +38,11 @@ function UnifiedSlide({
 
   // MCQ Handler
   const handleMCQSelect = (option: string) => {
-    const correctAnswer = metadata?.correct_answer
     setSelected(option)
-    const correct = option === correctAnswer
+    // Check if this question accepts any answer (preference/questionnaire type)
+    const acceptAnyAnswer = metadata?.accept_any_answer === true
+    const correctAnswer = metadata?.correct_answer
+    const correct = acceptAnyAnswer ? true : (option === correctAnswer)
     setIsCorrect(correct)
     onMCQSelect?.(option, correct)
   }
@@ -473,11 +477,26 @@ export default function LessonPage() {
         await saveProgress(lessonId, 'in_progress', progress, identity)
       }
     } else {
-      // Last slide - mark as complete (for both guests and authenticated users)
+      // Last slide of lesson - mark as complete and go to next lesson or module
       if (identity.type === 'user' || identity.type === 'guest') {
         await saveProgress(lessonId, 'completed', 100, identity)
       }
-      router.push('/learn/intro')
+      
+      // Check if there's a next lesson in intro module
+      const nextLessonId = await getNextIntroLessonId(lessonId, language)
+      if (nextLessonId) {
+        // Navigate to next intro lesson
+        router.push(`/learn/intro/${nextLessonId}`)
+      } else {
+        // Last intro lesson completed - navigate to next module (Swar/Vowels)
+        const nextModuleRoute = getNextModuleRoute('module-intro')
+        if (nextModuleRoute) {
+          router.push(nextModuleRoute)
+        } else {
+          // Fallback if no next module
+          router.push('/learn')
+        }
+      }
     }
   }
 

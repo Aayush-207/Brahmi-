@@ -353,7 +353,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                                 onClick={handleFlowComplete}
                                 className="px-6 py-3 bg-gray-600 hover:bg-gray-500 text-white rounded-lg font-medium transition-all duration-300 flex items-center gap-2"
                             >
-                                लिखने का अभ्यास करें →
+                                {letterType === 'vowel' ? 'अभ्यास करें →' : 'लिखने का अभ्यास करें →'}
                             </button>
                         </div>
                     </div>
@@ -366,7 +366,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                             onClick={handleFlowComplete}
                             className="flex items-center gap-2 px-4 py-3 rounded-xl bg-gray-600 hover:bg-gray-500 text-white font-medium transition-all shadow-lg text-sm"
                         >
-                            <span>लिखने का अभ्यास करें</span>
+                            <span>{letterType === 'vowel' ? 'अभ्यास करें' : 'लिखने का अभ्यास करें'}</span>
                             <span className="text-lg">→</span>
                         </button>
                         <button
@@ -423,7 +423,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                             onClick={handleFlowComplete}
                             className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
                         >
-                            <span>{language === 'hi' ? 'लिखने का अभ्यास करें' : 'Continue to Trace'}</span>
+                            <span>{language === 'hi' ? (letterType === 'vowel' ? 'अभ्यास करें' : 'लिखने का अभ्यास करें') : 'Continue to Trace'}</span>
                             <span className="text-lg">→</span>
                         </button>
                     </div>
@@ -610,7 +610,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                     onClick={isLastStep ? handleFlowComplete : handleNext}
                     className="hidden md:block absolute right-2 md:right-10 p-3 md:p-4 rounded-full bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 text-lg md:text-xl"
                 >
-                    {isLastStep ? (quizQuestions.length > 0 ? (language === 'hi' ? 'लिखने का अभ्यास करें →' : 'Quiz →') : (language === 'hi' ? 'लिखने का अभ्यास करें →' : 'Trace →')) : '→'}
+                    {isLastStep ? (quizQuestions.length > 0 ? (language === 'hi' ? (letterType === 'vowel' ? 'अभ्यास करें →' : 'लिखने का अभ्यास करें →') : 'Quiz →') : (language === 'hi' ? (letterType === 'vowel' ? 'अभ्यास करें →' : 'लिखने का अभ्यास करें →') : 'Trace →')) : '→'}
                 </button>
             </div>
 
@@ -647,7 +647,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                         onClick={isLastStep ? handleFlowComplete : handleNext}
                         className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
                     >
-                        <span>{isLastStep ? (quizQuestions.length > 0 ? (language === 'hi' ? 'लिखने का अभ्यास करें' : 'Quiz') : (language === 'hi' ? 'लिखने का अभ्यास करें' : 'Trace')) : (language === 'hi' ? 'अगला' : 'Next')}</span>
+                        <span>{isLastStep ? (quizQuestions.length > 0 ? (language === 'hi' ? (letterType === 'vowel' ? 'अभ्यास करें' : 'लिखने का अभ्यास करें') : 'Quiz') : (language === 'hi' ? (letterType === 'vowel' ? 'अभ्यास करें' : 'लिखने का अभ्यास करें') : 'Trace')) : (language === 'hi' ? 'अगला' : 'Next')}</span>
                         <span className="text-lg">→</span>
                     </button>
                 </div>

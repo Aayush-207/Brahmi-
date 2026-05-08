@@ -135,12 +135,14 @@ export async function getCompletedVyanjanLessonIds(identity: Identity): Promise<
 export async function getVyanjanLessons(language: string = 'hi'): Promise<VyanjanLesson[]> {
   const data = getDataForLanguage(language)
   const lessons = data.vyanjan.lessons as VyanjanLesson[]
+  // Sort by order_no to ensure correct sequence
+  const sortedLessons = lessons.sort((a: VyanjanLesson, b: VyanjanLesson) => a.order_no - b.order_no)
 
   if (language === 'hi') {
-    return lessons
+    return sortedLessons
   }
 
-  return lessons.map((lesson: any) => ({
+  return sortedLessons.map((lesson: any) => ({
     ...lesson,
     title: lesson.title_english || lesson.title,
     subtitle: getEnglishVyanjanSubtitle(lesson.consonant_group, lesson.subtitle),
@@ -242,4 +244,19 @@ export async function getVyanjanLessonContent(lessonId: string, language: string
   }
   
   return content
+}
+
+/**
+ * Get the next lesson ID in the Vyanjan module
+ * Returns null if this is the last lesson
+ */
+export async function getNextVyanjanLessonId(currentLessonId: string, language: string = 'hi'): Promise<string | null> {
+  const lessons = await getVyanjanLessons(language)
+  const currentIndex = lessons.findIndex(l => l.lesson_id === currentLessonId)
+  
+  if (currentIndex !== -1 && currentIndex < lessons.length - 1) {
+    return lessons[currentIndex + 1].lesson_id
+  }
+  
+  return null // This is the last lesson
 }

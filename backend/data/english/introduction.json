@@ -12,17 +12,6 @@
       "estimated_time_minutes": 2
     },
     {
-      "id": "intro-lesson-002",
-      "module_id": "module-intro",
-      "lesson_id": "intro-lang-select",
-      "title": "Language Selection",
-      "subtitle": " ",
-      "description": "Choose your preferred language",
-      "thumbnail_icon": "🌐",
-      "order_no": 2,
-      "estimated_time_minutes": 1
-    },
-    {
       "id": "intro-lesson-003",
       "module_id": "module-intro",
       "lesson_id": "intro-brahmi-intro",
@@ -131,28 +120,6 @@
           "english": "Welcome"
         },
         "cta_button": "Let's Begin"
-      },
-      "order_no": 1
-    },
-    {
-      "id": "content-002",
-      "lesson_id": "intro-lang-select",
-      "content_type": "questionnaire",
-      "title": "Choose Language:",
-      "content": "Select your preferred language for the course",
-      "metadata": {
-        "options": [
-          "Hindi",
-          "தமிழ்",
-          "తెలుగు",
-          "বাংলা",
-          "ગુજરાતી",
-          "ಕನ್ನಡ",
-          "ଓଡ଼ିଆ",
-          "ਪੰਜਾਬੀ",
-          "English"
-        ],
-        "buttonText": "Next"
       },
       "order_no": 1
     },

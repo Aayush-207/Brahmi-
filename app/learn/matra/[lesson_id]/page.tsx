@@ -4,12 +4,13 @@ import React, { useEffect, useState, use } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { getMatraLessonContent, saveMatraProgress, type MatraLessonContent } from '@/lib/matraModule'
+import { getMatraLessonContent, saveMatraProgress, getNextMatraLessonId, type MatraLessonContent } from '@/lib/matraModule'
 import { getCurrentIdentity, type Identity } from '@/lib/guestIdentity'
 import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
 import JainBabaSVG from '@/components/lesson/JainBabaSVG'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 import { useLanguage } from '@/lib/LanguageContext'
+import { getNextModuleRoute } from '@/lib/lessonFlow'
 
 export default function MatraLessonPage({ params }: { params: Promise<{ lesson_id: string }> }) {
     const { lesson_id } = use(params)
@@ -64,8 +65,24 @@ export default function MatraLessonPage({ params }: { params: Promise<{ lesson_i
             const progress = Math.round(((currentSlide + 2) / contents.length) * 100)
             await saveMatraProgress(lesson_id, 'in_progress', progress, identity)
         } else {
+            // Lesson completed - check if there's a next lesson
             await saveMatraProgress(lesson_id, 'completed', 100, identity)
-            router.push('/learn/matra')
+            
+            const nextLessonId = await getNextMatraLessonId(lesson_id, identity, language)
+            if (nextLessonId) {
+                // Navigate to next lesson
+                router.push(`/learn/matra/${nextLessonId}`)
+            } else {
+                // Last lesson of last module completed - redirect to learning path overview
+                const nextModuleRoute = getNextModuleRoute('module-matra')
+                if (nextModuleRoute) {
+                    // There's a next module (shouldn't happen with current setup)
+                    router.push(nextModuleRoute)
+                } else {
+                    // Matra is the last module - go to /learn
+                    router.push('/learn')
+                }
+            }
         }
     }
 

@@ -142,7 +142,8 @@ export async function getCompletedLessonIds(identity: Identity): Promise<string[
 export async function getIntroLessons(language: string = 'hi'): Promise<IntroLesson[]> {
   const data = getDataForLanguage(language)
   console.log(`getIntroLessons: Returning ${language} introduction lessons`)
-  return data.introduction.lessons
+  // Sort by order_no to ensure correct sequence
+  return data.introduction.lessons.sort((a: IntroLesson, b: IntroLesson) => a.order_no - b.order_no)
 }
 
 // Fetch lesson content for a specific language
@@ -151,6 +152,21 @@ export async function getLessonContent(lessonId: string, language: string = 'hi'
   console.log(`[getLessonContent] Returning ${language} content: lessonId=${lessonId}`)
   const lessonContent = data.introduction.content.filter((c: any) => c.lesson_id === lessonId) as IntroLessonContent[]
   return lessonContent
+}
+
+/**
+ * Get the next lesson ID in the Introduction module
+ * Returns null if this is the last lesson
+ */
+export async function getNextIntroLessonId(currentLessonId: string, language: string = 'hi'): Promise<string | null> {
+  const lessons = await getIntroLessons(language)
+  const currentIndex = lessons.findIndex(l => l.lesson_id === currentLessonId)
+  
+  if (currentIndex !== -1 && currentIndex < lessons.length - 1) {
+    return lessons[currentIndex + 1].lesson_id
+  }
+  
+  return null // This is the last lesson
 }
 
 // Get lesson info by lesson_id for a specific language

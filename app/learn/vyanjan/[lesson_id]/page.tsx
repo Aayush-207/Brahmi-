@@ -4,7 +4,7 @@ import React, { useEffect, useState, use } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { getVyanjanLessonContent, saveVyanjanProgress, type VyanjanLessonContent } from '@/lib/vyanjanModule'
+import { getVyanjanLessonContent, saveVyanjanProgress, getNextVyanjanLessonId, type VyanjanLessonContent } from '@/lib/vyanjanModule'
 import { getCurrentIdentity, type Identity } from '@/lib/guestIdentity'
 import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
 import JainBabaSVG from '@/components/lesson/JainBabaSVG'
@@ -65,8 +65,17 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
             const progress = Math.round(((currentSlide + 2) / contents.length) * 100)
             await saveVyanjanProgress(lesson_id, 'in_progress', progress, identity)
         } else {
+            // Lesson completed - check if there's a next lesson
             await saveVyanjanProgress(lesson_id, 'completed', 100, identity)
-            router.push('/learn/vyanjan')
+            
+            const nextLessonId = await getNextVyanjanLessonId(lesson_id, language)
+            if (nextLessonId) {
+                // Navigate to next lesson
+                router.push(`/learn/vyanjan/${nextLessonId}`)
+            } else {
+                // Last lesson completed - go back to module page
+                router.push('/learn/vyanjan')
+            }
         }
     }
 

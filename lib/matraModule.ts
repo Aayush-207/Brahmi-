@@ -119,9 +119,11 @@ export async function getMatraLessons(identity: Identity, language: string = 'hi
   const data = getDataForLanguage(language);
   const matraData = data.matras;
   const lessons = [...(matraData.lessons as unknown as MatraLesson[])];
+  // Sort by order_no to ensure correct sequence
+  const sortedLessons = lessons.sort((a: MatraLesson, b: MatraLesson) => a.order_no - b.order_no);
 
   if (language !== 'hi') {
-    return lessons.map((lesson) => ({
+    return sortedLessons.map((lesson) => ({
       ...lesson,
       title: lesson.title_english || lesson.title,
       subtitle: getEnglishMatraSubtitle(lesson.lesson_id, lesson.subtitle),
@@ -131,13 +133,13 @@ export async function getMatraLessons(identity: Identity, language: string = 'hi
   
   if (identity.type === 'guest' || !identity.id) {
     const progress = getGuestMatraProgressFromStorage();
-    return lessons.map(lesson => ({
+    return sortedLessons.map(lesson => ({
       ...lesson,
       status: progress[lesson.lesson_id]?.status || 'not_started',
       progress_percentage: progress[lesson.lesson_id]?.progress_percentage || 0
     }));
   }
-  return lessons;
+  return sortedLessons;
 }
 
 /**
@@ -259,6 +261,21 @@ export async function getMatraLessonContent(lessonId: string, language: string =
   })
   
   return content
+}
+
+/**
+ * Get the next lesson ID in the Matra module
+ * Returns null if this is the last lesson
+ */
+export async function getNextMatraLessonId(currentLessonId: string, identity: Identity, language: string = 'hi'): Promise<string | null> {
+  const lessons = await getMatraLessons(identity, language)
+  const currentIndex = lessons.findIndex(l => l.lesson_id === currentLessonId)
+  
+  if (currentIndex !== -1 && currentIndex < lessons.length - 1) {
+    return lessons[currentIndex + 1].lesson_id
+  }
+  
+  return null // This is the last lesson
 }
 
 // ============================================
