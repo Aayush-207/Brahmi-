@@ -195,7 +195,7 @@ export default function MatraLessonPage({ params }: { params: Promise<{ lesson_i
                                     onClick={() => {
                                         const nextSlide = currentSlide + 1
                                         const returnUrl = encodeURIComponent(`${window.location.pathname}?slide=${nextSlide}`)
-                                        router.push(`/lesson/${currentStep.metadata.devanagari || lesson_id}?mode=trace&returnTo=${returnUrl}`)
+                                        router.push(`/lesson/${currentStep.metadata?.devanagari || lesson_id}?mode=trace&returnTo=${returnUrl}`)
                                     }}
                                     className="mt-4 px-8 py-3 bg-[#D4AF37] text-[#1C1C1C] rounded-xl font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 flex items-center gap-2"
                                 >
