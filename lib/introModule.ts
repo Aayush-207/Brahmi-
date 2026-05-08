@@ -26,7 +26,7 @@ export type IntroLesson = {
 export type IntroLessonContent = {
   id: string
   lesson_id: string
-  content_type: 'title_slide' | 'text' | 'mcq' | 'questionnaire'
+  content_type: 'title_slide' | 'text' | 'text_with_image' | 'mcq' | 'questionnaire' | 'quote' | 'key_points' | 'timeline' | 'comparison' | 'summary' | 'staircase_swar' | 'interactive_map'
   title: string
   content: string
   metadata?: any

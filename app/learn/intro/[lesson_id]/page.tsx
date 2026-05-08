@@ -598,7 +598,7 @@ export default function LessonPage() {
                   saveAnswer(lessonId, currentContent.id, val, isCorrect, identity)
                 }}
                 onQuestionnaireSelect={(val) => {
-                  saveAnswer(lessonId, currentContent.id, val, null, identity)
+                  saveAnswer(lessonId, currentContent.id, val, false, identity)
                 }}
               />
             </motion.div>

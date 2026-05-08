@@ -199,7 +199,7 @@ export async function getVyanjanLessonContent(lessonId: string, language: string
           lesson_id: lessonId,
           content_type: 'pronunciation',
           title: `${c.devanagari} (${c.romanized})`,
-          content: `${language === 'hi' ? c.categoryHindi : c.categoryEnglish} - ${language === 'hi' ? c.categoryDescription : getEnglishVyanjanDescription(c.category, c.categoryDescription)}\n\n${language === 'hi' ? 'ध्वनि' : 'Sound'}: ${language === 'hi' ? c.pronunciationNote : (c.pronunciationNoteEnglish || c.pronunciationNote)}\n\n${language === 'hi' ? 'उदाहरण' : 'Examples'}: ${c.exampleWords && c.exampleWords.length > 0 ? c.exampleWords.map((ex: any) => language === 'hi' ? ex.devanagari : (ex.english || ex.devanagari)).join(", ") : ""}`,
+          content: `${language === 'hi' ? c.categoryHindi : c.categoryEnglish} - ${language === 'hi' ? c.categoryDescription : getEnglishVyanjanDescription(c.category, c.categoryDescription)}\n\n${language === 'hi' ? 'ध्वनि' : 'Sound'}: ${c.pronunciationNote}\n\n${language === 'hi' ? 'उदाहरण' : 'Examples'}: ${c.exampleWords && c.exampleWords.length > 0 ? c.exampleWords.map((ex: any) => language === 'hi' ? ex.devanagari : (ex.english || ex.devanagari)).join(", ") : ""}`,
           metadata: {
             brahmi_symbol: c.brahmi,
             devanagari: c.devanagari,

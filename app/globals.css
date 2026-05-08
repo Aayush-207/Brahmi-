@@ -113,6 +113,51 @@ h6 {
   animation: gradient 8s ease infinite;
 }
 
+/* ─── BrahmiTracer Animations ─────────────────────────────── */
+
+/**
+ * CSS draw-on animation for ghost strokes (WATCH phase).
+ * Triggered by adding .brahmi-stroke-animating to an SVG <path>.
+ * The path must have --path-len and --anim-dur CSS custom properties
+ * set via JS in useEffect before the class is applied.
+ */
+@keyframes drawStroke {
+  from { stroke-dashoffset: var(--path-len); }
+  to   { stroke-dashoffset: 0; }
+}
+
+.brahmi-stroke-animating {
+  animation: drawStroke var(--anim-dur, 1800ms) ease-in-out forwards;
+}
+
+/**
+ * Pulsing opacity for "Watch" label and mobile affordance text.
+ */
+@keyframes watchPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/**
+ * Feedback overlay fade-in (200ms delay).
+ */
+@keyframes feedbackFadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.brahmi-feedback-enter {
+  animation: feedbackFadeIn 0.2s ease 0.2s both;
+}
+
+/**
+ * Dashed-path progress indicator on active trace stroke.
+ */
+@keyframes pulseDash {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -20; }
+}
+
 /* Universal Custom Scrollbar - Golden Temple Theme */
 * {
   scrollbar-width: thin;
