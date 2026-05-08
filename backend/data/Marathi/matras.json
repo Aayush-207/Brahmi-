@@ -1,0 +1,675 @@
+{
+  "lessons": [
+    {
+      "id": 1,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-001",
+      "title": "मात्रा चिह्नाचा परिचय",
+      "title_english": "",
+      "subtitle": "Matra Chinh Parichay",
+      "matra_symbol": null,
+      "description": "जेव्हा स्वरांना स्वतंत्रपणे लिहिले जाते तेव्हा त्यांची स्वतंत्र ओळख असते, परंतु जेव्हा ते व्यंजनासोबत मिळतात तेव्हा ते मात्रा चिह्न बनतात।",
+      "description_english": "",
+      "order_no": 1,
+      "estimated_time": 15,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 2,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-002",
+      "title": "अ - कोणतीही मात्रा नाही",
+      "title_english": "",
+      "subtitle": "अ-ध्वनि",
+      "matra_symbol": "None",
+      "description": "जेव्हा व्यंजन एकटे उभे असते तेव्हा त्याच्यासोबत अंतर्निहित 'अ' ध्वनि असते",
+      "description_english": "",
+      "order_no": 2,
+      "estimated_time": 10,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 3,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-003",
+      "title": "आ - मात्रा चिह्न",
+      "title_english": "",
+      "subtitle": "आ-मात्रा",
+      "matra_symbol": "𑀸",
+      "description": "आ ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "description_english": "",
+      "order_no": 3,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 4,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-004",
+      "title": "इ - मात्रा चिह्न",
+      "title_english": "",
+      "subtitle": "इ-मात्रा",
+      "matra_symbol": "𑀹",
+      "description": "इ ध्वनी ची मात्रा चिह्न, व्यंजनापूर्वी/वर येते",
+      "description_english": "",
+      "order_no": 4,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 5,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-005",
+      "title": "ई - मात्रा चिह्न",
+      "title_english": "",
+      "subtitle": "ई-मात्रा",
+      "matra_symbol": "𑀺",
+      "description": "ई ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "description_english": "",
+      "order_no": 5,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 6,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-006",
+      "title": "उ - मात्रा चिह्न",
+      "title_english": "",
+      "subtitle": "उ-मात्रा",
+      "matra_symbol": "𑀻",
+      "description": "उ ध्वनी ची मात्रा चिह्न, व्यंजनाखाली येते",
+      "description_english": "",
+      "order_no": 6,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 7,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-007",
+      "title": "ऊ - मात्रा चिह्न",
+      "title_english": "",
+      "subtitle": "ऊ-मात्रा",
+      "matra_symbol": "𑀼",
+      "description": "ऊ ध्वनी ची मात्रा चिह्न, व्यंजनाखाली येते",
+      "description_english": "",
+      "order_no": 7,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 8,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-008",
+      "title": "ए - मात्रा चिह्न",
+      "title_english": "",
+      "subtitle": "ए-मात्रा",
+      "matra_symbol": "𑁂",
+      "description": "ए ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "description_english": "",
+      "order_no": 8,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 9,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-009",
+      "title": "ऐ - मात्रा चिह्न",
+      "title_english": "",
+      "subtitle": "ऐ-मात्रा",
+      "matra_symbol": "𑁃",
+      "description": "ऐ ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "description_english": "",
+      "order_no": 9,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 10,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-010",
+      "title": "ओ - मात्रा चिह्न",
+      "title_english": "",
+      "subtitle": "ओ-मात्रा",
+      "matra_symbol": "𑁄",
+      "description": "ओ ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "description_english": "",
+      "order_no": 10,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 11,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-011",
+      "title": "औ - मात्रा चिह्न",
+      "title_english": "",
+      "subtitle": "औ-मात्रा",
+      "matra_symbol": "𑁅",
+      "description": "औ ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "description_english": "",
+      "order_no": 11,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 12,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-012",
+      "title": "अं - अनुस्वार",
+      "title_english": "",
+      "subtitle": "अनुस्वार",
+      "matra_symbol": "𑁀",
+      "description": "अनुस्वार - नाकातील ध्वनी चिह्न, व्यंजनावर येते",
+      "description_english": "",
+      "order_no": 12,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    },
+    {
+      "id": 13,
+      "module_id": "matras",
+      "lesson_id": "matras-lesson-013",
+      "title": "अः - विसर्ग",
+      "title_english": "",
+      "subtitle": "विसर्ग",
+      "matra_symbol": "𑀂",
+      "description": "विसर्ग - दुसरी नाकातील ध्वनी, व्यंजनानंतर येते",
+      "description_english": "",
+      "order_no": 13,
+      "estimated_time": 12,
+      "language": "mr",
+      "created_at": "2025-01-01T00:00:00Z",
+      "status": "not_started",
+      "progress_percentage": 0
+    }
+  ],
+  "matraRules": [
+    {
+      "id": "rule-001",
+      "ruleNumber": 1,
+      "title": "स्वतंत्र स्वर (Independent Vowel)",
+      "titleEnglish": "Independent Vowel",
+      "description": "जेव्हा स्वर शब्दाच्या सुरुवातीला किंवा एकटा असतो तेव्हा तो स्वतंत्र रूप घेतो।",
+      "descriptionEnglish": "When a vowel appears at the beginning of a word or stands alone, it takes its independent form.",
+      "examples": [
+        "𑀅 (अ)",
+        "𑀆 (आ)",
+        "𑀇 (इ)",
+        "𑀈 (ई)"
+      ],
+      "examplesDevanagari": [
+        "अ",
+        "आ",
+        "इ",
+        "ई"
+      ]
+    },
+    {
+      "id": "rule-002",
+      "ruleNumber": 2,
+      "title": "मात्रा चिह्न (Matra Sign)",
+      "titleEnglish": "Matra Sign",
+      "description": "जेव्हा स्वर व्यंजनानंतर येतो तेव्हा तो मात्रा बनतो आणि व्यंजनाशी जोडलेला लिहिला जातो।",
+      "descriptionEnglish": "When a vowel follows a consonant, it becomes a matra and is written attached to the consonant.",
+      "examples": [
+        "𑀓 + आ-matra = का",
+        "𑀓𑀸 + = का"
+      ],
+      "examplesDevanagari": [
+        "क + आ-मात्रा = का"
+      ]
+    },
+    {
+      "id": "rule-003",
+      "ruleNumber": 3,
+      "title": "मात्रेचे स्थान (Matra Position)",
+      "titleEnglish": "Matra Position",
+      "description": "मात्रा विविध ठिकाणी येतात: वर, खाली, व्यंजनाच्या आधी किंवा नंतर.",
+      "descriptionEnglish": "Matras are placed in different positions: above, below, before, or after the consonant.",
+      "examples": [
+        "वर: कि (𑀓𑀹)",
+        "खाली: कु (𑀓𑀻)",
+        "मागे: का (𑀓𑀸)"
+      ],
+      "examplesDevanagari": [
+        "वर: कि",
+        "खाली: कु",
+        "मागे: का"
+      ]
+    },
+    {
+      "id": "rule-004",
+      "ruleNumber": 4,
+      "title": "विशेष लक्ष्य (Special Note)",
+      "titleEnglish": "Special Note",
+      "description": "ब्राह्मी मधील मात्रांचा आकार आणि स्थान, देवनागरीपेक्षा थोडे वेगळे आहे। काळजीसह पाहा, ट्रेस करा आणि ओळखा।",
+      "descriptionEnglish": "In Brahmi, the shape and position of matras differ slightly from Devanagari. Look carefully, trace, and practice recognizing them.",
+      "examples": [],
+      "examplesDevanagari": []
+    }
+  ],
+  "matras": [
+    {
+      "id": "matra-001",
+      "order": 1,
+      "vowelDevanagari": "अ",
+      "vowelBrahmi": "𑀅",
+      "matraName": "None/Inherent",
+      "matraNameHindi": "कोणतीही नाही (अंतर्निहित)",
+      "matraSign": "",
+      "matraUnicode": "None",
+      "matraPosition": "none",
+      "exampleDevanagari": "क",
+      "exampleBrahmi": "𑀓",
+      "example_combination": "Consonant alone",
+      "description": "कोणत्याही मात्राशिवाय, व्यंजनामध्ये अंतर्निहित 'अ' ध्वनि असते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-002",
+      "order": 2,
+      "vowelDevanagari": "आ",
+      "vowelBrahmi": "𑀆",
+      "matraName": "AA",
+      "matraNameHindi": "आ-मात्रा",
+      "matraSign": "𑀸",
+      "matraUnicode": "U+11038",
+      "matraPosition": "after",
+      "exampleDevanagari": "का",
+      "exampleBrahmi": "𑀓𑀸",
+      "example_combination": "क + 𑀸 = का",
+      "description": "आ ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-003",
+      "order": 3,
+      "vowelDevanagari": "इ",
+      "vowelBrahmi": "𑀇",
+      "matraName": "I",
+      "matraNameHindi": "इ-मात्रा",
+      "matraSign": "𑀹",
+      "matraUnicode": "U+1103A",
+      "matraPosition": "before",
+      "exampleDevanagari": "कि",
+      "exampleBrahmi": "𑀓𑀹",
+      "example_combination": "क + 𑀹 = कि",
+      "description": "इ ध्वनी ची मात्रा चिह्न, व्यंजनापूर्वी/वर येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-004",
+      "order": 4,
+      "vowelDevanagari": "ई",
+      "vowelBrahmi": "𑀈",
+      "matraName": "II",
+      "matraNameHindi": "ई-मात्रा",
+      "matraSign": "𑀺",
+      "matraUnicode": "U+1103B",
+      "matraPosition": "after",
+      "exampleDevanagari": "की",
+      "exampleBrahmi": "𑀓𑀺",
+      "example_combination": "क + 𑀺 = की",
+      "description": "ई ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-005",
+      "order": 5,
+      "vowelDevanagari": "उ",
+      "vowelBrahmi": "𑀉",
+      "matraName": "U",
+      "matraNameHindi": "उ-मात्रा",
+      "matraSign": "𑀻",
+      "matraUnicode": "U+1103C",
+      "matraPosition": "below",
+      "exampleDevanagari": "कु",
+      "exampleBrahmi": "𑀓𑀻",
+      "example_combination": "क + 𑀻 = कु",
+      "description": "उ ध्वनी ची मात्रा चिह्न, व्यंजनाखाली येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-006",
+      "order": 6,
+      "vowelDevanagari": "ऊ",
+      "vowelBrahmi": "𑀊",
+      "matraName": "UU",
+      "matraNameHindi": "ऊ-मात्रा",
+      "matraSign": "𑀼",
+      "matraUnicode": "U+1103D",
+      "matraPosition": "below",
+      "exampleDevanagari": "कू",
+      "exampleBrahmi": "𑀓𑀼",
+      "example_combination": "क + 𑀼 = कू",
+      "description": "ऊ ध्वनी ची मात्रा चिह्न, व्यंजनाखाली येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-007",
+      "order": 7,
+      "vowelDevanagari": "ए",
+      "vowelBrahmi": "𑀏",
+      "matraName": "E",
+      "matraNameHindi": "ए-मात्रा",
+      "matraSign": "𑁂",
+      "matraUnicode": "U+11042",
+      "matraPosition": "after",
+      "exampleDevanagari": "के",
+      "exampleBrahmi": "𑀓𑁂",
+      "example_combination": "क + 𑁂 = के",
+      "description": "ए ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-008",
+      "order": 8,
+      "vowelDevanagari": "ऐ",
+      "vowelBrahmi": "𑀐",
+      "matraName": "AI",
+      "matraNameHindi": "ऐ-मात्रा",
+      "matraSign": "𑁃",
+      "matraUnicode": "U+11043",
+      "matraPosition": "after",
+      "exampleDevanagari": "कै",
+      "exampleBrahmi": "𑀓𑁃",
+      "example_combination": "क + 𑁃 = कै",
+      "description": "ऐ ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-009",
+      "order": 9,
+      "vowelDevanagari": "ओ",
+      "vowelBrahmi": "𑀑",
+      "matraName": "O",
+      "matraNameHindi": "ओ-मात्रा",
+      "matraSign": "𑁄",
+      "matraUnicode": "U+11044",
+      "matraPosition": "after",
+      "exampleDevanagari": "को",
+      "exampleBrahmi": "𑀓𑁄",
+      "example_combination": "क + 𑁄 = को",
+      "description": "ओ ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-010",
+      "order": 10,
+      "vowelDevanagari": "औ",
+      "vowelBrahmi": "𑀒",
+      "matraName": "AU",
+      "matraNameHindi": "औ-मात्रा",
+      "matraSign": "𑁅",
+      "matraUnicode": "U+11045",
+      "matraPosition": "after",
+      "exampleDevanagari": "कौ",
+      "exampleBrahmi": "𑀓𑁅",
+      "example_combination": "क + 𑁅 = कौ",
+      "description": "औ ध्वनी ची मात्रा चिह्न, व्यंजनानंतर येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-011",
+      "order": 11,
+      "vowelDevanagari": "अं",
+      "vowelBrahmi": "𑀅𑁀",
+      "matraName": "Anusvara",
+      "matraNameHindi": "अनुस्वार",
+      "matraSign": "𑁀",
+      "matraUnicode": "U+11040",
+      "matraPosition": "above",
+      "exampleDevanagari": "कं",
+      "exampleBrahmi": "𑀓𑁀",
+      "example_combination": "क + 𑁀 = कं",
+      "description": "अनुस्वार - नाकातील ध्वनी चिह्न, व्यंजनावर येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    },
+    {
+      "id": "matra-012",
+      "order": 12,
+      "vowelDevanagari": "अः",
+      "vowelBrahmi": "𑀅𑀂",
+      "matraName": "Visarga",
+      "matraNameHindi": "विसर्ग",
+      "matraSign": "𑀂",
+      "matraUnicode": "U+11002",
+      "matraPosition": "after",
+      "exampleDevanagari": "कः",
+      "exampleBrahmi": "𑀓𑀂",
+      "example_combination": "क + 𑀂 = कः",
+      "description": "विसर्ग - दुसरी नाकातील ध्वनी, व्यंजनानंतर येते",
+      "descriptionEnglish": "",
+      "englishName": "",
+      "matraPositionLabel": ""
+    }
+  ],
+  "consonants": [
+    {
+      "id": "vyanjan-001",
+      "devanagari": "क",
+      "brahmi": "𑀓"
+    },
+    {
+      "id": "vyanjan-002",
+      "devanagari": "ख",
+      "brahmi": "𑀔"
+    },
+    {
+      "id": "vyanjan-003",
+      "devanagari": "ग",
+      "brahmi": "𑀕"
+    },
+    {
+      "id": "vyanjan-004",
+      "devanagari": "घ",
+      "brahmi": "𑀖"
+    },
+    {
+      "id": "vyanjan-005",
+      "devanagari": "ङ",
+      "brahmi": "𑀗"
+    },
+    {
+      "id": "vyanjan-006",
+      "devanagari": "च",
+      "brahmi": "𑀘"
+    },
+    {
+      "id": "vyanjan-007",
+      "devanagari": "छ",
+      "brahmi": "𑀙"
+    },
+    {
+      "id": "vyanjan-008",
+      "devanagari": "ज",
+      "brahmi": "𑀚"
+    },
+    {
+      "id": "vyanjan-009",
+      "devanagari": "झ",
+      "brahmi": "𑀛"
+    },
+    {
+      "id": "vyanjan-010",
+      "devanagari": "ञ",
+      "brahmi": "𑀜"
+    },
+    {
+      "id": "vyanjan-011",
+      "devanagari": "ट",
+      "brahmi": "𑀝"
+    },
+    {
+      "id": "vyanjan-012",
+      "devanagari": "ठ",
+      "brahmi": "𑀞"
+    },
+    {
+      "id": "vyanjan-013",
+      "devanagari": "ड",
+      "brahmi": "𑀟"
+    },
+    {
+      "id": "vyanjan-014",
+      "devanagari": "ढ",
+      "brahmi": "𑀠"
+    },
+    {
+      "id": "vyanjan-015",
+      "devanagari": "ण",
+      "brahmi": "𑀡"
+    },
+    {
+      "id": "vyanjan-016",
+      "devanagari": "त",
+      "brahmi": "𑀢"
+    },
+    {
+      "id": "vyanjan-017",
+      "devanagari": "थ",
+      "brahmi": "𑀣"
+    },
+    {
+      "id": "vyanjan-018",
+      "devanagari": "द",
+      "brahmi": "𑀤"
+    },
+    {
+      "id": "vyanjan-019",
+      "devanagari": "ध",
+      "brahmi": "𑀥"
+    },
+    {
+      "id": "vyanjan-020",
+      "devanagari": "न",
+      "brahmi": "𑀦"
+    },
+    {
+      "id": "vyanjan-021",
+      "devanagari": "प",
+      "brahmi": "𑀧"
+    },
+    {
+      "id": "vyanjan-022",
+      "devanagari": "फ",
+      "brahmi": "𑀨"
+    },
+    {
+      "id": "vyanjan-023",
+      "devanagari": "ब",
+      "brahmi": "𑀩"
+    },
+    {
+      "id": "vyanjan-024",
+      "devanagari": "भ",
+      "brahmi": "𑀪"
+    },
+    {
+      "id": "vyanjan-025",
+      "devanagari": "म",
+      "brahmi": "𑀫"
+    },
+    {
+      "id": "vyanjan-026",
+      "devanagari": "य",
+      "brahmi": "𑀬"
+    },
+    {
+      "id": "vyanjan-027",
+      "devanagari": "र",
+      "brahmi": "𑀭"
+    },
+    {
+      "id": "vyanjan-028",
+      "devanagari": "ल",
+      "brahmi": "𑀮"
+    },
+    {
+      "id": "vyanjan-029",
+      "devanagari": "व",
+      "brahmi": "𑀯"
+    },
+    {
+      "id": "vyanjan-030",
+      "devanagari": "श",
+      "brahmi": "𑀰"
+    },
+    {
+      "id": "vyanjan-031",
+      "devanagari": "ष",
+      "brahmi": "𑀱"
+    },
+    {
+      "id": "vyanjan-032",
+      "devanagari": "स",
+      "brahmi": "𑀲"
+    },
+    {
+      "id": "vyanjan-033",
+      "devanagari": "ह",
+      "brahmi": "𑀳"
+    }
+  ]
+}

@@ -1,0 +1,1029 @@
+{
+  "consonants": [
+    {
+      "id": "vyanjan-001",
+      "order": 1,
+      "category": "kanthya",
+      "categoryHindi": "कंठ्य",
+      "categoryEnglish": "Guttural",
+      "categoryDescription": "कंठातून उच्चारित",
+      "devanagari": "क",
+      "brahmi": "𑀓",
+      "unicode_codepoint": "U+11013",
+      "romanized": "ka",
+      "pronunciationNote": "कठोर 'क' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "कमल",
+          "romanized": "kamal",
+          "english": "कमल"
+        },
+        {
+          "devanagari": "कक्षा",
+          "romanized": "kaksha",
+          "english": "वर्ग"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-002",
+      "order": 2,
+      "category": "kanthya",
+      "categoryHindi": "कंठ्य",
+      "categoryEnglish": "Guttural",
+      "categoryDescription": "कंठातून उच्चारित",
+      "devanagari": "ख",
+      "brahmi": "𑀔",
+      "unicode_codepoint": "U+11014",
+      "romanized": "kha",
+      "pronunciationNote": "महाप्राण 'क' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "खट",
+          "romanized": "khat",
+          "english": "खटिया"
+        },
+        {
+          "devanagari": "खेल",
+          "romanized": "khel",
+          "english": "खेळ"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-003",
+      "order": 3,
+      "category": "kanthya",
+      "categoryHindi": "कंठ्य",
+      "categoryEnglish": "Guttural",
+      "categoryDescription": "कंठातून उच्चारित",
+      "devanagari": "ग",
+      "brahmi": "𑀕",
+      "unicode_codepoint": "U+11015",
+      "romanized": "ga",
+      "pronunciationNote": "मृदु 'ग' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "गाय",
+          "romanized": "gaay",
+          "english": "गाय"
+        },
+        {
+          "devanagari": "गमन",
+          "romanized": "gaman",
+          "english": "गमन"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-004",
+      "order": 4,
+      "category": "kanthya",
+      "categoryHindi": "कंठ्य",
+      "categoryEnglish": "Guttural",
+      "categoryDescription": "कंठातून उच्चारित",
+      "devanagari": "घ",
+      "brahmi": "𑀖",
+      "unicode_codepoint": "U+11016",
+      "romanized": "gha",
+      "pronunciationNote": "महाप्राण 'ग' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "घर",
+          "romanized": "ghar",
+          "english": "घर"
+        },
+        {
+          "devanagari": "घड़ी",
+          "romanized": "ghadi",
+          "english": "घड़ी"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-005",
+      "order": 5,
+      "category": "kanthya",
+      "categoryHindi": "कंठ्य",
+      "categoryEnglish": "Guttural",
+      "categoryDescription": "कंठातून उच्चारित",
+      "devanagari": "ङ",
+      "brahmi": "𑀗",
+      "unicode_codepoint": "U+11017",
+      "romanized": "nga",
+      "pronunciationNote": "अनुनासिक ध्वनि, स्वतंत्र रूपातून कमी वापरली जाते",
+      "exampleWords": [],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-006",
+      "order": 6,
+      "category": "talavya",
+      "categoryHindi": "तालव्य",
+      "categoryEnglish": "Palatal",
+      "categoryDescription": "जिह्वा तालूला स्पर्श करते",
+      "devanagari": "च",
+      "brahmi": "𑀘",
+      "unicode_codepoint": "U+11018",
+      "romanized": "cha",
+      "pronunciationNote": "मृदु 'च' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "चाय",
+          "romanized": "chaay",
+          "english": "चहा"
+        },
+        {
+          "devanagari": "चलना",
+          "romanized": "chalna",
+          "english": "चालणे"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-007",
+      "order": 7,
+      "category": "talavya",
+      "categoryHindi": "तालव्य",
+      "categoryEnglish": "Palatal",
+      "categoryDescription": "जिह्वा तालूला स्पर्श करते",
+      "devanagari": "छ",
+      "brahmi": "𑀙",
+      "unicode_codepoint": "U+11019",
+      "romanized": "chha",
+      "pronunciationNote": "महाप्राण 'च' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "छाता",
+          "romanized": "chhata",
+          "english": "छत्र"
+        },
+        {
+          "devanagari": "छोटा",
+          "romanized": "chhota",
+          "english": "लहान"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-008",
+      "order": 8,
+      "category": "talavya",
+      "categoryHindi": "तालव्य",
+      "categoryEnglish": "Palatal",
+      "categoryDescription": "जिह्वा तालूला स्पर्श करते",
+      "devanagari": "ज",
+      "brahmi": "𑀚",
+      "unicode_codepoint": "U+1101A",
+      "romanized": "ja",
+      "pronunciationNote": "मृदु 'ज' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "जल",
+          "romanized": "jal",
+          "english": "जल"
+        },
+        {
+          "devanagari": "जग",
+          "romanized": "jag",
+          "english": "जग"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-009",
+      "order": 9,
+      "category": "talavya",
+      "categoryHindi": "तालव्य",
+      "categoryEnglish": "Palatal",
+      "categoryDescription": "जिह्वा तालूला स्पर्श करते",
+      "devanagari": "झ",
+      "brahmi": "𑀛",
+      "unicode_codepoint": "U+1101B",
+      "romanized": "jha",
+      "pronunciationNote": "महाप्राण 'ज' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "झरना",
+          "romanized": "jharna",
+          "english": "झरणा"
+        },
+        {
+          "devanagari": "झूला",
+          "romanized": "jhoola",
+          "english": "झूले"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-010",
+      "order": 10,
+      "category": "talavya",
+      "categoryHindi": "तालव्य",
+      "categoryEnglish": "Palatal",
+      "categoryDescription": "जिह्वा तालूला स्पर्श करते",
+      "devanagari": "ञ",
+      "brahmi": "𑀜",
+      "unicode_codepoint": "U+1101C",
+      "romanized": "nya",
+      "pronunciationNote": "अनुनासिक ध्वनि, स्वतंत्र रूपातून कमी वापरली जाते",
+      "exampleWords": [],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-011",
+      "order": 11,
+      "category": "murdhanya",
+      "categoryHindi": "मूर्धन्य",
+      "categoryEnglish": "Retroflex",
+      "categoryDescription": "जिह्वा मागील दिशेकडे वाकडी होते",
+      "devanagari": "ट",
+      "brahmi": "𑀝",
+      "unicode_codepoint": "U+1101D",
+      "romanized": "ta",
+      "pronunciationNote": "मूर्धन्य 'ट' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "टोपी",
+          "romanized": "topi",
+          "english": "टोपी"
+        },
+        {
+          "devanagari": "टमाटर",
+          "romanized": "tamatar",
+          "english": "टोमेटो"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-012",
+      "order": 12,
+      "category": "murdhanya",
+      "categoryHindi": "मूर्धन्य",
+      "categoryEnglish": "Retroflex",
+      "categoryDescription": "जिह्वा मागील दिशेकडे वाकडी होते",
+      "devanagari": "ठ",
+      "brahmi": "𑀞",
+      "unicode_codepoint": "U+1101E",
+      "romanized": "tha",
+      "pronunciationNote": "महाप्राण मूर्धन्य 'ट' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "ठंडा",
+          "romanized": "thanda",
+          "english": "थंडी"
+        },
+        {
+          "devanagari": "ठग",
+          "romanized": "thag",
+          "english": "ठग"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-013",
+      "order": 13,
+      "category": "murdhanya",
+      "categoryHindi": "मूर्धन्य",
+      "categoryEnglish": "Retroflex",
+      "categoryDescription": "जिह्वा मागील दिशेकडे वाकडी होते",
+      "devanagari": "ड",
+      "brahmi": "𑀟",
+      "unicode_codepoint": "U+1101F",
+      "romanized": "da",
+      "pronunciationNote": "मूर्धन्य 'ड' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "डाकिया",
+          "romanized": "dakiya",
+          "english": "डाकपटू"
+        },
+        {
+          "devanagari": "डमरू",
+          "romanized": "damroo",
+          "english": "डमरू"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-014",
+      "order": 14,
+      "category": "murdhanya",
+      "categoryHindi": "मूर्धन्य",
+      "categoryEnglish": "Retroflex",
+      "categoryDescription": "जिह्वा मागील दिशेकडे वाकडी होते",
+      "devanagari": "ढ",
+      "brahmi": "𑀠",
+      "unicode_codepoint": "U+11020",
+      "romanized": "dha",
+      "pronunciationNote": "महाप्राण मूर्धन्य 'ड' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "ढोल",
+          "romanized": "dhol",
+          "english": "ढोळ"
+        },
+        {
+          "devanagari": "ढक्कन",
+          "romanized": "dhakkan",
+          "english": "झाकण"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-015",
+      "order": 15,
+      "category": "murdhanya",
+      "categoryHindi": "मूर्धन्य",
+      "categoryEnglish": "Retroflex",
+      "categoryDescription": "जिह्वा मागील दिशेकडे वाकडी होते",
+      "devanagari": "ण",
+      "brahmi": "𑀡",
+      "unicode_codepoint": "U+11021",
+      "romanized": "na",
+      "pronunciationNote": "मूर्धन्य 'ण' ध्वनि, स्वतंत्र रूपातून कमी वापरली जाते",
+      "exampleWords": [],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-016",
+      "order": 16,
+      "category": "dantya",
+      "categoryHindi": "दन्त्य",
+      "categoryEnglish": "Dental",
+      "categoryDescription": "जिह्वा दातांना स्पर्श करते",
+      "devanagari": "त",
+      "brahmi": "𑀢",
+      "unicode_codepoint": "U+11022",
+      "romanized": "ta",
+      "pronunciationNote": "दन्त्य 'त' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "तन",
+          "romanized": "tan",
+          "english": "शरीर"
+        },
+        {
+          "devanagari": "तरण",
+          "romanized": "taran",
+          "english": "तरण"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-017",
+      "order": 17,
+      "category": "dantya",
+      "categoryHindi": "दन्त्य",
+      "categoryEnglish": "Dental",
+      "categoryDescription": "जिह्वा दातांना स्पर्श करते",
+      "devanagari": "थ",
+      "brahmi": "𑀣",
+      "unicode_codepoint": "U+11023",
+      "romanized": "tha",
+      "pronunciationNote": "महाप्राण दन्त्य 'त' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "थल",
+          "romanized": "thal",
+          "english": "थर्र"
+        },
+        {
+          "devanagari": "थाली",
+          "romanized": "thali",
+          "english": "थाळी"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-018",
+      "order": 18,
+      "category": "dantya",
+      "categoryHindi": "दन्त्य",
+      "categoryEnglish": "Dental",
+      "categoryDescription": "जिह्वा दातांना स्पर्श करते",
+      "devanagari": "द",
+      "brahmi": "𑀤",
+      "unicode_codepoint": "U+11024",
+      "romanized": "da",
+      "pronunciationNote": "दन्त्य 'द' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "दल",
+          "romanized": "dal",
+          "english": "दाळ"
+        },
+        {
+          "devanagari": "दान",
+          "romanized": "daan",
+          "english": "दान"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-019",
+      "order": 19,
+      "category": "dantya",
+      "categoryHindi": "दन्त्य",
+      "categoryEnglish": "Dental",
+      "categoryDescription": "जिह्वा दातांना स्पर्श करते",
+      "devanagari": "ध",
+      "brahmi": "𑀥",
+      "unicode_codepoint": "U+11025",
+      "romanized": "dha",
+      "pronunciationNote": "महाप्राण दन्त्य 'द' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "धन",
+          "romanized": "dhan",
+          "english": "धन"
+        },
+        {
+          "devanagari": "धरती",
+          "romanized": "dharti",
+          "english": "पृथ्वी"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-020",
+      "order": 20,
+      "category": "dantya",
+      "categoryHindi": "दन्त्य",
+      "categoryEnglish": "Dental",
+      "categoryDescription": "जिह्वा दातांना स्पर्श करते",
+      "devanagari": "न",
+      "brahmi": "𑀦",
+      "unicode_codepoint": "U+11026",
+      "romanized": "na",
+      "pronunciationNote": "दन्त्य 'न' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "नल",
+          "romanized": "nal",
+          "english": "नळ"
+        },
+        {
+          "devanagari": "नाम",
+          "romanized": "naam",
+          "english": "नाव"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-021",
+      "order": 21,
+      "category": "osthya",
+      "categoryHindi": "ओष्ठ्य",
+      "categoryEnglish": "Labial",
+      "categoryDescription": "ओठांमधून उच्चारित",
+      "devanagari": "प",
+      "brahmi": "𑀧",
+      "unicode_codepoint": "U+11027",
+      "romanized": "pa",
+      "pronunciationNote": "कठोर 'प' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "पल",
+          "romanized": "pal",
+          "english": "क्षण"
+        },
+        {
+          "devanagari": "पानी",
+          "romanized": "paani",
+          "english": "पाणी"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-022",
+      "order": 22,
+      "category": "osthya",
+      "categoryHindi": "ओष्ठ्य",
+      "categoryEnglish": "Labial",
+      "categoryDescription": "ओठांमधून उच्चारित",
+      "devanagari": "फ",
+      "brahmi": "𑀨",
+      "unicode_codepoint": "U+11028",
+      "romanized": "pha",
+      "pronunciationNote": "महाप्राण 'प' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "फल",
+          "romanized": "phal",
+          "english": "फळ"
+        },
+        {
+          "devanagari": "फूल",
+          "romanized": "phool",
+          "english": "फूल"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-023",
+      "order": 23,
+      "category": "osthya",
+      "categoryHindi": "ओष्ठ्य",
+      "categoryEnglish": "Labial",
+      "categoryDescription": "ओठांमधून उच्चारित",
+      "devanagari": "ब",
+      "brahmi": "𑀩",
+      "unicode_codepoint": "U+11029",
+      "romanized": "ba",
+      "pronunciationNote": "मृदु 'ब' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "बल",
+          "romanized": "bal",
+          "english": "शक्ती"
+        },
+        {
+          "devanagari": "बादल",
+          "romanized": "baadal",
+          "english": "ढग"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-024",
+      "order": 24,
+      "category": "osthya",
+      "categoryHindi": "ओष्ठ्य",
+      "categoryEnglish": "Labial",
+      "categoryDescription": "ओठांमधून उच्चारित",
+      "devanagari": "भ",
+      "brahmi": "𑀪",
+      "unicode_codepoint": "U+1102A",
+      "romanized": "bha",
+      "pronunciationNote": "महाप्राण 'ब' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "भवन",
+          "romanized": "bhavan",
+          "english": "इमारत"
+        },
+        {
+          "devanagari": "भाषा",
+          "romanized": "bhasha",
+          "english": "भाषा"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-025",
+      "order": 25,
+      "category": "osthya",
+      "categoryHindi": "ओष्ठ्य",
+      "categoryEnglish": "Labial",
+      "categoryDescription": "ओठांमधून उच्चारित",
+      "devanagari": "म",
+      "brahmi": "𑀫",
+      "unicode_codepoint": "U+1102B",
+      "romanized": "ma",
+      "pronunciationNote": "अनुनासिक 'म' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "मन",
+          "romanized": "man",
+          "english": "मन"
+        },
+        {
+          "devanagari": "माता",
+          "romanized": "maata",
+          "english": "आई"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-026",
+      "order": 26,
+      "category": "antahstha",
+      "categoryHindi": "अन्तःस्थ",
+      "categoryEnglish": "Semi-vowel",
+      "categoryDescription": "अर्ध-स्वर",
+      "devanagari": "य",
+      "brahmi": "𑀬",
+      "unicode_codepoint": "U+1102C",
+      "romanized": "ya",
+      "pronunciationNote": "'य' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "यज्ञ",
+          "romanized": "yagna",
+          "english": "यज्ञ"
+        },
+        {
+          "devanagari": "यात्रा",
+          "romanized": "yatra",
+          "english": "प्रवास"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-027",
+      "order": 27,
+      "category": "antahstha",
+      "categoryHindi": "अन्तःस्थ",
+      "categoryEnglish": "Semi-vowel",
+      "categoryDescription": "अर्ध-स्वर",
+      "devanagari": "र",
+      "brahmi": "𑀭",
+      "unicode_codepoint": "U+1102D",
+      "romanized": "ra",
+      "pronunciationNote": "लुंठित 'र' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "रस",
+          "romanized": "ras",
+          "english": "रस"
+        },
+        {
+          "devanagari": "राज",
+          "romanized": "raaj",
+          "english": "राज्य"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-028",
+      "order": 28,
+      "category": "antahstha",
+      "categoryHindi": "अन्तःस्थ",
+      "categoryEnglish": "Semi-vowel",
+      "categoryDescription": "अर्ध-स्वर",
+      "devanagari": "ल",
+      "brahmi": "𑀮",
+      "unicode_codepoint": "U+1102E",
+      "romanized": "la",
+      "pronunciationNote": "मृदु 'ल' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "लता",
+          "romanized": "lata",
+          "english": "वेली"
+        },
+        {
+          "devanagari": "लहर",
+          "romanized": "lahar",
+          "english": "लहर"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-029",
+      "order": 29,
+      "category": "antahstha",
+      "categoryHindi": "अन्तःस्थ",
+      "categoryEnglish": "Semi-vowel",
+      "categoryDescription": "अर्ध-स्वर",
+      "devanagari": "व",
+      "brahmi": "𑀯",
+      "unicode_codepoint": "U+1102F",
+      "romanized": "va",
+      "pronunciationNote": "'व' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "वन",
+          "romanized": "van",
+          "english": "जंगल"
+        },
+        {
+          "devanagari": "वायु",
+          "romanized": "vayu",
+          "english": "हवा"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-030",
+      "order": 30,
+      "category": "ushma",
+      "categoryHindi": "उष्म",
+      "categoryEnglish": "Sibilant",
+      "categoryDescription": "तीव्र श्वासासह उच्चारित उष्म व्यंजन",
+      "devanagari": "श",
+      "brahmi": "𑀰",
+      "unicode_codepoint": "U+11030",
+      "romanized": "sha",
+      "pronunciationNote": "तालव्य 'श' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "शक्ति",
+          "romanized": "shakti",
+          "english": "शक्ती"
+        },
+        {
+          "devanagari": "शब्द",
+          "romanized": "shabd",
+          "english": "शब्द"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-031",
+      "order": 31,
+      "category": "ushma",
+      "categoryHindi": "उष्म",
+      "categoryEnglish": "Sibilant",
+      "categoryDescription": "तीव्र श्वासासह उच्चारित उष्म व्यंजन",
+      "devanagari": "ष",
+      "brahmi": "𑀱",
+      "unicode_codepoint": "U+11031",
+      "romanized": "sha",
+      "pronunciationNote": "मूर्धन्य 'ष' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "षट्",
+          "romanized": "shat",
+          "english": "सहा"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-032",
+      "order": 32,
+      "category": "ushma",
+      "categoryHindi": "उष्म",
+      "categoryEnglish": "Sibilant",
+      "categoryDescription": "तीव्र श्वासासह उच्चारित उष्म व्यंजन",
+      "devanagari": "स",
+      "brahmi": "𑀲",
+      "unicode_codepoint": "U+11032",
+      "romanized": "sa",
+      "pronunciationNote": "दन्त्य 'स' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "सत्य",
+          "romanized": "satya",
+          "english": "सत्य"
+        },
+        {
+          "devanagari": "सरल",
+          "romanized": "saral",
+          "english": "सोपे"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    },
+    {
+      "id": "vyanjan-033",
+      "order": 33,
+      "category": "ushma",
+      "categoryHindi": "उष्म",
+      "categoryEnglish": "Sibilant",
+      "categoryDescription": "तीव्र श्वासासह उच्चारित उष्म व्यंजन",
+      "devanagari": "ह",
+      "brahmi": "𑀳",
+      "unicode_codepoint": "U+11033",
+      "romanized": "ha",
+      "pronunciationNote": "कंठ्य 'ह' ध्वनि",
+      "exampleWords": [
+        {
+          "devanagari": "हस्त",
+          "romanized": "hasta",
+          "english": "हात"
+        },
+        {
+          "devanagari": "हरि",
+          "romanized": "hari",
+          "english": "भगवान"
+        }
+      ],
+      "pronunciationNoteEnglish": ""
+    }
+  ],
+  "categories": {
+    "kanthya": {
+      "name": "कंठ्य",
+      "english": "Guttural",
+      "description": "कंठातून उच्चारित व्यंजन",
+      "order": 1,
+      "consonantIds": [
+        "vyanjan-001",
+        "vyanjan-002",
+        "vyanjan-003",
+        "vyanjan-004",
+        "vyanjan-005"
+      ]
+    },
+    "talavya": {
+      "name": "तालव्य",
+      "english": "Palatal",
+      "description": "जिथे जिह्वा तालूला स्पर्श करते ते व्यंजन",
+      "order": 2,
+      "consonantIds": [
+        "vyanjan-006",
+        "vyanjan-007",
+        "vyanjan-008",
+        "vyanjan-009",
+        "vyanjan-010"
+      ]
+    },
+    "murdhanya": {
+      "name": "मूर्धन्य",
+      "english": "Retroflex",
+      "description": "जिथे जिह्वा मागील दिशेकडे वाकडी होते ते व्यंजन",
+      "order": 3,
+      "consonantIds": [
+        "vyanjan-011",
+        "vyanjan-012",
+        "vyanjan-013",
+        "vyanjan-014",
+        "vyanjan-015"
+      ]
+    },
+    "dantya": {
+      "name": "दन्त्य",
+      "english": "Dental",
+      "description": "जिथे जिह्वा दातांना स्पर्श करते ते व्यंजन",
+      "order": 4,
+      "consonantIds": [
+        "vyanjan-016",
+        "vyanjan-017",
+        "vyanjan-018",
+        "vyanjan-019",
+        "vyanjan-020"
+      ]
+    },
+    "osthya": {
+      "name": "ओष्ठ्य",
+      "english": "Labial",
+      "description": "ओठांमधून उच्चारित व्यंजन",
+      "order": 5,
+      "consonantIds": [
+        "vyanjan-021",
+        "vyanjan-022",
+        "vyanjan-023",
+        "vyanjan-024",
+        "vyanjan-025"
+      ]
+    },
+    "antahstha": {
+      "name": "अन्तःस्थ",
+      "english": "Semi-vowel",
+      "description": "अर्ध-स्वर व्यंजन",
+      "order": 6,
+      "consonantIds": [
+        "vyanjan-026",
+        "vyanjan-027",
+        "vyanjan-028",
+        "vyanjan-029"
+      ]
+    },
+    "ushma": {
+      "name": "उष्म",
+      "english": "Sibilant",
+      "description": "तीव्र श्वासासह उच्चारित उष्म व्यंजन",
+      "order": 7,
+      "consonantIds": [
+        "vyanjan-030",
+        "vyanjan-031",
+        "vyanjan-032",
+        "vyanjan-033"
+      ]
+    }
+  },
+  "lessons": [
+    {
+      "id": "vyanjan-lesson-001",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-001",
+      "title": "व्यंजनाचा परिचय",
+      "title_english": "Introduction to Consonants",
+      "subtitle": "",
+      "description": "७ वर्गांमध्ये व्यवस्थित ३३ ब्राह्मी व्यंजनांविषयी जाणून घ्या",
+      "category": "introduction",
+      "consonant_group": "all",
+      "order_no": 1,
+      "estimated_time_minutes": 15,
+      "thumbnail_icon": "अ"
+    },
+    {
+      "id": "vyanjan-lesson-002",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-002",
+      "title": "क वर्ग",
+      "title_english": "Ka-Varga - Guttural Consonants",
+      "subtitle": "कंठ्य",
+      "description": "५ कंठ्य व्यंजन (क, ख, ग, घ, ङ) शिका",
+      "category": "kanthya",
+      "consonant_group": "kanthya",
+      "order_no": 2,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "क"
+    },
+    {
+      "id": "vyanjan-lesson-003",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-003",
+      "title": "च वर्ग",
+      "title_english": "Cha-Varga - Palatal Consonants",
+      "subtitle": "तालव्य",
+      "description": "५ तालव्य व्यंजन (च, छ, ज, झ, ञ) शिका",
+      "category": "talavya",
+      "consonant_group": "talavya",
+      "order_no": 3,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "च"
+    },
+    {
+      "id": "vyanjan-lesson-004",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-004",
+      "title": "ट वर्ग (मूर्धन्य)",
+      "title_english": "Ta-Varga - Retroflex Consonants",
+      "subtitle": "मूर्धन्य",
+      "description": "५ मूर्धन्य व्यंजन (ट, ठ, ड, ढ, ण) शिका",
+      "category": "murdhanya",
+      "consonant_group": "murdhanya",
+      "order_no": 4,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "ट"
+    },
+    {
+      "id": "vyanjan-lesson-005",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-005",
+      "title": "त वर्ग (दन्त्य)",
+      "title_english": "Ta-Varga - Dental Consonants",
+      "subtitle": "दन्त्य",
+      "description": "५ दन्त्य व्यंजन (त, थ, द, ध, न) शिका",
+      "category": "dantya",
+      "consonant_group": "dantya",
+      "order_no": 5,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "त"
+    },
+    {
+      "id": "vyanjan-lesson-006",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-006",
+      "title": "प वर्ग",
+      "title_english": "Pa-Varga - Labial Consonants",
+      "subtitle": "ओष्ठ्य",
+      "description": "५ ओष्ठ्य व्यंजन (प, फ, ब, भ, म) शिका",
+      "category": "osthya",
+      "consonant_group": "osthya",
+      "order_no": 6,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "प"
+    },
+    {
+      "id": "vyanjan-lesson-007",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-007",
+      "title": "य, र, ल, व",
+      "title_english": "Semi-vowels",
+      "subtitle": "अन्तःस्थ",
+      "description": "४ अर्ध-स्वर व्यंजन (य, र, ल, व) शिका",
+      "category": "antahstha",
+      "consonant_group": "antahstha",
+      "order_no": 7,
+      "estimated_time_minutes": 15,
+      "thumbnail_icon": "य"
+    },
+    {
+      "id": "vyanjan-lesson-008",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-008",
+      "title": "श, ष, स, ह",
+      "title_english": "Sibilants",
+      "subtitle": "उष्म",
+      "description": "४ उष्म व्यंजन (श, ष, स, ह) शिका",
+      "category": "ushma",
+      "consonant_group": "ushma",
+      "order_no": 8,
+      "estimated_time_minutes": 15,
+      "thumbnail_icon": "श"
+    }
+  ]
+}
