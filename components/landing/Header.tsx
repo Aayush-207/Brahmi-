@@ -88,6 +88,17 @@ export function Header() {
                                         >
                                             English
                                         </button>
+                                        <button
+                                            onClick={() => {
+                                                setLanguage('kn');
+                                                setIsLangMenuOpen(false);
+                                            }}
+                                            className={`w-full px-6 py-3 text-left hover:bg-[#D4AF37]/10 transition-colors border-t border-[#D4AF37]/20 whitespace-nowrap ${
+                                                language === 'kn' ? 'text-[#E69A47]' : 'text-[#B8AFA0]'
+                                            }`}
+                                        >
+                                            ಕನ್ನಡ (Kannada)
+                                        </button>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -151,6 +162,19 @@ export function Header() {
                                         }`}
                                     >
                                         English
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setLanguage('kn');
+                                            setIsMobileMenuOpen(false);
+                                        }}
+                                        className={`w-full px-4 py-3 rounded-lg text-left font-medium transition-colors ${
+                                            language === 'kn'
+                                                ? 'bg-[#D4AF37]/20 text-[#E69A47]'
+                                                : 'bg-[#2a2420] border border-[#D4AF37]/30 text-[#B8AFA0] hover:bg-[#D4AF37]/10'
+                                        }`}
+                                    >
+                                        ಕನ್ನಡ (Kannada)
                                     </button>
                                 </div>
 

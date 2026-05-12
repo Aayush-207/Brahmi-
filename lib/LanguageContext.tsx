@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-type Language = "hi" | "en";
+type Language = "hi" | "en" | "kn";
 
 interface LanguageContextType {
   language: Language;
@@ -31,7 +31,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (mounted) {
       const loadTranslations = async () => {
         try {
-          const response = await fetch(`/locales/${language}.json`);
+          let response = await fetch(`/locales/${language}.json`);
+          if (!response.ok && language === "kn") {
+            response = await fetch("/locales/en.json");
+          }
           const data = await response.json();
           setTranslations(data);
           localStorage.setItem("language", language);

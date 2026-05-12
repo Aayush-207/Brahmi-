@@ -3,399 +3,320 @@
     {
       "id": "intro-lesson-001",
       "module_id": "module-intro",
-      "lesson_id": "intro-welcome",
-      "title": "स्वागतम्",
-      "subtitle": " ",
-      "description": "प्राचीन ब्राह्मी लिपीच्या प्रवासाची सुरुवात करा",
-      "thumbnail_icon": "📜",
+      "lesson_id": "intro-brahmi-intro",
+      "title": "ನಾನು ಬ್ರಾಹ್ಮಿ ಲಿಪಿ",
+      "subtitle": "ಅತ್ಯಂತ ಪ್ರಾಚೀನ, ಅತ್ಯಂತ ಮಹತ್ವದ ಮತ್ತು ಅತ್ಯಂತ ಪ್ರಿಯವಾದುದು!",
+      "description": "ಅತ್ಯಂತ ಪ್ರಾಚೀನ, ಅತ್ಯಂತ ಮಹತ್ವದ ಮತ್ತು ಅತ್ಯಂತ ಪ್ರಿಯವಾದುದು!",
+      "thumbnail_icon": "📖",
       "order_no": 1,
       "estimated_time_minutes": 2
     },
     {
       "id": "intro-lesson-002",
       "module_id": "module-intro",
-      "lesson_id": "intro-lang-select",
-      "title": "भाषा निवड",
+      "lesson_id": "intro-objectives",
+      "title": "ನಿಮ್ಮ ಗುರಿ ಏನು?",
       "subtitle": " ",
-      "description": "आपली आवडती भाषा निवडा",
-      "thumbnail_icon": "🌐",
+      "description": "ನಿಮ್ಮ ಗುರಿ ಏನು?",
+      "thumbnail_icon": "🎯",
       "order_no": 2,
-      "estimated_time_minutes": 1
+      "estimated_time_minutes": 2
     },
     {
       "id": "intro-lesson-003",
       "module_id": "module-intro",
-      "lesson_id": "intro-brahmi-intro",
-      "title": "ब्राह्मी लिपीची ओळख",
+      "lesson_id": "intro-choice",
+      "title": "ನನ್ನ ಚಿಕ್ಕ ಪರಿಚಯ",
       "subtitle": " ",
-      "description": "मी ब्राह्मी लिपी आहे. अत्यंत प्राचीन, अतिशय महत्त्वाची आणि अत्यंत प्रिय!",
-      "thumbnail_icon": "📖",
+      "description": "ನೀವು ತಿಳಿದುಕೊಳ್ಳಲು ಇಷ್ಟಪಡುತ್ತೀರಾ?",
+      "thumbnail_icon": "❓",
       "order_no": 3,
-      "estimated_time_minutes": 3
+      "estimated_time_minutes": 6
     },
     {
       "id": "intro-lesson-004",
       "module_id": "module-intro",
-      "lesson_id": "intro-objectives",
-      "title": "तुमचे ध्येय",
+      "lesson_id": "intro-language-definition",
+      "title": "ನಾನು ಭಾಷೆಯಲ್ಲ!",
       "subtitle": " ",
-      "description": "तुमची शिकण्याची उद्दिष्टे समजून घ्या",
-      "thumbnail_icon": "🎯",
+      "description": "ಭಾಷೆ ಮತ್ತು ಲಿಪಿಯ ವ್ಯಾಖ್ಯಾನ",
+      "thumbnail_icon": "💬",
       "order_no": 4,
-      "estimated_time_minutes": 2
+      "estimated_time_minutes": 4
     },
     {
       "id": "intro-lesson-005",
       "module_id": "module-intro",
-      "lesson_id": "intro-choice",
-      "title": "माझी ओळख",
+      "lesson_id": "intro-specialty",
+      "title": "ನನ್ನ ವಿಶೇಷತೆ",
       "subtitle": " ",
-      "description": "तुम्हाला ब्राह्मी लिपीबद्दल अधिक जाणून घ्यायचे आहे का?",
-      "thumbnail_icon": "❓",
+      "description": "ನನ್ನ ವಿಶೇಷತೆ ಮತ್ತು ಮಹತ್ವ",
+      "thumbnail_icon": "⭐",
       "order_no": 5,
-      "estimated_time_minutes": 1
+      "estimated_time_minutes": 5
     },
     {
-      "id": "intro-lesson-012",
+      "id": "intro-lesson-006",
       "module_id": "module-intro",
-      "lesson_id": "intro-language-definition",
-      "title": "लिपी विरुद्ध भाषा",
+      "lesson_id": "intro-time-commitment",
+      "title": "ನನ್ನನ್ನು ಕಲಿಯಲು ನೀವು ಪ್ರತಿದಿನ ಎಷ್ಟು ಸಮಯ ನೀಡಲು ಬಯಸುತ್ತೀರಿ?",
       "subtitle": " ",
-      "description": "ज्या माध्यमातून आपण आपल्या भावना व्यक्त करतो",
-      "thumbnail_icon": "💬",
-      "order_no": 12,
+      "description": "ದೈನಂದಿನ ಅಭ್ಯಾಸ ಸಮಯ",
+      "thumbnail_icon": "⏱️",
+      "order_no": 6,
       "estimated_time_minutes": 2
     },
     {
-      "id": "intro-lesson-014",
-      "module_id": "module-intro",
-      "lesson_id": "intro-specialty",
-      "title": "माझी विशेषता",
-      "subtitle": " ",
-      "description": "ब्राह्मी लिपी ही प्राकृत भाषेची मूळ लिपी आहे",
-      "thumbnail_icon": "⭐",
-      "order_no": 14,
-      "estimated_time_minutes": 5
-    },
-    {
-      "id": "intro-lesson-018",
-      "module_id": "module-intro",
-      "lesson_id": "intro-spiritual",
-      "title": "आध्यात्मिक महत्त्व",
-      "subtitle": " ",
-      "description": "तीर्थंकरांच्या प्राचीन परंपरेशी जोडणारा दुवा",
-      "thumbnail_icon": "🙏",
-      "order_no": 18,
-      "estimated_time_minutes": 5
-    },
-    {
-      "id": "intro-lesson-027",
-      "module_id": "module-intro",
-      "lesson_id": "intro-time-commitment",
-      "title": "वेळेची बांधिलकी",
-      "subtitle": " ",
-      "description": "तुम्ही दररोज किती वेळ देणार आहात?",
-      "thumbnail_icon": "⏱️",
-      "order_no": 19,
-      "estimated_time_minutes": 1
-    },
-    {
-      "id": "intro-lesson-028",
+      "id": "intro-lesson-007",
       "module_id": "module-intro",
       "lesson_id": "intro-encouragement",
-      "title": "सुरुवात करा",
+      "title": "ವಾಹ್!",
       "subtitle": " ",
-      "description": "तुम्ही अतिशय कमी वेळेत संपूर्ण ब्राह्मी लिपी शिकू शकता!",
+      "description": "ಆರಂಭದಿಂದಲೇ ಆರಂಭಿಸೋಣ.",
       "thumbnail_icon": "🚀",
-      "order_no": 20,
-      "estimated_time_minutes": 1
+      "order_no": 7,
+      "estimated_time_minutes": 2
     }
   ],
   "content": [
     {
       "id": "content-001",
-      "lesson_id": "intro-welcome",
+      "lesson_id": "intro-brahmi-intro",
       "content_type": "title_slide",
-      "title": "स्वागतम्",
-      "content": "स्वागतम् — स्वागत आहे",
+      "title": "ನಾನು ಬ್ರಾಹ್ಮಿ ಲಿಪಿ",
+      "content": "ಅತ್ಯಂತ ಪ್ರಾಚೀನ, ಅತ್ಯಂತ ಮಹತ್ವದ ಮತ್ತು ಅತ್ಯಂತ ಪ್ರಿಯವಾದುದು!",
       "metadata": {
-        "multilingual_welcome": {
-          "sanskrit_hindi": "स्वागतम्",
-          "bengali": "স্বাগতম",
-          "telugu": "స్వాగతం",
-          "tamil": "வரவேற்பு",
-          "gujarati": "સ્વાગતમ્",
-          "kannada": "ಸ್ವಾಗತಮ್",
-          "odia": "ସ୍ୱାଗତମ୍",
-          "punjabi": "ਸਵਾਗਤਮ੍",
-          "english": "Welcome"
-        },
-        "cta_button": "चला सुरुवात करूया"
+        "buttonText": "ಮುಂದೆ"
       },
       "order_no": 1
     },
     {
       "id": "content-002",
-      "lesson_id": "intro-lang-select",
-      "content_type": "questionnaire",
-      "title": "भाषा निवडा:",
-      "content": "पाठ्यक्रमासाठी आपली आवडती भाषा निवडा",
+      "lesson_id": "intro-objectives",
+      "content_type": "mcq",
+      "title": "ನಿಮ್ಮ ಗುರಿ ಏನು?",
+      "content": "",
       "metadata": {
         "options": [
-          "Hindi",
-          "தமிழ்",
-          "తెలుగు",
-          "বাংলা",
-          "ગુજરાતી",
-          "ಕನ್ನಡ",
-          "ଓଡ଼ିଆ",
-          "ਪੰਜਾਬੀ",
-          "English"
+          {
+            "text": "ಧಾರ್ಮಿಕ ಜ್ಞಾನಕ್ಕಾಗಿ",
+            "translation": " "
+          },
+          {
+            "text": "ಐತಿಹಾಸಿಕ ಸಂಶೋಧನೆ",
+            "translation": " "
+          },
+          {
+            "text": "ಕೌಶಲ ಅಭಿವೃದ್ಧಿ",
+            "translation": " "
+          },
+          {
+            "text": "ಪರೀಕ್ಷೆ/ವೃತ್ತಿ",
+            "translation": " "
+          }
         ],
-        "buttonText": "पुढे"
+        "accept_any_answer": true,
+        "buttonText": "ಮುಂದೆ"
       },
       "order_no": 1
     },
     {
       "id": "content-003",
-      "lesson_id": "intro-brahmi-intro",
-      "content_type": "text",
-      "title": "मी आहे ब्राह्मी लिपी.",
-      "content": "अत्यंत प्राचीन, अत्यंत महत्त्वाची आणि अत्यंत प्रिय!",
-      "order_no": 1
-    },
-    {
-      "id": "content-004",
-      "lesson_id": "intro-objectives",
-      "content_type": "mcq",
-      "title": "तुमचे ध्येय काय आहे?",
-      "content": "तुमचे ध्येय काय आहे?",
+      "lesson_id": "intro-choice",
+      "content_type": "questionnaire",
+      "title": "ನನ್ನ ಚಿಕ್ಕ ಪರಿಚಯ",
+      "content": "ನೀವು ತಿಳಿದುಕೊಳ್ಳಲು ಇಷ್ಟಪಡುತ್ತೀರಾ?\nನಾವು ನೇರವಾಗಿ ಮುಂದಕ್ಕೆ ಸಾಗೋಣವೇ?",
       "metadata": {
         "options": [
-          {
-            "text": "धार्मिक ज्ञानासाठी",
-            "translation": " "
-          },
-          {
-            "text": "ऐतिहासिक संशोधन",
-            "translation": " "
-          },
-          {
-            "text": "कौशल्य विकास",
-            "translation": " "
-          },
-          {
-            "text": "परीक्षा/करिअर",
-            "translation": " "
-          }
+          "ಹೌದು",
+          "ಇಲ್ಲ"
         ],
-        "buttonText": ""
+        "buttonText": "ಮುಂದೆ"
       },
       "order_no": 1
     },
     {
+      "id": "content-004",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "",
+      "content": "ನಾನು ಆದಿ ಬ್ರಹ್ಮ, ಮೊದಲ ತೀರ್ಥಂಕರ ಮಹಾರಾಜ ಶ್ರೀ ಋಷಭದೇವರವರು ರಚಿಸಿದ ಲಿಪಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 2
+    },
+    {
       "id": "content-005",
       "lesson_id": "intro-choice",
-      "content_type": "title_slide",
-      "title": "माझा छोटासा परिचय",
-      "content": " ",
-      "order_no": 1,
-      "metadata": null
+      "content_type": "text",
+      "title": "",
+      "content": "ಅವರು ತಮ್ಮ ಪುತ್ರಿ ಬ್ರಾಹ್ಮಿಗೆ ಬೋಧಿಸುವಾಗ ನನ್ನನ್ನು ರಚಿಸಿದರು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 3
     },
     {
       "id": "content-006",
       "lesson_id": "intro-choice",
       "content_type": "text",
-      "title": " ",
-      "content": "मी आदि ब्रह्मा, प्रथम तीर्थंकर महाराज श्री ऋषभदेव जी यांनी निर्माण केलेली लिपी आहे.",
-      "order_no": 2,
-      "metadata": null
+      "title": "",
+      "content": "ಬ್ರಾಹ್ಮಿಯ ಜೊತೆಗೆ ಮಹಾರಾಜ ಶ್ರೀ ಋಷಭದೇವರು ತಮ್ಮ ಇನ್ನೊಂದು ಪುತ್ರಿ ಸುಂದರಿಗೂ ‘ಅಂಕ ವಿದ್ಯೆ’ ಬೋಧಿಸಿದರು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 4
     },
     {
       "id": "content-007",
       "lesson_id": "intro-choice",
       "content_type": "text",
       "title": "",
-      "content": "मला त्यांनी आपल्या कन्या ब्राह्मीला शिकवताना निर्माण केले.",
-      "order_no": 3,
-      "metadata": null
+      "content": "ಅವರು ಇಬ್ಬರೂ ಭಗವಾನ್ ಶ್ರೀ ಋಷಭದೇವರಿಂದ ನೀಡಲಾದ ವಿದ್ಯೆಯನ್ನು ವ್ಯಾಪಕವಾಗಿ ಪ್ರಸಾರ ಮಾಡಿದರು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 5
     },
     {
       "id": "content-008",
       "lesson_id": "intro-choice",
       "content_type": "text",
-      "title": " ",
-      "content": "ब्राह्मीबरोबरच महाराज श्री ऋषभदेव जी यांनी आपल्या दुसऱ्या कन्या सुन्दरीला देखील 'अङ्क विद्या' शिकवली.",
-      "order_no": 4,
-      "metadata": null
+      "title": "ನನ್ನ ಹೆಸರು ‘ಬ್ರಾಹ್ಮೀ ಲಿಪಿ’ ಯಾಕೆ ಬಂತು?",
+      "content": "ಈ ಲಿಪಿಯ ಜ್ಞಾನವನ್ನು ಸಾಮಾನ್ಯ ಜನರಿಗೆ ರಾಜಕುಮಾರಿ ಬ್ರಾಹ್ಮಿಯವರು ನೀಡಿದರು, ಅದಕ್ಕಾಗಿ ನನ್ನ ಹೆಸರು ‘ಬ್ರಾಹ್ಮೀ ಲಿಪಿ’ ಆಯಿತು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 6
     },
     {
       "id": "content-009",
       "lesson_id": "intro-choice",
       "content_type": "text",
-      "title": "ज्ञानाचा प्रसार",
-      "content": "त्या दोघींनी भगवान श्री ऋषभदेव जी यांनी दिलेल्या विद्यांचा मोठ्या प्रमाणात प्रसार केला.",
-      "order_no": 5,
-      "metadata": null
+      "title": "ನಾನು ಭಾಷೆಯಲ್ಲ!",
+      "content": "ನಾನು ಭಾಷೆಯಲ್ಲ, ಕೇವಲ ಬರೆಯುವ ವಿಧಾನ ಮಾತ್ರ ಎಂಬುದನ್ನು ನೆನಪಿಡಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 7
     },
     {
       "id": "content-010",
-      "lesson_id": "intro-choice",
+      "lesson_id": "intro-language-definition",
       "content_type": "text",
-      "title": "माझे नाव 'ब्राह्मी लिपी' का पडले?",
-      "content": "या लिपीचे ज्ञान सामान्य लोकांना राजकुमारी ब्राह्मीने दिले, म्हणूनच माझे नाव 'ब्राह्मी लिपी' पडले.",
-      "order_no": 6,
-      "metadata": null
+      "title": "",
+      "content": "1. “ನಾವು ನಮ್ಮ ಭಾವನೆಗಳನ್ನು ಪರಸ್ಪರ ವ್ಯಕ್ತಪಡಿಸುವ ಮಾಧ್ಯಮವನ್ನು ‘ಭಾಷೆ’ ಎಂದು ಕರೆಯುತ್ತಾರೆ.” ಉದಾಹರಣೆ – ಹಿಂದಿ, ಪಂಜಾಬಿ, ಬೆಂಗಾಳಿ, ತೆಲುಗು, ತಮಿಳು, ಗುಜರಾತಿ, ಕನ್ನಡ, ಒಡಿಯಾ, ಇಂಗ್ಲಿಷ್ ಇತ್ಯಾದಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
     },
     {
       "id": "content-011",
-      "lesson_id": "intro-choice",
+      "lesson_id": "intro-language-definition",
       "content_type": "text",
-      "title": "मी भाषा नाही!",
-      "content": "लक्षात ठेवा की मी कोणतीही भाषा नाही, तर फक्त लिहिण्याची पद्धत आहे.",
-      "order_no": 7,
-      "metadata": null
+      "title": "",
+      "content": "2. “ಯಾವುದೇ ಭಾಷೆಯನ್ನು ಬರೆಯಲು ಬಳಸುವ ಮಾಧ್ಯಮವನ್ನು ‘ಲಿಪಿ’ ಎಂದು ಕರೆಯುತ್ತಾರೆ.” ಅಥವಾ “ಮೌಖಿಕ ಧ್ವನಿಗಳನ್ನು ಬರಹ ರೂಪದಲ್ಲಿ ವ್ಯಕ್ತಪಡಿಸಲು ಬಳಸುವ ಚಿಹ್ನೆಗಳನ್ನು ಲಿಪಿ ಎಂದು ಕರೆಯುತ್ತಾರೆ.”",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 2
     },
     {
       "id": "content-012",
-      "lesson_id": "intro-language-definition",
+      "lesson_id": "intro-specialty",
       "content_type": "text",
-      "title": "भाषा म्हणजे काय?",
-      "content": "ज्या माध्यमातून आपण आपल्या भावना एकमेकांपर्यंत व्यक्त करतो, त्या माध्यमाला 'भाषा' म्हणतात.\n\nउदाहरण: हिन्दी, पंजाबी, बंगाली, तेलुगू, तमिळ, गुजराती, कन्नड, ओडिया, इंग्रजी",
-      "order_no": 1,
-      "metadata": null
+      "title": "ನನ್ನ ವಿಶೇಷತೆ",
+      "content": "ನಾನು ಮೂಲತಃ ‘ಪ್ರಾಕೃತ ಭಾಷೆ’ಯ ಲಿಪಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
     },
     {
       "id": "content-013",
-      "lesson_id": "intro-language-definition",
+      "lesson_id": "intro-specialty",
       "content_type": "text",
-      "title": "लिपी म्हणजे काय?",
-      "content": "ज्या माध्यमातून कोणतीही भाषा लिहिली जाते, त्याला 'लिपी' म्हणतात.\n\nउदाहरण:\nहिन्दी → देवनागरी\nपंजाबी → गुरुमुखी\nबंगाली → बंगाली\nतेलुगू → तेलुगू\nतमिळ → तमिळ\nगुजराती → गुजराती\nकन्नड → कन्नड\nओडिया → ओडिया\nइंग्रजी → लॅटिन (रोमन)",
-      "order_no": 2,
-      "metadata": null
+      "title": "",
+      "content": "ಆದರೆ, ದೇವನಾಗರಿ ಅಥವಾ ಲ್ಯಾಟಿನ್/ರೋಮನ ಲಿಪಿಯಂತೆ ಯಾವುದೇ ಭಾಷೆಯನ್ನು ಬರೆಯಲು ನನ್ನನ್ನು ಬಳಸಬಹುದು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 2
     },
     {
       "id": "content-014",
       "lesson_id": "intro-specialty",
       "content_type": "text",
-      "title": "माझी विशेषता",
-      "content": "मी मूळतः 'प्राकृत-भाषेची' लिपी आहे.",
-      "order_no": 1,
-      "metadata": null
+      "title": "",
+      "content": "ನೀವು ನನ್ನನ್ನು ನಿಮ್ಮ ರಹಸ್ಯ ಲಿಪಿಯಾಗಿ ಬಳಸಿಕೊಂಡು ನಿಮ್ಮ ಎಲ್ಲಾ ರಹಸ್ಯಗಳನ್ನು ಸಾಮಾನ್ಯ ಜನರಿಂದ ಮರೆಯಬಹುದು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 3
     },
     {
       "id": "content-015",
       "lesson_id": "intro-specialty",
       "content_type": "text",
-      "title": "माझी बहुगुणी प्रतिभा",
-      "content": "परंतु माझा उपयोग देवनागरी लिपी किंवा लॅटिन/रोमन लिपीप्रमाणे कोणतीही भाषा लिहिण्यासाठी केला जाऊ शकतो.",
-      "order_no": 2,
-      "metadata": null
+      "title": "ನನ್ನ ಮಹತ್ವ",
+      "content": "ನನ್ನ ಸ್ವರಗಳು ಮತ್ತು ವ್ಯಂಜನಗಳು ದೇವನಾಗರಿ (ಹಿಂದಿ) ಯಂತೆಯೇ ಇವೆ. ನಾನು ನಿಮಗೆ ನೇರವಾಗಿ ತೀರ್ಥಂಕರ ಶ್ರೀ ಋಷಭದೇವರೊಂದಿಗೆ ಸಂಪರ್ಕ ಕಲ್ಪಿಸಬಹುದು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 4
     },
     {
       "id": "content-016",
       "lesson_id": "intro-specialty",
       "content_type": "text",
-      "title": "एक रहस्य",
-      "content": "आणि हो, मी तुम्हाला एक रहस्य सांगते. तुम्ही मला तुमची गुप्त लिपी बनवून सर्व रहस्ये सामान्य लोकांपासून लपवून ठेवू शकता.",
-      "order_no": 3,
-      "metadata": null
+      "title": "",
+      "content": "ಆದುದರಿಂದ, ನನ್ನನ್ನು ಬಿಡಬೇಡಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 5
     },
     {
       "id": "content-017",
-      "lesson_id": "intro-specialty",
-      "content_type": "text",
-      "title": "माझे महत्त्व",
-      "content": "• माझे स्वर आणि व्यञ्जन देवनागरी (हिन्दी) प्रमाणेच आहेत।\n\n• मी तुम्हाला थेट तीर्थंकर श्री ऋषभदेव जी यांच्याशी जोडू शकते।",
-      "order_no": 4,
-      "metadata": null
+      "lesson_id": "intro-time-commitment",
+      "content_type": "questionnaire",
+      "title": "ನನ್ನನ್ನು ಕಲಿಯಲು ನೀವು ಪ್ರತಿದಿನ ಎಷ್ಟು ಸಮಯ ನೀಡಲು ಬಯಸುತ್ತೀರಿ?",
+      "content": "",
+      "metadata": {
+        "options": [
+          "3 ನಿಮಿಷ",
+          "5 ನಿಮಿಷ",
+          "8 ನಿಮಿಷ",
+          "10 ನಿಮಿಷ",
+          "15 ನಿಮಿಷ"
+        ],
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
     },
     {
       "id": "content-018",
-      "lesson_id": "intro-spiritual",
+      "lesson_id": "intro-encouragement",
       "content_type": "text",
-      "title": "आध्यात्मिक प्रवास",
-      "content": "जेव्हा तुम्ही ब्राह्मी लिपी शिकता, तेव्हा तुम्ही एका प्राचीन आध्यात्मिक परंपरेशी जोडले जाता, ज्याची सुरुवात प्रथम तीर्थंकर भगवान ऋषभदेव जी यांच्यापासून मानली जाते.",
-      "order_no": 1,
-      "metadata": null
+      "title": "ವಾಹ್!",
+      "content": "ಇದರಿಂದ ನೀವು ಬಹಳ ಕಡಿಮೆ ಸಮಯದಲ್ಲಿ ಸಂಪೂರ್ಣ ಬ್ರಾಹ್ಮೀ ಲಿಪಿಯನ್ನು ಕಲಿಯಬಹುದು ಎಂಬುದು ಸ್ಪಷ್ಟವಾಗುತ್ತದೆ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
     },
     {
       "id": "content-019",
-      "lesson_id": "intro-spiritual",
-      "content_type": "text",
-      "title": "आध्यात्मिक प्रवास",
-      "content": "ही लिपी प्राचीन जैन तत्त्वज्ञान आणि हजारो वर्षांपासून चालत आलेल्या आध्यात्मिक ज्ञानाचा वारसा जपून ठेवते.",
-      "order_no": 2,
-      "metadata": null
-    },
-    {
-      "id": "content-020",
-      "lesson_id": "intro-spiritual",
-      "content_type": "text",
-      "title": "आध्यात्मिक प्रवास",
-      "content": "ब्राह्मी शिकून तुम्ही या प्राचीन ज्ञानाचे संरक्षक बनता आणि एका पवित्र परंपरेचा भाग होता.",
-      "order_no": 3,
-      "metadata": null
-    },
-    {
-      "id": "content-021",
-      "lesson_id": "intro-spiritual",
-      "content_type": "text",
-      "title": "आध्यात्मिक प्रवास",
-      "content": "ही लिपी स्वतः तीर्थंकरांच्या सिद्धांत आणि शिकवणी समजून घेण्याचे माध्यम आहे.",
-      "order_no": 4,
-      "metadata": null
-    },
-    {
-      "id": "content-022",
-      "lesson_id": "intro-spiritual",
-      "content_type": "text",
-      "title": "आध्यात्मिक प्रवास",
-      "content": "ब्राह्मी लिपीतील प्रत्येक अक्षर प्राचीन ज्ञानातील अर्थ आणि आध्यात्मिक महत्त्वाच्या अनेक स्तरांना सामावून घेतो.",
-      "order_no": 5,
-      "metadata": null
-    },
-    {
-      "id": "content-023",
-      "lesson_id": "intro-spiritual",
-      "content_type": "text",
-      "title": "आध्यात्मिक प्रवास",
-      "content": "या शिकण्याच्या प्रवासाद्वारे तुम्ही विद्वान, तत्त्वज्ञ आणि आध्यात्मिक साधकांच्या परंपरेत प्रवेश करत आहात.",
-      "order_no": 6,
-      "metadata": null
-    },
-    {
-      "id": "content-027",
-      "lesson_id": "intro-time-commitment",
-      "content_type": "mcq",
-      "title": "तुम्ही मला शिकण्यासाठी दररोज किती वेळ द्यायला इच्छिता?",
-      "content": " ",
-      "metadata": {
-        "options": [
-          "3 मिनिटे",
-          "5 मिनिटे",
-          "8 मिनिटे",
-          "10 मिनिटे",
-          "15 मिनिटे"
-        ]
-      },
-      "order_no": 1
-    },
-    {
-      "id": "content-028",
       "lesson_id": "intro-encouragement",
       "content_type": "title_slide",
-      "title": "अरे वा!",
-      "content": "अरे वा! याचा अर्थ असा आहे की तुम्ही अतिशय कमी वेळात संपूर्ण ब्राह्मी लिपी शिकू शकता.\n\nचला तर मग, सुरुवातीपासून सुरुवात करूया.",
+      "title": "ಬನ್ನಿ! ಆರಂಭಿಸೋಣ",
+      "content": "ಆರಂಭದಿಂದಲೇ ಆರಂಭಿಸೋಣ.",
       "metadata": {
-        "cta_button": "सुरू करा",
-        "created_by": "श्रुताराधक संत क्षुल्लक श्री प्रज्ञानसागर जी",
-        "course_title": "ब्राह्मी लिपी शिकण्याचा अभ्यासक्रम",
-        "buttonText": "",
-        "slide28": "",
-        "slide29": ""
+        "buttonText": "ಮುಂದೆ"
       },
-      "order_no": 1
+      "order_no": 2
     }
   ]
 }

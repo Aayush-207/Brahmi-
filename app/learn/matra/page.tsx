@@ -99,6 +99,7 @@ export default function MatraPage() {
     const [showCelebration, setShowCelebration] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
     const [showCompletionModal, setShowCompletionModal] = useState(false)
+    const [completionDismissed, setCompletionDismissed] = useState(false)
     
     // Refs for scrolling
     const containerRef = useRef<HTMLDivElement>(null)
@@ -160,14 +161,20 @@ export default function MatraPage() {
 
     // Show completion modal when matra module is completed
     useEffect(() => {
-        if (!loading && lessons.length > 0 && completedIds.length === lessons.length && !showCompletionModal) {
-            // All lessons completed - show modal
+        if (!loading && lessons.length > 0 && completedIds.length === lessons.length && !showCompletionModal && !completionDismissed) {
+            // All lessons completed - show modal (unless dismissed)
             const timer = setTimeout(() => {
                 setShowCompletionModal(true)
             }, 1000)
             return () => clearTimeout(timer)
         }
-    }, [loading, lessons.length, completedIds.length, showCompletionModal])
+    }, [loading, lessons.length, completedIds.length, showCompletionModal, completionDismissed])
+
+    useEffect(() => {
+        if (completedIds.length !== lessons.length && completionDismissed) {
+            setCompletionDismissed(false)
+        }
+    }, [completedIds.length, lessons.length, completionDismissed])
 
     // Auto-scroll to center current/next lesson
     useEffect(() => {
@@ -697,6 +704,7 @@ export default function MatraPage() {
                             <button
                                 onClick={() => {
                                     setShowCompletionModal(false)
+                                    setCompletionDismissed(true)
                                     router.push('/learn')
                                 }}
                                 className="w-full bg-gradient-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-4 px-6 rounded-lg hover:brightness-110 hover:scale-105 transition-all shadow-lg border-2 border-[#F5F1E8]/50"
@@ -712,6 +720,7 @@ export default function MatraPage() {
                             <button
                                 onClick={() => {
                                     setShowCompletionModal(false)
+                                    setCompletionDismissed(true)
                                     router.push('/letters')
                                 }}
                                 className="w-full bg-[#2a2420] text-[#E6D8B8] font-semibold py-4 px-6 rounded-lg hover:bg-[#3a3230] hover:text-[#D4AF37] transition-all border-2 border-[#4a3f2f] hover:border-[#D4AF37]"
@@ -725,7 +734,7 @@ export default function MatraPage() {
 
                         {/* Close button */}
                         <button
-                            onClick={() => setShowCompletionModal(false)}
+                            onClick={() => { setShowCompletionModal(false); setCompletionDismissed(true) }}
                             className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#2a2420] transition-colors text-[#D4AF37] hover:text-[#E69A47]"
                         >
                             ✕

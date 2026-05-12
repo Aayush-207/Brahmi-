@@ -5,6 +5,7 @@ export async function GET() {
     supported: [
       { code: 'hindi',   label: 'हिन्दी',  labelEnglish: 'Hindi'   },
       { code: 'english', label: 'English', labelEnglish: 'English' },
+      { code: 'kannada', label: 'ಕನ್ನಡ',   labelEnglish: 'Kannada' },
     ],
     default: 'hindi'
   });

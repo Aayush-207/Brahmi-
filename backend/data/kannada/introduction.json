@@ -1,0 +1,476 @@
+{
+  "lessons": [
+    {
+      "id": "intro-lesson-001",
+      "module_id": "module-intro",
+      "lesson_id": "intro-brahmi-intro",
+      "title": "ನಾನು ಬ್ರಾಹ್ಮಿ ಲಿಪಿ",
+      "subtitle": "ಅತ್ಯಂತ ಪ್ರಾಚೀನ, ಅತ್ಯಂತ ಮಹತ್ವದ ಮತ್ತು ಅತ್ಯಂತ ಪ್ರಿಯವಾದುದು!",
+      "description": "ಅತ್ಯಂತ ಪ್ರಾಚೀನ, ಅತ್ಯಂತ ಮಹತ್ವದ ಮತ್ತು ಅತ್ಯಂತ ಪ್ರಿಯವಾದುದು!",
+      "thumbnail_icon": "📖",
+      "order_no": 1,
+      "estimated_time_minutes": 2
+    },
+    {
+      "id": "intro-lesson-002",
+      "module_id": "module-intro",
+      "lesson_id": "intro-objectives",
+      "title": "ನಿಮ್ಮ ಗುರಿ ಏನು?",
+      "subtitle": " ",
+      "description": "ನಿಮ್ಮ ಗುರಿ ಏನು?",
+      "thumbnail_icon": "🎯",
+      "order_no": 2,
+      "estimated_time_minutes": 2
+    },
+    {
+      "id": "intro-lesson-003",
+      "module_id": "module-intro",
+      "lesson_id": "intro-choice",
+      "title": "ನನ್ನ ಚಿಕ್ಕ ಪರಿಚಯ",
+      "subtitle": " ",
+      "description": "ನೀವು ತಿಳಿದುಕೊಳ್ಳಲು ಇಷ್ಟಪಡುತ್ತೀರಾ?",
+      "thumbnail_icon": "❓",
+      "order_no": 3,
+      "estimated_time_minutes": 6
+    },
+    {
+      "id": "intro-lesson-004",
+      "module_id": "module-intro",
+      "lesson_id": "intro-language-definition",
+      "title": "ನಾನು ಭಾಷೆಯಲ್ಲ!",
+      "subtitle": " ",
+      "description": "ಭಾಷೆ ಮತ್ತು ಲಿಪಿಯ ವ್ಯಾಖ್ಯಾನ",
+      "thumbnail_icon": "💬",
+      "order_no": 4,
+      "estimated_time_minutes": 4
+    },
+    {
+      "id": "intro-lesson-005",
+      "module_id": "module-intro",
+      "lesson_id": "intro-specialty",
+      "title": "ನನ್ನ ವಿಶೇಷತೆ",
+      "subtitle": " ",
+      "description": "ನನ್ನ ವಿಶೇಷತೆ ಮತ್ತು ಮಹತ್ವ",
+      "thumbnail_icon": "⭐",
+      "order_no": 5,
+      "estimated_time_minutes": 5
+    },
+    {
+      "id": "intro-lesson-006",
+      "module_id": "module-intro",
+      "lesson_id": "intro-spiritual",
+      "title": "ನನಗೆ ಗೊತ್ತಿದೆ, ನೀವು ಏನು ಯೋಚಿಸುತ್ತಿದ್ದೀರಿ.",
+      "subtitle": " ",
+      "description": "ನಮ್ಮ ಬಳಿ ಇರುವ ಗ್ರಂಥಗಳನ್ನು ನಾವು ಜಿನವಾಣಿ ಎಂದು ಕರೆಯುತ್ತೇವೆ, ಅಂದರೆ ಜಿನೇಂದ್ರ ಭಗವಾನದ ದಿವ್ಯ ಧ್ವನಿ.",
+      "thumbnail_icon": "📜",
+      "order_no": 6,
+      "estimated_time_minutes": 8
+    },
+    {
+      "id": "intro-lesson-007",
+      "module_id": "module-intro",
+      "lesson_id": "intro-time-commitment",
+      "title": "ನನ್ನನ್ನು ಕಲಿಯಲು ನೀವು ಪ್ರತಿದಿನ ಎಷ್ಟು ಸಮಯ ನೀಡಲು ಬಯಸುತ್ತೀರಿ?",
+      "subtitle": " ",
+      "description": "ದೈನಂದಿನ ಅಭ್ಯಾಸ ಸಮಯ",
+      "thumbnail_icon": "⏱️",
+      "order_no": 7,
+      "estimated_time_minutes": 2
+    },
+    {
+      "id": "intro-lesson-008",
+      "module_id": "module-intro",
+      "lesson_id": "intro-encouragement",
+      "title": "ವಾಹ್!",
+      "subtitle": " ",
+      "description": "ಆರಂಭದಿಂದಲೇ ಆರಂಭಿಸೋಣ.",
+      "thumbnail_icon": "🚀",
+      "order_no": 8,
+      "estimated_time_minutes": 2
+    }
+  ],
+  "content": [
+    {
+      "id": "content-001",
+      "lesson_id": "intro-brahmi-intro",
+      "content_type": "title_slide",
+      "title": "BRAHMI LIPI",
+      "content": "",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-002",
+      "lesson_id": "intro-brahmi-intro",
+      "content_type": "text",
+      "title": "ನಾನು ಬ್ರಾಹ್ಮಿ ಲಿಪಿ",
+      "content": "ಅತ್ಯಂತ ಪ್ರಾಚೀನ, ಅತ್ಯಂತ ಮಹತ್ವದ ಮತ್ತು ಅತ್ಯಂತ ಪ್ರಿಯವಾದುದು!",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-003",
+      "lesson_id": "intro-objectives",
+      "content_type": "mcq",
+      "title": "ನಿಮ್ಮ ಗುರಿ ಏನು?",
+      "content": "",
+      "metadata": {
+        "options": [
+          {
+            "text": "ಧಾರ್ಮಿಕ ಜ್ಞಾನಕ್ಕಾಗಿ",
+            "translation": " "
+          },
+          {
+            "text": "ಐತಿಹಾಸಿಕ ಸಂಶೋಧನೆ",
+            "translation": " "
+          },
+          {
+            "text": "ಕೌಶಲ ಅಭಿವೃದ್ಧಿ",
+            "translation": " "
+          },
+          {
+            "text": "ಪರೀಕ್ಷೆ/ವೃತ್ತಿ",
+            "translation": " "
+          }
+        ],
+        "accept_any_answer": true,
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-004",
+      "lesson_id": "intro-choice",
+      "content_type": "questionnaire",
+      "title": "ನನ್ನ ಚಿಕ್ಕ ಪರಿಚಯ",
+      "content": "",
+      "metadata": {
+        "options": [
+          "ನೀವು ತಿಳಿದುಕೊಳ್ಳಲು ಇಷ್ಟಪಡುತ್ತೀರಾ?",
+          "ನಾವು ನೇರವಾಗಿ ಮುಂದಕ್ಕೆ ಸಾಗೋಣವೇ?"
+        ],
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-005",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "",
+      "content": "ನಾನು ಆದಿ ಬ್ರಹ್ಮ, ಮೊದಲ ತೀರ್ಥಂಕರ ಮಹಾರಾಜ ಶ್ರೀ ಋಷಭದೇವರವರು ರಚಿಸಿದ ಲಿಪಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-006",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "",
+      "content": "ಅವರು ತಮ್ಮ ಪುತ್ರಿ ಬ್ರಾಹ್ಮಿಗೆ ಬೋಧಿಸುವಾಗ ನನ್ನನ್ನು ರಚಿಸಿದರು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 3
+    },
+    {
+      "id": "content-007",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "",
+      "content": "ಬ್ರಾಹ್ಮಿಯ ಜೊತೆಗೆ ಮಹಾರಾಜ ಶ್ರೀ ಋಷಭದೇವರು ತಮ್ಮ ಇನ್ನೊಂದು ಪುತ್ರಿ ಸುಂದರಿಗೂ 'ಅಂಕ ವಿದ್ಯೆ' ಬೋಧಿಸಿದರು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 4
+    },
+    {
+      "id": "content-008",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "",
+      "content": "ಅವರು ಇಬ್ಬರೂ ಭಗವಾನ್ ಶ್ರೀ ಋಷಭದೇವರಿಂದ ನೀಡಲಾದ ವಿದ್ಯೆಯನ್ನು ವ್ಯಾಪಕವಾಗಿ ಪ್ರಸಾರ ಮಾಡಿದರು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 5
+    },
+    {
+      "id": "content-009",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "ನನ್ನ ಹೆಸರು 'ಬ್ರಾಹ್ಮೀ ಲಿಪಿ' ಯಾಕೆ ಬಂತು?",
+      "content": "ಈ ಲಿಪಿಯ ಜ್ಞಾನವನ್ನು ಸಾಮಾನ್ಯ ಜನರಿಗೆ ರಾಜಕುಮಾರಿ ಬ್ರಾಹ್ಮಿಯವರು ನೀಡಿದರು, ಅದಕ್ಕಾಗಿ ನನ್ನ ಹೆಸರು 'ಬ್ರಾಹ್ಮೀ ಲಿಪಿ' ಆಯಿತು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 6
+    },
+    {
+      "id": "content-010",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "ನಾನು ಭಾಷೆಯಲ್ಲ!",
+      "content": "ನಾನು ಭಾಷೆಯಲ್ಲ, ಕೇವಲ ಬರೆಯುವ ವಿಧಾನ ಮಾತ್ರ ಎಂಬುದನ್ನು ನೆನಪಿಡಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 7
+    },
+    {
+      "id": "content-011",
+      "lesson_id": "intro-language-definition",
+      "content_type": "text",
+      "title": "",
+      "content": "\"ನಾವು ನಮ್ಮ ಭಾವನೆಗಳನ್ನು ಪರಸ್ಪರ ವ್ಯಕ್ತಪಡಿಸುವ ಮಾಧ್ಯಮವನ್ನು 'ಭಾಷೆ' ಎಂದು ಕರೆಯುತ್ತಾರೆ.\"\nಉದಾಹರಣೆ – ಹಿಂದಿ, ಪಂಜಾಬಿ, ಬೆಂಗಾಳಿ, ತೆಲುಗು, ತಮಿಳು, ಗುಜರಾತಿ, ಕನ್ನಡ, ಒಡಿಯಾ, ಇಂಗ್ಲಿಷ್ ಇತ್ಯಾದಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-012",
+      "lesson_id": "intro-language-definition",
+      "content_type": "text",
+      "title": "",
+      "content": "\"ಯಾವುದೇ ಭಾಷೆಯನ್ನು ಬರೆಯಲು ಬಳಸುವ ಮಾಧ್ಯಮವನ್ನು 'ಲಿಪಿ' ಎಂದು ಕರೆಯುತ್ತಾರೆ.\"\nಅಥವಾ\n\"ಮೌಖಿಕ ಧ್ವನಿಗಳನ್ನು ಬರಹ ರೂಪದಲ್ಲಿ ವ್ಯಕ್ತಪಡಿಸಲು ಬಳಸುವ ಚಿಹ್ನೆಗಳನ್ನು ಲಿಪಿ ಎಂದು ಕರೆಯುತ್ತಾರೆ.\"\nಉದಾಹರಣೆ – ಹಿಂದಿ–ದೇವನಾಗರಿ, ಪಂಜಾಬಿ–ಗುರ್ಮುಖಿ, ಬೆಂಗಾಳಿ–ಬೆಂಗಾಳಿ, ತೆಲುಗು–ತೆಲುಗು, ತಮಿಳು–ತಮಿಳು, ಗುಜರಾತಿ–ಗುಜರಾತಿ, ಕನ್ನಡ–ಕನ್ನಡ, ಒಡಿಯಾ–ಒಡಿಯಾ, ಇಂಗ್ಲಿಷ್–ಲ್ಯಾಟಿನ್ (ರೋಮನ) ಇತ್ಯಾದಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-013",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "ನನ್ನ ವಿಶೇಷತೆ",
+      "content": "ನಾನು ಮೂಲತಃ 'ಪ್ರಾಕೃತ ಭಾಷೆ'ಯ ಲಿಪಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-014",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "",
+      "content": "ಆದರೆ, ದೇವನಾಗರಿ ಅಥವಾ ಲ್ಯಾಟಿನ್/ರೋಮನ ಲಿಪಿಯಂತೆ ಯಾವುದೇ ಭಾಷೆಯನ್ನು ಬರೆಯಲು ನನ್ನನ್ನು ಬಳಸಬಹುದು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-015",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "",
+      "content": "ಹೌದು, ನಾನು ನಿಮಗೆ ಒಂದು ರಹಸ್ಯವನ್ನು ಹೇಳುತ್ತೇನೆ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 3
+    },
+    {
+      "id": "content-016",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "",
+      "content": "ನೀವು ನನ್ನನ್ನು ನಿಮ್ಮ ರಹಸ್ಯ ಲಿಪಿಯಾಗಿ ಬಳಸಿಕೊಂಡು ನಿಮ್ಮ ಎಲ್ಲಾ ರಹಸ್ಯಗಳನ್ನು ಸಾಮಾನ್ಯ ಜನರಿಂದ ಮರೆಯಬಹುದು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 4
+    },
+    {
+      "id": "content-017",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "ನನ್ನ ಮಹತ್ವ",
+      "content": "ನನ್ನ ಸ್ವರಗಳು ಮತ್ತು ವ್ಯಂಜನಗಳು ದೇವನಾಗರಿ (ಹಿಂದಿ) ಯಂತೆಯೇ ಇವೆ.\nನಾನು ನಿಮಗೆ ನೇರವಾಗಿ ತೀರ್ಥಂಕರ ಶ್ರೀ ಋಷಭದೇವರೊಂದಿಗೆ ಸಂಪರ್ಕ ಕಲ್ಪಿಸಬಹುದು.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 5
+    },
+    {
+      "id": "content-018",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "",
+      "content": "ಆದುದರಿಂದ, ನನ್ನನ್ನು ಬಿಡಬೇಡಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 6
+    },
+    {
+      "id": "content-019",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ನಾನು ನಿಮಗೆ ನೇರವಾಗಿ ತೀರ್ಥಂಕರ ಋಷಭದೇವ ಮಹಾರಾಜರೊಂದಿಗೆ ಸಂಪರ್ಕ ಕಲ್ಪಿಸಲು ಸಂಪೂರ್ಣ ಪ್ರಯತ್ನ ಮಾಡುತ್ತೇನೆ, ಏಕೆಂದರೆ ಈಗ ನಾನು ಮಾತ್ರ ತೀರ್ಥಂಕರರ ನಿಜವಾದ ಸ್ಮೃತಿ ರೂಪವಾಗಿ ಉಳಿದಿದ್ದೇನೆ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-020",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ನನಗೆ ಗೊತ್ತಿದೆ, ನೀವು ಏನು ಯೋಚಿಸುತ್ತಿದ್ದೀರಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-021",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ನಮ್ಮ ಬಳಿ ಇರುವ ಗ್ರಂಥಗಳನ್ನು ನಾವು ಜಿನವಾಣಿ ಎಂದು ಕರೆಯುತ್ತೇವೆ, ಅಂದರೆ ಜಿನೇಂದ್ರ ಭಗವಾನದ ದಿವ್ಯ ಧ್ವನಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 3
+    },
+    {
+      "id": "content-022",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ಹೀಗಾಗಿ, ತೀರ್ಥಂಕರ ಭಗವಾನದ ನೇರ ಸ್ವರೂಪ ನಮ್ಮೆಲ್ಲರಲ್ಲಿದೆ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 4
+    },
+    {
+      "id": "content-023",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ಹೌದು, ಖಂಡಿತ! ನೀವು ಸರಿಯಾಗಿ ಹೇಳಿದ್ದಾರೆ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 5
+    },
+    {
+      "id": "content-024",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ಆದರೆ, ಒಮ್ಮೆ ಯೋಚಿಸಿ— ನಮ್ಮ ಬಳಿ ಇರುವ ಗ್ರಂಥಗಳನ್ನು ನಾವು ಜಿನವಾಣಿ ಸ್ವರೂಪವಾಗಿ ಮಾನಿಸಿ ಪೂಜಿಸುತ್ತೇವೆ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 6
+    },
+    {
+      "id": "content-025",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ಭಗವಾನದ ದಿವ್ಯಧ್ವನಿಯನ್ನು ಗಣಧರರು ಸಂಗ್ರಹಿಸಿ, ಆಚಾರ್ಯರಿಗೆ ಒಪ್ಪಿಸಿದರು; ನಂತರ ಪರಂಪರೆಯಿಂದ ನಮಗೆ ಸ್ವಲ್ಪ ಮಾತ್ರ ಬಂದಿದೆ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 7
+    },
+    {
+      "id": "content-026",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ಆದರೆ ಅದು ನೇರ ಜಿನವಾಣಿ ಅಲ್ಲ, ಪರಂಪರೆಯ ರೂಪದ ಜಿನವಾಣಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 8
+    },
+    {
+      "id": "content-027",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ಭಗವಾನ್ ಶ್ರೀ ಋಷಭದೇವರ ಪವಿತ್ರ ನಿರ್ವಾಣದ ನಂತರ, ಅನಂತ ಕಾಲಯಾನವನ್ನು ದಾಟಿ, ನಾನು ಇಂದು ನಿಮ್ಮ ಮುಂದೆ ನಿಂತಿದ್ದೇನೆ— ಅನಂತ ಯುಗಗಳ ಸ್ಮೃತಿಗಳು, ಶುದ್ಧ ಅಕ್ಷುಣ್ಣ ಜ್ಞಾನ ಮತ್ತು ಭಗವಾನ್ ಋಷಭದೇವರ ದಿವ್ಯ ಪರಂಪರೆಯೊಂದಿಗೆ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 9
+    },
+    {
+      "id": "content-028",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ಹೀಗಾಗಿ ನೀವು ಈಗ ಅರ್ಥಮಾಡಿಕೊಂಡಿದ್ದೀರಿ, ನಾನು ಹೇಗಿದ್ದೇನೆ— ತೀರ್ಥಂಕರ ಭಗವಾನದ ಸ್ಮೃತಿ ರೂಪವಾಗಿ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 10
+    },
+    {
+      "id": "content-029",
+      "lesson_id": "intro-time-commitment",
+      "content_type": "questionnaire",
+      "title": "ನನ್ನನ್ನು ಕಲಿಯಲು ನೀವು ಪ್ರತಿದಿನ ಎಷ್ಟು ಸಮಯ ನೀಡಲು ಬಯಸುತ್ತೀರಿ?",
+      "content": "",
+      "metadata": {
+        "options": [
+          "3 ನಿಮಿಷ",
+          "5 ನಿಮಿಷ",
+          "8 ನಿಮಿಷ",
+          "10 ನಿಮಿಷ",
+          "15 ನಿಮಿಷ"
+        ],
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-030",
+      "lesson_id": "intro-encouragement",
+      "content_type": "text",
+      "title": "",
+      "content": "ವಾಹ್!",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-031",
+      "lesson_id": "intro-encouragement",
+      "content_type": "text",
+      "title": "",
+      "content": "ಇದರಿಂದ ನೀವು ಬಹಳ ಕಡಿಮೆ ಸಮಯದಲ್ಲಿ ಸಂಪೂರ್ಣ ಬ್ರಾಹ್ಮೀ ಲಿಪಿಯನ್ನು ಕಲಿಯಬಹುದು ಎಂಬುದು ಸ್ಪಷ್ಟವಾಗುತ್ತದೆ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-032",
+      "lesson_id": "intro-encouragement",
+      "content_type": "title_slide",
+      "title": "ಬನ್ನಿ! ಆರಂಭಿಸೋಣ",
+      "content": "ಆರಂಭದಿಂದಲೇ ಆರಂಭಿಸೋಣ.",
+      "metadata": {
+        "buttonText": "ಮುಂದೆ"
+      },
+      "order_no": 3
+    }
+  ]
+}
