@@ -1,4 +1,199 @@
 {
+  "module_title": "स्वर",
+  "section_1_module_title": {
+    "LanguageValueHindi": "स्वर",
+    "English": "Vowels",
+    "Kannada": "ಸ್ವರಗಳು"
+  },
+  "section_2_vowel_display_cards": {
+    "group_1": {
+      "vowels_shown": {
+        "Hindi": "अ आ इ ई",
+        "Brahmi": "𑀅 𑀆 𑀇 𑀈",
+        "English": "a aa i ee",
+        "Kannada": "ಅ ಆ ಇ ಈ"
+      },
+      "next_button": {
+        "Hindi": "अगला",
+        "English": "Next",
+        "Kannada": "ಮುಂದೆ"
+      }
+    },
+    "group_2": {
+      "vowels_shown": {
+        "Hindi": "उ ऊ ए ऐ",
+        "Brahmi": "𑀉 𑀊 𑀏 𑀐",
+        "English": "u oo e ai",
+        "Kannada": "ಉ ಊ ಏ ಐ"
+      },
+      "next_button": {
+        "Hindi": "अगला",
+        "English": "Next",
+        "Kannada": "ಮುಂದೆ"
+      }
+    },
+    "group_3": {
+      "vowels_shown": {
+        "Hindi": "ओ औ अं अः",
+        "Brahmi": "𑀑 𑀒 𑀅𑀁 𑀅𑀂",
+        "English": "o au am ah",
+        "Kannada": "ಒ ಔ ಅಂ ಅಃ"
+      },
+      "next_button": {
+        "Hindi": "अगला",
+        "English": "Next",
+        "Kannada": "ಮುಂದೆ"
+      }
+    }
+  },
+  "section_3_practice_prompt": {
+    "prompt": "क्या अब आप मेरे साथ अभ्यास करना चाहेंगे?",
+    "yes": "हां",
+    "no": "नहीं"
+  },
+  "section_4_game_time": {
+    "game_title": "गेम टाइम",
+    "direction_label": "देवनागरी → ब्राह्मी",
+    "next_button": "अगला"
+  },
+  "section_5_quiz1_native_to_brahmi": {
+    "instructions": "Each question shows a native-script vowel. The user picks the correct Brahmi symbol from 4 options. The 4 Brahmi option symbols are IDENTICAL across all 3 languages — only the question vowel label changes.",
+    "questions": [
+      { "id": "Q1", "question": "अ", "options_brahmi": ["𑀆","𑀇","𑀉","𑀅𑀅"], "correct": "𑀅" },
+      { "id": "Q2", "question": "आ", "options_brahmi": ["𑀐","𑀏","𑀆","𑀊𑀆"], "correct": "𑀆" },
+      { "id": "Q3", "question": "इ", "options_brahmi": ["𑀇","𑀑","𑀉","𑀅𑀂𑀇"], "correct": "𑀇" },
+      { "id": "Q4", "question": "ई", "options_brahmi": ["𑀐","𑀊","𑀒","𑀈𑀈"], "correct": "𑀈" },
+      { "id": "Q5", "question": "उ", "options_brahmi": ["𑀒","𑀉","𑀏","𑀈𑀉"], "correct": "𑀉" },
+      { "id": "Q6", "question": "ऊ", "options_brahmi": ["𑀐","𑀅","𑀊","𑀈𑀊"], "correct": "𑀊" },
+      { "id": "Q7", "question": "ए", "options_brahmi": ["𑀈","𑀏","𑀅𑀁","𑀆𑀏"], "correct": "𑀏" },
+      { "id": "Q8", "question": "ऐ", "options_brahmi": ["𑀒","𑀉","𑀑","𑀐𑀐"], "correct": "𑀐" },
+      { "id": "Q9", "question": "ओ", "options_brahmi": ["𑀊","𑀏","𑀑","𑀈𑀑"], "correct": "𑀑" },
+      { "id": "Q10", "question": "औ", "options_brahmi": ["𑀉","𑀒","𑀐","𑀇𑀒"], "correct": "𑀒" },
+      { "id": "Q11", "question": "अं", "options_brahmi": ["𑀅𑀁","𑀆","𑀒","𑀈𑀅𑀁"], "correct": "𑀅𑀁" },
+      { "id": "Q12", "question": "अः", "options_brahmi": ["𑀏","𑀅𑀂","𑀑","𑀉𑀅𑀂"], "correct": "𑀅𑀂" }
+    ],
+    "next_button": "अगला"
+  },
+  "section_6_post_quiz1_encouragement": {
+    "hurray": "हुर्रे!",
+    "encouragement_message": "आप वास्तविकता में विशेष जिज्ञासु और सीखने के इच्छुक हैं, तभी तो आप इस अनोखी यात्रा के इस पड़ाव तक पहुंच पाए हैं।",
+    "congratulations_line": "हार्दिक बधाई और शुभकामनाएं!"
+  },
+  "section_7_true_false_bonus": {
+    "label": "सही / गलत",
+    "bonus_question": "\"ब्राह्मी एक भाषा है?\"",
+    "answer_buttons": { "true": "सही", "false": "गलत" }
+  },
+  "section_8_reward_1": {
+    "header": "पुरस्कार : 1",
+    "body": "आपने पहला चरण सफलता-पूर्वक पूरा किया। \"सम्यक् प्रज्ञा सम्मान\" अब आपका है।",
+    "motivational_message": "यह सिर्फ़ एक शुरुआत है– आगे और भी रोमाञ्चक स्तर आपका इन्तज़ार कर रहे हैं। आपके हर सही कदम के साथ, आप ज्ञान की सीढ़ियों पर और ऊपर बढ़ते जाएंगे।",
+    "share_download": "अपनी जीत को साझा करें/डाउनलोड करें"
+  },
+  "section_9_quiz2_intro": {
+    "announcement": "चलिए अब हम उल्टा गेम खेलते हैं।",
+    "direction_label": "ब्राह्मी → देवनागरी",
+    "next_button": "अगला"
+  },
+  "section_10_quiz2_brahmi_to_native": {
+    "instructions": "Each question shows a Brahmi symbol. The user picks the correct native-script vowel from 4 options. The Brahmi symbol shown is IDENTICAL across all languages — only the 4 answer options change per language.",
+    "questions": [
+      { "id": "Q1", "brahmi": "𑀅", "options": ["अ","आ","इ","उ"], "correct": "अ" },
+      { "id": "Q2", "brahmi": "𑀆", "options": ["अ","आ","ई","ओ"], "correct": "आ" },
+      { "id": "Q3", "brahmi": "𑀇", "options": ["ऊ","इ","ए","ऐ"], "correct": "इ" },
+      { "id": "Q4", "brahmi": "𑀈", "options": ["ए","अं","आई","ई"], "correct": "ई" },
+      { "id": "Q5", "brahmi": "𑀉", "options": ["इ","ओ","उ","अः"], "correct": "उ" },
+      { "id": "Q6", "brahmi": "𑀊", "options": ["ऊ","ऐ","अं","ए"], "correct": "ऊ" },
+      { "id": "Q7", "brahmi": "𑀏", "options": ["ओ","अं","अः","ए"], "correct": "ए" },
+      { "id": "Q8", "brahmi": "𑀐", "options": ["ए","ऐ","ऊ","उ"], "correct": "ऐ" },
+      { "id": "Q9", "brahmi": "𑀑", "options": ["औ","ओ","अः","आ"], "correct": "ओ" },
+      { "id": "Q10", "brahmi": "𑀒", "options": ["ओ","अ","अं","औ"], "correct": "औ" },
+      { "id": "Q11", "brahmi": "𑀅𑀁", "options": ["अं","अः","ओ","उ"], "correct": "अं" },
+      { "id": "Q12", "brahmi": "𑀅𑀂", "options": ["अं","ए","अः","ई"], "correct": "अः" }
+    ]
+  },
+  "section_11_reward_2": {
+    "header": "पुरस्कार : 2",
+    "body": "आपने दूसरा चरण पूरा किया – शानदार! आपने एक और मील का पत्थर पार किया \"लिपि आस्था सम्मान\" अब आपका है।",
+    "share_download": "अपनी जीत को साझा करें/डाउनलोड करें"
+  },
+  "section_12_writing_practice_intro": {
+    "invitation": "आइए! अब लिखने का अभ्यास करते हैं।",
+    "excitement_check": "क्या आप मुझे लिखने के लिए उत्साहित हैं?",
+    "feedback_request": "आप मुझे फीडबैक दे सकते हैं और हाँ, मुझे निष्पक्ष फीडबैक ही दीजिएगा।",
+    "next_button": "अगला"
+  },
+  "section_13_tracing_slides": {
+    "slides": [
+      { "number": 1, "label": "अ → 𑀅" },
+      { "number": 2, "label": "आ → 𑀆" },
+      { "number": 3, "label": "इ → 𑀇" },
+      { "number": 4, "label": "ई → 𑀈" },
+      { "number": 5, "label": "उ → 𑀉" },
+      { "number": 6, "label": "ऊ → 𑀊" },
+      { "number": 7, "label": "ए → 𑀏" },
+      { "number": 8, "label": "ऐ → 𑀐" },
+      { "number": 9, "label": "ओ → 𑀑" },
+      { "number": 10, "label": "औ → 𑀒" },
+      { "number": 11, "label": "अं → 𑀅𑀁" },
+      { "number": 12, "label": "अः → 𑀅𑀂" }
+    ]
+  },
+  "section_14_reward_3": {
+    "praise": "आप सचमुच ज्ञान के सागर में गोता लगा रहे हैं – बहुत अच्छे!",
+    "header": "पुरस्कार : 3",
+    "body": "आपने तीसरा चरण पूरा किया – बढ़िया! आपका आत्मविश्वास प्रशंसनीय है, आपने \"अक्षर साधना\" का सम्मान प्राप्त किया।",
+    "share_download": "अपनी जीत को साझा करें/डाउनलोड करें"
+  },
+  "section_15_true_false_quiz_stage_4": {
+    "header": "स्वर अभ्यास – देवनागरी → ब्राह्मी / सत्य/असत्य चुनिए",
+    "pages": {
+      "page_1": {
+        "Q1": { "text": "\"अ\" का चिह्न [𑀅] है?", "answer": true },
+        "Q2": { "text": "\"आ\" का चिह्न [𑀇] है?", "answer": false },
+        "Q3": { "text": "\"इ\" का चिह्न [𑀆] है?", "answer": false },
+        "Q4": { "text": "\"ई\" का चिह्न [𑀈] है?", "answer": true }
+      },
+      "page_2": {
+        "Q5": { "text": "\"उ\" का चिह्न [𑀊] है?", "answer": false },
+        "Q6": { "text": "\"ऊ\" का चिह्न [𑀐] है?", "answer": false },
+        "Q7": { "text": "\"ए\" का चिह्न [𑀏] है?", "answer": true },
+        "Q8": { "text": "\"ऐ\" का चिह्न [𑀐] है?", "answer": true }
+      },
+      "page_3": {
+        "Q9": { "text": "\"ओ\" का चिह्न [𑀊] है?", "answer": false },
+        "Q10": { "text": "\"औ\" का चिह्न [𑀈] है?", "answer": false },
+        "Q11": { "text": "\"अं\" का चिह्न [𑀅𑀁] है?", "answer": true },
+        "Q12": { "text": "\"अः\" का चिह्न [𑀅𑀂] है?", "answer": true }
+      }
+    },
+    "next_button": "अगला"
+  },
+  "section_16_reward_4": {
+    "praise_before": "आप सूर्य की तरह चमक रहे हैं – प्रकाश प्रसारित करते रहिए!",
+    "header": "पुरस्कार : 4",
+    "body_line_1": "आपने चौथा चरण पूरा किया",
+    "body_line_2": "आपने सही निशाना लगाया - \"लक्ष्य साधक\" का सम्मान प्राप्त किया।",
+    "enthusiasm_message": "आप सबसे आगे निकल रहे हैं, अपार आनन्द आ रहा है!",
+    "share_download": "अपनी जीत को साझा करें/डाउनलोड करें",
+    "next_button": "अगला"
+  },
+  "section_17_next_section_choice": {
+    "question": "अब आपके ऊपर है, क्या सीखना चाहते हैं?",
+    "option_a": "मात्रा चिह्न",
+    "option_b": "व्यञ्जन"
+  },
+  "section_18_reward_5": {
+    "confirmation": "मात्रा चिह्न / आपने सही विकल्प चयन किया है क्रमानुसार",
+    "motivational_message": "\"आप सही मार्ग पर दृढ़ता से आगे बढ़ रहे हैं– आपके इस सुन्दर चयन और सङ्कल्प के लिए ढेरों शुभकामनाएं। आपकी यह यात्रा सफलता और गौरव से भरपूर हो!\"",
+    "reward_title": "\"श्रेष्ठ ज्ञानी\"",
+    "champion_congratulation": "बधाई हो, चैम्पियन! आपने न सिर्फ़ सही चयन किया, अपितु अपने ज्ञान का बेहतरीन प्रयोग भी किया है।",
+    "reward_line": "आपका पुरस्कार : 5 पॉइंट्स + \"श्रेष्ठ ज्ञानी\" सम्मान / यह सम्मान आपके तेज दिमाग़ और सही निर्णय का प्रमाण है।",
+    "message_label": "सन्देश :",
+    "message_content": "\"ज्ञान वही है, जो उचित समय पर उचित स्थान पर प्रयोग में आवे। आपने यह सत्यापित कर दिया है!\""
+  }
+}
+{
   "vowels": [
     {
       "id": "swar-001",

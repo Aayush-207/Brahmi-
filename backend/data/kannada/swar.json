@@ -1,0 +1,194 @@
+{
+  "module_title": "ಸ್ವರಗಳು",
+  "section_1_module_title": {
+    "Hindi": "स्वर",
+    "English": "Vowels",
+    "LanguageValueKannada": "ಸ್ವರಗಳು"
+  },
+  "section_2_vowel_display_cards": {
+    "group_1": {
+      "vowels_shown": {
+        "Kannada": "ಅ ಆ ಇ ಈ",
+        "Brahmi": "𑀅 𑀆 𑀇 𑀈",
+        "Hindi": "अ आ इ ई",
+        "English": "a aa i ee"
+      },
+      "next_button": {
+        "Kannada": "ಮುಂದೆ",
+        "Hindi": "अगला",
+        "English": "Next"
+      }
+    },
+    "group_2": {
+      "vowels_shown": {
+        "Kannada": "ಉ ಊ ಏ ಐ",
+        "Brahmi": "𑀉 𑀊 𑀏 𑀐",
+        "Hindi": "उ ऊ ए ऐ",
+        "English": "u oo e ai"
+      },
+      "next_button": {
+        "Kannada": "ಮುಂದೆ",
+        "Hindi": "अगला",
+        "English": "Next"
+      }
+    },
+    "group_3": {
+      "vowels_shown": {
+        "Kannada": "ಒ ಔ ಅಂ ಅಃ",
+        "Brahmi": "𑀑 𑀒 𑀅𑀁 𑀅𑀂",
+        "Hindi": "ओ औ अं अः",
+        "English": "o au am ah"
+      },
+      "next_button": {
+        "Kannada": "ಮುಂದೆ",
+        "Hindi": "अगला",
+        "English": "Next"
+      }
+    }
+  },
+  "section_3_practice_prompt": {
+    "prompt": "ಈಗ ನೀವು ನನ್ನೊಂದಿಗೆ ಅಭ್ಯಾಸ ಮಾಡಲು ಇಚ್ಛಿಸುತ್ತೀರಾ?",
+    "yes": "ಹೌದು",
+    "no": "ಇಲ್ಲ"
+  },
+  "section_4_game_time": {
+    "game_title": "ಆಟದ ಸಮಯ",
+    "direction_label": "ಕನ್ನಡ → ಬ್ರಾಹ್ಮೀ",
+    "next_button": "ಮುಂದೆ"
+  },
+  "section_5_quiz1_native_to_brahmi": {
+    "instructions": "Each question shows a native-script vowel. The user picks the correct Brahmi symbol from 4 options. The 4 Brahmi option symbols are IDENTICAL across all 3 languages — only the question vowel label changes.",
+    "questions": [
+      { "id": "Q1", "question": "ಅ", "options_brahmi": ["𑀆","𑀇","𑀉","𑀅𑀅"], "correct": "𑀅" },
+      { "id": "Q2", "question": "ಆ", "options_brahmi": ["𑀐","𑀏","𑀆","𑀊𑀆"], "correct": "𑀆" },
+      { "id": "Q3", "question": "ಇ", "options_brahmi": ["𑀇","𑀑","𑀉","𑀅𑀂𑀇"], "correct": "𑀇" },
+      { "id": "Q4", "question": "ಈ", "options_brahmi": ["𑀐","𑀊","𑀒","𑀈𑀈"], "correct": "𑀈" },
+      { "id": "Q5", "question": "ಉ", "options_brahmi": ["𑀒","𑀉","𑀏","𑀈𑀉"], "correct": "𑀉" },
+      { "id": "Q6", "question": "ಊ", "options_brahmi": ["𑀐","𑀅","𑀊","𑀈𑀊"], "correct": "𑀊" },
+      { "id": "Q7", "question": "ಏ", "options_brahmi": ["𑀈","𑀏","𑀅𑀁","𑀆𑀏"], "correct": "𑀏" },
+      { "id": "Q8", "question": "ಐ", "options_brahmi": ["𑀒","𑀉","𑀑","𑀐𑀐"], "correct": "𑀐" },
+      { "id": "Q9", "question": "ಒ", "options_brahmi": ["𑀊","𑀏","𑀑","𑀈𑀑"], "correct": "𑀑" },
+      { "id": "Q10", "question": "ಔ", "options_brahmi": ["𑀉","𑀒","𑀐","𑀇𑀒"], "correct": "𑀒" },
+      { "id": "Q11", "question": "ಅಂ", "options_brahmi": ["𑀅𑀁","𑀆","𑀒","𑀈𑀅𑀁"], "correct": "𑀅𑀁" },
+      { "id": "Q12", "question": "ಅಃ", "options_brahmi": ["𑀏","𑀅𑀂","𑀑","𑀉𑀅𑀂"], "correct": "𑀅𑀂" }
+    ],
+    "next_button": "ಮುಂದೆ"
+  },
+  "section_6_post_quiz1_encouragement": {
+    "hurray": "ಹುರ್ರೆ!",
+    "encouragement_message": "ನೀವು ನಿಜವಾಗಿಯೂ ಕುತೂಹಲವುಳ್ಳವರು ಮತ್ತು ಕಲಿಯುವ ಆಸೆ ಹೊಂದಿದ್ದೀರಿ, ಆದ್ದರಿಂದಲೇ ನೀವು ಈ ಅನನ್ಯ ಪ್ರಯಾಣದ ಈ ಹಂತಕ್ಕೆ ಬಂದಿದ್ದೀರಿ।",
+    "congratulations_line": "ಹೃತ್ಪೂರ್ವಕ ಅಭಿನಂದನೆಗಳು ಮತ್ತು ಶುಭಾಶಯಗಳು!"
+  },
+  "section_7_true_false_bonus": {
+    "label": "ಸರಿ ತಪ್ಪು",
+    "bonus_question": "\"ಬ್ರಾಹ್ಮೀ ಒಂದು ಭಾಷೆಯೇ?\"",
+    "answer_buttons": { "true": "ಸರಿ", "false": "ತಪ್ಪು" }
+  },
+  "section_8_reward_1": {
+    "header": "ಬಹುಮಾನ: 1",
+    "body": "ನೀವು ಮೊದಲ ಹಂತವನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಪೂರ್ಣಗೊಳಿಸಿದ್ದೀರಿ. \"ಸಮ್ಯಕ್ ಪ್ರಜ್ಞಾ ಸಮ್ಮಾನ\" ಈಗ ನಿಮ್ಮದು।",
+    "motivational_message": "ಇದು ಕೇವಲ ಆರಂಭ ಮಾತ್ರ— ಮುಂದೇ ಇನ್ನೂ ರೋಮಾಂಚಕ ಹಂತಗಳು ನಿಮ್ಮನ್ನು ಕಾಯುತ್ತಿವೆ. ಪ್ರತಿ ಸರಿಯಾದ ಹೆಜ್ಜೆಯೊಂದಿಗೆ ನೀವು ಜ್ಞಾನದ ಮೆಟ್ಟಿಲುಗಳಲ್ಲಿ ಮೇಲಕ್ಕೆ ಏರುತ್ತೀರಿ।",
+    "share_download": "ನಿಮ್ಮ ಸಾಧನೆಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ/ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ"
+  },
+  "section_9_quiz2_intro": {
+    "announcement": "ಈಗ ನಾವು ವಿರುದ್ಧ ಆಟವನ್ನು ಆಡೋಣ।",
+    "direction_label": "ಬ್ರಾಹ್ಮೀ → ಕನ್ನಡ",
+    "next_button": "ಮುಂದೆ"
+  },
+  "section_10_quiz2_brahmi_to_native": {
+    "questions": [
+      { "id": "Q1", "brahmi": "𑀅", "options": ["ಅ","ಆ","ಇ","ಉ"], "correct": "ಅ" },
+      { "id": "Q2", "brahmi": "𑀆", "options": ["ಅ","ಆ","ಈ","ಒ"], "correct": "ಆ" },
+      { "id": "Q3", "brahmi": "𑀇", "options": ["ಊ","ಇ","ಏ","ಐ"], "correct": "ಇ" },
+      { "id": "Q4", "brahmi": "𑀈", "options": ["ಏ","ಅಂ","ಆಈ","ಈ"], "correct": "ಈ" },
+      { "id": "Q5", "brahmi": "𑀉", "options": ["ಇ","ಒ","ಉ","ಅಃ"], "correct": "ಉ" },
+      { "id": "Q6", "brahmi": "𑀊", "options": ["ಊ","ಐ","ಅಂ","ಏ"], "correct": "ಊ" },
+      { "id": "Q7", "brahmi": "𑀏", "options": ["ಒ","ಅಂ","ಅಃ","ಏ"], "correct": "ಏ" },
+      { "id": "Q8", "brahmi": "𑀐", "options": ["ಏ","ಐ","ಊ","ಉ"], "correct": "ಐ" },
+      { "id": "Q9", "brahmi": "𑀑", "options": ["ಔ","ಒ","ಅಃ","ಆ"], "correct": "ಒ" },
+      { "id": "Q10", "brahmi": "𑀒", "options": ["ಓ","ಅ","ಅಂ","ಔ"], "correct": "ಔ" },
+      { "id": "Q11", "brahmi": "𑀅𑀁", "options": ["ಅಂ","ಅಃ","ಓ","ಉ"], "correct": "ಅಂ" },
+      { "id": "Q12", "brahmi": "𑀅𑀂", "options": ["ಅಂ","ಏ","ಅಃ","ಈ"], "correct": "ಅಃ" }
+    ]
+  },
+  "section_11_reward_2": {
+    "header": "ಬಹುಮಾನ: 2",
+    "body": "ನೀವು ಎರಡನೇ ಹಂತವನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದ್ದೀರಿ – ಅದ್ಭುತ! ನೀವು ಇನ್ನೊಂದು ಮೈಲಿಗಲ್ಲನ್ನು ಸಾಧಿಸಿದ್ದೀರಿ. \"ಲಿಪಿ ಆಸ್ಥಾ ಸಮ್ಮಾನ\" ಈಗ ನಿಮ್ಮದು।",
+    "share_download": "ನಿಮ್ಮ ಸಾಧನೆಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ/ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ"
+  },
+  "section_12_writing_practice_intro": {
+    "invitation": "ಬನ್ನಿ! ಈಗ ಬರೆಯುವ ಅಭ್ಯಾಸ ಮಾಡೋಣ.",
+    "excitement_check": "ನನ್ನನ್ನು ಬರೆಯಲು ನೀವು ಉತ್ಸುಕರಾಗಿದ್ದೀರಾ?",
+    "feedback_request": "ನೀವು ನನಗೆ ಪ್ರತಿಕ್ರಿಯೆ ನೀಡಬಹುದು, ಹೌದು, ದಯವಿಟ್ಟು ನಿಷ್ಪಕ್ಷಪಾತ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನೇ ನೀಡಿ.",
+    "next_button": "ಮುಂದೆ"
+  },
+  "section_13_tracing_slides": {
+    "slides": [
+      { "number": 1, "label": "ಅ → 𑀅" },
+      { "number": 2, "label": "ಆ → 𑀆" },
+      { "number": 3, "label": "ಇ → 𑀇" },
+      { "number": 4, "label": "ಈ → 𑀈" },
+      { "number": 5, "label": "ಉ → 𑀉" },
+      { "number": 6, "label": "ಊ → 𑀊" },
+      { "number": 7, "label": "ಏ → 𑀏" },
+      { "number": 8, "label": "ಐ → 𑀐" },
+      { "number": 9, "label": "ಒ → 𑀑" },
+      { "number": 10, "label": "ಔ → 𑀒" },
+      { "number": 11, "label": "ಅಂ → 𑀅𑀁" },
+      { "number": 12, "label": "ಅः → 𑀅𑀂" }
+    ]
+  },
+  "section_14_reward_3": {
+    "praise": "ನೀವು ನಿಜವಾಗಿಯೂ ಜ್ಞಾನದ ಸಾಗರದಲ್ಲಿ ಮುಳುಗುತ್ತಿದ್ದೀರಿ – ಬಹಳ ಚೆನ್ನಾಗಿದೆ!",
+    "header": "ಬಹುಮಾನ: 3",
+    "body": "ನೀವು ಮೂರನೇ ಹಂತವನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದ್ದೀರಿ – ಅತ್ಯುತ್ತಮ! ನಿಮ್ಮ ಆತ್ಮವಿಶ್ವಾಸ ಪ್ರಶಂಸನೀಯವಾಗಿದೆ, ನೀವು \"ಅಕ್ಷರ ಸಾಧನಾ\" ಪ್ರಶಸ್ತಿಯನ್ನು ಪಡೆದಿದ್ದೀರಿ.",
+    "share_download": "ನಿಮ್ಮ ಸಾಧನೆಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ/ಡೌನ್%ಲೋಡ್ ಮಾಡಿ"
+  },
+  "section_15_true_false_quiz_stage_4": {
+    "header": "ಸ್ವರ ಅಭ್ಯಾಸ – ಕನ್ನಡ → ಬ್ರಾಹ್ಮೀ / ಸರಿ/ತಪ್ಪು ಆಯ್ಕೆಮಾಡಿ",
+    "pages": {
+      "page_1": {
+        "Q1": { "text": "\"ಅ\" ಯ ಚಿಹ್ನೆ [𑀅] ಆಗಿದೆಯೇ?", "answer": true },
+        "Q2": { "text": "\"ಆ\" ಯ ಚಿಹ್ನೆ [𑀇] ಆಗಿದೆಯೇ?", "answer": false },
+        "Q3": { "text": "\"ಇ\" ಯ ಚಿಹ್ನೆ [𑀆] ಆಗಿದೆಯೇ?", "answer": false },
+        "Q4": { "text": "\"ಈ\" ಯ ಚಿಹ್ನೆ [𑀈] ಆಗಿದೆಯೇ?", "answer": true }
+      },
+      "page_2": {
+        "Q5": { "text": "\"ಉ\" ಯ ಚಿಹ್ನೆ [𑀊] ಆಗಿದೆಯೇ?", "answer": false },
+        "Q6": { "text": "\"ಊ\" ಯ ಚಿಹ್ನೆ [𑀐] ಆಗಿದೆಯೇ?", "answer": false },
+        "Q7": { "text": "\"ಏ\" ಯ ಚಿಹ್ನೆ [𑀏] ಆಗಿದೆಯೇ?", "answer": true },
+        "Q8": { "text": "\"ಐ\" ಯ ಚಿಹ್ನೆ [𑀐] ಆಗಿದೆಯೇ?", "answer": true }
+      },
+      "page_3": {
+        "Q9": { "text": "\"ಒ\" ಯ ಚಿಹ್ನೆ [𑀊] ಆಗಿದೆಯೇ?", "answer": false },
+        "Q10": { "text": "\"ಔ\" ಯ ಚಿಹ್ನೆ [𑀈] ಆಗಿದೆಯೇ?", "answer": false },
+        "Q11": { "text": "\"ಅಂ\" ಯ ಚಿಹ್ನೆ [𑀅𑀁] ಆಗಿದೆಯೇ?", "answer": true },
+        "Q12": { "text": "\"ಅಃ\" ಯ ಚಿಹ್ನೆ [𑀅𑀂] ಆಗಿದೆಯೇ?", "answer": true }
+      }
+    },
+    "next_button": "ಮುಂದೆ"
+  },
+  "section_16_reward_4": {
+    "praise_before": "ನೀವು ಸೂರ್ಯನಂತೆ ಹೊಳೆಯುತ್ತಿದ್ದೀರಿ – ನಿಮ್ಮ ಬೆಳಕನ್ನು ಹರಡುತ್ತಿರಿ!",
+    "header": "ಬಹುಮಾನ: 4",
+    "body_line_1": "ನೀವು ನಾಲ್ಕನೇ ಹಂತವನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದ್ದೀರಿ",
+    "body_line_2": "ನೀವು ಸರಿಯಾದ ಗುರಿಯನ್ನು ಸಾಧಿಸಿದ್ದೀರಿ – \"ಲಕ್ಷ್ಯ ಸಾಧಕ\" ಗೌರವವನ್ನು ಪಡೆದುಕೊಂಡಿದ್ದೀರಿ.",
+    "enthusiasm_message": "ನೀವು ಎಲ್ಲರಿಗಿಂತ ಮುಂದೆ ಸಾಗುತ್ತಿದ್ದೀರಿ, ಅಪಾರ ಆನಂದವಾಗಿದೆ!",
+    "share_download": "ನಿಮ್ಮ ಸಾಧನೆಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ/ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+    "next_button": "ಮುಂದೆ"
+  },
+  "section_17_next_section_choice": {
+    "question": "ಈಗ ನಿಮ್ಮ ಮೇಲೆ ಇದೆ, ನೀವು ಏನು ಕಲಿಯಲು ಬಯಸುತ್ತೀರಿ?",
+    "option_a": "ಮಾತ್ರಾ ಚಿಹ್ನೆಗಳು",
+    "option_b": "ವ್ಯಂಜನಗಳು"
+  },
+  "section_18_reward_5": {
+    "confirmation": "ಮಾತ್ರಾ ಚಿಹ್ನೆಗಳು / ನೀವು ಸರಿಯಾದ ಆಯ್ಕೆಯನ್ನು ಕ್ರಮವಾಗಿ ಆಯ್ಕೆ ಮಾಡಿದ್ದೀರಿ",
+    "motivational_message": "\"ನೀವು ಸರಿಯಾದ ಮಾರ್ಗದಲ್ಲಿ ದೃಢವಾಗಿ ಮುಂದೆ ಸಾಗುತ್ತಿದ್ದೀರಿ – ನಿಮ್ಮ ಸುಂದರ ಆಯ್ಕೆ ಮತ್ತು ಸಂಕಲ್ಪಕ್ಕಾಗಿ ಅನೇಕ ಶುಭಾಶಯಗಳು. ನಿಮ್ಮ ಈ ಪ್ರಯಾಣ ಯಶಸ್ಸು ಮತ್ತು ಗೌರವದಿಂದ ತುಂಬಿರಲಿ!\"",
+    "reward_title": "\"ಶ್ರೇಷ್ಠ ಜ್ಞಾನಿ\"",
+    "champion_congratulation": "ಅಭಿನಂದನೆಗಳು, ಚಾಂಪಿಯನ್! ನೀವು ಕೇವಲ ಸರಿಯಾದ ಆಯ್ಕೆಯನ್ನು ಮಾಡಿಲ್ಲ, ನಿಮ್ಮ ಜ್ಞಾನವನ್ನು ಅತ್ಯುತ್ತಮವಾಗಿ ಬಳಸಿದ್ದೀರಿ.",
+    "reward_line": "ನಿಮ್ಮ ಬಹುಮಾನ: 5 ಅ Yank",
+    "message_label": "ಸಂದೇಶ:",
+    "message_content": "\"ಸತ್ಯವಾದ ಜ್ಞಾನವೆಂದರೆ ಸರಿಯಾದ ಸಮಯದಲ್ಲಿ ಸರಿಯಾದ ಸ್ಥಳದಲ್ಲಿ ಉಪಯೋಗವಾಗುವುದು. ನೀವು ಇದನ್ನು ಸಾಬೀತುಪಡಿಸಿದ್ದೀರಿ!\""
+  }
+}

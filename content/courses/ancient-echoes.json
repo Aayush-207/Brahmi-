@@ -48,6 +48,12 @@
                     "type": "canvas",
                     "title": "Practice Tracing Vowels",
                     "config": {}
+                },
+                {
+                    "lessonId": "practice-time",
+                    "type": "lesson",
+                    "title": "Practice Time",
+                    "content": []
                 }
             ]
         },

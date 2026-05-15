@@ -1,4 +1,198 @@
 {
+  "module_title": "Vowels",
+  "section_1_module_title": {
+    "Hindi": "स्वर",
+    "LanguageValueEnglish": "Vowels",
+    "Kannada": "ಸ್ವರಗಳು"
+  },
+  "section_2_vowel_display_cards": {
+    "group_1": {
+      "vowels_shown": {
+        "English": "a aa i ee",
+        "Brahmi": "𑀅 𑀆 𑀇 𑀈",
+        "Hindi": "अ आ इ ई",
+        "Kannada": "ಅ ಆ ಇ ಈ"
+      },
+      "next_button": {
+        "English": "Next",
+        "Hindi": "अगला",
+        "Kannada": "ಮುಂದೆ"
+      }
+    },
+    "group_2": {
+      "vowels_shown": {
+        "English": "u oo e ai",
+        "Brahmi": "𑀉 𑀊 𑀏 𑀐",
+        "Hindi": "उ ऊ ए ऐ",
+        "Kannada": "ಉ ಊ ಏ ಐ"
+      },
+      "next_button": {
+        "English": "Next",
+        "Hindi": "अगला",
+        "Kannada": "ಮುಂದೆ"
+      }
+    },
+    "group_3": {
+      "vowels_shown": {
+        "English": "o au am ah",
+        "Brahmi": "𑀑 𑀒 𑀅𑀁 𑀅𑀂",
+        "Hindi": "ओ औ अं अः",
+        "Kannada": "ಒ ಔ ಅಂ ಅಃ"
+      },
+      "next_button": {
+        "English": "Next",
+        "Hindi": "अगला",
+        "Kannada": "ಮುಂದೆ"
+      }
+    }
+  },
+  "section_3_practice_prompt": {
+    "prompt": "Would you now like to practice with me?",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "section_4_game_time": {
+    "game_title": "Game Time",
+    "direction_label": "Roman/Latin → Brahmi",
+    "next_button": "Next"
+  },
+  "section_5_quiz1_native_to_brahmi": {
+    "instructions": "Each question shows a native-script vowel. The user picks the correct Brahmi symbol from 4 options. The 4 Brahmi option symbols are IDENTICAL across all 3 languages — only the question vowel label changes.",
+    "questions": [
+      { "id": "Q1", "question": "a", "options_brahmi": ["𑀆","𑀇","𑀉","𑀅𑀅"], "correct": "𑀅" },
+      { "id": "Q2", "question": "aa", "options_brahmi": ["𑀐","𑀏","𑀆","𑀊𑀆"], "correct": "𑀆" },
+      { "id": "Q3", "question": "i", "options_brahmi": ["𑀇","𑀑","𑀉","𑀅𑀂𑀇"], "correct": "𑀇" },
+      { "id": "Q4", "question": "ee", "options_brahmi": ["𑀐","𑀊","𑀒","𑀈𑀈"], "correct": "𑀈" },
+      { "id": "Q5", "question": "u", "options_brahmi": ["𑀒","𑀉","𑀏","𑀈𑀉"], "correct": "𑀉" },
+      { "id": "Q6", "question": "oo", "options_brahmi": ["𑀐","𑀅","𑀊","𑀈𑀊"], "correct": "𑀊" },
+      { "id": "Q7", "question": "e", "options_brahmi": ["𑀈","𑀏","𑀅𑀁","𑀆𑀏"], "correct": "𑀏" },
+      { "id": "Q8", "question": "ai", "options_brahmi": ["𑀒","𑀉","𑀑","𑀐𑀐"], "correct": "𑀐" },
+      { "id": "Q9", "question": "o", "options_brahmi": ["𑀊","𑀏","𑀑","𑀈𑀑"], "correct": "𑀑" },
+      { "id": "Q10", "question": "au", "options_brahmi": ["𑀉","𑀒","𑀐","𑀇𑀒"], "correct": "𑀒" },
+      { "id": "Q11", "question": "am", "options_brahmi": ["𑀅𑀁","𑀆","𑀒","𑀈𑀅𑀁"], "correct": "𑀅𑀁" },
+      { "id": "Q12", "question": "ah", "options_brahmi": ["𑀏","𑀅𑀂","𑀑","𑀉𑀅𑀂"], "correct": "𑀅𑀂" }
+    ],
+    "next_button": "Next"
+  },
+  "section_6_post_quiz1_encouragement": {
+    "hurray": "Hurray!",
+    "encouragement_message": "You are truly curious and eager to learn, that is why you have reached this stage of this unique journey.",
+    "congratulations_line": "Heartfelt congratulations and best wishes!"
+  },
+  "section_7_true_false_bonus": {
+    "label": "True / False",
+    "bonus_question": "\"Is Brahmi a language?\"",
+    "answer_buttons": { "true": "True", "false": "False" }
+  },
+  "section_8_reward_1": {
+    "header": "Reward: 1",
+    "body": "You have successfully completed the first stage. \"Samyak Pragya Award\" is now yours.",
+    "motivational_message": "This is just a beginning— more exciting levels await you ahead. With every right step, you will keep climbing higher on the ladder of knowledge.",
+    "share_download": "Share/Download your achievement"
+  },
+  "section_9_quiz2_intro": {
+    "announcement": "Now let us play the reverse game.",
+    "direction_label": "Brahmi → roman/latin",
+    "next_button": "Next"
+  },
+  "section_10_quiz2_brahmi_to_native": {
+    "questions": [
+      { "id": "Q1", "brahmi": "𑀅", "options": ["aa","aa","i","u"], "correct": "a" },
+      { "id": "Q2", "brahmi": "𑀆", "options": ["a","aa","ee","o"], "correct": "aa" },
+      { "id": "Q3", "brahmi": "𑀇", "options": ["oo","i","e","ai"], "correct": "i" },
+      { "id": "Q4", "brahmi": "𑀈", "options": ["e","aam","aee","e"], "correct": "ee" },
+      { "id": "Q5", "brahmi": "𑀉", "options": ["i","o","u","ah"], "correct": "u" },
+      { "id": "Q6", "brahmi": "𑀊", "options": ["oo","ai","am","eo"], "correct": "oo" },
+      { "id": "Q7", "brahmi": "𑀏", "options": ["o","am","ah","e"], "correct": "o" },
+      { "id": "Q8", "brahmi": "𑀐", "options": ["e","ai","oou","ai"], "correct": "ai" },
+      { "id": "Q9", "brahmi": "𑀑", "options": ["au","o","ah","aa"], "correct": "au" },
+      { "id": "Q10", "brahmi": "𑀒", "options": ["o","a","am","au"], "correct": "au" },
+      { "id": "Q11", "brahmi": "𑀅𑀁", "options": ["am","ah","ou","am"], "correct": "am" },
+      { "id": "Q12", "brahmi": "𑀅𑀂", "options": ["am","ea","ah","ea"], "correct": "ah" }
+    ]
+  },
+  "section_11_reward_2": {
+    "header": "Reward: 2",
+    "body": "You have completed the second stage – Excellent! You have achieved another milestone. \"Lipi Aastha Samman\" is now yours.",
+    "share_download": "Share/Download your achievement"
+  },
+  "section_12_writing_practice_intro": {
+    "invitation": "Come! Now let us practice writing.",
+    "excitement_check": "Are you excited to write me?",
+    "feedback_request": "You can give me feedback, and yes, please give me honest and unbiased feedback.",
+    "next_button": "Next"
+  },
+  "section_13_tracing_slides": {
+    "slides": [
+      { "number": 1, "label": "a → 𑀅" },
+      { "number": 2, "label": "aa → 𑀆" },
+      { "number": 3, "label": "i → 𑀇" },
+      { "number": 4, "label": "ee → 𑀈" },
+      { "number": 5, "label": "u → 𑀉" },
+      { "number": 6, "label": "oo → 𑀊" },
+      { "number": 7, "label": "e → 𑀏" },
+      { "number": 8, "label": "ai → 𑀐" },
+      { "number": 9, "label": "o → 𑀑" },
+      { "number": 10, "label": "au → 𑀒" },
+      { "number": 11, "label": "am → 𑀅𑀁" },
+      { "number": 12, "label": "ah → 𑀅𑀂" }
+    ]
+  },
+  "section_14_reward_3": {
+    "praise": "You are truly diving into the ocean of knowledge – very good!",
+    "header": "Reward: 3",
+    "body": "You have completed the third stage – Excellent! Your confidence is admirable, You have earned the \"Akshar Sadhana\" award.",
+    "share_download": "Share/Download your achievement"
+  },
+  "section_15_true_false_quiz_stage_4": {
+    "header": "Vowel Practice – roman/latin → Brahmi / Choose True/False",
+    "pages": {
+      "page_1": {
+        "Q1": { "text": "Is the symbol of \"a\" [𑀅]?", "answer": true },
+        "Q2": { "text": "Is the symbol of \"aa\" [𑀇]?", "answer": false },
+        "Q3": { "text": "Is the symbol of \"i\" [𑀆]?", "answer": false },
+        "Q4": { "text": "Is the symbol of \"ee\" [𑀈]?", "answer": true }
+      },
+      "page_2": {
+        "Q5": { "text": "Is the symbol of \"u\" [𑀊]?", "answer": false },
+        "Q6": { "text": "Is the symbol of \"oo\" [𑀐]?", "answer": false },
+        "Q7": { "text": "Is the symbol of \"e\" [𑀏]?", "answer": true },
+        "Q8": { "text": "Is the symbol of \"ai\" [𑀐]?", "answer": true }
+      },
+      "page_3": {
+        "Q9": { "text": "Is the symbol of \"o\" [𑀊]?", "answer": false },
+        "Q10": { "text": "Is the symbol of \"au\" [𑀈]?", "answer": false },
+        "Q11": { "text": "Is the symbol of \"am\" [𑀅𑀁]?", "answer": true },
+        "Q12": { "text": "Is the symbol of \"ah\" [𑀅𑀂]?", "answer": true }
+      }
+    },
+    "next_button": "Next"
+  },
+  "section_16_reward_4": {
+    "praise_before": "You are shining like the sun – keep spreading your light!",
+    "header": "Reward: 4",
+    "body_line_1": "You have completed the fourth stage",
+    "body_line_2": "You hit the right target – you have earned the \"Lakshya Sadhak\" honor.",
+    "enthusiasm_message": "You are moving ahead of everyone, it is a great joy!",
+    "share_download": "Share/Download your achievement",
+    "next_button": "Next"
+  },
+  "section_17_next_section_choice": {
+    "question": "Now it is up to you, what do you want to learn?",
+    "option_a": "Vowel Signs (Matra)",
+    "option_b": "Consonants"
+  },
+  "section_18_reward_5": {
+    "confirmation": "Vowel Signs / You have selected the correct option in sequence",
+    "motivational_message": "\"You are moving firmly on the right path – many congratulations for your beautiful choice and determination. May your journey be full of success and pride!\"",
+    "reward_title": "\"Excellent Scholar\"",
+    "champion_congratulation": "Congratulations, Champion! You not only made the right choice, but also applied your knowledge in the best way.",
+    "reward_line": "Your Reward: 5 Points + \"Excellent Scholar\" Title / This honor is a proof of your sharp mind and correct decision.",
+    "message_label": "Message:",
+    "message_content": "\"True knowledge is that which is applied at the right time and at the right place. You have proven this!\""
+  }
+}
+{
   "vowels": [
     {
       "id": "swar-001",
