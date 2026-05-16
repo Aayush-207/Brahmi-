@@ -193,7 +193,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
                             )}
 
                             <div className="text-lg md:text-2xl text-gray-400 font-bold tracking-widest uppercase -mt-2">
-                                {currentStep.metadata?.devanagari || (currentStep.content_type === 'title_slide' ? '' : currentStep.title)}
+                                {currentStep.metadata?.display_label || currentStep.metadata?.devanagari || (currentStep.content_type === 'title_slide' ? '' : currentStep.title)}
                             </div>
 
                             <div className="text-base sm:text-lg md:text-xl text-[#E6D8B8]/90 text-center font-medium leading-relaxed max-w-2xl px-4 mt-2 whitespace-pre-line">
@@ -209,7 +209,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
                                     }}
                                     className="mt-4 px-8 py-3 bg-[#D4AF37] text-[#1C1C1C] rounded-xl font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 flex items-center gap-2"
                                 >
-                                    <span>{language === 'hi' ? 'अभ्यास करें→' : 'Start Tracing'}</span>
+                                    <span>{language === 'hi' ? 'अभ्यास करें→' : language === 'kn' ? 'ಟ್ರೇಸಿಂಗ್ ಆರಂಭಿಸಿ' : 'Start Tracing'}</span>
                                     <span>✍️</span>
                                 </button>
                             )}
@@ -234,7 +234,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
                         className={`flex items-center gap-2 px-4 py-3 rounded-xl bg-[#2C2C2C] text-[#D4AF37] border border-[#D4AF37]/30 font-medium disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg text-sm`}
                     >
                         <span className="text-lg">←</span>
-                        <span>Prev</span>
+                        <span>{language === 'hi' ? 'पिछला' : language === 'kn' ? 'ಹಿಂದಿನದು' : 'Prev'}</span>
                     </button>
 
                     <div className="flex flex-col items-center gap-1 px-3">
@@ -255,7 +255,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
                         onClick={handleNext}
                         className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
                     >
-                        <span>{isLastStep ? 'Finish' : 'Next'}</span>
+                        <span>{isLastStep ? (language === 'hi' ? 'समाप्त' : language === 'kn' ? 'ಮುಗಿಯಿತು' : 'Finish') : (language === 'hi' ? 'अगला' : language === 'kn' ? 'ಮುಂದೆ' : 'Next')}</span>
                         <span className="text-lg">→</span>
                     </button>
                 </div>

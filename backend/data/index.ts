@@ -7,6 +7,7 @@ import englishVyanjan from './english/vyanjan.json';
 import englishMatras from './english/matras.json';
 
 import kannadaIntro from './kannada/introduction.json';
+import kannadaVyanjan from './kannada/vyanjan.json';
 
 type LanguageKey = 'hindi' | 'english' | 'kannada';
 
@@ -337,7 +338,7 @@ function buildSwarData(language: LanguageKey) {
 const data: Record<LanguageKey, any> = {
   hindi: { introduction: hindiIntro, swar: buildSwarData('hindi'), vyanjan: hindiVyanjan, matras: hindiMatras },
   english: { introduction: englishIntro, swar: buildSwarData('english'), vyanjan: englishVyanjan, matras: englishMatras },
-  kannada: { introduction: kannadaIntro, swar: buildSwarData('kannada'), vyanjan: hindiVyanjan, matras: hindiMatras }
+  kannada: { introduction: kannadaIntro, swar: buildSwarData('kannada'), vyanjan: kannadaVyanjan, matras: hindiMatras }
 };
 
 export const SUPPORTED_LANGUAGES = supportedLanguages;

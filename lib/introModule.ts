@@ -578,8 +578,6 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
   // 1. Try Swar Quizzes
   if (data.swar) {
     const swar = data.swar
-    const quizText = (hindiText: string, englishText: string, kannadaText: string) =>
-      language === 'hi' ? hindiText : language === 'kn' ? kannadaText : englishText
 
     const isPracticeMode = letterId === 'practice-time'
     const q1Source = isPracticeMode ? (swar.quiz1_devanagari_to_brahmi || []) : (swar.quiz1_devanagari_to_brahmi || []).filter((q: any) => q.correct_vowel_id === letterId)
@@ -622,11 +620,11 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
             ),
         order_no: q.order,
         options: [
-          { id: `${q.id}-opt-correct`, question_id: q.id, option_text: isKannada ? getVowelLabel(q.correct_vowel_id) : q.correct_answer, is_correct: true, order_no: 1 },
+          { id: `${q.id}-opt-correct`, question_id: q.id, option_text: isKannada ? getVowelLabel(q.correct_vowel_id) : (isHindi ? q.correct_answer : (q.correct_romanized || q.correct_answer || getVowelLabel(q.correct_vowel_id))), is_correct: true, order_no: 1 },
           ...q.wrong_options.map((w: any, idx: number) => ({
             id: `${q.id}-opt-wrong-${idx}`,
             question_id: q.id,
-            option_text: isKannada ? getVowelLabel(w.vowel_id) : w.devanagari,
+            option_text: isKannada ? getVowelLabel(w.vowel_id) : (isHindi ? w.devanagari : (w.romanized || w.devanagari || getVowelLabel(w.vowel_id))),
             is_correct: false,
             order_no: idx + 2
           }))
@@ -660,10 +658,9 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
       quizQuestions.push({
         id: `quiz-vyanjan-${letterId}-1`,
         letter_id: letterId,
-        question: language === 'hi' ? `देवनागरी '${consonant.devanagari}' के लिए सही ब्राह्मी अक्षर चुनें:` : `Choose the correct Brahmi for Devanagari '${consonant.devanagari}':`,
-        question: quizText(
+        question: getQuestionText(
           `देवनागरी '${consonant.devanagari}' के लिए सही ब्राह्मी अक्षर चुनें:`,
-          `Choose the correct Brahmi for Devanagari '${consonant.devanagari}':`,
+          `Choose the correct Brahmi for '${consonant.romanized || consonant.devanagari}':`,
           `ದೇವನಾಗರೀ '${consonant.devanagari}' ಗೆ ಸರಿಯಾದ ಬ್ರಾಹ್ಮೀ ಅಕ್ಷರವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`
         ),
         order_no: 1,
@@ -688,15 +685,14 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
       quizQuestions.push({
         id: `quiz-vyanjan-${letterId}-2`,
         letter_id: letterId,
-        question: language === 'hi' ? `ब्राह्मी '${consonant.brahmi}' के लिए सही देवनागरी अक्षर चुनें:` : `Choose the correct Devanagari for Brahmi '${consonant.brahmi}':`,
-        question: quizText(
+        question: getQuestionText(
           `ब्राह्मी '${consonant.brahmi}' के लिए सही देवनागरी अक्षर चुनें:`,
-          `Choose the correct Devanagari for Brahmi '${consonant.brahmi}':`,
+          `Choose the correct consonant for Brahmi '${consonant.brahmi}':`,
           `ಬ್ರಾಹ್ಮೀ '${consonant.brahmi}' ಗೆ ಸರಿಯಾದ ದೇವನಾಗರೀ ಅಕ್ಷರವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`
         ),
         order_no: 2,
         options: [
-          { id: `opt-v2-correct`, question_id: `quiz-vyanjan-${letterId}-2`, option_text: consonant.devanagari, is_correct: true, order_no: 1 },
+          { id: `opt-v2-correct`, question_id: `quiz-vyanjan-${letterId}-2`, option_text: isKannada ? getVowelLabel(consonant.devanagari) : (isHindi ? consonant.devanagari : (consonant.romanized || consonant.devanagari)), is_correct: true, order_no: 1 },
           // Pick 3 random wrong options from other consonants
           ...vyanjan.consonants
             .filter((c: any) => c.id !== letterId)
@@ -705,7 +701,7 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
             .map((w: any, idx: number) => ({
               id: `opt-v2-wrong-${idx}`,
               question_id: `quiz-vyanjan-${letterId}-2`,
-              option_text: w.devanagari,
+              option_text: isKannada ? getVowelLabel(w.devanagari) : (isHindi ? w.devanagari : (w.romanized || w.devanagari)),
               is_correct: false,
               order_no: idx + 2
             }))

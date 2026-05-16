@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { toHindiNum } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { getNextModuleRoute } from '@/lib/lessonFlow'
 import { getVyanjanLessons, getCompletedVyanjanLessonIds, type VyanjanLesson } from '@/lib/vyanjanModule'
@@ -367,7 +366,7 @@ export default function VyanjanLessonsPage() {
                                             whileHover={{ scale: 1.1 }}
                                             whileTap={{ scale: 0.95 }}
                                         >
-                                            <span className="text-2xl">{lesson.thumbnail_icon}</span>
+                                            <span className="text-2xl">{lesson.thumbnail_label || lesson.thumbnail_icon}</span>
                                             
                                             {/* Completed indicator */}
                                             {isCompleted && (
@@ -562,7 +561,7 @@ export default function VyanjanLessonsPage() {
                                             }}
                                             whileTap={{ scale: 0.95, translateY: 0 }}
                                         >
-                                            <span className="text-3xl">{lesson.thumbnail_icon}</span>
+                                            <span className="text-3xl">{lesson.thumbnail_label || lesson.thumbnail_icon}</span>
                                             
                                             {/* Golden torch for completed */}
                                             {isCompleted && (
@@ -604,10 +603,6 @@ export default function VyanjanLessonsPage() {
                                         </span>
                                     </motion.div>
                                     
-                                    {/* Level number */}
-                                    <div className="mt-2 text-xs text-[#D4AF37]/50 font-serif">
-                                        स्तर {toHindiNum(index + 1)}
-                                    </div>
                                 </motion.div>
                             )
                         })}
@@ -661,10 +656,6 @@ export default function VyanjanLessonsPage() {
                                     </span>
                                 </motion.div>
                                 
-                                {/* Level number */}
-                                <div className="mt-2 text-xs text-[#D4AF37]/50 font-serif">
-                                    Complete
-                                </div>
                             </motion.div>
                         )}
                     </div>
