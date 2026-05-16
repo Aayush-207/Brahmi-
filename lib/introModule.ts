@@ -185,6 +185,11 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
   const data = getDataForLanguage(language)
   const isHindi = language === 'hi'
   const isKannada = language === 'kn'
+  const getVowelDisplayLabel = (vowel: any) => {
+    if (isHindi) return vowel.devanagari || vowel.title_hindi || ''
+    if (isKannada) return vowel.title_kannada || vowel.devanagari || ''
+    return (vowel.romanized || vowel.title_english || '').toUpperCase()
+  }
   const getPracticeMatraExample = (matra: any) => {
     if (!isKannada) {
       return `With matra: ${matra.example_combination}`
@@ -277,17 +282,18 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
     }
     const vowel = swarData.vowels.find((v: any) => v.id === letterId || v.devanagari === letterId)
     if (vowel) {
-      const letters = buildLetter(vowel.id, vowel.devanagari || vowel.title_hindi || '', vowel.brahmi || '', vowel.order || 0, 'vowel')
+      const vowelLabel = getVowelDisplayLabel(vowel)
+      const letters = buildLetter(vowel.id, vowelLabel, vowel.brahmi || '', vowel.order || 0, 'vowel')
       const steps: any[] = [
         {
           id: `${letterId}-step-1`,
           step_type: 'show',
           title: isHindi ? 'पहचान' : isKannada ? 'ಗುರುತು' : 'Identification',
           content: isHindi
-            ? `यह स्वर '${vowel.devanagari}' है।`
+            ? `यह स्वर '${vowelLabel}' है।`
             : isKannada
-              ? `ಇದು ಸ್ವರ '${vowel.devanagari}' ಆಗಿದೆ।`
-              : `This is the vowel '${vowel.devanagari}'.`,
+              ? `ಇದು ಸ್ವರ '${vowelLabel}' ಆಗಿದೆ।`
+              : `This is the vowel '${vowelLabel}'.`,
           order_no: 1,
           letters
         }
@@ -300,10 +306,10 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
           step_type: 'sound',
           title: isHindi ? 'उच्चारण' : isKannada ? 'ಉಚ್ಚಾರಣೆ' : 'Pronunciation',
           content: isHindi 
-            ? `इस स्वर का उच्चारण ‘${vowel.devanagari}’ होता है।` 
+            ? `इस स्वर का उच्चारण ‘${vowelLabel}’ होता है।` 
             : isKannada
-              ? `ಈ ಸ್ವರವನ್ನು ‘${vowel.devanagari}’ ಎಂದು ಉಚ್ಚರಿಸಲಾಗುತ್ತದೆ。`
-              : `This vowel is pronounced as '${vowel.romanized || vowel.devanagari}'.`,
+              ? `ಈ ಸ್ವರವನ್ನು ‘${vowelLabel}’ ಎಂದು ಉಚ್ಚರಿಸಲಾಗುತ್ತದೆ。`
+              : `This vowel is pronounced as '${vowelLabel}'.`,
           order_no: 2,
           letters
         })

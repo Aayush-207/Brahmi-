@@ -144,7 +144,12 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
             // Handle initial mode from search params
             const mode = searchParams.get('mode')
-            if (mode === 'trace') {
+            if (letterId === 'practice-time') {
+                setTraceMode(false)
+                if (quizData.length > 0) {
+                    setQuizMode(true)
+                }
+            } else if (mode === 'trace') {
                 setTraceMode(true)
             } else if (mode === 'quiz') {
                 setQuizMode(true)
@@ -192,6 +197,16 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
         // 1. If currently in Lesson mode, go to Trace
         if (!quizMode && !traceMode) {
+            // For practice-time, skip tracing and go to quiz or finish
+            if (letterId === 'practice-time') {
+                if (quizQuestions.length > 0) {
+                    setQuizMode(true)
+                } else {
+                    await finishLesson()
+                }
+                return
+            }
+
             setTraceMode(true)
             return
         }

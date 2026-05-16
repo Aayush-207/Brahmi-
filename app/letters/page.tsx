@@ -14,9 +14,13 @@ import { AnimatedBirds } from '@/components/animations/AnimatedBird'
 // --- Types ---
 type Letter = {
     id: string
-    letter_name: string
+    devanagari: string
+    romanized?: string
+    title_kannada?: string
+    title_english?: string
     brahmi_symbol: string
     order_no: number
+    letter_name?: string
 }
 
 // --- Temple Steps Layout Constants (Desktop) ---
@@ -98,6 +102,36 @@ function generateJourneyPath(count: number, centerX: number): string {
     return path
 }
 
+function getLetterDisplayLabel(letter: Letter, language: 'hi' | 'en' | 'kn') {
+    if (letter.id === 'practice-time') {
+        if (language === 'kn') return letter.title_kannada || letter.devanagari
+        if (language === 'en') return letter.title_english || 'Practice Time'
+        return letter.title_english || letter.devanagari
+    }
+
+    if (language === 'en') {
+        return (letter.romanized || '').toUpperCase()
+    }
+
+    if (language === 'kn') {
+        return letter.title_kannada || letter.devanagari
+    }
+
+    return letter.devanagari
+}
+
+function getLevelCaption(language: 'hi' | 'en' | 'kn', level: number) {
+    if (language === 'en') {
+        return `Vowel ${level}`
+    }
+
+    if (language === 'kn') {
+        return `ಸ್ವರ ${toHindiNum(level)}`
+    }
+
+    return `स्तर ${toHindiNum(level)}`
+}
+
 export default function LettersPage() {
     // --- State ---
     const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
@@ -142,33 +176,67 @@ export default function LettersPage() {
         loadIdentity()
     }, [])
 
-    // 2. Fetch Swar (Vowels) Data
+    // Determine language safely (don't require LanguageProvider)
+    const [language, setLanguage] = useState<'hi'|'en'|'kn'>('hi')
+
     useEffect(() => {
-        async function fetchVowels() {
-            try {
-                console.log('[LettersPage] Fetching vowels from swarModule')
-                const vowels = await getVowels()
-                
-                // Transform Vowel type to Letter type
-                const transformedLetters: Letter[] = vowels.map(vowel => ({
-                    id: vowel.id,
-                    letter_name: vowel.devanagari,  // Show Devanagari name
-                    brahmi_symbol: vowel.brahmi,    // Brahmi symbol
-                    order_no: vowel.order
-                }))
-                
-                setLetters(transformedLetters)
-                console.log(`[LettersPage] Loaded ${transformedLetters.length} vowels`)
-            } catch (error) {
-                console.error('[LettersPage] Error fetching vowels:', error)
-                setLetters([])
-            } finally {
-                setLoading(false)
-            }
+        if (typeof window === 'undefined') return
+        const saved = localStorage.getItem('language')
+        if (saved === 'hi' || saved === 'en' || saved === 'kn') {
+            setLanguage(saved as 'hi'|'en'|'kn')
+            return
         }
-        
-        fetchVowels()
+        const nav = navigator?.language || navigator?.userLanguage || 'hi'
+        if (nav.startsWith('en')) setLanguage('en')
+        else if (nav.startsWith('kn')) setLanguage('kn')
+        else setLanguage('hi')
     }, [])
+
+    // 2. Fetch Swar (Vowels) Data
+    // fetcher exposed for retry
+    async function fetchVowelsFn(lang: string) {
+        setLoading(true)
+        try {
+            console.log('[LettersPage] Fetching vowels from swarModule', lang)
+            const vowels = await getVowels(lang)
+
+            // Transform Vowel type to Letter type keeping needed fields
+            const transformedLetters: Letter[] = vowels.map(vowel => {
+                const roman = (vowel as any).romanized || (vowel as any).title_english || ''
+                const titleKn = (vowel as any).title_kannada || ''
+                const titleEn = (vowel as any).title_english || ''
+                // compute display name per current language so desktop uses same label logic as mobile
+                return {
+                    id: vowel.id,
+                    devanagari: vowel.devanagari,
+                    romanized: roman,
+                    title_kannada: titleKn,
+                    title_english: titleEn,
+                    brahmi_symbol: vowel.brahmi,
+                    order_no: vowel.order,
+                    letter_name: getLetterDisplayLabel({
+                        id: vowel.id,
+                        devanagari: vowel.devanagari,
+                        romanized: roman,
+                        title_kannada: titleKn,
+                        title_english: titleEn,
+                        brahmi_symbol: vowel.brahmi,
+                        order_no: vowel.order
+                    }, language)
+                }
+            })
+
+            setLetters(transformedLetters)
+            console.log(`[LettersPage] Loaded ${transformedLetters.length} vowels`)
+        } catch (error) {
+            console.error('[LettersPage] Error fetching vowels:', error)
+            setLetters([])
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => { fetchVowelsFn(language) }, [language])
 
     // Animation Trigger via Search Params
     const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
@@ -339,7 +407,12 @@ export default function LettersPage() {
 
                     {/* Letter Nodes - Journey View */}
                     <div className="relative z-20">
-                        {letters.map((letter, index) => {
+                        {letters.length === 0 ? (
+                            <div className="w-full flex flex-col items-center justify-center py-20">
+                                <div className="text-lg text-[#E6D8B8] mb-4">No letters loaded for language: {language}</div>
+                                <button onClick={() => fetchVowelsFn(language)} className="px-4 py-2 bg-[#D4AF37] text-[#1C1C1C] font-bold rounded">Retry</button>
+                            </div>
+                        ) : letters.map((letter, index) => {
                             const pos = getJourneyPosition(index, centerX)
                             const isCompleted = completedIds.includes(letter.id)
                             const isNext = (lastCompletedIndex === -1 && index === 0) || (index === lastCompletedIndex + 1)
@@ -427,14 +500,16 @@ export default function LettersPage() {
                                         </motion.div>
                                     </Link>
 
-                                    {/* Letter Name */}
+                                    {/* Letter Name / Label - localized mapping */}
                                     <motion.div
                                         className="mt-3 px-2 py-1 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30"
                                         initial={{ opacity: 0, y: 8 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.1 + 0.25, duration: 0.4 }}
                                     >
-                                        <span className="text-[10px] font-bold text-[#E6D8B8] uppercase tracking-wider">{letter.letter_name}</span>
+                                        <span className="text-[10px] font-bold text-[#E6D8B8] uppercase tracking-wider">
+                                            {getLetterDisplayLabel(letter, language)}
+                                        </span>
                                     </motion.div>
                                 </motion.div>
                             )
@@ -517,7 +592,12 @@ export default function LettersPage() {
 
                     {/* Letter Nodes as Temple Stones */}
                     <div className="relative z-20">
-                        {letters.map((letter, index) => {
+                        {letters.length === 0 ? (
+                            <div className="w-full flex flex-col items-center justify-center py-20">
+                                <div className="text-lg text-[#E6D8B8] mb-4">No letters loaded for language: {language}</div>
+                                <button onClick={() => fetchVowelsFn(language)} className="px-4 py-2 bg-[#D4AF37] text-[#1C1C1C] font-bold rounded">Retry</button>
+                            </div>
+                        ) : letters.map((letter, index) => {
                             const pos = getTempleStepPosition(index)
                             const isCompleted = completedIds.includes(letter.id)
                             const isNext = (lastCompletedIndex === -1 && index === 0) || (index === lastCompletedIndex + 1)
@@ -620,7 +700,7 @@ export default function LettersPage() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.12 + 0.35, duration: 0.4 }}
                                     >
-                                        <span className="text-xs font-bold text-[#E6D8B8] uppercase tracking-wider">{letter.letter_name}</span>
+                                        <span className="text-xs font-bold text-[#E6D8B8] uppercase tracking-wider">{getLetterDisplayLabel(letter, language)}</span>
                                     </motion.div>
 
                                     {/* Level number */}
@@ -630,7 +710,7 @@ export default function LettersPage() {
                                         animate={{ opacity: 1 }}
                                         transition={{ delay: index * 0.12 + 0.5 }}
                                     >
-                                        स्तर {toHindiNum(index + 1)}
+                                        {getLevelCaption(language, index + 1)}
                                     </motion.div>
                                 </motion.div>
                             )
