@@ -139,6 +139,31 @@ function getKannadaConsonantLabel(devanagari: string): string {
   return KANNADA_CONSONANT_MAP[devanagari] ?? devanagari
 }
 
+const DEVANAGARI_TO_KANNADA_WORD_MAP: Record<string, string> = {
+  'अ': 'ಅ', 'आ': 'ಆ', 'इ': 'ಇ', 'ई': 'ಈ', 'उ': 'ಉ', 'ऊ': 'ಊ', 'ए': 'ಏ', 'ऐ': 'ಐ', 'ओ': 'ಓ', 'औ': 'ಔ',
+  'ा': 'ಾ', 'ि': 'ಿ', 'ी': 'ೀ', 'ु': 'ು', 'ू': 'ೂ', 'े': 'ೇ', 'ै': 'ೈ', 'ो': 'ೋ', 'ौ': 'ೌ',
+  'ं': 'ಂ', 'ः': 'ಃ', 'ँ': 'ಂ', '़': '', '्': '',
+  'क': 'ಕ', 'ख': 'ಖ', 'ग': 'ಗ', 'घ': 'ಘ', 'ङ': 'ಙ', 'च': 'ಚ', 'छ': 'ಛ', 'ज': 'ಜ', 'झ': 'ಝ', 'ञ': 'ಞ',
+  'ट': 'ಟ', 'ठ': 'ಠ', 'ड': 'ಡ', 'ढ': 'ಢ', 'ण': 'ಣ', 'त': 'ತ', 'थ': 'ಥ', 'द': 'ದ', 'ध': 'ಧ', 'न': 'ನ',
+  'प': 'ಪ', 'फ': 'ಫ', 'ब': 'ಬ', 'भ': 'ಭ', 'म': 'ಮ', 'य': 'ಯ', 'र': 'ರ', 'ल': 'ಲ', 'व': 'ವ',
+  'श': 'ಶ', 'ष': 'ಷ', 'स': 'ಸ', 'ह': 'ಹ'
+}
+
+function transliterateDevanagariToKannada(text: string): string {
+  if (!text) return text
+  return text
+    .split('')
+    .map((char) => DEVANAGARI_TO_KANNADA_WORD_MAP[char] ?? char)
+    .join('')
+}
+
+function getKannadaExampleText(example: { kannada?: string; devanagari?: string; romanized?: string }): string {
+  if (example.kannada && !isPlaceholderText(example.kannada)) return example.kannada
+  if (example.devanagari) return transliterateDevanagariToKannada(example.devanagari)
+  if (example.romanized) return transliterateDevanagariToKannada(example.romanized)
+  return ''
+}
+
 function isPlaceholderText(value?: string): boolean {
   if (!value) return true
   const trimmed = value.trim()
@@ -341,11 +366,11 @@ export async function getVyanjanLessonContent(lessonId: string, language: string
           lesson_id: lessonId,
           content_type: 'pronunciation',
           title: language === 'kn'
-            ? `${getKannadaConsonantLabel(c.devanagari)} (${c.romanized})`
+            ? getKannadaConsonantLabel(c.devanagari)
             : language === 'en'
               ? `${c.romanized.toUpperCase()} (${c.brahmi})`
               : `${c.devanagari} (${c.romanized})`,
-          content: `${language === 'hi' ? c.categoryHindi : language === 'kn' ? getKannadaVyanjanSubtitle(c.category, c.categoryEnglish) : c.categoryEnglish} - ${language === 'hi' ? c.categoryDescription : language === 'kn' ? getKannadaVyanjanDescription(c.category, c.categoryDescription) : getEnglishVyanjanDescription(c.category, c.categoryDescription)}\n\n${language === 'hi' ? 'ध्वनि' : language === 'kn' ? KANNADA_SOUND_LABEL : 'Sound'}: ${language === 'hi' ? c.pronunciationNote : language === 'kn' ? (!isPlaceholderText(c.pronunciationNoteKannada) ? c.pronunciationNoteKannada : (c.pronunciationNoteEnglish || c.romanized)) : (c.pronunciationNoteEnglish || c.romanized)}\n\n${language === 'hi' ? 'उदाहरण' : language === 'kn' ? KANNADA_EXAMPLES_LABEL : 'Examples'}: ${c.exampleWords && c.exampleWords.length > 0 ? c.exampleWords.map((ex: any) => language === 'hi' ? ex.devanagari : language === 'kn' ? (ex.kannada || (ex.romanized || ex.devanagari)) : englishExampleText(ex)).join(", ") : ""}`,
+          content: `${language === 'hi' ? c.categoryHindi : language === 'kn' ? getKannadaVyanjanSubtitle(c.category, c.categoryEnglish) : c.categoryEnglish} - ${language === 'hi' ? c.categoryDescription : language === 'kn' ? getKannadaVyanjanDescription(c.category, c.categoryDescription) : getEnglishVyanjanDescription(c.category, c.categoryDescription)}\n\n${language === 'hi' ? 'ध्वनि' : language === 'kn' ? KANNADA_SOUND_LABEL : 'Sound'}: ${language === 'hi' ? c.pronunciationNote : language === 'kn' ? transliterateDevanagariToKannada(c.pronunciationNoteKannada || c.pronunciationNoteEnglish || c.pronunciationNote || c.romanized) : (c.pronunciationNoteEnglish || c.romanized)}\n\n${language === 'hi' ? 'उदाहरण' : language === 'kn' ? KANNADA_EXAMPLES_LABEL : 'Examples'}: ${c.exampleWords && c.exampleWords.length > 0 ? c.exampleWords.map((ex: any) => language === 'hi' ? ex.devanagari : language === 'kn' ? getKannadaExampleText(ex) : englishExampleText(ex)).join(", ") : ""}`,
           metadata: {
             brahmi_symbol: c.brahmi,
             devanagari: c.devanagari,
@@ -377,20 +402,23 @@ export async function getVyanjanLessonContent(lessonId: string, language: string
            const sampleForms = combo.forms.slice(1, 4); // AA, I, II
            sampleForms.forEach((f: any) => {
                const englishRomanized = romanizeConsonantWithMatra(c.romanized, f.matraName)
+               const kannadaCombo = transliterateDevanagariToKannada(f.combinedDevanagari || '')
                content.push({
                    id: `${lessonId}-combo-${c.id}-${f.matraOrder}`,
                    lesson_id: lessonId,
                    content_type: 'text',
                    title: language === 'en'
                      ? `Combination - ${englishRomanized}`
-                     : `${language === 'kn' ? getKannadaConsonantLabel(c.devanagari) : c.devanagari} + ${language === 'kn' ? (f.matraNameKannada || f.matraName) : f.matraName} = ${language === 'kn' ? (f.combinedKannada || f.combinedDevanagari) : f.combinedDevanagari}`,
+                     : language === 'kn'
+                       ? kannadaCombo || getKannadaConsonantLabel(c.devanagari)
+                       : `${c.devanagari} + ${f.matraName} = ${f.combinedDevanagari}`,
                    content: `${language === 'hi' ? 'ब्राह्मी रूप' : language === 'kn' ? 'ಬ್ರಾಹ್ಮೀ ರೂಪ' : 'Brahmi form'}: ${f.combinedBrahmi}`,
                    metadata: {
                      brahmi: f.combinedBrahmi,
                      devanagari: f.combinedDevanagari,
                      display_label: language === 'en'
                        ? englishRomanized.toUpperCase()
-                       : (language === 'kn' ? (f.combinedKannada || f.combinedDevanagari) : f.combinedDevanagari)
+                       : (language === 'kn' ? (kannadaCombo || transliterateDevanagariToKannada(f.combinedDevanagari || '')) : f.combinedDevanagari)
                    },
                    order_no: orderNo++
                });

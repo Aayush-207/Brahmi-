@@ -54,6 +54,10 @@ function generateSVGPath(count: number): string {
     return d
 }
 
+function stripBracketedText(value: string): string {
+    return value.replace(/\s*\(([^)]*)\)\s*/g, ' ').replace(/\s+/g, ' ').trim()
+}
+
 export default function LearnPage() {
     const router = useRouter()
     const { language, t } = useLanguage()
@@ -83,6 +87,9 @@ export default function LearnPage() {
     // For now, let's say "Vowels" (Index 1) is active/in-progress
     const activeModuleIndex = 1
     const completedUpTo = 0 // Introduction is done
+    const shouldStripBracketedLanguageText = language === 'hi' || language === 'kn'
+
+    const formatCourseLabel = (value: string) => shouldStripBracketedLanguageText ? stripBracketedText(value) : value
 
     return (
         // 1. ISOLATION: Explicit dark background, full height, no footer leakage
@@ -218,10 +225,10 @@ export default function LearnPage() {
                                     {/* Hover Tooltip */}
                                     <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
                                         <h3 className="text-[#E6D8B8]/50 font-bold text-lg md:text-xl leading-tight font-serif">
-                                            {t(`courses.${module.id.split('-')[1]}.title`)}
+                                            {formatCourseLabel(t(`courses.${module.id.split('-')[1]}.title`))}
                                         </h3>
                                         <p className="text-[#E6D8B8]/30 text-[10px] uppercase tracking-[0.15em] mt-1 md:mt-2 font-bold">
-                                            {t(`courses.${module.id.split('-')[1]}.subtitle`)}
+                                            {formatCourseLabel(t(`courses.${module.id.split('-')[1]}.subtitle`))}
                                         </p>
                                         {/* Development in Progress message on hover */}
                                         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 mt-2 bg-[#2a2420] text-[#E69A47] text-xs py-1.5 px-3 rounded-lg border border-[#E69A47]/30">
@@ -261,10 +268,10 @@ export default function LearnPage() {
                                     {/* Text Label (Below) - Z-30 */}
                                     <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
                                         <h3 className="text-[#D4AF37] font-bold text-lg md:text-xl leading-tight group-hover:text-[#E69A47] transition-colors font-serif">
-                                            {t(`courses.${module.id.split('-')[1]}.title`)}
+                                            {formatCourseLabel(t(`courses.${module.id.split('-')[1]}.title`))}
                                         </h3>
                                         <p className="text-[#E6D8B8] text-[10px] uppercase tracking-[0.15em] mt-1 md:mt-2 font-bold opacity-80 group-hover:opacity-100 transition-opacity">
-                                            {t(`courses.${module.id.split('-')[1]}.subtitle`)}
+                                            {formatCourseLabel(t(`courses.${module.id.split('-')[1]}.subtitle`))}
                                         </p>
                                     </div>
                                 </Link>

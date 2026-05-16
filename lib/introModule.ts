@@ -537,6 +537,11 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
     return vowel?.title_english || vowel?.romanized || ''
   }
 
+  const getKannadaConsonantLabel = (consonantIdOrDevanagari: string): string => {
+    const consonant = data.vyanjan?.consonants?.find((entry: any) => entry.id === consonantIdOrDevanagari || entry.devanagari === consonantIdOrDevanagari)
+    return consonant?.title_kannada || consonant?.devanagari || ''
+  }
+
   const getTrueFalseQuestionText = (order: number): string => {
     if (isHindi) {
       return [
@@ -654,6 +659,7 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
     const vyanjan = data.vyanjan
     const consonant = (vyanjan.consonants || []).find((c: any) => c.id === letterId)
     if (consonant) {
+      const kannadaCorrectLabel = getKannadaConsonantLabel(consonant.id)
       // Add a Devanagari to Brahmi matching question
       quizQuestions.push({
         id: `quiz-vyanjan-${letterId}-1`,
@@ -687,12 +693,12 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
         letter_id: letterId,
         question: getQuestionText(
           `ब्राह्मी '${consonant.brahmi}' के लिए सही देवनागरी अक्षर चुनें:`,
-          `Choose the correct consonant for Brahmi '${consonant.brahmi}':`,
+          `Choose the correct Kannada letter for Brahmi '${consonant.brahmi}':`,
           `ಬ್ರಾಹ್ಮೀ '${consonant.brahmi}' ಗೆ ಸರಿಯಾದ ದೇವನಾಗರೀ ಅಕ್ಷರವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`
         ),
         order_no: 2,
         options: [
-          { id: `opt-v2-correct`, question_id: `quiz-vyanjan-${letterId}-2`, option_text: isKannada ? getVowelLabel(consonant.devanagari) : (isHindi ? consonant.devanagari : (consonant.romanized || consonant.devanagari)), is_correct: true, order_no: 1 },
+          { id: `opt-v2-correct`, question_id: `quiz-vyanjan-${letterId}-2`, option_text: isKannada ? kannadaCorrectLabel : (isHindi ? consonant.devanagari : (consonant.romanized || consonant.devanagari)), is_correct: true, order_no: 1 },
           // Pick 3 random wrong options from other consonants
           ...vyanjan.consonants
             .filter((c: any) => c.id !== letterId)
@@ -701,7 +707,7 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
             .map((w: any, idx: number) => ({
               id: `opt-v2-wrong-${idx}`,
               question_id: `quiz-vyanjan-${letterId}-2`,
-              option_text: isKannada ? getVowelLabel(w.devanagari) : (isHindi ? w.devanagari : (w.romanized || w.devanagari)),
+              option_text: isKannada ? getKannadaConsonantLabel(w.id) : (isHindi ? w.devanagari : (w.romanized || w.devanagari)),
               is_correct: false,
               order_no: idx + 2
             }))
