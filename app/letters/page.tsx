@@ -16,6 +16,7 @@ type Letter = {
     id: string
     devanagari: string
     romanized?: string
+    title_tamil?: string
     title_kannada?: string
     title_english?: string
     brahmi_symbol: string
@@ -102,11 +103,16 @@ function generateJourneyPath(count: number, centerX: number): string {
     return path
 }
 
-function getLetterDisplayLabel(letter: Letter, language: 'hi' | 'en' | 'kn') {
+function getLetterDisplayLabel(letter: Letter, language: 'hi' | 'en' | 'kn' | 'ta') {
     if (letter.id === 'practice-time') {
+        if (language === 'ta') return letter.title_tamil || letter.devanagari
         if (language === 'kn') return letter.title_kannada || letter.devanagari
         if (language === 'en') return letter.title_english || 'Practice Time'
         return letter.title_english || letter.devanagari
+    }
+
+    if (language === 'ta') {
+        return letter.title_tamil || letter.devanagari
     }
 
     if (language === 'en') {
@@ -120,13 +126,17 @@ function getLetterDisplayLabel(letter: Letter, language: 'hi' | 'en' | 'kn') {
     return letter.devanagari
 }
 
-function getLevelCaption(language: 'hi' | 'en' | 'kn', level: number) {
+function getLevelCaption(language: 'hi' | 'en' | 'kn' | 'ta', level: number) {
     if (language === 'en') {
         return `Vowel ${level}`
     }
 
     if (language === 'kn') {
         return `ಸ್ವರ ${toHindiNum(level)}`
+    }
+
+    if (language === 'ta') {
+        return `உயிர் ${toHindiNum(level)}`
     }
 
     return `स्तर ${toHindiNum(level)}`
@@ -177,18 +187,19 @@ export default function LettersPage() {
     }, [])
 
     // Determine language safely (don't require LanguageProvider)
-    const [language, setLanguage] = useState<'hi'|'en'|'kn'>('hi')
+    const [language, setLanguage] = useState<'hi'|'en'|'kn'|'ta'>('hi')
 
     useEffect(() => {
         if (typeof window === 'undefined') return
         const saved = localStorage.getItem('language')
-        if (saved === 'hi' || saved === 'en' || saved === 'kn') {
-            setLanguage(saved as 'hi'|'en'|'kn')
+        if (saved === 'hi' || saved === 'en' || saved === 'kn' || saved === 'ta') {
+            setLanguage(saved as 'hi'|'en'|'kn'|'ta')
             return
         }
         const nav = navigator?.language || navigator?.userLanguage || 'hi'
         if (nav.startsWith('en')) setLanguage('en')
         else if (nav.startsWith('kn')) setLanguage('kn')
+        else if (nav.startsWith('ta')) setLanguage('ta')
         else setLanguage('hi')
     }, [])
 
@@ -203,6 +214,7 @@ export default function LettersPage() {
             // Transform Vowel type to Letter type keeping needed fields
             const transformedLetters: Letter[] = vowels.map(vowel => {
                 const roman = (vowel as any).romanized || (vowel as any).title_english || ''
+                const titleTa = (vowel as any).title_tamil || ''
                 const titleKn = (vowel as any).title_kannada || ''
                 const titleEn = (vowel as any).title_english || ''
                 // compute display name per current language so desktop uses same label logic as mobile
@@ -210,6 +222,7 @@ export default function LettersPage() {
                     id: vowel.id,
                     devanagari: vowel.devanagari,
                     romanized: roman,
+                    title_tamil: titleTa,
                     title_kannada: titleKn,
                     title_english: titleEn,
                     brahmi_symbol: vowel.brahmi,
@@ -218,6 +231,7 @@ export default function LettersPage() {
                         id: vowel.id,
                         devanagari: vowel.devanagari,
                         romanized: roman,
+                        title_tamil: titleTa,
                         title_kannada: titleKn,
                         title_english: titleEn,
                         brahmi_symbol: vowel.brahmi,
@@ -301,7 +315,7 @@ export default function LettersPage() {
         }
     }, [letters, completedIds, loading, lastCompletedIndex, isMobile])
 
-    if (loading) return <div className="fixed inset-0 bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] flex items-center justify-center text-[#D4AF37]">Loading...</div>
+    if (loading) return <div className="fixed inset-0 bg-linear-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] flex items-center justify-center text-[#D4AF37]">Loading...</div>
 
     // Calculate bounds based on view type
     const centerX = typeof window !== 'undefined' ? window.innerWidth / 2 : 200
@@ -318,7 +332,7 @@ export default function LettersPage() {
     return (
         <div 
             ref={containerRef}
-            className="fixed inset-0 bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] text-[#F5F1E8] overflow-auto"
+            className="fixed inset-0 bg-linear-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] text-[#F5F1E8] overflow-auto"
         >
             {/* Floating Sign In */}
             <FloatingSignIn />
@@ -433,10 +447,10 @@ export default function LettersPage() {
                                         <motion.div
                                             className={`relative w-20 h-20 flex items-center justify-center border-4 rounded-full
                                                 ${isCompleted || isCelebrating
-                                                    ? 'bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613]'
+                                                    ? 'bg-linear-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613]'
                                                     : isNext
-                                                    ? 'bg-gradient-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613]'
-                                                    : 'bg-gradient-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40'
+                                                    ? 'bg-linear-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613]'
+                                                    : 'bg-linear-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40'
                                                 }`}
                                             animate={
                                                 isCelebrating
@@ -468,7 +482,7 @@ export default function LettersPage() {
                                             {isCompleted && (
                                                 <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
                                                     <motion.div
-                                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
+                                                        className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-12"
                                                         animate={{ x: ['-120%', '200%'] }}
                                                         transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
                                                     />
@@ -525,7 +539,7 @@ export default function LettersPage() {
                             animate={{ scale: 1, y: 0 }}
                             transition={{ type: "spring", delay: 0.5 }}
                         >
-                            <div className="bg-gradient-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-3 px-6 rounded-lg text-base shadow-[0_0_30px_rgba(230,154,71,0.9)] border-2 border-[#F5F1E8]/50">
+                            <div className="bg-linear-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-3 px-6 rounded-lg text-base shadow-[0_0_30px_rgba(230,154,71,0.9)] border-2 border-[#F5F1E8]/50">
                                 🕉️ Complete! 🕉️
                             </div>
                         </motion.div>
@@ -617,17 +631,17 @@ export default function LettersPage() {
                                     transition={{ delay: index * 0.12, type: 'spring', stiffness: 220, damping: 16 }}
                                 >
                                     {/* Stone shadow base */}
-                                    <div className="absolute -bottom-4 w-32 h-3 bg-gradient-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
+                                    <div className="absolute -bottom-4 w-32 h-3 bg-linear-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
 
                                     {/* Letter Stone */}
                                     <Link href={`/lesson/${letter.id}`}>
                                         <motion.div
                                             className={`relative w-24 h-24 flex items-center justify-center border-4
                                                 ${isCompleted || isCelebrating
-                                                    ? 'bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] rounded-lg'
+                                                    ? 'bg-linear-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] rounded-lg'
                                                     : isNext
-                                                    ? 'bg-gradient-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613] rounded-lg'
-                                                    : 'bg-gradient-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40 rounded-md'
+                                                    ? 'bg-linear-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613] rounded-lg'
+                                                    : 'bg-linear-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40 rounded-md'
                                                 }`}
                                             animate={
                                                 isCelebrating
@@ -661,7 +675,7 @@ export default function LettersPage() {
                                             {isCompleted && (
                                                 <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
                                                     <motion.div
-                                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-12"
+                                                        className="absolute inset-0 bg-linear-to-r from-transparent via-white/25 to-transparent skew-x-12"
                                                         animate={{ x: ['-120%', '200%'] }}
                                                         transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
                                                     />
@@ -729,7 +743,7 @@ export default function LettersPage() {
                             animate={{ scale: 1, y: 0 }}
                             transition={{ type: "spring", delay: 0.5 }}
                         >
-                            <div className="bg-gradient-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-4 px-8 rounded-lg text-xl shadow-[0_0_40px_rgba(230,154,71,0.9)] border-2 border-[#F5F1E8]/50">
+                            <div className="bg-linear-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-4 px-8 rounded-lg text-xl shadow-[0_0_40px_rgba(230,154,71,0.9)] border-2 border-[#F5F1E8]/50">
                                 🕉️ Temple Mastered! 🕉️
                             </div>
                             <div className="text-center text-[#E6D8B8] text-sm mt-2">All Vowels Conquered</div>

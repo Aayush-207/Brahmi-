@@ -99,6 +99,17 @@ export function Header() {
                                         >
                                             ಕನ್ನಡ (Kannada)
                                         </button>
+                                        <button
+                                            onClick={() => {
+                                                setLanguage('ta');
+                                                setIsLangMenuOpen(false);
+                                            }}
+                                            className={`w-full px-6 py-3 text-left hover:bg-[#D4AF37]/10 transition-colors border-t border-[#D4AF37]/20 whitespace-nowrap ${
+                                                language === 'ta' ? 'text-[#E69A47]' : 'text-[#B8AFA0]'
+                                            }`}
+                                        >
+                                            தமிழ் (Tamil)
+                                        </button>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -175,6 +186,19 @@ export function Header() {
                                         }`}
                                     >
                                         ಕನ್ನಡ (Kannada)
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setLanguage('ta');
+                                            setIsMobileMenuOpen(false);
+                                        }}
+                                        className={`w-full px-4 py-3 rounded-lg text-left font-medium transition-colors ${
+                                            language === 'ta'
+                                                ? 'bg-[#D4AF37]/20 text-[#E69A47]'
+                                                : 'bg-[#2a2420] border border-[#D4AF37]/30 text-[#B8AFA0] hover:bg-[#D4AF37]/10'
+                                        }`}
+                                    >
+                                        தமிழ் (Tamil)
                                     </button>
                                 </div>
 

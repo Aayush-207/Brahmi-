@@ -10,9 +10,13 @@ import kannadaIntro from './kannada/introduction.json';
 import kannadaVyanjan from './kannada/vyanjan.json';
 import kannadaMatras from './kannada/matras.json';
 
-type LanguageKey = 'hindi' | 'english' | 'kannada';
+import tamilIntro from './tamil/introduction.json';
+import tamilSwar from './tamil/swar.json';
+import tamilMatras from './tamil/matras.json';
 
-const supportedLanguages: LanguageKey[] = ['hindi', 'english', 'kannada'];
+type LanguageKey = 'hindi' | 'english' | 'kannada' | 'tamil';
+
+const supportedLanguages: LanguageKey[] = ['hindi', 'english', 'kannada', 'tamil'];
 
 function buildSwarData(language: LanguageKey) {
   const isHindi = language === 'hindi';
@@ -99,6 +103,33 @@ function buildSwarData(language: LanguageKey) {
       optionB: 'ವ್ಯಂಜನಗಳು',
       reward5Title: '"ಶ್ರೇಷ್ಠ ಜ್ಞಾನಿ"',
       reward5Label: 'ಸಂದೇಶ:'
+    },
+    tamil: {
+      moduleTitle: 'உயிரெழுத்துகள்',
+      displayTitle: 'உயிரெழுத்துகள்',
+      practiceTimeTitle: 'பயிற்சி நேரம்',
+      group1: 'அ ஆ இ ஈ',
+      group2: 'உ ஊ எ ஐ',
+      group3: 'ஒ ஔ அம் அஃ',
+      practicePrompt: 'இப்போது நீங்கள் என்னுடன் பயிற்சி செய்ய விரும்புகிறீர்களா?',
+      yes: 'ஆம்',
+      no: 'இல்லை',
+      gameTitle: 'விளையாட்டு நேரம்',
+      direction1: 'தமிழ் → பிராமி',
+      direction2: 'பிராமி → தமிழ்',
+      reverseIntro: 'இப்போது நாம் எதிர்மறை விளையாட்டை விளையாடுவோம்.',
+      writingIntro: 'வாங்க! இப்போது எழுதும் பயிற்சி செய்வோம்.',
+      writingCheck: 'என்னை எழுத நீங்கள் உற்சாகமாக இருக்கிறீர்களா?',
+      feedback: 'நீங்கள் எனக்கு கருத்து தெரிவிக்கலாம்; ஆம், தயவுசெய்து நேர்மையான மற்றும் நியாயமான கருத்தைத் தருங்கள்.',
+      trueFalseLabel: 'சரி / தவறு',
+      trueFalseQuestion: '"பிராமி ஒரு மொழியா?"',
+      stage4Header: 'உயிரெழுத்துப் பயிற்சி – தமிழ் → பிராமி / சரி/தவறு தேர்வு செய்யவும்',
+      stage4Share: 'உங்கள் சாதனையைப் பகிரவும்/பதிவிறக்கவும்',
+      chooseQuestion: 'இப்போது நீங்கள் என்ன கற்க விரும்புகிறீர்கள்?',
+      optionA: 'மாத்ரா குறிகள்',
+      optionB: 'மெய்யெழுத்துகள்',
+      reward5Title: '"சிறந்த அறிஞர்"',
+      reward5Label: 'செய்தி:'
     }
   }[language];
 
@@ -339,7 +370,8 @@ function buildSwarData(language: LanguageKey) {
 const data: Record<LanguageKey, any> = {
   hindi: { introduction: hindiIntro, swar: buildSwarData('hindi'), vyanjan: hindiVyanjan, matras: hindiMatras },
   english: { introduction: englishIntro, swar: buildSwarData('english'), vyanjan: englishVyanjan, matras: englishMatras },
-  kannada: { introduction: kannadaIntro, swar: buildSwarData('kannada'), vyanjan: kannadaVyanjan, matras: kannadaMatras }
+  kannada: { introduction: kannadaIntro, swar: buildSwarData('kannada'), vyanjan: kannadaVyanjan, matras: kannadaMatras },
+  tamil: { introduction: tamilIntro, swar: tamilSwar, vyanjan: englishVyanjan, matras: tamilMatras }
 };
 
 export const SUPPORTED_LANGUAGES = supportedLanguages;
@@ -350,6 +382,7 @@ export function getDataForLanguage(lang: string) {
   if (language === 'hi') language = 'hindi';
   if (language === 'en') language = 'english';
   if (language === 'kn') language = 'kannada';
+  if (language === 'ta') language = 'tamil';
   const finalLang = supportedLanguages.includes(language as LanguageKey) ? (language as LanguageKey) : DEFAULT_LANGUAGE;
   return data[finalLang];
 }

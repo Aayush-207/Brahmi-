@@ -1,0 +1,476 @@
+{
+  "lessons": [
+    {
+      "id": "intro-lesson-001",
+      "module_id": "module-intro",
+      "lesson_id": "intro-brahmi-intro",
+      "title": "நான் பிராமி வரிவடிவம்",
+      "subtitle": "மிகப் பழமையானது, மிக முக்கியமானது மற்றும் மிகவும் நேசிக்கப்பட்டது!",
+      "description": "மிகப் பழமையானது, மிக முக்கியமானது மற்றும் மிகவும் நேசிக்கப்பட்டது!",
+      "thumbnail_icon": "📖",
+      "order_no": 1,
+      "estimated_time_minutes": 2
+    },
+    {
+      "id": "intro-lesson-002",
+      "module_id": "module-intro",
+      "lesson_id": "intro-objectives",
+      "title": "உங்கள் இலக்கு என்ன?",
+      "subtitle": " ",
+      "description": "உங்கள் இலக்கு என்ன?",
+      "thumbnail_icon": "🎯",
+      "order_no": 2,
+      "estimated_time_minutes": 2
+    },
+    {
+      "id": "intro-lesson-003",
+      "module_id": "module-intro",
+      "lesson_id": "intro-choice",
+      "title": "என் சுருக்கமான அறிமுகம்",
+      "subtitle": " ",
+      "description": "நீங்கள் அறிய விரும்புகிறீர்களா?",
+      "thumbnail_icon": "❓",
+      "order_no": 3,
+      "estimated_time_minutes": 6
+    },
+    {
+      "id": "intro-lesson-004",
+      "module_id": "module-intro",
+      "lesson_id": "intro-language-definition",
+      "title": "நான் ஒரு மொழி அல்ல!",
+      "subtitle": " ",
+      "description": "மொழி மற்றும் எழுத்துமுறை வரையறை",
+      "thumbnail_icon": "💬",
+      "order_no": 4,
+      "estimated_time_minutes": 4
+    },
+    {
+      "id": "intro-lesson-005",
+      "module_id": "module-intro",
+      "lesson_id": "intro-specialty",
+      "title": "என் சிறப்பு",
+      "subtitle": " ",
+      "description": "என் சிறப்பு மற்றும் முக்கியத்துவம்",
+      "thumbnail_icon": "⭐",
+      "order_no": 5,
+      "estimated_time_minutes": 5
+    },
+    {
+      "id": "intro-lesson-006",
+      "module_id": "module-intro",
+      "lesson_id": "intro-spiritual",
+      "title": "நீங்கள் என்ன நினைக்கிறீர்கள் என எனக்கு தெரியும்.",
+      "subtitle": " ",
+      "description": "நம்மிடம் உள்ள நூல்கள் ஜினவாணி என அழைக்கப்படுகின்றன, அதாவது ஜினேந்திர பகவானின் தெய்வீக ஒலி.",
+      "thumbnail_icon": "📜",
+      "order_no": 6,
+      "estimated_time_minutes": 8
+    },
+    {
+      "id": "intro-lesson-007",
+      "module_id": "module-intro",
+      "lesson_id": "intro-time-commitment",
+      "title": "என்னை கற்க நீங்கள் தினமும் எவ்வளவு நேரம் ஒதுக்க விரும்புகிறீர்கள்?",
+      "subtitle": " ",
+      "description": "தினசரி பயிற்சி நேரம்",
+      "thumbnail_icon": "⏱️",
+      "order_no": 7,
+      "estimated_time_minutes": 2
+    },
+    {
+      "id": "intro-lesson-008",
+      "module_id": "module-intro",
+      "lesson_id": "intro-encouragement",
+      "title": "வாவ்!",
+      "subtitle": " ",
+      "description": "ஆரம்பத்திலிருந்து தொடங்குங்கள்.",
+      "thumbnail_icon": "🚀",
+      "order_no": 8,
+      "estimated_time_minutes": 2
+    }
+  ],
+  "content": [
+    {
+      "id": "content-001",
+      "lesson_id": "intro-brahmi-intro",
+      "content_type": "title_slide",
+      "title": "BRAHMI LIPI",
+      "content": "",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-002",
+      "lesson_id": "intro-brahmi-intro",
+      "content_type": "text",
+      "title": "நான் பிராமி வரிவடிவம்",
+      "content": "மிகப் பழமையானது, மிக முக்கியமானது மற்றும் மிகவும் நேசிக்கப்பட்டது!",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-003",
+      "lesson_id": "intro-objectives",
+      "content_type": "mcq",
+      "title": "உங்கள் இலக்கு என்ன?",
+      "content": "",
+      "metadata": {
+        "options": [
+          {
+            "text": "மத அறிவிற்காக",
+            "translation": " "
+          },
+          {
+            "text": "வரலாற்று ஆய்வு",
+            "translation": " "
+          },
+          {
+            "text": "திறன் மேம்பாடு",
+            "translation": " "
+          },
+          {
+            "text": "தேர்வு/தொழில்",
+            "translation": " "
+          }
+        ],
+        "accept_any_answer": true,
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-004",
+      "lesson_id": "intro-choice",
+      "content_type": "questionnaire",
+      "title": "என் சுருக்கமான அறிமுகம்",
+      "content": "",
+      "metadata": {
+        "options": [
+          "நீங்கள் அறிய விரும்புகிறீர்களா?",
+          "நாம் நேராக முன்னேறவோமா?"
+        ],
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-005",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "",
+      "content": "நான் ஆதிபிரம்மா, முதல் தீர்த்தங்கரர் மகாராஜா ஸ்ரீ ரிஷபதேவர் உருவாக்கிய எழுத்து.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-006",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "",
+      "content": "அவர் தனது மகள் பிராமிக்கு கற்பிக்கும் போது என்னை உருவாக்கினார்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 3
+    },
+    {
+      "id": "content-007",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "",
+      "content": "பிராமியுடன் சேர்த்து மகாராஜா ஸ்ரீ ரிஷபதேவர் தனது மற்றொரு மகள் சுந்தரிக்கும் 'அங்க் வித்யா' கற்றுக்கொடுத்தார்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 4
+    },
+    {
+      "id": "content-008",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "",
+      "content": "அவர்கள் இருவரும் பகவான் ஸ்ரீ ரிஷபதேவர் வழங்கிய அறிவை மிக விரிவாகப் பரப்பினர்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 5
+    },
+    {
+      "id": "content-009",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "எனக்கு 'பிராமி எழுத்து' என்று பெயர் எப்படித் வந்தது?",
+      "content": "இந்த எழுத்தின் அறிவை சாதாரண மக்களுக்கு இளவரசி பிராமி வழங்கினார், அதனால் எனக்கு 'பிராமி எழுத்து' என்று பெயர் வந்தது.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 6
+    },
+    {
+      "id": "content-010",
+      "lesson_id": "intro-choice",
+      "content_type": "text",
+      "title": "நான் ஒரு மொழி அல்ல!",
+      "content": "நான் ஒரு மொழி அல்ல, வெறும் எழுதும் முறை மட்டுமே என்பதை நினைவில் கொள்ளுங்கள்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 7
+    },
+    {
+      "id": "content-011",
+      "lesson_id": "intro-language-definition",
+      "content_type": "text",
+      "title": "",
+      "content": "\"நாம் ஒருவருக்கொருவர் எங்கள் உணர்வுகளை வெளிப்படுத்தும் ஊடகம் 'மொழி' என்று அழைக்கப்படுகிறது.\"\nஉதாரணம் – ஹிந்தி, பஞ்சாபி, பெங்காலி, தெலுங்கு, தமிழ், குஜராத்தி, கன்னடம், ஒடியா, ஆங்கிலம் ஆகியவை.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-012",
+      "lesson_id": "intro-language-definition",
+      "content_type": "text",
+      "title": "",
+      "content": "\"எந்த மொழியையும் எழுத பயன்படுத்தப்படும் ஊடகம் 'எழுத்துமுறை' என்று அழைக்கப்படுகிறது.\"\nஅல்லது\n\"வாய்வழி ஒலிகளை எழுத்து வடிவில் வெளிப்படுத்த பயன்படுத்தப்படும் குறிகள் எழுத்துமுறை எனப்படும்.\"\nஉதாரணம் – ஹிந்தி–தேவநாகரி, பஞ்சாபி–குர்முகி, பெங்காலி–பெங்காலி, தெலுங்கு–தெலுங்கு, தமிழ்–தமிழ், குஜராத்தி–குஜராத்தி, கன்னடம்–கன்னடம், ஒடியா–ஒடியா, ஆங்கிலம்–லத்தீன் (ரோமன்) ஆகியவை.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-013",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "என் சிறப்பு",
+      "content": "நான் முதன்மையாக 'பிராகிருத மொழியின்' எழுத்து.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-014",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "",
+      "content": "ஆனால், தேவநாகரி அல்லது லத்தீன்/ரோமன் எழுத்து போல எந்த மொழியையும் எழுத என்னைப் பயன்படுத்தலாம்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-015",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "",
+      "content": "ஆம், நான் உங்களுக்கு ஒரு ரகசியத்தைச் சொல்கிறேன்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 3
+    },
+    {
+      "id": "content-016",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "",
+      "content": "நீங்கள் என்னை உங்கள் ரகசிய எழுத்தாக பயன்படுத்தி உங்கள் அனைத்து ரகசியங்களையும் பொதுமக்களிடமிருந்து மறைக்கலாம்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 4
+    },
+    {
+      "id": "content-017",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "என் முக்கியத்துவம்",
+      "content": "என் உயிர் மற்றும் மெய் எழுத்துகள் தேவநாகரி (இந்தி) போலவே உள்ளன.\nநான் உங்களை நேரடியாக தீர்த்தங்கரர் ஸ்ரீ ரிஷபதேவருடன் இணைக்க முடியும்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 5
+    },
+    {
+      "id": "content-018",
+      "lesson_id": "intro-specialty",
+      "content_type": "text",
+      "title": "",
+      "content": "ஆகையால், என்னை விட்டு விடாதீர்கள்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 6
+    },
+    {
+      "id": "content-019",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "பகவான் ஸ்ரீ ரிஷபதேவரின் புனித நிர்வாணத்திற்குப் பிறகு, அளவற்ற காலப் பயணத்தை கடந்து, நான் இன்று உங்கள் முன் நிற்கிறேன்— எண்ணற்ற யுகங்களின் நினைவுகள், புனித அழியாத அறிவு மற்றும் பகவான் ரிஷபதேவரின் தெய்வீக பாரம்பரியத்துடன்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-020",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "நீங்கள் என்ன நினைக்கிறீர்கள் என எனக்கு தெரியும்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-021",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "நம்மிடம் உள்ள நூல்கள் 'ஜினவாணி' என அழைக்கப்படுகின்றன, அதாவது ஜினேந்திர பகவானின் தெய்வீக ஒலி.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 3
+    },
+    {
+      "id": "content-022",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "அப்படியானால், தீர்த்தங்கரரின் நேரடி வடிவம் நமக்கு அனைவருக்கும் உள்ளது.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 4
+    },
+    {
+      "id": "content-023",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ஆம், கண்டிப்பாக! நீங்கள் சரியாக சொல்கிறீர்கள்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 5
+    },
+    {
+      "id": "content-024",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ஆனால், ஒரு முறை சிந்தியுங்கள்— நம்மிடம் உள்ள நூல்களை நாம் ஜினவாணி வடிவமாகக் கருதி வழிபடுகிறோம்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 6
+    },
+    {
+      "id": "content-025",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "இறைவனின் தெய்வீக ஒலியை கணதரர்கள் தொகுத்து, ஆசாரியர்களுக்கு வழங்கினர்; பின்னர் பாரம்பரியமாக எங்களிடம் சிறிதளவே வந்துள்ளது.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 7
+    },
+    {
+      "id": "content-026",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "ஆனால் அது நேரடி ஜினவாணி அல்ல, பாரம்பரிய வடிவிலான ஜினவாணி.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 8
+    },
+    {
+      "id": "content-027",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "பகவான் ஸ்ரீ ரிஷபதேவரின் புனித நிர்வாணத்திற்குப் பிறகு, அளவற்ற காலப் பயணத்தை கடந்து, நான் இன்று உங்கள் முன் நிற்கிறேன்— எண்ணற்ற யுகங்களின் நினைவுகள், புனித அழியாத அறிவு மற்றும் பகவான் ரிஷபதேவரின் தெய்வீக பாரம்பரியத்துடன்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 9
+    },
+    {
+      "id": "content-028",
+      "lesson_id": "intro-spiritual",
+      "content_type": "text",
+      "title": "",
+      "content": "இப்போது நீங்கள் புரிந்துகொண்டீர்கள் அல்லவா— நான் என்னவென்று; தீர்த்தங்கரரின் நேரடி நினைவுச் சின்னமாக.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 10
+    },
+    {
+      "id": "content-029",
+      "lesson_id": "intro-time-commitment",
+      "content_type": "questionnaire",
+      "title": "என்னை கற்க நீங்கள் தினமும் எவ்வளவு நேரம் ஒதுக்க விரும்புகிறீர்கள்?",
+      "content": "",
+      "metadata": {
+        "options": [
+          "3 நிமிடங்கள்",
+          "5 நிமிடங்கள்",
+          "8 நிமிடங்கள்",
+          "10 நிமிடங்கள்",
+          "15 நிமிடங்கள்"
+        ],
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-030",
+      "lesson_id": "intro-encouragement",
+      "content_type": "text",
+      "title": "",
+      "content": "வாவ்!",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 1
+    },
+    {
+      "id": "content-031",
+      "lesson_id": "intro-encouragement",
+      "content_type": "text",
+      "title": "",
+      "content": "இதன் பொருள், நீங்கள் மிகவும் குறைந்த நேரத்தில் முழு பிராமி எழுத்தையும் கற்க முடியும்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 2
+    },
+    {
+      "id": "content-032",
+      "lesson_id": "intro-encouragement",
+      "content_type": "title_slide",
+      "title": "வாங்க! தொடங்குவோம்",
+      "content": "ஆரம்பத்திலிருந்து தொடங்குவோம்.",
+      "metadata": {
+        "buttonText": "அடுத்து"
+      },
+      "order_no": 3
+    }
+  ]
+}

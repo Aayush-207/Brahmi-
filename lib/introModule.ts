@@ -185,9 +185,11 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
   const data = getDataForLanguage(language)
   const isHindi = language === 'hi'
   const isKannada = language === 'kn'
+  const isTamil = language === 'ta'
   const getVowelDisplayLabel = (vowel: any) => {
     if (isHindi) return vowel.devanagari || vowel.title_hindi || ''
     if (isKannada) return vowel.title_kannada || vowel.devanagari || ''
+    if (isTamil) return vowel.title_tamil || vowel.devanagari || ''
     return (vowel.romanized || vowel.title_english || '').toUpperCase()
   }
   const getPracticeMatraExample = (matra: any) => {
@@ -216,6 +218,27 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
       const kannadaResult = kannadaExamples[matra?.order] || matra?.exampleDevanagari || ''
       const matraMark = matra?.matraSign || matra?.vowelBrahmi?.slice(-1) || ''
       return `ಮಾತ್ರೆಯೊಂದಿಗೆ: ಕ + ${matraMark} = ${kannadaResult}`
+    }
+
+    if (isTamil) {
+      const tamilExamples: Record<number, string> = {
+        1: 'அ',
+        2: 'ஆ',
+        3: 'இ',
+        4: 'ஈ',
+        5: 'உ',
+        6: 'ஊ',
+        7: 'ஏ',
+        8: 'ஐ',
+        9: 'ஒ',
+        10: 'ஔ',
+        11: 'அம்',
+        12: 'அஃ'
+      }
+
+      const tamilResult = tamilExamples[matra?.order] || matra?.exampleDevanagari || ''
+      const matraMark = matra?.matraSign || matra?.vowelBrahmi?.slice(-1) || ''
+      return `மாத்ராவுடன்: அ + ${matraMark} = ${tamilResult}`
     }
 
     // English: compute a romanized combo (use 'ka' as representative consonant)
@@ -337,12 +360,14 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
         steps.push({
           id: `${letterId}-step-pronunciation`,
           step_type: 'sound',
-          title: isHindi ? 'उच्चारण' : isKannada ? 'ಉಚ್ಚಾರಣೆ' : 'Pronunciation',
+          title: isHindi ? 'उच्चारण' : isKannada ? 'ಉಚ್ಚಾರಣೆ' : isTamil ? 'உச்சारணம்' : 'Pronunciation',
           content: isHindi 
-            ? `इस स्वर का उच्चारण ‘${vowelLabel}’ होता है।` 
+            ? `इस स्वर का उच्चारण '${vowelLabel}' होता है।` 
             : isKannada
-              ? `ಈ ಸ್ವರವನ್ನು ‘${vowelLabel}’ ಎಂದು ಉಚ್ಚರಿಸಲಾಗುತ್ತದೆ。`
-              : `This vowel is pronounced as '${vowelLabel}'.`,
+              ? `ಈ ಸ್ವರವನ್ನು '${vowelLabel}' ಎಂದು ಉಚ್ಚರಿಸಲಾಗುತ್ತದೆ。`
+              : isTamil
+                ? `இந்த உயிரெழுத்து '${vowelLabel}' என்று உச்சரிக்கப்படுகிறது.`
+                : `This vowel is pronounced as '${vowelLabel}'.`,
           order_no: 2,
           letters
         })
@@ -353,12 +378,14 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
         ? (vowel.description_hindi || vowel.description_english)
         : isKannada
           ? (vowel.description_kannada || vowel.description_english || vowel.description_hindi)
+          : isTamil
+            ? (vowel.description_tamil || vowel.description_english || vowel.description_hindi)
           : (vowel.description_english || vowel.description_hindi);
       if (description) {
         steps.push({
           id: `${letterId}-step-description`,
           step_type: 'explanation',
-          title: isHindi ? 'विवरण' : isKannada ? 'ಹೆಚ್ಚಿನ ಮಾಹಿತಿ' : 'More Info',
+          title: isHindi ? 'विवरण' : isKannada ? 'ಹೆಚ್ಚಿನ ಮಾಹಿತಿ' : isTamil ? 'கூடுதல் தகவல்' : 'More Info',
           content: description,
           order_no: 3,
           letters
@@ -372,11 +399,13 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
         steps.push({
           id: `${letterId}-step-example`,
           step_type: 'example',
-          title: isHindi ? 'उदाहरण' : isKannada ? 'ಉದಾಹರಣೆ' : 'Example',
+          title: isHindi ? 'उदाहरण' : isKannada ? 'ಉದಾಹರಣೆ' : isTamil ? 'உதாரணம்' : 'Example',
           content: isHindi
             ? `मात्रा के साथ: ${matra.example_combination}`
             : isKannada
               ? getPracticeMatraExample(matra)
+              : isTamil
+                ? getPracticeMatraExample(matra)
               : getPracticeMatraExample(matra),
           order_no: 4,
           letters
@@ -560,13 +589,15 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
   const quizQuestions: any[] = []
   const isHindi = language === 'hi'
   const isKannada = language === 'kn'
-  const getQuestionText = (hindiText: string, englishText: string, kannadaText: string) =>
-    isHindi ? hindiText : isKannada ? kannadaText : englishText
+  const isTamil = language === 'ta'
+  const getQuestionText = (hindiText: string, englishText: string, kannadaText: string, tamilText?: string) =>
+    isHindi ? hindiText : isKannada ? kannadaText : isTamil ? (tamilText || englishText) : englishText
 
   const getVowelLabel = (vowelId: string): string => {
     const vowel = data.swar?.vowels?.find((entry: any) => entry.id === vowelId)
     if (isHindi) return vowel?.title_hindi || vowel?.devanagari || ''
     if (isKannada) return vowel?.title_kannada || vowel?.devanagari || ''
+    if (isTamil) return vowel?.title_tamil || vowel?.devanagari || ''
     return vowel?.title_english || vowel?.romanized || ''
   }
 
@@ -608,6 +639,22 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
         '"ಅಃ" ಯ ಚಿಹ್ನೆ [𑀅𑀂] ಆಗಿದೆಯೇ?'
       ][order - 1] || ''
     }
+    if (isTamil) {
+      return [
+        '"அ" இன் குறி [𑀅] ஆகுமா?',
+        '"ஆ" இன் குறி [𑀆] ஆகுமா?',
+        '"இ" இன் குறி [𑀇] ஆகுமா?',
+        '"ஈ" இன் குறி [𑀈] ஆகுமா?',
+        '"உ" இன் குறி [𑀉] ஆகுமா?',
+        '"ஊ" இன் குறி [𑀊] ஆகுமா?',
+        '"ஏ" இன் குறி [𑀏] ஆகுமா?',
+        '"ஐ" இன் குறி [𑀐] ஆகுமா?',
+        '"ஒ" இன் குறி [𑀑] ஆகுமா?',
+        '"ஔ" இன் குறி [𑀒] ஆகுமா?',
+        '"அம்" இன் குறி [𑀅𑀁] ஆகுமா?',
+        '"அஃ" இன் குறி [𑀅𑀂] ஆகுமா?'
+      ][order - 1] || ''
+    }
     return [
       '"Is Brahmi a language?"'
     ][0] || ''
@@ -616,11 +663,78 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
   // 1. Try Swar Quizzes
   if (data.swar) {
     const swar = data.swar
+    const swarVowels = (swar.vowels || []) as any[]
 
     const isPracticeMode = letterId === 'practice-time'
-    const q1Source = isPracticeMode ? (swar.quiz1_devanagari_to_brahmi || []) : (swar.quiz1_devanagari_to_brahmi || []).filter((q: any) => q.correct_vowel_id === letterId)
-    const q2Source = isPracticeMode ? (swar.quiz2_brahmi_to_devanagari || []) : (swar.quiz2_brahmi_to_devanagari || []).filter((q: any) => q.correct_vowel_id === letterId)
-    const tfSource = isPracticeMode ? (swar.true_false_questions || []) : (swar.true_false_questions || []).filter((q: any) => q.vowel_id === letterId)
+    const tamilQ1Source = Array.isArray((swar as any).section_5_quiz1_native_to_brahmi?.questions)
+      ? (swar as any).section_5_quiz1_native_to_brahmi.questions.map((question: any, index: number) => ({
+          id: question.id || `quiz1-${String(index + 1).padStart(3, '0')}`,
+          order: index + 1,
+          question: question.question,
+          question_type: 'devanagari_to_brahmi',
+          correct_answer: question.correct,
+          correct_vowel_id: swarVowels[index]?.id || `swar-${String(index + 1).padStart(3, '0')}`,
+          wrong_options: (question.options_brahmi || [])
+            .filter((option: string) => option !== question.correct)
+            .map((option: string, wrongIndex: number) => ({
+              id: `wrong-${String(index + 1).padStart(3, '0')}-${wrongIndex}`,
+              brahmi: option,
+              vowel_id: swarVowels.find((v: any) => v.brahmi === option)?.id || ''
+            })),
+          title_tamil: question.question,
+          title_english: question.question
+        }))
+      : []
+
+    const tamilQ2Source = Array.isArray((swar as any).section_10_quiz2_brahmi_to_native?.questions)
+      ? (swar as any).section_10_quiz2_brahmi_to_native.questions.map((question: any, index: number) => ({
+          id: question.id || `quiz2-${String(index + 1).padStart(3, '0')}`,
+          order: index + 1,
+          question: question.brahmi,
+          question_type: 'brahmi_to_devanagari',
+          correct_answer: question.correct,
+          correct_vowel_id: swarVowels[index]?.id || `swar-${String(index + 1).padStart(3, '0')}`,
+          wrong_options: (question.options || [])
+            .filter((option: string) => option !== question.correct)
+            .map((option: string, wrongIndex: number) => ({
+              id: `wrong-quiz2-${String(index + 1).padStart(3, '0')}-${wrongIndex}`,
+              devanagari: option,
+              vowel_id: swarVowels.find((v: any) => v.devanagari === option)?.id || ''
+            })),
+          title_tamil: question.brahmi,
+          title_english: question.brahmi
+        }))
+      : []
+
+    const tamilTfSource = (() => {
+      const pageContainer = (swar as any).section_15_true_false_quiz_stage_4?.pages || {}
+      const pages = Object.values(pageContainer) as any[]
+      return pages.flatMap((page: any, pageIndex: number) => {
+        return Object.entries(page || {}).map(([key, item]: any, itemIndex: number) => {
+          const order = pageIndex * 4 + itemIndex + 1
+          return {
+            id: `tf-${String(order).padStart(3, '0')}`,
+            order,
+            question_hindi: item.text,
+            question_english: item.text,
+            question_tamil: item.text,
+            correct_answer: !!item.answer,
+            vowel_id: swarVowels[order - 1]?.id || `swar-${String(order).padStart(3, '0')}`,
+            explanation_hindi: '',
+            explanation_english: '',
+            explanation_tamil: ''
+          }
+        })
+      })
+    })()
+
+    const q1Base = swar.quiz1_devanagari_to_brahmi || tamilQ1Source
+    const q2Base = swar.quiz2_brahmi_to_devanagari || tamilQ2Source
+    const tfBase = swar.true_false_questions || tamilTfSource
+
+    const q1Source = isPracticeMode ? q1Base : q1Base.filter((q: any) => q.correct_vowel_id === letterId)
+    const q2Source = isPracticeMode ? q2Base : q2Base.filter((q: any) => q.correct_vowel_id === letterId)
+    const tfSource = isPracticeMode ? tfBase : tfBase.filter((q: any) => q.vowel_id === letterId)
     
     // Quiz 1: Devanagari to Brahmi
     q1Source.forEach((q: any) => {
@@ -629,7 +743,7 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
         letter_id: letterId,
         question: isKannada
           ? `${getVowelLabel(q.correct_vowel_id) || q.question} ಗೆ ಸರಿಯಾದ ಬ್ರಾಹ್ಮೀ ಚಿಹ್ನೆ ಯಾವುದು?`
-          : getQuestionText(q.title_hindi, q.title_english, getVowelLabel(q.correct_vowel_id) || q.title_english),
+          : getQuestionText(q.title_hindi, q.title_english, getVowelLabel(q.correct_vowel_id) || q.title_english, q.title_tamil),
         order_no: q.order,
         options: [
           { id: `${q.id}-opt-correct`, question_id: q.id, option_text: q.correct_answer, is_correct: true, order_no: 1 },
@@ -654,7 +768,8 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
           : getQuestionText(
               q.title_hindi,
               q.title_english,
-              `${q.question} ${getVowelLabel(q.correct_vowel_id)}`
+              `${q.question} ${getVowelLabel(q.correct_vowel_id)}`,
+              q.title_tamil
             ),
         order_no: q.order,
         options: [
@@ -676,12 +791,12 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
         id: q.id,
         letter_id: letterId,
         question: isPracticeMode
-          ? getQuestionText('सही / गलत', 'True / False', 'ಸರಿ / ತಪ್ಪು')
+          ? getQuestionText('सही / गलत', 'True / False', 'ಸರಿ / ತಪ್ಪು', 'சரி / தவறு')
           : getTrueFalseQuestionText(q.order),
         order_no: q.order,
         options: [
-          { id: `${q.id}-opt-true`, question_id: q.id, option_text: getQuestionText('सत्य (True)', 'True', 'ಸರಿ'), is_correct: q.correct_answer === true, order_no: 1 },
-          { id: `${q.id}-opt-false`, question_id: q.id, option_text: getQuestionText('असत्य (False)', 'False', 'ತಪ್ಪು'), is_correct: q.correct_answer === false, order_no: 2 }
+          { id: `${q.id}-opt-true`, question_id: q.id, option_text: getQuestionText('सत्य (True)', 'True', 'ಸರಿ', 'சரி'), is_correct: q.correct_answer === true, order_no: 1 },
+          { id: `${q.id}-opt-false`, question_id: q.id, option_text: getQuestionText('असत्य (False)', 'False', 'ತಪ್ಪು', 'தவறு'), is_correct: q.correct_answer === false, order_no: 2 }
         ]
       })
     })
@@ -700,7 +815,8 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
         question: getQuestionText(
           `देवनागरी '${consonant.devanagari}' के लिए सही ब्राह्मी अक्षर चुनें:`,
           `Choose the correct Brahmi for '${consonant.romanized || consonant.devanagari}':`,
-          `ದೇವನಾಗರೀ '${consonant.devanagari}' ಗೆ ಸರಿಯಾದ ಬ್ರಾಹ್ಮೀ ಅಕ್ಷರವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`
+          `ದೇವನಾಗರೀ '${consonant.devanagari}' ಗೆ ಸರಿಯಾದ ಬ್ರಾಹ್ಮೀ ಅಕ್ಷರವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`,
+          `தெவநாகரீ '${consonant.devanagari}' க்கு சரியான பிராமி எழுத்தைத் தேர்ந்தெடுக்கவும்:`
         ),
         order_no: 1,
         options: [
@@ -727,11 +843,12 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
         question: getQuestionText(
           `ब्राह्मी '${consonant.brahmi}' के लिए सही देवनागरी अक्षर चुनें:`,
           `Choose the correct Kannada letter for Brahmi '${consonant.brahmi}':`,
-          `ಬ್ರಾಹ್ಮೀ '${consonant.brahmi}' ಗೆ ಸರಿಯಾದ ದೇವನಾಗರೀ ಅಕ್ಷರವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`
+          `ಬ್ರಾಹ್ಮೀ '${consonant.brahmi}' ಗೆ ಸರಿಯಾದ ದೇವನಾಗರೀ ಅಕ್ಷರವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`,
+          `பிராமி '${consonant.brahmi}' க்கு சரியான தமிழ் எழுத்தைத் தேர்ந்தெடுக்கவும்:`
         ),
         order_no: 2,
         options: [
-          { id: `opt-v2-correct`, question_id: `quiz-vyanjan-${letterId}-2`, option_text: isKannada ? kannadaCorrectLabel : (isHindi ? consonant.devanagari : (consonant.romanized || consonant.devanagari)), is_correct: true, order_no: 1 },
+          { id: `opt-v2-correct`, question_id: `quiz-vyanjan-${letterId}-2`, option_text: isKannada ? kannadaCorrectLabel : (isHindi ? consonant.devanagari : isTamil ? consonant.devanagari : (consonant.romanized || consonant.devanagari)), is_correct: true, order_no: 1 },
           // Pick 3 random wrong options from other consonants
           ...vyanjan.consonants
             .filter((c: any) => c.id !== letterId)
@@ -740,7 +857,7 @@ export async function getLetterQuiz(letterId: string, language: string = 'hi'): 
             .map((w: any, idx: number) => ({
               id: `opt-v2-wrong-${idx}`,
               question_id: `quiz-vyanjan-${letterId}-2`,
-              option_text: isKannada ? getKannadaConsonantLabel(w.id) : (isHindi ? w.devanagari : (w.romanized || w.devanagari)),
+              option_text: isKannada ? getKannadaConsonantLabel(w.id) : (isHindi ? w.devanagari : isTamil ? w.devanagari : (w.romanized || w.devanagari)),
               is_correct: false,
               order_no: idx + 2
             }))
