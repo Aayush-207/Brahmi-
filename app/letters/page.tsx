@@ -186,7 +186,7 @@ export default function LettersPage() {
             setLanguage(saved as 'hi'|'en'|'kn')
             return
         }
-        const nav = navigator?.language || navigator?.userLanguage || 'hi'
+        const nav = navigator?.language || 'hi'
         if (nav.startsWith('en')) setLanguage('en')
         else if (nav.startsWith('kn')) setLanguage('kn')
         else setLanguage('hi')

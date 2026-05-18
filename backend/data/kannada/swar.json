@@ -1,9 +1,9 @@
 {
   "module_title": "ಸ್ವರಗಳು",
   "section_1_module_title": {
-    "Hindi": "स्वर",
+    "LanguageValueHindi": "स्वर",
     "English": "Vowels",
-    "LanguageValueKannada": "ಸ್ವರಗಳು"
+    "Kannada": "ಸ್ವರಗಳು"
   },
   "section_2_vowel_display_cards": {
     "group_1": {
@@ -96,6 +96,7 @@
     "next_button": "ಮುಂದೆ"
   },
   "section_10_quiz2_brahmi_to_native": {
+    "instructions": "Each question shows a Brahmi symbol. The user picks the correct native-script vowel from 4 options. The Brahmi symbol shown is IDENTICAL across all languages — only the 4 answer options change per language.",
     "questions": [
       { "id": "Q1", "brahmi": "𑀅", "options": ["ಅ","ಆ","ಇ","ಉ"], "correct": "ಅ" },
       { "id": "Q2", "brahmi": "𑀆", "options": ["ಅ","ಆ","ಈ","ಒ"], "correct": "ಆ" },
@@ -190,8 +191,7 @@
     "reward_line": "ನಿಮ್ಮ ಬಹುಮಾನ: 5 ಅ Yank",
     "message_label": "ಸಂದೇಶ:",
     "message_content": "\"ಸತ್ಯವಾದ ಜ್ಞಾನವೆಂದರೆ ಸರಿಯಾದ ಸಮಯದಲ್ಲಿ ಸರಿಯಾದ ಸ್ಥಳದಲ್ಲಿ ಉಪಯೋಗವಾಗುವುದು. ನೀವು ಇದನ್ನು ಸಾಬೀತುಪಡಿಸಿದ್ದೀರಿ!\""
-  }
-,
+  },
   "vowels": [
     { "id": "swar-001", "order": 1, "devanagari": "अ", "brahmi": "𑀅", "unicode_codepoint": "U+11005", "romanized": "a", "matra_sign": null, "matra_unicode": null, "matra_position": "none", "title_hindi": "अ", "title_english": "a (Short A)", "title_kannada": "ಅ", "description_hindi": "पहला स्वर - सबसे बुनियादी ध्वनि", "description_english": "First vowel - the most basic sound", "pronunciation": "uh", "englishName": "a (Short A)", "matra_position_label": "No sign" },
     { "id": "swar-002", "order": 2, "devanagari": "आ", "brahmi": "𑀆", "unicode_codepoint": "U+11006", "romanized": "aa", "matra_sign": "𑀸", "matra_unicode": "U+11038", "matra_position": "after", "title_hindi": "आ", "title_english": "aa (Long A)", "title_kannada": "ಆ", "description_hindi": "लंबा 'अ' ध्वनि", "description_english": "Extended 'a' sound", "pronunciation": "aah", "englishName": "aa (Long A)", "matra_position_label": "After" },

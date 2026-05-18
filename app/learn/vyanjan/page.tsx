@@ -366,7 +366,7 @@ export default function VyanjanLessonsPage() {
                                             whileHover={{ scale: 1.1 }}
                                             whileTap={{ scale: 0.95 }}
                                         >
-                                            <span className="text-2xl">{lesson.thumbnail_label || lesson.thumbnail_icon}</span>
+                                            <span className="text-2xl">{lesson.thumbnail_icon}</span>
                                             
                                             {/* Completed indicator */}
                                             {isCompleted && (
@@ -561,7 +561,7 @@ export default function VyanjanLessonsPage() {
                                             }}
                                             whileTap={{ scale: 0.95, translateY: 0 }}
                                         >
-                                            <span className="text-3xl">{lesson.thumbnail_label || lesson.thumbnail_icon}</span>
+                                            <span className="text-3xl">{lesson.thumbnail_icon}</span>
                                             
                                             {/* Golden torch for completed */}
                                             {isCompleted && (
