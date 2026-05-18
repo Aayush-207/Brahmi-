@@ -200,7 +200,12 @@ export default function MatraLessonPage({ params }: { params: Promise<{ lesson_i
                             )}
 
                             <div className="text-lg md:text-2xl text-gray-400 font-bold tracking-widest uppercase -mt-2">
-                                {currentStep.metadata?.devanagari || (currentStep.content_type === 'title_slide' ? '' : currentStep.title)}
+                                {currentStep.content_type === 'title_slide'
+                                    ? (language === 'hi'
+                                        ? (currentStep.metadata?.devanagari || currentStep.title || '')
+                                        : (currentStep.metadata?.latin || currentStep.title || ''))
+                                    : (language === 'en' && currentStep.metadata?.romanized ? currentStep.metadata.romanized : (currentStep.metadata?.devanagari || currentStep.title))
+                                }
                             </div>
 
                             <div className="text-base sm:text-lg md:text-xl text-[#E6D8B8]/90 text-center font-medium leading-relaxed max-w-2xl px-4 mt-2 whitespace-pre-line">

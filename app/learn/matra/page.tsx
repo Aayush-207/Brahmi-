@@ -600,10 +600,7 @@ export default function MatraPage() {
                                         </span>
                                     </motion.div>
                                     
-                                    {/* Level number */}
-                                    <div className="mt-2 text-xs text-[#D4AF37]/50 font-serif">
-                                        स्तर {toHindiNum(index + 1)}
-                                    </div>
+                                    {/* Level number removed per localization request */}
                                 </motion.div>
                             )
                         })}

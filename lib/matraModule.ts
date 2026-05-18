@@ -199,14 +199,66 @@ export async function getMatraLessonContent(lessonId: string, language: string =
       id: 2,
       lesson_id: lessonId,
       content_type: 'pronunciation',
-      title: language === 'hi' ? 'मात्रा संयोजन' : 'Matra Combination',
+      title: language === 'hi' ? 'मात्रा संयोजन' : (language === 'kn' ? 'ಮಾತ್ರಾ ಸಂಯೋಜನೆ' : 'Matra Combination'),
       content: matraDescription,
       audio_url: null,
-      metadata: { 
-        brahmi_symbol: matra.exampleBrahmi,
-        devanagari: matra.exampleDevanagari,
-        sound: matra.example_combination
-      },
+      metadata: (function(){
+        const meta: any = {
+          brahmi_symbol: matra.exampleBrahmi,
+          devanagari: matra.exampleDevanagari,
+          sound: matra.example_combination
+        }
+
+        // Only produce romanized metadata for English UI
+        if (language === 'en') {
+          function romanizeConsonantWithMatra(baseRomanized: string, matraName: string) {
+            const root = baseRomanized.endsWith('a') ? baseRomanized.slice(0, -1) : baseRomanized
+            const suffixMap: Record<string, string> = {
+              None: 'a',
+              'आ': 'aa',
+              'इ': 'i',
+              'ई': 'ee',
+              'उ': 'u',
+              'ऊ': 'oo',
+              'ए': 'e',
+              'ऐ': 'ai',
+              'ओ': 'o',
+              'औ': 'au',
+              'अं': 'am',
+              'अः': 'ah'
+            }
+            const suffix = suffixMap[matraName] || 'a'
+            return `${root}${suffix}`
+          }
+
+          try {
+            const matraKey = matra.vowelDevanagari || matra.matraName || ''
+            meta.romanized = romanizeConsonantWithMatra('ka', matraKey)
+          } catch (e) {
+            meta.romanized = null
+          }
+
+          try {
+            const consonants = (matraData.consonants || []) as any[]
+            const combos = (matraData.consonantMatraCombinations || []) as any[]
+            const sample: string[] = []
+            for (let i=0;i<Math.min(6, combos.length);i++){
+              const combo = combos[i]
+              const cDev = combo.consonantDevanagari
+              const cObj = consonants.find(c=>c.devanagari === cDev || c.brahmi === combo.consonantBrahmi)
+              const baseRoman = cObj?.romanized || 'ka'
+              const f = combo.forms?.find((fr:any)=>fr.matraDevanagari === matra.vowelDevanagari || fr.matraName === matra.matraName) || combo.forms?.[0]
+              const matraName = f?.matraName || f?.matraDevanagari || ''
+              sample.push(`${baseRoman} + ${matraName} = ${romanizeConsonantWithMatra(baseRoman, matraName)}`)
+            }
+            meta.combosRomanized = sample
+          } catch (e) {
+            meta.combosRomanized = []
+          }
+        }
+
+        return meta
+      })(),
       order_no: 2,
       language: language,
       created_at: new Date().toISOString()
@@ -217,8 +269,8 @@ export async function getMatraLessonContent(lessonId: string, language: string =
         id: 3,
         lesson_id: lessonId,
         content_type: 'writing_practice',
-        title: language === 'hi' ? 'मात्रा अभ्यास' : 'Matra Practice',
-        content: language === 'hi' ? `अभ्यास करें` : `Practice the Brahmi matra '${matra.matraSign}'`,
+        title: language === 'hi' ? 'मात्रा अभ्यास' : (language === 'kn' ? 'ಮಾತ್ರಾ ಅಭ್ಯಾಸ' : 'Matra Practice'),
+        content: language === 'hi' ? `अभ्यास करें` : (language === 'kn' ? `ಬ್ರಾಹ್ಮಿ ಮಾತ್ರೆಯ '${matra.matraSign}' ಅಭ್ಯಾಸ ಮಾಡಿ` : `Practice the Brahmi matra '${matra.matraSign}'`),
         audio_url: null,
         metadata: { character: matra.exampleBrahmi },
         order_no: 3,
@@ -231,12 +283,14 @@ export async function getMatraLessonContent(lessonId: string, language: string =
   // Add rules slide for introduction lesson
   if (lessonId === 'matras-lesson-001') {
     (matraData.matraRules as unknown as any[]).forEach((rule: any, idx: number) => {
+      const title = language === 'hi' ? (rule.title || '') : (rule.titleEnglish || rule.title || '')
+      const description = language === 'hi' ? (rule.description || '') : (rule.descriptionEnglish || rule.description || '')
       content.push({
         id: 10 + idx,
         lesson_id: lessonId,
         content_type: 'text',
-        title: rule.title,
-        content: rule.description || '',
+        title,
+        content: description,
         audio_url: null,
         metadata: { rule_data: rule },
         order_no: 3 + idx,

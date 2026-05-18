@@ -191,28 +191,61 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
     return (vowel.romanized || vowel.title_english || '').toUpperCase()
   }
   const getPracticeMatraExample = (matra: any) => {
-    if (!isKannada) {
+    // Hindi: keep localized example
+    if (isHindi) {
+      return `मात्रा के साथ: ${matra.example_combination}`
+    }
+
+    // Kannada: use precomputed Kannada examples or fallback
+    if (isKannada) {
+      const kannadaExamples: Record<number, string> = {
+        1: 'ಕ',
+        2: 'ಕಾ',
+        3: 'ಕಿ',
+        4: 'ಕೀ',
+        5: 'ಕು',
+        6: 'ಕೂ',
+        7: 'ಕೆ',
+        8: 'ಕೈ',
+        9: 'ಕೊ',
+        10: 'ಕೌ',
+        11: 'ಕಂ',
+        12: 'ಕಃ'
+      }
+
+      const kannadaResult = kannadaExamples[matra?.order] || matra?.exampleDevanagari || ''
+      const matraMark = matra?.matraSign || matra?.vowelBrahmi?.slice(-1) || ''
+      return `ಮಾತ್ರೆಯೊಂದಿಗೆ: ಕ + ${matraMark} = ${kannadaResult}`
+    }
+
+    // English: compute a romanized combo (use 'ka' as representative consonant)
+    function romanizeConsonantWithMatra(baseRomanized: string, matraName: string) {
+      const root = baseRomanized.endsWith('a') ? baseRomanized.slice(0, -1) : baseRomanized
+      const suffixMap: Record<string, string> = {
+        None: 'a',
+        'आ': 'aa',
+        'इ': 'i',
+        'ई': 'ee',
+        'उ': 'u',
+        'ऊ': 'oo',
+        'ए': 'e',
+        'ऐ': 'ai',
+        'ओ': 'o',
+        'औ': 'au',
+        'अं': 'am',
+        'अः': 'ah'
+      }
+      const suffix = suffixMap[matraName] || 'a'
+      return `${root}${suffix}`
+    }
+
+    try {
+      const matraKey = matra.vowelDevanagari || matra.matraName || ''
+      const romanized = romanizeConsonantWithMatra('ka', matraKey)
+      return `With matra: ${romanized}`
+    } catch (e) {
       return `With matra: ${matra.example_combination}`
     }
-
-    const kannadaExamples: Record<number, string> = {
-      1: 'ಕ',
-      2: 'ಕಾ',
-      3: 'ಕಿ',
-      4: 'ಕೀ',
-      5: 'ಕು',
-      6: 'ಕೂ',
-      7: 'ಕೆ',
-      8: 'ಕೈ',
-      9: 'ಕೊ',
-      10: 'ಕೌ',
-      11: 'ಕಂ',
-      12: 'ಕಃ'
-    }
-
-    const kannadaResult = kannadaExamples[matra?.order] || matra?.exampleDevanagari || ''
-    const matraMark = matra?.matraSign || matra?.vowelBrahmi?.slice(-1) || ''
-    return `ಮಾತ್ರೆಯೊಂದಿಗೆ: ಕ + ${matraMark} = ${kannadaResult}`
   }
 
   // Helper to build a Letter object compatible with LessonPage
@@ -344,7 +377,7 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
             ? `मात्रा के साथ: ${matra.example_combination}`
             : isKannada
               ? getPracticeMatraExample(matra)
-              : `With matra: ${matra.example_combination}`,
+              : getPracticeMatraExample(matra),
           order_no: 4,
           letters
         })
@@ -501,7 +534,7 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
           id: `${letterId}-step-3`,
           step_type: 'example',
           title: isHindi ? 'उदाहरण' : isKannada ? 'ಉದಾಹರಣೆ' : 'Example',
-          content: isHindi ? `संयोजन: ${matra.example_combination}` : isKannada ? `ಸಂಯೋಜನೆ: ${matra.example_combination}` : `Combination: ${matra.example_combination}`,
+          content: isHindi ? `संयोजन: ${matra.example_combination}` : isKannada ? `ಸಂಯೋಜನೆ: ${matra.example_combination}` : getPracticeMatraExample(matra),
           order_no: 3,
           letters
         })
