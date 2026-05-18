@@ -1,8 +1,8 @@
 {
   "module_title": "Vowels",
   "section_1_module_title": {
-    "Hindi": "स्वर",
-    "LanguageValueEnglish": "Vowels",
+    "LanguageValueHindi": "स्वर",
+    "English": "Vowels",
     "Kannada": "ಸ್ವರಗಳು"
   },
   "section_2_vowel_display_cards": {
@@ -96,6 +96,7 @@
     "next_button": "Next"
   },
   "section_10_quiz2_brahmi_to_native": {
+    "instructions": "Each question shows a Brahmi symbol. The user picks the correct native-script vowel from 4 options. The Brahmi symbol shown is IDENTICAL across all languages — only the 4 answer options change per language.",
     "questions": [
       { "id": "Q1", "brahmi": "𑀅", "options": ["aa","aa","i","u"], "correct": "a" },
       { "id": "Q2", "brahmi": "𑀆", "options": ["a","aa","ee","o"], "correct": "aa" },
@@ -190,9 +191,7 @@
     "reward_line": "Your Reward: 5 Points + \"Excellent Scholar\" Title / This honor is a proof of your sharp mind and correct decision.",
     "message_label": "Message:",
     "message_content": "\"True knowledge is that which is applied at the right time and at the right place. You have proven this!\""
-  }
-}
-{
+  },
   "vowels": [
     {
       "id": "swar-001",

@@ -6,7 +6,7 @@ import kannadaSwar from '@/backend/data/kannada/swar.json';
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const lang = (searchParams.get('lang') || 'hindi').toLowerCase();
-  let swarData = hindiSwar;
+  let swarData: any = hindiSwar;
   if (lang === 'english' || lang === 'en') swarData = englishSwar;
   if (lang === 'kannada' || lang === 'kn') swarData = kannadaSwar;
   return NextResponse.json(swarData);
