@@ -366,7 +366,7 @@ export default function VyanjanLessonsPage() {
                                             whileHover={{ scale: 1.1 }}
                                             whileTap={{ scale: 0.95 }}
                                         >
-                                            <span className="text-2xl">{lesson.thumbnail_icon}</span>
+                                            <span className="text-2xl">{lesson.thumbnail_label || lesson.thumbnail_icon}</span>
                                             
                                             {/* Completed indicator */}
                                             {isCompleted && (
@@ -561,7 +561,7 @@ export default function VyanjanLessonsPage() {
                                             }}
                                             whileTap={{ scale: 0.95, translateY: 0 }}
                                         >
-                                            <span className="text-3xl">{lesson.thumbnail_icon}</span>
+                                            <span className="text-3xl">{lesson.thumbnail_label || lesson.thumbnail_icon}</span>
                                             
                                             {/* Golden torch for completed */}
                                             {isCompleted && (
@@ -717,7 +717,7 @@ export default function VyanjanLessonsPage() {
                                 onClick={() => {
                                     setShowCompletionModal(false)
                                     setCompletionDismissed(true)
-                                    router.push('/letters')
+                                    router.push('/learn/vyanjan')
                                 }}
                                 className="w-full bg-[#2a2420] text-[#E6D8B8] font-semibold py-4 px-6 rounded-lg hover:bg-[#3a3230] hover:text-[#D4AF37] transition-all border-2 border-[#4a3f2f] hover:border-[#D4AF37]"
                             >

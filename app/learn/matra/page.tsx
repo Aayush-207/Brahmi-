@@ -718,7 +718,7 @@ export default function MatraPage() {
                                 onClick={() => {
                                     setShowCompletionModal(false)
                                     setCompletionDismissed(true)
-                                    router.push('/letters')
+                                    router.push('/learn/matra')
                                 }}
                                 className="w-full bg-[#2a2420] text-[#E6D8B8] font-semibold py-4 px-6 rounded-lg hover:bg-[#3a3230] hover:text-[#D4AF37] transition-all border-2 border-[#4a3f2f] hover:border-[#D4AF37]"
                             >

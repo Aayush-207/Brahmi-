@@ -1,0 +1,1201 @@
+{
+  "consonants": [
+    {
+      "id": "vyanjan-001",
+      "order": 1,
+      "category": "kanthya",
+      "categoryHindi": "कण्ठ्य",
+      "categoryEnglish": "Guttural (produced from the throat)",
+      "categoryTamil": "கழுத்து வகை (கழுத்தில் உருவாகும்)",
+      "categoryDescription": "कण्ठ से उच्चरित",
+      "devanagari": "क",
+      "brahmi": "𑀓",
+      "unicode_codepoint": "U+11013",
+      "romanized": "ka",
+      "pronunciationNote": "कठोर 'क' ध्वनि",
+      "pronunciationNoteTamil": "\"க\" என்ற ஒலி, ஆங்கிலத்தின் 'kite' இல் உள்ள 'k' போல",
+      "exampleWords": [
+        {
+          "devanagari": "कमल",
+          "romanized": "kamal",
+          "english": "kamal",
+          "tamil": "கமல்"
+        },
+        {
+          "devanagari": "कक्षा",
+          "romanized": "kaksha",
+          "english": "kaksha",
+          "tamil": "வகுப்பு"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'k' in 'kite'"
+    },
+    {
+      "id": "vyanjan-002",
+      "order": 2,
+      "category": "kanthya",
+      "categoryHindi": "कण्ठ्य",
+      "categoryEnglish": "Guttural (produced from the throat)",
+      "categoryTamil": "கழுத்து வகை (கழுத்தில் உருவாகும்)",
+      "categoryDescription": "कण्ठ से उच्चरित",
+      "devanagari": "ख",
+      "brahmi": "𑀔",
+      "unicode_codepoint": "U+11014",
+      "romanized": "kha",
+      "pronunciationNote": "महाप्राण 'क' ध्वनि",
+      "pronunciationNoteTamil": "தீவிரமான 'k' ஒலி, 'khaki' போன்ற சொற்களில் வரும் அவ்வகை",
+      "exampleWords": [
+        {
+          "devanagari": "खट",
+          "romanized": "khat",
+          "english": "khat",
+          "tamil": "கட்"
+        },
+        {
+          "devanagari": "खेल",
+          "romanized": "khel",
+          "english": "khel",
+          "tamil": "விளையாட்டு"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'kh' — aspirated k, as in 'khaki'"
+    },
+    {
+      "id": "vyanjan-003",
+      "order": 3,
+      "category": "kanthya",
+      "categoryHindi": "कण्ठ्य",
+      "categoryEnglish": "Guttural (produced from the throat)",
+      "categoryTamil": "கழுத்து வகை (கழுத்தில் உருவாகும்)",
+      "categoryDescription": "कण्ठ से उच्चरित",
+      "devanagari": "ग",
+      "brahmi": "𑀕",
+      "unicode_codepoint": "U+11015",
+      "romanized": "ga",
+      "pronunciationNote": "मृदु 'ग' ध्वनि",
+      "pronunciationNoteTamil": "மென்மையான 'g' ஒலி, 'go' என்பதில்வற்றில் உள்ள 'g' போல்",
+      "exampleWords": [
+        {
+          "devanagari": "गाय",
+          "romanized": "gaay",
+          "english": "gaay",
+          "tamil": "பசு"
+        },
+        {
+          "devanagari": "गमन",
+          "romanized": "gaman",
+          "english": "gaman",
+          "tamil": "பயணம்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'g' in 'go'"
+    },
+    {
+      "id": "vyanjan-004",
+      "order": 4,
+      "category": "kanthya",
+      "categoryHindi": "कण्ठ्य",
+      "categoryEnglish": "Guttural (produced from the throat)",
+      "categoryTamil": "கழுத்து வகை (கழுத்தில் உருவாகும்)",
+      "categoryDescription": "कण्ठ से उच्चरित",
+      "devanagari": "घ",
+      "brahmi": "𑀖",
+      "unicode_codepoint": "U+11016",
+      "romanized": "gha",
+      "pronunciationNote": "महाप्राण 'ग' ध्वनि",
+      "pronunciationNoteTamil": "ஆசிட் 'gh' ஒலி; 'ghost' என்ற ஆங்கிலத்தில் வரும் aspirated g போன்றது",
+      "exampleWords": [
+        {
+          "devanagari": "घर",
+          "romanized": "ghar",
+          "english": "ghar",
+          "tamil": "வீடு"
+        },
+        {
+          "devanagari": "घड़ी",
+          "romanized": "ghadi",
+          "english": "ghadi",
+          "tamil": "மணிக்கூடை"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'gh' — aspirated g, as in 'ghost'"
+    },
+    {
+      "id": "vyanjan-005",
+      "order": 5,
+      "category": "kanthya",
+      "categoryHindi": "कण्ठ्य",
+      "categoryEnglish": "Guttural (produced from the throat)",
+      "categoryTamil": "கழுத்து வகை (கழுத்தில் உருவாகும்)",
+      "categoryDescription": "कण्ठ से उच्चरित",
+      "devanagari": "ङ",
+      "brahmi": "𑀗",
+      "unicode_codepoint": "U+11017",
+      "romanized": "nga",
+      "pronunciationNote": "अनुनासिक ध्वनि, स्वतंत्र रूप से कम प्रयुक्त",
+      "pronunciationNoteTamil": "நாசிக் 'ng' ஒலி, 'sing' என்ற சொல்லின் 'ng' போல",
+      "exampleWords": [],
+      "pronunciationNoteEnglish": "Nasal ng sound, as in 'sing'"
+    },
+    {
+      "id": "vyanjan-006",
+      "order": 6,
+      "category": "talavya",
+      "categoryHindi": "तालव्य",
+      "categoryEnglish": "Palatal (tongue touches the palate)",
+      "categoryTamil": "தாலவிய வகை (தலையால் தொடப்படும்)",
+      "categoryDescription": "जिह्वा तालु को स्पर्श करती है",
+      "devanagari": "च",
+      "brahmi": "𑀘",
+      "unicode_codepoint": "U+11018",
+      "romanized": "cha",
+      "pronunciationNote": "मृदु 'च' ध्वनि",
+      "pronunciationNoteTamil": "மென்மையான 'ch' ஒலி, 'chair' என்ற சொல்லின் 'ch' போல",
+      "exampleWords": [
+        {
+          "devanagari": "चाय",
+          "romanized": "chaay",
+          "english": "chaay",
+          "tamil": "தேநீர்"
+        },
+        {
+          "devanagari": "चलना",
+          "romanized": "chalna",
+          "english": "chalna",
+          "tamil": "நடக்க"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'ch' in 'chair'"
+    },
+    {
+      "id": "vyanjan-007",
+      "order": 7,
+      "category": "talavya",
+      "categoryHindi": "तालव्य",
+      "categoryEnglish": "Palatal (tongue touches the palate)",
+      "categoryTamil": "தாலவிய வகை (தலையால் தொடப்படும்)",
+      "categoryDescription": "जिह्वा तालु को स्पर्श करती है",
+      "devanagari": "छ",
+      "brahmi": "𑀙",
+      "unicode_codepoint": "U+11019",
+      "romanized": "chha",
+      "pronunciationNote": "महाप्राण 'च' ध्वनि",
+      "pronunciationNoteTamil": "ஆசிட் 'ch' ஒலி — பலமுள்ள 'ch'",
+      "exampleWords": [
+        {
+          "devanagari": "छाता",
+          "romanized": "chhata",
+          "english": "chhata",
+          "tamil": "காலணி"
+        },
+        {
+          "devanagari": "छोटा",
+          "romanized": "chhota",
+          "english": "chhota",
+          "tamil": "சிறியது"
+        }
+      ],
+      "pronunciationNoteEnglish": "Aspirated 'ch', like a forceful 'ch'"
+    },
+    {
+      "id": "vyanjan-008",
+      "order": 8,
+      "category": "talavya",
+      "categoryHindi": "तालव्य",
+      "categoryEnglish": "Palatal (tongue touches the palate)",
+      "categoryTamil": "தாலவிய வகை (தலையால் தொடப்படும்)",
+      "categoryDescription": "जिह्वा तालु को स्पर्श करती है",
+      "devanagari": "ज",
+      "brahmi": "𑀚",
+      "unicode_codepoint": "U+1101A",
+      "romanized": "ja",
+      "pronunciationNote": "मृदु 'ज' ध्वनि",
+      "pronunciationNoteTamil": "மென்மையான 'j' ஒலி, 'jump' என்ற சொல்லின் 'j' போல",
+      "exampleWords": [
+        {
+          "devanagari": "जल",
+          "romanized": "jal",
+          "english": "jal",
+          "tamil": "தண்ணீர்"
+        },
+        {
+          "devanagari": "जग",
+          "romanized": "jag",
+          "english": "jag",
+          "tamil": "உலகம்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'j' in 'jump'"
+    },
+    {
+      "id": "vyanjan-009",
+      "order": 9,
+      "category": "talavya",
+      "categoryHindi": "तालव्य",
+      "categoryEnglish": "Palatal (tongue touches the palate)",
+      "categoryTamil": "தாலவிய வகை (தலையால் தொடப்படும்)",
+      "categoryDescription": "जिह्वा तालु को स्पर्श करती है",
+      "devanagari": "झ",
+      "brahmi": "𑀛",
+      "unicode_codepoint": "U+1101B",
+      "romanized": "jha",
+      "pronunciationNote": "महाप्राण 'ज' ध्वनि",
+      "pronunciationNoteTamil": "ஆசிட் 'j' ஒலி — பலமுள்ள 'j'",
+      "exampleWords": [
+        {
+          "devanagari": "झरना",
+          "romanized": "jharna",
+          "english": "jharna",
+          "tamil": "சிதைவு"
+        },
+        {
+          "devanagari": "झूला",
+          "romanized": "jhoola",
+          "english": "jhoola",
+          "tamil": "தூர்த்துறை"
+        }
+      ],
+      "pronunciationNoteEnglish": "Aspirated 'j', like 'jh' said forcefully"
+    },
+    {
+      "id": "vyanjan-010",
+      "order": 10,
+      "category": "talavya",
+      "categoryHindi": "तालव्य",
+      "categoryEnglish": "Palatal (tongue touches the palate)",
+      "categoryTamil": "தாலவிய வகை (தலையால் தொடப்படும்)",
+      "categoryDescription": "जिह्वा तालु को स्पर्श करती है",
+      "devanagari": "ञ",
+      "brahmi": "𑀜",
+      "unicode_codepoint": "U+1101C",
+      "romanized": "nya",
+      "pronunciationNote": "अनुनासिक ध्वनि, स्वतंत्र रूप से कम प्रयुक्त",
+      "pronunciationNoteTamil": "நாசிக் 'ny' ஒலி, 'canyon' இல் உள்ள 'ny' போல",
+      "exampleWords": [],
+      "pronunciationNoteEnglish": "Nasal 'ny' sound, as in 'canyon'"
+    },
+    {
+      "id": "vyanjan-011",
+      "order": 11,
+      "category": "murdhanya",
+      "categoryHindi": "मूर्धन्य",
+      "categoryEnglish": "Retroflex (tongue curls back)",
+      "categoryTamil": "மூற்கொழிவு வகை (நாக்கு பின்னால் வளைந்து உச்சரிக்கும்)",
+      "categoryDescription": "जिह्वा पीछे की ओर मुड़ती है",
+      "devanagari": "ट",
+      "brahmi": "𑀝",
+      "unicode_codepoint": "U+1101D",
+      "romanized": "ta",
+      "pronunciationNote": "मूर्धन्य 'ट' ध्वनि",
+      "pronunciationNoteTamil": "பின்னால் வளைந்த நாக்கு உச்சரிக்கும் 'ட' ஒலி",
+      "exampleWords": [
+        {
+          "devanagari": "टोपी",
+          "romanized": "topi",
+          "english": "topi",
+          "tamil": "தொப்பி"
+        },
+        {
+          "devanagari": "टमाटर",
+          "romanized": "tamatar",
+          "english": "tamatar",
+          "tamil": "தக்காளி"
+        }
+      ],
+      "pronunciationNoteEnglish": "Retroflex 't' — tongue curled back"
+    },
+    {
+      "id": "vyanjan-012",
+      "order": 12,
+      "category": "murdhanya",
+      "categoryHindi": "मूर्धन्य",
+      "categoryEnglish": "Retroflex (tongue curls back)",
+      "categoryTamil": "மூற்கொழிவு வகை (நாக்கு பின்னால் வளைந்து உச்சரிக்கும்)",
+      "categoryDescription": "जिह्वा पीछे की ओर मुड़ती है",
+      "devanagari": "ठ",
+      "brahmi": "𑀞",
+      "unicode_codepoint": "U+1101E",
+      "romanized": "tha",
+      "pronunciationNote": "महाप्राण मूर्धन्य 'ट' ध्वनि",
+      "pronunciationNoteTamil": "ஆசிட் மூர்த் 'த' ஒலி — பலமுள்ள கருத்து",
+      "exampleWords": [
+        {
+          "devanagari": "ठंडा",
+          "romanized": "thanda",
+          "english": "thanda",
+          "tamil": "குளிர்"
+        },
+        {
+          "devanagari": "ठग",
+          "romanized": "thag",
+          "english": "thag",
+          "tamil": "தந்திரன்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Aspirated retroflex 't'"
+    },
+    {
+      "id": "vyanjan-013",
+      "order": 13,
+      "category": "murdhanya",
+      "categoryHindi": "मूर्धन्य",
+      "categoryEnglish": "Retroflex (tongue curls back)",
+      "categoryTamil": "மூற்கொழிவு வகை (நாக்கு பின்னால் வளைந்து உச்சரிக்கும்)",
+      "categoryDescription": "जिह्वा पीछे की ओर मुड़ती है",
+      "devanagari": "ड",
+      "brahmi": "𑀟",
+      "unicode_codepoint": "U+1101F",
+      "romanized": "da",
+      "pronunciationNote": "मूर्धन्य 'ड' ध्वनि",
+      "pronunciationNoteTamil": "பின்னால் வளைந்த நாக்கு 'ட' ஒலி",
+      "exampleWords": [
+        {
+          "devanagari": "डाकिया",
+          "romanized": "dakiya",
+          "english": "dakiya",
+          "tamil": "அஞ்சலர்"
+        },
+        {
+          "devanagari": "डमरू",
+          "romanized": "damroo",
+          "english": "damroo",
+          "tamil": "டமூறு"
+        }
+      ],
+      "pronunciationNoteEnglish": "Retroflex 'd' — tongue curled back"
+    },
+    {
+      "id": "vyanjan-014",
+      "order": 14,
+      "category": "murdhanya",
+      "categoryHindi": "मूर्धन्य",
+      "categoryEnglish": "Retroflex (tongue curls back)",
+      "categoryTamil": "மூற்கொழிவு வகை (நாக்கு பின்னால் வளைந்து உச்சரிக்கும்)",
+      "categoryDescription": "जिह्वा पीछे की ओर मुड़ती है",
+      "devanagari": "ढ",
+      "brahmi": "𑀠",
+      "unicode_codepoint": "U+11020",
+      "romanized": "dha",
+      "pronunciationNote": "महाप्राण मूर्धन्य 'ड' ध्वनि",
+      "pronunciationNoteTamil": "ஆசிட் 'ட' ஒலி — பலவைக்கப்பட்ட இடத்தில்",
+      "exampleWords": [
+        {
+          "devanagari": "ढोल",
+          "romanized": "dhol",
+          "english": "dhol",
+          "tamil": "தள்ளல்" 
+        },
+        {
+          "devanagari": "ढक्कन",
+          "romanized": "dhakkan",
+          "english": "dhakkan",
+          "tamil": "மூடியல்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Aspirated retroflex 'd'"
+    },
+    {
+      "id": "vyanjan-015",
+      "order": 15,
+      "category": "murdhanya",
+      "categoryHindi": "मूर्धन्य",
+      "categoryEnglish": "Retroflex (tongue curls back)",
+      "categoryTamil": "மூற்கொழிவு வகை (நாக்கு பின்னால் வளைந்து உச்சரிக்கும்)",
+      "categoryDescription": "जिह्वा पीछे की ओर मुड़ती है",
+      "devanagari": "ण",
+      "brahmi": "𑀡",
+      "unicode_codepoint": "U+11021",
+      "romanized": "na",
+      "pronunciationNote": "मूर्धन्य 'ण' ध्वनि, स्वतंत्र रूप से कम प्रयुक्त",
+      "pronunciationNoteTamil": "மூற்கொழிவு நாசிக் 'ண' ஒலி",
+      "exampleWords": [],
+      "pronunciationNoteEnglish": "Retroflex nasal 'n'"
+    },
+    {
+      "id": "vyanjan-016",
+      "order": 16,
+      "category": "dantya",
+      "categoryHindi": "दन्त्य",
+      "categoryEnglish": "Dental (tongue touches the teeth)",
+      "categoryTamil": "பல்-வகை (பற்களை தொடும்)",
+      "categoryDescription": "जिह्वा दांतों को स्पर्श करती है",
+      "devanagari": "त",
+      "brahmi": "𑀢",
+      "unicode_codepoint": "U+11022",
+      "romanized": "ta",
+      "pronunciationNote": "दन्त्य 'त' ध्वनि",
+      "pronunciationNoteTamil": "மெல்லிய 'த' ஒலி, இத்தாலிய 't' போல்",
+      "exampleWords": [
+        {
+          "devanagari": "तन",
+          "romanized": "tan",
+          "english": "tan",
+          "tamil": "உடல்"
+        },
+        {
+          "devanagari": "तरण",
+          "romanized": "taran",
+          "english": "taran",
+          "tamil": "தரணம்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Soft dental 't', like Italian 't'"
+    },
+    {
+      "id": "vyanjan-017",
+      "order": 17,
+      "category": "dantya",
+      "categoryHindi": "दन्त्य",
+      "categoryEnglish": "Dental (tongue touches the teeth)",
+      "categoryTamil": "பல்-வகை (பற்களை தொடும்)",
+      "categoryDescription": "जिह्वा दांतों को स्पर्श کرتی है",
+      "devanagari": "थ",
+      "brahmi": "𑀣",
+      "unicode_codepoint": "U+11023",
+      "romanized": "tha",
+      "pronunciationNote": "महाप्राण दन्त्य 'त' ध्वनि",
+      "pronunciationNoteTamil": "ஆசிட் நெகிழ்மையான 'த' ஒலி",
+      "exampleWords": [
+        {
+          "devanagari": "थल",
+          "romanized": "thal",
+          "english": "thal",
+          "tamil": "தளம்"
+        },
+        {
+          "devanagari": "थाली",
+          "romanized": "thali",
+          "english": "thali",
+          "tamil": "பாத்திரம்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Aspirated soft 't'"
+    },
+    {
+      "id": "vyanjan-018",
+      "order": 18,
+      "category": "dantya",
+      "categoryHindi": "दन्त्य",
+      "categoryEnglish": "Dental (tongue touches the teeth)",
+      "categoryTamil": "பல்-வகை (பற்களை தொடும்)",
+      "categoryDescription": "जिह्वा दांतों को स्पर्श करती है",
+      "devanagari": "द",
+      "brahmi": "𑀤",
+      "unicode_codepoint": "U+11024",
+      "romanized": "da",
+      "pronunciationNote": "दन्त्य 'द' ध्वनि",
+      "pronunciationNoteTamil": "மென்மையான 'த' ஒலி",
+      "exampleWords": [
+        {
+          "devanagari": "दल",
+          "romanized": "dal",
+          "english": "dal",
+          "tamil": "புல்"
+        },
+        {
+          "devanagari": "दान",
+          "romanized": "daan",
+          "english": "daan",
+          "tamil": "தானம்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Soft dental 'd'"
+    },
+    {
+      "id": "vyanjan-019",
+      "order": 19,
+      "category": "dantya",
+      "categoryHindi": "दन्त्य",
+      "categoryEnglish": "Dental (tongue touches the teeth)",
+      "categoryTamil": "பல்-வகை (பற்களை தொடும்)",
+      "categoryDescription": "जिह्वा दांतों को स्पर्श करती है",
+      "devanagari": "ध",
+      "brahmi": "𑀥",
+      "unicode_codepoint": "U+11025",
+      "romanized": "dha",
+      "pronunciationNote": "महाप्राण दन्त्य 'द' ध्वनि",
+      "pronunciationNoteTamil": "ஆசிட் 'த' ஒலி",
+      "exampleWords": [
+        {
+          "devanagari": "धन",
+          "romanized": "dhan",
+          "english": "dhan",
+          "tamil": "செல்வம்"
+        },
+        {
+          "devanagari": "धरती",
+          "romanized": "dharti",
+          "english": "dharti",
+          "tamil": "பூமி"
+        }
+      ],
+      "pronunciationNoteEnglish": "Aspirated soft 'd'"
+    },
+    {
+      "id": "vyanjan-020",
+      "order": 20,
+      "category": "dantya",
+      "categoryHindi": "दन्त्य",
+      "categoryEnglish": "Dental (tongue touches the teeth)",
+      "categoryTamil": "பல்-வகை (பற்களை தொடும்)",
+      "categoryDescription": "जिह्वा दांतों को स्पर्श करती है",
+      "devanagari": "न",
+      "brahmi": "𑀦",
+      "unicode_codepoint": "U+11026",
+      "romanized": "na",
+      "pronunciationNote": "दन्त्य 'न' ध्वनि",
+      "pronunciationNoteTamil": "'ந' ஒலி, 'no' என்ற ஆங்கிலத்தின் 'n' போல",
+      "exampleWords": [
+        {
+          "devanagari": "नल",
+          "romanized": "nal",
+          "english": "nal",
+          "tamil": "கலம்"
+        },
+        {
+          "devanagari": "नाम",
+          "romanized": "naam",
+          "english": "naam",
+          "tamil": "பெயர்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'n' in 'no'"
+    },
+    {
+      "id": "vyanjan-021",
+      "order": 21,
+      "category": "osthya",
+      "categoryHindi": "ओष्ठ्य",
+      "categoryEnglish": "Labial (produced from the lips)",
+      "categoryTamil": "ஓஷ்தி (உதடுகள் மூலம் உருவாகும்)",
+      "categoryDescription": "ओठों से उच्चरित",
+      "devanagari": "प",
+      "brahmi": "𑀧",
+      "unicode_codepoint": "U+11027",
+      "romanized": "pa",
+      "pronunciationNote": "कठोर 'प' ध्वनि",
+      "pronunciationNoteTamil": "கடினமான 'p' ஒலி, 'spin' இல் உள்ள 'p' போல",
+      "exampleWords": [
+        {
+          "devanagari": "पल",
+          "romanized": "pal",
+          "english": "pal",
+          "tamil": "கடிகை"
+        },
+        {
+          "devanagari": "पानी",
+          "romanized": "paani",
+          "english": "paani",
+          "tamil": "தண்ணீர்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'p' in 'spin'"
+    },
+    {
+      "id": "vyanjan-022",
+      "order": 22,
+      "category": "osthya",
+      "categoryHindi": "ओष्ठ्य",
+      "categoryEnglish": "Labial (produced from the lips)",
+      "categoryTamil": "ஓஷ்தி (உதடுகள் மூலம் உருவாகும்)",
+      "categoryDescription": "ओठों से उच्चरित",
+      "devanagari": "फ",
+      "brahmi": "𑀨",
+      "unicode_codepoint": "U+11028",
+      "romanized": "pha",
+      "pronunciationNote": "महाप्राण 'प' ध्वनि",
+      "pronunciationNoteTamil": "ஆசிட் 'p' ஒலி — 'ph' போன்றது",
+      "exampleWords": [
+        {
+          "devanagari": "फल",
+          "romanized": "phal",
+          "english": "phal",
+          "tamil": "பழம்"
+        },
+        {
+          "devanagari": "फूल",
+          "romanized": "phool",
+          "english": "phool",
+          "tamil": "மலர்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Aspirated 'p', like 'ph' in 'uphill'"
+    },
+    {
+      "id": "vyanjan-023",
+      "order": 23,
+      "category": "osthya",
+      "categoryHindi": "ओष्ठ्य",
+      "categoryEnglish": "Labial (produced from the lips)",
+      "categoryTamil": "ஓஷ்தி (உதடுகள் மூலம் உருவாகும்)",
+      "categoryDescription": "ओठों से उच्चरित",
+      "devanagari": "ब",
+      "brahmi": "𑀩",
+      "unicode_codepoint": "U+11029",
+      "romanized": "ba",
+      "pronunciationNote": "मृदु 'ब' ध्वनि",
+      "pronunciationNoteTamil": "மென்மையான 'b' ஒலி, 'ball' என்ற சொல்லின் 'b' போல",
+      "exampleWords": [
+        {
+          "devanagari": "बल",
+          "romanized": "bal",
+          "english": "bal",
+          "tamil": "வலிமை"
+        },
+        {
+          "devanagari": "बादल",
+          "romanized": "baadal",
+          "english": "baadal",
+          "tamil": "மேகம்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'b' in 'ball'"
+    },
+    {
+      "id": "vyanjan-024",
+      "order": 24,
+      "category": "osthya",
+      "categoryHindi": "ओष्ठ्य",
+      "categoryEnglish": "Labial (produced from the lips)",
+      "categoryTamil": "ஓஷ்தி (உதடுகள் மூலம் உருவாகும்)",
+      "categoryDescription": "ओठों से उच्चरित",
+      "devanagari": "भ",
+      "brahmi": "𑀪",
+      "unicode_codepoint": "U+1102A",
+      "romanized": "bha",
+      "pronunciationNote": "महाप्राण 'ब' ध्वनि",
+      "pronunciationNoteTamil": "ஆசிட் 'b' ஒலி",
+      "exampleWords": [
+        {
+          "devanagari": "भवन",
+          "romanized": "bhavan",
+          "english": "bhavan",
+          "tamil": "வீடம்"
+        },
+        {
+          "devanagari": "भाषा",
+          "romanized": "bhasha",
+          "english": "bhasha",
+          "tamil": "மொழி"
+        }
+      ],
+      "pronunciationNoteEnglish": "Aspirated 'b', as in 'abhor'"
+    },
+    {
+      "id": "vyanjan-025",
+      "order": 25,
+      "category": "osthya",
+      "categoryHindi": "ओष्ठ्य",
+      "categoryEnglish": "Labial (produced from the lips)",
+      "categoryTamil": "ஓஷ்தி (உதடுகள் மூலம் உருவாகும்)",
+      "categoryDescription": "ओठों से उच्चरित",
+      "devanagari": "म",
+      "brahmi": "𑀫",
+      "unicode_codepoint": "U+1102B",
+      "romanized": "ma",
+      "pronunciationNote": "अनुनासिक 'म' ध्वनि",
+      "pronunciationNoteTamil": "நாசிக் 'ம' ஒலி, 'mother' இல் 'm' போல்",
+      "exampleWords": [
+        {
+          "devanagari": "मन",
+          "romanized": "man",
+              "english": "man",
+          "tamil": "மனம்"
+        },
+        {
+          "devanagari": "माता",
+          "romanized": "maata",
+          "english": "maata",
+          "tamil": "தாய்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'm' in 'mother'"
+    },
+    {
+      "id": "vyanjan-026",
+      "order": 26,
+      "category": "antahstha",
+      "categoryHindi": "अन्तःस्थ",
+      "categoryEnglish": "Semi-vowels (antahstha)",
+      "categoryTamil": "அந்தஸ்த (அரை-உயிரெழுத்து)",
+      "categoryDescription": "अर्ध-स्वर",
+      "devanagari": "य",
+      "brahmi": "𑀬",
+      "unicode_codepoint": "U+1102C",
+      "romanized": "ya",
+      "pronunciationNote": "'य' ध्वनि",
+      "pronunciationNoteTamil": "'ய' ஒலி, 'yes' இல் 'y' போல",
+      "exampleWords": [
+        {
+          "devanagari": "यज्ञ",
+          "romanized": "yagna",
+          "english": "yagna",
+          "tamil": "யஜ்ஞம்"
+        },
+        {
+          "devanagari": "यात्रा",
+          "romanized": "yatra",
+          "english": "yatra",
+          "tamil": "பயணம்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'y' in 'yes'"
+    },
+    {
+      "id": "vyanjan-027",
+      "order": 27,
+      "category": "antahstha",
+      "categoryHindi": "अन्तःस्थ",
+      "categoryEnglish": "Semi-vowels (antahstha)",
+      "categoryTamil": "அந்தஸ்த (அரை-உயிரெழுத்து)",
+      "categoryDescription": "अर्ध-स्वर",
+      "devanagari": "र",
+      "brahmi": "𑀭",
+      "unicode_codepoint": "U+1102D",
+      "romanized": "ra",
+      "pronunciationNote": "लुंठित 'र' ध्वनि",
+      "pronunciationNoteTamil": "சிறிது திரும்பும் 'ர' ஒலி, 'run' இல் 'r' போல",
+      "exampleWords": [
+        {
+          "devanagari": "रस",
+          "romanized": "ras",
+          "english": "ras",
+          "tamil": "சாறு"
+        },
+        {
+          "devanagari": "राज",
+          "romanized": "raaj",
+          "english": "raaj",
+          "tamil": "ராஜ்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'r' in 'run' (slightly rolled)"
+    },
+    {
+      "id": "vyanjan-028",
+      "order": 28,
+      "category": "antahstha",
+      "categoryHindi": "अन्तःस्थ",
+      "categoryEnglish": "Semi-vowels (antahstha)",
+      "categoryTamil": "அந்தஸ்த (அரை-உயிரெழுத்து)",
+      "categoryDescription": "अर्ध-स्वर",
+      "devanagari": "ल",
+      "brahmi": "𑀮",
+      "unicode_codepoint": "U+1102E",
+      "romanized": "la",
+      "pronunciationNote": "मृदु 'ल' ध्वनि",
+      "pronunciationNoteTamil": "மென்மையான 'ல' ஒலி, 'light' இல் 'l' போல",
+      "exampleWords": [
+        {
+          "devanagari": "लता",
+          "romanized": "lata",
+          "english": "lata",
+          "tamil": "அலை"
+        },
+        {
+          "devanagari": "लहर",
+          "romanized": "lahar",
+          "english": "lahar",
+          "tamil": "அலை"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'l' in 'light'"
+    },
+    {
+      "id": "vyanjan-029",
+      "order": 29,
+      "category": "antahstha",
+      "categoryHindi": "अन्तःस्थ",
+      "categoryEnglish": "Semi-vowels (antahstha)",
+      "categoryTamil": "அந்தஸ்த (அரை-உயிரெழுத்து)",
+      "categoryDescription": "अर्ध-स्वर",
+      "devanagari": "व",
+      "brahmi": "𑀯",
+      "unicode_codepoint": "U+1102F",
+      "romanized": "va",
+      "pronunciationNote": "'व' ध्वनि",
+      "pronunciationNoteTamil": "'வ' மற்றும் 'வ்' இடையே நுனி — 'vine' இல் 'v' போல்",
+      "exampleWords": [
+        {
+          "devanagari": "वन",
+          "romanized": "van",
+          "english": "van",
+          "tamil": "காடு"
+        },
+        {
+          "devanagari": "वायु",
+          "romanized": "vayu",
+          "english": "vayu",
+          "tamil": "காற்று"
+        }
+      ],
+      "pronunciationNoteEnglish": "Between 'v' and 'w', like 'v' in 'vine'"
+    },
+    {
+      "id": "vyanjan-030",
+      "order": 30,
+      "category": "ushma",
+      "categoryHindi": "उष्म",
+      "categoryEnglish": "Sibilants / Fricatives (sharp breath)",
+      "categoryTamil": "உஷ்ம (உடம்பு வெயில் மாதிரி ஓசை)",
+      "categoryDescription": "ऊष्म या घर्षण व्यंजन",
+      "devanagari": "श",
+      "brahmi": "𑀰",
+      "unicode_codepoint": "U+11030",
+      "romanized": "sha",
+      "pronunciationNote": "तालव्य 'श' ध्वनि",
+      "pronunciationNoteTamil": "'ஷ' அல்லது 'ஷ்' போன்ற ஒலி - 'shoe' இல் 'sh' போல",
+      "exampleWords": [
+        {
+          "devanagari": "शक्ति",
+          "romanized": "shakti",
+          "english": "shakti",
+          "tamil": "தाक்தி"
+        },
+        {
+          "devanagari": "शब्द",
+          "romanized": "shabd",
+          "english": "shabd",
+          "tamil": "சொல்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'sh' in 'shoe'"
+    },
+    {
+      "id": "vyanjan-031",
+      "order": 31,
+      "category": "ushma",
+      "categoryHindi": "उष्म",
+      "categoryEnglish": "Sibilants / Fricatives (sharp breath)",
+      "categoryTamil": "உஷ்ம (உடம்பு வெயில் மாதிரி ஓசை)",
+      "categoryDescription": "ऊष्म या घर्षण व्यंजन",
+      "devanagari": "ष",
+      "brahmi": "𑀱",
+      "unicode_codepoint": "U+11031",
+      "romanized": "sha",
+      "pronunciationNote": "मूर्धन्य 'ष' ध्वनि",
+      "pronunciationNoteTamil": "மூற்கொழிவு 'ஷ' — ஆழமான மற்றும் வலிமையான ஒலி",
+      "exampleWords": [
+        {
+          "devanagari": "षट्",
+          "romanized": "shat",
+          "english": "shat",
+          "tamil": "அறம்"
+        }
+      ],
+      "pronunciationNoteEnglish": "Retroflex 'sh' — stronger and deeper"
+    },
+    {
+      "id": "vyanjan-032",
+      "order": 32,
+      "category": "ushma",
+      "categoryHindi": "उष्म",
+      "categoryEnglish": "Sibilants / Fricatives (sharp breath)",
+      "categoryTamil": "உஷ்ம (உடம்பு வெயில் மாதிரி ஓசை)",
+      "categoryDescription": "ऊष्म या घर्षण व्यंजन",
+      "devanagari": "स",
+      "brahmi": "𑀲",
+      "unicode_codepoint": "U+11032",
+      "romanized": "sa",
+      "pronunciationNote": "दन्त्य 'स' ध्वनि",
+      "pronunciationNoteTamil": "'ஸ' போன்ற ஒலி, 'sun' இல் 's' போல",
+      "exampleWords": [
+        {
+          "devanagari": "सत्य",
+          "romanized": "satya",
+          "english": "satya",
+          "tamil": "சத்தியம்"
+        },
+        {
+          "devanagari": "सरल",
+          "romanized": "saral",
+          "english": "saral",
+          "tamil": "எளிது"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 's' in 'sun'"
+    },
+    {
+      "id": "vyanjan-033",
+      "order": 33,
+      "category": "ushma",
+      "categoryHindi": "उष्म",
+      "categoryEnglish": "Sibilants / Fricatives (sharp breath)",
+      "categoryTamil": "உஷ்ம (உடம்பு வெயில் மாதிரி ஓசை)",
+      "categoryDescription": "ऊष्म या घर्षण व्यंजन",
+      "devanagari": "ह",
+      "brahmi": "𑀳",
+      "unicode_codepoint": "U+11033",
+      "romanized": "ha",
+      "pronunciationNote": "कण्ठ्य 'ह' ध्वनि",
+      "pronunciationNoteTamil": "'ஹ' ஒலி, 'hello' இல் 'h' போல",
+      "exampleWords": [
+        {
+          "devanagari": "हस्त",
+          "romanized": "hasta",
+          "english": "hasta",
+          "tamil": "கை"
+        },
+        {
+          "devanagari": "हरि",
+          "romanized": "hari",
+          "english": "hari",
+          "tamil": "ஹரி"
+        }
+      ],
+      "pronunciationNoteEnglish": "Like 'h' in 'hello'"
+    }
+  ],
+  "categories": {
+    "kanthya": {
+      "name": "कण्ठ्य",
+      "english": "Guttural",
+      "tamil": "கழுத்து வகை",
+      "description": "कण्ठ से उच्चरित होने वाले व्यंजन",
+      "descriptionTamil": "கழுத்து மூலம் உச்சரிக்கப்படும் உயிர்வெளி எழுத்துகள்",
+      "order": 1,
+      "consonantIds": [
+        "vyanjan-001",
+        "vyanjan-002",
+        "vyanjan-003",
+        "vyanjan-004",
+        "vyanjan-005"
+      ],
+      "descriptionEnglish": "Learn the 5 guttural consonants (ka, kha, ga, gha, nga)."
+    },
+    "talavya": {
+      "name": "तालव्य",
+      "english": "Palatal",
+      "tamil": "தாலவிய வகை",
+      "description": "वे व्यंजन जहाँ जिह्वा तालु को स्पर्श करती है",
+      "descriptionTamil": "நாக்கு வாய் மண்டலத்தை தொடும் போது உச்சரிக்கப்படும் வரிசை",
+      "order": 2,
+      "consonantIds": [
+        "vyanjan-006",
+        "vyanjan-007",
+        "vyanjan-008",
+        "vyanjan-009",
+        "vyanjan-010"
+      ],
+      "descriptionEnglish": "Learn the 5 palatal consonants (ca, cha, ja, jha, nya)."
+    },
+    "murdhanya": {
+      "name": "मूर्धन्य",
+      "english": "Retroflex",
+      "tamil": "மூற்கொழிவு வகை",
+      "description": "वे व्यंजन जहाँ जिह्वा पीछे की ओर मुड़ती है",
+      "descriptionTamil": "நாக்கு பின்புறம் வளைந்து உச்சரிக்கும் எழுத்துகள்",
+      "order": 3,
+      "consonantIds": [
+        "vyanjan-011",
+        "vyanjan-012",
+        "vyanjan-013",
+        "vyanjan-014",
+        "vyanjan-015"
+      ],
+      "descriptionEnglish": "Learn the 5 retroflex consonants (ta, tha, da, dha, na)."
+    },
+    "dantya": {
+      "name": "दन्त्य",
+      "english": "Dental",
+      "tamil": "பல்-வகை",
+      "description": "वे व्यंजन जहाँ जिह्वा दांतों को स्पर्श करती है",
+      "descriptionTamil": "நாக்கு பற்களைத் தொடும் போது உச்சரிக்கப்படும் எழுத்துகள்",
+      "order": 4,
+      "consonantIds": [
+        "vyanjan-016",
+        "vyanjan-017",
+        "vyanjan-018",
+        "vyanjan-019",
+        "vyanjan-020"
+      ],
+      "descriptionEnglish": "Learn the 5 dental consonants (ta, tha, da, dha, na)."
+    },
+    "osthya": {
+      "name": "ओष्ठ्य",
+      "english": "Labial",
+      "tamil": "உதடுப் பகுதி",
+      "description": "ओठों से उच्चरित होने वाले व्यंजन",
+      "descriptionTamil": "உதடுகள் மூலம் உச்சரிக்கப்படும் எழுத்துகள்",
+      "order": 5,
+      "consonantIds": [
+        "vyanjan-021",
+        "vyanjan-022",
+        "vyanjan-023",
+        "vyanjan-024",
+        "vyanjan-025"
+      ],
+      "descriptionEnglish": "Learn the 5 labial consonants (pa, pha, ba, bha, ma)."
+    },
+    "antahstha": {
+      "name": "अन्तःस्थ",
+      "english": "Semivowels",
+      "tamil": "அந்தஸ்த",
+      "description": "अर्ध-स्वर व्यंजन",
+      "descriptionTamil": "அரை-உயிரெழுத்து வகை",
+      "order": 6,
+      "consonantIds": [
+        "vyanjan-026",
+        "vyanjan-027",
+        "vyanjan-028",
+        "vyanjan-029"
+      ],
+      "descriptionEnglish": "Learn the 4 semivowels (ya, ra, la, va)."
+    },
+    "ushma": {
+      "name": "उष्म",
+      "english": "Sibilants",
+      "tamil": "உஷ்ம",
+      "description": "तीव्र श्वास के साथ उच्चरित ऊष्म व्यंजन",
+      "descriptionTamil": "கொன்றும் அல்லது றேசல் ஒலிகளுடன் உச்சரிக்கப்படும் எழுத்துகள்",
+      "order": 7,
+      "consonantIds": [
+        "vyanjan-030",
+        "vyanjan-031",
+        "vyanjan-032",
+        "vyanjan-033"
+      ],
+      "descriptionEnglish": "Learn the 4 sibilants (sha, ssa, sa, ha)."
+    }
+  },
+  "lessons": [
+    {
+      "id": "vyanjan-lesson-001",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-001",
+      "title": "Introduction to Consonants",
+      "title_tamil": "மெய் எழுத்துகளுக்கு அறிமுகம்",
+      "title_english": "Introduction to Consonants",
+      "subtitle": "Vyanjan Varga Parichay",
+      "description": "Learn about the 33 Brahmi consonants arranged into 7 groups.",
+      "description_tamil": "33 பிராமி மெய் எழுத்துகள் 7 குழுக்களில் வகுக்கப்படுகின்றன என்பதை பற்றி கற்றுக்கொள்ளவும்.",
+      "category": "introduction",
+      "consonant_group": "all",
+      "order_no": 1,
+      "estimated_time_minutes": 15,
+      "thumbnail_icon": "अ",
+      "description_english": "Learn about the 33 Brahmi consonants arranged into 7 groups."
+    },
+    {
+      "id": "vyanjan-lesson-002",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-002",
+      "title": "Ka-Varga - Guttural Consonants",
+      "title_tamil": "கா-வாр்கா - கழுத்து மொழி எழுத்துகள்",
+      "title_english": "Ka-Varga - Guttural Consonants",
+      "subtitle": "Guttural",
+      "description": "Learn the 5 guttural consonants (ka, kha, ga, gha, nga).",
+      "description_tamil": "5 கழுத்து வகை மெய் எழுத்துக்களை கற்றுக்கொள்ளுங்கள் (க, க்ஹ, க, க்ஹ, ங).",
+      "category": "kanthya",
+      "consonant_group": "kanthya",
+      "order_no": 2,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "क",
+      "description_english": "Learn the 5 guttural consonants (ka, kha, ga, gha, nga)."
+    },
+    {
+      "id": "vyanjan-lesson-003",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-003",
+      "title": "Cha-Varga - Palatal Consonants",
+      "title_tamil": "சா-வார்கா - உச்சப்பகுதி எழுத்துகள்",
+      "title_english": "Cha-Varga - Palatal Consonants",
+      "subtitle": "Palatal",
+      "description": "Learn the 5 palatal consonants (ca, cha, ja, jha, nya).",
+      "description_tamil": "5 தாலவிய வகை மெய் எழுத்துக்களை கற்றுக்கொள்ளுங்கள் (ச, ச்ஹ, ஜ, ஜ்ஹ, ஞ).",
+      "category": "talavya",
+      "consonant_group": "talavya",
+      "order_no": 3,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "च",
+      "description_english": "Learn the 5 palatal consonants (ca, cha, ja, jha, nya)."
+    },
+    {
+      "id": "vyanjan-lesson-004",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-004",
+      "title": "Ta-Varga - Retroflex Consonants",
+      "title_tamil": "டா-வார்கா - மூற்கொழிவு எழுத்துகள்",
+      "title_english": "Ta-Varga - Retroflex Consonants",
+      "subtitle": "Retroflex",
+      "description": "Learn the 5 retroflex consonants (ta, tha, da, dha, na).",
+      "description_tamil": "5 மூற்கொழிவு மெய் எழுத்துக்களை கற்றுக்கொள்ளுங்கள் (ட, ட்ஹ, ட, ட்ஹ, ண).",
+      "category": "murdhanya",
+      "consonant_group": "murdhanya",
+      "order_no": 4,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "ट",
+      "description_english": "Learn the 5 retroflex consonants (ta, tha, da, dha, na)."
+    },
+    {
+      "id": "vyanjan-lesson-005",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-005",
+      "title": "Ta-Varga - Dental Consonants",
+      "title_tamil": "தா-வார்கா - பல் எழுத்துகள்",
+      "title_english": "Ta-Varga - Dental Consonants",
+      "subtitle": "Dental",
+      "description": "Learn the 5 dental consonants (ta, tha, da, dha, na).",
+      "description_tamil": "5 பல் வகை மெய் எழுத்துக்களை கற்றுக்கொள்ளுங்கள் (த, த்ஹ, த, த்ஹ, ந).",
+      "category": "dantya",
+      "consonant_group": "dantya",
+      "order_no": 5,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "त",
+      "description_english": "Learn the 5 dental consonants (ta, tha, da, dha, na)."
+    },
+    {
+      "id": "vyanjan-lesson-006",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-006",
+      "title": "Pa-Varga - Labial Consonants",
+      "title_tamil": "பா-வார்கா - உதடுப் எழுத்துகள்",
+      "title_english": "Pa-Varga - Labial Consonants",
+      "subtitle": "Labial",
+      "description": "Learn the 5 labial consonants (pa, pha, ba, bha, ma).",
+      "description_tamil": "5 உதடுப் வகை மெய் எழுத்துக்களை கற்றுக்கொள்ளுங்கள் (ப, ப்ஹ, ப, ப்ஹ, ம).",
+      "category": "osthya",
+      "consonant_group": "osthya",
+      "order_no": 6,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "प",
+      "description_english": "Learn the 5 labial consonants (pa, pha, ba, bha, ma)."
+    },
+    {
+      "id": "vyanjan-lesson-007",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-007",
+      "title": "Antahstha - Semi-vowels",
+      "title_tamil": "அந்தஸ்த - அரை-உயிரெழுத்துகள்",
+      "title_english": "Antahstha - Semi-vowels",
+      "subtitle": "Semivowels",
+      "description": "Learn the 4 semivowels (ya, ra, la, va).",
+      "description_tamil": "4 அரை-உயிரெழுத்துக்களை கற்றுக்கொள்ளுங்கள் (ய, ர, ல, வ).",
+      "category": "antahstha",
+      "consonant_group": "antahstha",
+      "order_no": 7,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "य",
+      "description_english": "Learn the 4 semivowels (ya, ra, la, va)."
+    },
+    {
+      "id": "vyanjan-lesson-008",
+      "module_id": "vyanjan",
+      "lesson_id": "vyanjan-lesson-008",
+      "title": "Ushma - Sibilants",
+      "title_tamil": "உஷ்ம - சப்த எழுத்துகள்",
+      "title_english": "Ushma - Sibilants",
+      "subtitle": "Sibilants",
+      "description": "Learn the 4 sibilants (sha, ssa, sa, ha).",
+      "description_tamil": "4 சப்த எழுத்துக்களை கற்றுக்கொள்ளுங்கள் (ஶ, ஷ, ஸ, ஹ).",
+      "category": "ushma",
+      "consonant_group": "ushma",
+      "order_no": 8,
+      "estimated_time_minutes": 20,
+      "thumbnail_icon": "श",
+      "description_english": "Learn the 4 sibilants (sha, ssa, sa, ha)."
+    }
+  ],
+  "module_title": "Consonants",
+  "module_title_tamil": "மெய் எழுத்துகள்"
+}

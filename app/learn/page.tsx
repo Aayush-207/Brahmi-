@@ -58,6 +58,21 @@ function stripBracketedText(value: string): string {
     return value.replace(/\s*\(([^)]*)\)\s*/g, ' ').replace(/\s+/g, ' ').trim()
 }
 
+function getTamilCourseModuleLabel(moduleId: string) {
+    switch (moduleId) {
+        case 'module-intro':
+            return { title: 'அறிமுகம்', subtitle: 'பிராமி வரலாறு', icon: '📜' }
+        case 'module-swar':
+            return { title: 'உயிரெழுத்துகள்', subtitle: 'எழுத்தின் ஆன்மா', icon: 'அ' }
+        case 'module-vyanjan':
+            return { title: 'மெய்யெழுத்துகள்', subtitle: 'எழுத்தின் உடல்', icon: 'க' }
+        case 'module-matra':
+            return { title: 'மாத்ராக்கள்', subtitle: 'உயிர் குறி கலை', icon: 'கா' }
+        default:
+            return null
+    }
+}
+
 export default function LearnPage() {
     const router = useRouter()
     const { language, t } = useLanguage()
@@ -163,6 +178,10 @@ export default function LearnPage() {
                     // Logic: Even = Mascot Left, Odd = Mascot Right (Alternating)
                     const mascotSide = index % 2 === 0 ? 'left' : 'right'
                     const mascotImg = (index % 3) + 1
+                    const tamilModule = language === 'ta' || language === 'tamil' ? getTamilCourseModuleLabel(module.id) : null
+                    const displayTitle = tamilModule?.title || formatCourseLabel(t(`courses.${module.id.split('-')[1]}.title`))
+                    const displaySubtitle = tamilModule?.subtitle || formatCourseLabel(t(`courses.${module.id.split('-')[1]}.subtitle`))
+                    const displayIcon = tamilModule?.icon || module.icon
 
                     // State Logic
                     const isCompleted = index <= completedUpTo
@@ -218,17 +237,17 @@ export default function LearnPage() {
 
                                         {/* Inner Character/Icon (Faded) */}
                                         <span className="text-4xl md:text-5xl mb-1 filter grayscale opacity-30">
-                                            {module.icon}
+                                            {displayIcon}
                                         </span>
                                     </motion.div>
 
                                     {/* Hover Tooltip */}
                                     <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
                                         <h3 className="text-[#E6D8B8]/50 font-bold text-lg md:text-xl leading-tight font-serif">
-                                            {formatCourseLabel(t(`courses.${module.id.split('-')[1]}.title`))}
+                                            {displayTitle}
                                         </h3>
                                         <p className="text-[#E6D8B8]/30 text-[10px] uppercase tracking-[0.15em] mt-1 md:mt-2 font-bold">
-                                            {formatCourseLabel(t(`courses.${module.id.split('-')[1]}.subtitle`))}
+                                            {displaySubtitle}
                                         </p>
                                         {/* Development in Progress message on hover */}
                                         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 mt-2 bg-[#2a2420] text-[#E69A47] text-xs py-1.5 px-3 rounded-lg border border-[#E69A47]/30">
@@ -254,7 +273,7 @@ export default function LearnPage() {
                                     >
                                         {/* Inner Character/Icon */}
                                         <span className={`text-4xl md:text-5xl mb-1 filter drop-shadow-lg ${isCompleted ? 'text-[#E69A47]' : 'text-[#F5F1E8]'}`}>
-                                            {module.icon}
+                                            {displayIcon}
                                         </span>
 
                                         {/* Completion Check (Optional visual flair) */}

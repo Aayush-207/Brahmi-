@@ -187,7 +187,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
     // Determine return route based on letter type
     const getReturnRoute = (completedId?: string) => {
-        const baseUrl = letterType === 'consonant' ? '/consonants' : '/letters'
+        const baseUrl = letterType === 'consonant' ? '/learn/vyanjan' : '/learn/intro'
         return completedId ? `${baseUrl}?completed=${completedId}` : baseUrl
     }
 

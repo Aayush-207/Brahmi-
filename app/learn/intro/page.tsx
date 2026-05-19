@@ -409,7 +409,7 @@ export default function IntroLessonsPage() {
                                     {/* Skip Introduction Button for first lesson */}
                                     {index === 0 && (
                                         <motion.button
-                                            onClick={() => router.push('/letters')}
+                                            onClick={() => router.push('/learn/intro')}
                                             className="mt-2 px-2 py-1 bg-[#E69A47]/20 hover:bg-[#E69A47]/40 border border-[#E69A47]/50 rounded text-[9px] font-bold text-[#E69A47] hover:text-[#E6D8B8] transition-all duration-300"
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
@@ -629,7 +629,7 @@ export default function IntroLessonsPage() {
                                     {/* Skip Introduction Button for first lesson */}
                                     {index === 0 && (
                                         <motion.button
-                                            onClick={() => router.push('/letters')}
+                                            onClick={() => router.push('/learn/intro')}
                                             className="mt-2 px-3 py-1 bg-[#E69A47]/20 hover:bg-[#E69A47]/40 border border-[#E69A47]/50 rounded text-[10px] font-bold text-[#E69A47] hover:text-[#E6D8B8] transition-all duration-300"
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
@@ -741,7 +741,7 @@ export default function IntroLessonsPage() {
                                 onClick={() => {
                                     setShowCompletionModal(false)
                                     setCompletionDismissed(true)
-                                    router.push('/letters')
+                                    router.push('/learn/intro')
                                 }}
                                 className="w-full bg-gradient-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-4 px-6 rounded-lg hover:brightness-110 hover:scale-105 transition-all shadow-lg border-2 border-[#F5F1E8]/50"
                             >

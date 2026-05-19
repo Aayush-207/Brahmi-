@@ -23,6 +23,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
     const [loading, setLoading] = useState(true)
     const [direction, setDirection] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
+    const isTamil = language === 'ta' || language === 'tamil'
 
     // Sync currentSlide with search params if provided
     useEffect(() => {
@@ -89,7 +90,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
     if (loading) {
         return (
             <div className="min-h-screen bg-[#1C1C1C] flex items-center justify-center">
-                <div className="text-[#D4AF37] text-xl animate-pulse">Loading Lesson...</div>
+                <div className="text-[#D4AF37] text-xl animate-pulse">{isTamil ? 'பாடம் ஏற்றப்படுகிறது...' : 'Loading Lesson...'}</div>
             </div>
         )
     }
@@ -98,8 +99,8 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
         return (
             <div className="min-h-screen bg-[#1C1C1C] flex items-center justify-center">
                 <div className="text-center">
-                    <p className="text-[#E69A47] mb-4">Lesson content not found</p>
-                    <Link href="/learn/vyanjan" className="text-[#D4AF37] hover:underline">Back to Lessons</Link>
+                    <p className="text-[#E69A47] mb-4">{isTamil ? 'பாட உள்ளடக்கம் கிடைக்கவில்லை' : 'Lesson content not found'}</p>
+                    <Link href="/learn/vyanjan" className="text-[#D4AF37] hover:underline">{isTamil ? 'பாடங்களுக்கு திரும்பு' : 'Back to Lessons'}</Link>
                 </div>
             </div>
         )
@@ -134,7 +135,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
                 className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
             >
                 <span className="text-lg">←</span>
-                <span className="hidden sm:inline">Exit</span>
+                <span className="hidden sm:inline">{isTamil ? 'வெளியேறு' : 'Exit'}</span>
             </Link>
 
             {/* Floating Sign In Button */}
@@ -209,7 +210,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
                                     }}
                                     className="mt-4 px-8 py-3 bg-[#D4AF37] text-[#1C1C1C] rounded-xl font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 flex items-center gap-2"
                                 >
-                                    <span>{language === 'hi' ? 'अभ्यास करें→' : language === 'kn' ? 'ಟ್ರೇಸಿಂಗ್ ಆರಂಭಿಸಿ' : 'Start Tracing'}</span>
+                                    <span>{language === 'hi' ? 'अभ्यास करें→' : language === 'kn' ? 'ಟ್ರೇಸಿಂಗ್ ಆರಂಭಿಸಿ' : (isTamil ? 'எழுத்துப் பயிற்சியை தொடங்கு' : 'Start Tracing')}</span>
                                     <span>✍️</span>
                                 </button>
                             )}
@@ -234,7 +235,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
                         className={`flex items-center gap-2 px-4 py-3 rounded-xl bg-[#2C2C2C] text-[#D4AF37] border border-[#D4AF37]/30 font-medium disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg text-sm`}
                     >
                         <span className="text-lg">←</span>
-                        <span>{language === 'hi' ? 'पिछला' : language === 'kn' ? 'ಹಿಂದಿನದು' : 'Prev'}</span>
+                        <span>{language === 'hi' ? 'पिछला' : language === 'kn' ? 'ಹಿಂದಿನದು' : (isTamil ? 'முந்தையது' : 'Prev')}</span>
                     </button>
 
                     <div className="flex flex-col items-center gap-1 px-3">
@@ -255,7 +256,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
                         onClick={handleNext}
                         className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
                     >
-                        <span>{isLastStep ? (language === 'hi' ? 'समाप्त' : language === 'kn' ? 'ಮುಗಿಯಿತು' : 'Finish') : (language === 'hi' ? 'अगला' : language === 'kn' ? 'ಮುಂದೆ' : 'Next')}</span>
+                        <span>{isLastStep ? (language === 'hi' ? 'समाप्त' : language === 'kn' ? 'ಮುಗಿಯಿತು' : (isTamil ? 'முடிந்தது' : 'Finish')) : (language === 'hi' ? 'अगला' : language === 'kn' ? 'ಮುಂದೆ' : (isTamil ? 'அடுத்து' : 'Next'))}</span>
                         <span className="text-lg">→</span>
                     </button>
                 </div>

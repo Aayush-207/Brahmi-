@@ -13,6 +13,7 @@ import kannadaMatras from './kannada/matras.json';
 import tamilIntro from './tamil/introduction.json';
 import tamilSwar from './tamil/swar.json';
 import tamilMatras from './tamil/matras.json';
+import tamilVyanjan from './tamil/vyanjan.json';
 
 type LanguageKey = 'hindi' | 'english' | 'kannada' | 'tamil';
 
@@ -371,7 +372,7 @@ const data: Record<LanguageKey, any> = {
   hindi: { introduction: hindiIntro, swar: buildSwarData('hindi'), vyanjan: hindiVyanjan, matras: hindiMatras },
   english: { introduction: englishIntro, swar: buildSwarData('english'), vyanjan: englishVyanjan, matras: englishMatras },
   kannada: { introduction: kannadaIntro, swar: buildSwarData('kannada'), vyanjan: kannadaVyanjan, matras: kannadaMatras },
-  tamil: { introduction: tamilIntro, swar: tamilSwar, vyanjan: englishVyanjan, matras: tamilMatras }
+  tamil: { introduction: tamilIntro, swar: tamilSwar, vyanjan: mapTamilVyanjan(tamilVyanjan), matras: mapTamilMatras(tamilMatras) }
 };
 
 export const SUPPORTED_LANGUAGES = supportedLanguages;
@@ -385,4 +386,60 @@ export function getDataForLanguage(lang: string) {
   if (language === 'ta') language = 'tamil';
   const finalLang = supportedLanguages.includes(language as LanguageKey) ? (language as LanguageKey) : DEFAULT_LANGUAGE;
   return data[finalLang];
+}
+
+function mapTamilVyanjan(src: any) {
+  const cloned = JSON.parse(JSON.stringify(src));
+  if (!cloned.consonants) return cloned;
+  cloned.consonants = cloned.consonants.map((c: any) => {
+    c.categoryEnglish = c.categoryTamil || c.categoryEnglish || c.category;
+    c.pronunciationNoteEnglish = c.pronunciationNoteTamil || c.pronunciationNoteEnglish || c.pronunciationNote || '';
+    if (Array.isArray(c.exampleWords)) {
+      c.exampleWords = c.exampleWords.map((w: any) => ({
+        devanagari: w.devanagari,
+        romanized: w.romanized || w.romanization || '',
+        // ensure the `english` field used by UI shows Tamil text for Tamil locale
+        english: w.tamil || w.english || w.romanized || '',
+        tamil: w.tamil || w.english || ''
+      }));
+    }
+    return c;
+  });
+  if (cloned.categories && typeof cloned.categories === 'object') {
+    Object.keys(cloned.categories).forEach((k) => {
+      const cat = cloned.categories[k];
+      // UI expects `english` and `descriptionEnglish` keys; populate them with Tamil equivalents
+      cat.english = cat.tamil || cat.english || cat.name || '';
+      cat.descriptionEnglish = cat.descriptionTamil || cat.descriptionEnglish || cat.description || '';
+    });
+  }
+  // ensure lessons use Tamil for English fields so the generic branch shows Tamil
+  if (Array.isArray(cloned.lessons)) {
+    cloned.lessons = cloned.lessons.map((lesson: any) => {
+      lesson.title_english = lesson.title_tamil || lesson.title_english || lesson.title || '';
+      lesson.description_english = lesson.description_tamil || lesson.description_english || lesson.description || '';
+      lesson.subtitle = lesson.subtitle_tamil || lesson.subtitle || lesson.subtitle;
+      return lesson;
+    });
+  }
+  return cloned;
+}
+
+function mapTamilMatras(src: any) {
+  const cloned = JSON.parse(JSON.stringify(src));
+  if (Array.isArray(cloned.lessons)) {
+    cloned.lessons = cloned.lessons.map((l: any) => {
+      l.title_english = l.title_tamil || l.title_english || l.title || '';
+      l.description_english = l.description_tamil || l.description_english || l.description || '';
+      return l;
+    });
+  }
+  if (Array.isArray(cloned.matraRules)) {
+    cloned.matraRules = cloned.matraRules.map((r: any) => {
+      r.titleEnglish = r.titleTamil || r.titleEnglish || r.title || '';
+      r.descriptionEnglish = r.descriptionTamil || r.descriptionEnglish || r.description || '';
+      return r;
+    });
+  }
+  return cloned;
 }
