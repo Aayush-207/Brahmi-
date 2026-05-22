@@ -26,24 +26,24 @@ export function Header() {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="fixed top-0 left-0 right-0 z-50 h-[72px] bg-gradient-to-r from-[#1a1613] via-[#2a2420] to-[#1a1613] border-b border-[#E6D8B8]/20 shadow-2xl backdrop-blur-sm"
+                className="fixed top-0 left-0 right-0 z-50 h-16 md:h-[72px] bg-gradient-to-r from-[#1a1613] via-[#2a2420] to-[#1a1613] border-b border-[#E6D8B8]/20 shadow-2xl backdrop-blur-sm"
             >
-                <div className="h-full px-4 md:px-6 flex items-center justify-between">
+                <div className="h-full px-3 sm:px-4 md:px-6 flex items-center justify-between">
                     {/* Left: Logo & Brand + Language Dropdown */}
-                    <div className="flex items-center gap-4 md:gap-6">
+                    <div className="flex items-center gap-2 sm:gap-4 md:gap-6 min-w-0">
                         <Link href="/" className="flex items-center gap-3 group">
-                            <div className="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-[#D4AF37]/40 group-hover:border-[#D4AF37] transition-all duration-300 shrink-0 shadow-lg">
+                            <div className="h-9 w-9 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-[#D4AF37]/40 group-hover:border-[#D4AF37] transition-all duration-300 shrink-0 shadow-lg">
                                 <img
                                     src="/assets/jain_foundation_logo.jpg"
                                     alt="Good Life Jain Foundation"
                                     className="w-full h-full object-cover"
                                 />
                             </div>
-                            <div className="flex flex-col justify-center">
-                                <span className="text-base md:text-xl font-serif font-bold text-[#D4AF37] leading-tight tracking-wide group-hover:text-[#E6D8B8] transition-colors duration-300">
+                            <div className="flex flex-col justify-center min-w-0">
+                                <span className="text-sm sm:text-base md:text-xl font-serif font-bold text-[#D4AF37] leading-tight tracking-wide group-hover:text-[#E6D8B8] transition-colors duration-300 truncate max-w-[165px] sm:max-w-none">
                                     {t('header.brandName')}
                                 </span>
-                                <span className="text-[10px] md:text-xs font-medium text-[#B8AFA0] tracking-wider leading-none mt-0.5">
+                                <span className="text-[9px] sm:text-[10px] md:text-xs font-medium text-[#B8AFA0] tracking-wider leading-none mt-0.5 truncate max-w-[165px] sm:max-w-none">
                                     {t('header.brandTagline')}
                                 </span>
                             </div>
@@ -129,7 +129,7 @@ export function Header() {
 
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-[#2a2420] border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37] transition-all duration-300"
+                        className="md:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#2a2420] border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37] transition-all duration-300 shrink-0"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -215,7 +215,7 @@ export function Header() {
                 </AnimatePresence>
             </motion.header>
             {/* Spacer to prevent content from hiding behind fixed header */}
-            <div className="h-[72px]" aria-hidden="true" />
+            <div className="h-16 md:h-[72px]" aria-hidden="true" />
         </>
     );
 }

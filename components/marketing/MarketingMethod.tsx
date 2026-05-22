@@ -34,9 +34,9 @@ export function MarketingMethod() {
     }));
     
     return (
-        <section className="py-32 bg-gradient-to-b from-[#1a1613] to-[#2a2420] relative overflow-hidden">
+        <section className="py-20 sm:py-24 md:py-32 bg-gradient-to-b from-[#1a1613] to-[#2a2420] relative overflow-hidden">
             {/* Section Header */}
-            <div className="max-w-7xl mx-auto px-6 mb-20 text-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16 md:mb-20 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -45,19 +45,19 @@ export function MarketingMethod() {
                     className="space-y-4"
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D4A373]/10 border border-[#D4A373]/40">
-                        <span className="text-[#D4A373] text-sm font-bold tracking-[0.3em] uppercase">{t('method.tag')}</span>
+                        <span className="text-[#D4A373] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">{t('method.tag')}</span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#F5F1E8] leading-tight">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#F5F1E8] leading-tight">
                         {t('method.title')}
                     </h2>
                 </motion.div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
                 {/* Connecting Line */}
                 <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#D4AF37]/50 via-[#E6D8B8]/30 to-[#D4AF37]/50 transform -translate-x-1/2"></div>
 
-                <div className="space-y-32">
+                <div className="space-y-16 sm:space-y-20 md:space-y-32">
                     {translatedSteps.map((step, index) => (
                         <motion.div 
                             key={index}
@@ -65,27 +65,27 @@ export function MarketingMethod() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: index * 0.2 }}
                             viewport={{ once: true }}
-                            className={`flex flex-col md:flex-row items-center gap-12 md:gap-16 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
+                            className={`flex flex-col md:flex-row items-center gap-8 sm:gap-10 md:gap-16 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
                         >
                             {/* Content */}
                             <div className="flex-1 space-y-6 text-center md:text-left">
                                 {/* Step Number Badge */}
                                 <div className="flex items-center gap-4 justify-center md:justify-start">
                                     <div className="relative">
-                                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#E69A47] to-[#CC7722] flex items-center justify-center text-3xl shadow-xl shadow-[#E69A47]/30">
+                                        <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-[#E69A47] to-[#CC7722] flex items-center justify-center text-2xl sm:text-3xl shadow-xl shadow-[#E69A47]/30">
                                             {step.icon}
                                         </div>
-                                        <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-[#D4A373] border-2 border-[#1a1613] flex items-center justify-center text-xs font-bold text-[#1a1613]">
+                                        <div className="absolute -top-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#D4A373] border-2 border-[#1a1613] flex items-center justify-center text-[10px] sm:text-xs font-bold text-[#1a1613]">
                                             {index + 1}
                                         </div>
                                     </div>
                                 </div>
 
-                                <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#D4A373] leading-tight">
+                                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#D4A373] leading-tight">
                                     {step.title}
                                 </h3>
                                 
-                                <p className="text-lg md:text-xl text-[#B8AFA0] font-medium leading-relaxed max-w-xl mx-auto md:mx-0">
+                                <p className="text-base sm:text-lg md:text-xl text-[#B8AFA0] font-medium leading-relaxed max-w-xl mx-auto md:mx-0">
                                     {step.desc}
                                 </p>
                             </div>
