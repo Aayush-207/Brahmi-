@@ -374,7 +374,6 @@ function UnifiedSlide({
                     {pair.long}
                   </div>
                   <div className="ml-4">
-                    <div className="text-sm text-[#D4AF37]/60 uppercase tracking-widest font-bold">स्तर {toHindiNum(idx + 1)}</div>
                     <div className="text-[#E6D8B8]/80">{pair.label}</div>
                   </div>
                 </div>

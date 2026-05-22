@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { getSupabaseBrowserClient } from '@/lib/supabase/client'
 
 export default function LoginPage() {
     const router = useRouter()
@@ -22,9 +23,21 @@ export default function LoginPage() {
     }, [])
 
     const handleLogin = async () => {
-        // Backend sign-in will be implemented when backend is available
-        console.log('Login: Backend authentication will be implemented')
-        router.push('/learn')
+        try {
+            const supabase = getSupabaseBrowserClient()
+            const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent('/learn')}`
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo }
+            })
+
+            if (error) {
+                throw error
+            }
+        } catch (err) {
+            console.error('Login failed:', err)
+            setError('Google sign-in failed. Please try again.')
+        }
     }
 
     return (
@@ -55,7 +68,7 @@ export default function LoginPage() {
 
                 <button
                     onClick={handleLogin}
-                    className="w-full flex items-center justify-center gap-2 bg-gradient-to-b from-[#232526] to-[#2d2e30] rounded-full px-5 py-3 font-medium text-white shadow hover:brightness-110 transition mb-2 text-sm"
+                    className="w-full flex items-center justify-center gap-2 bg-linear-to-b from-[#232526] to-[#2d2e30] rounded-full px-5 py-3 font-medium text-white shadow hover:brightness-110 transition mb-2 text-sm"
                 >
                     <img
                         src="https://www.svgrepo.com/show/475656/google-color.svg"

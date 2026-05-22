@@ -89,6 +89,13 @@ function generateJourneyPath(count: number, centerX: number): string {
     return path
 }
 
+function getBackLabel(language: string): string {
+    if (language === 'hi') return 'वापस'
+    if (language === 'kn') return 'ಹಿಂದೆ'
+    if (language === 'ta') return 'பின்'
+    return 'Back'
+}
+
 export default function VyanjanLessonsPage() {
     const router = useRouter()
     const { language } = useLanguage()
@@ -101,6 +108,7 @@ export default function VyanjanLessonsPage() {
     const [isMobile, setIsMobile] = useState(false)
     const [showCompletionModal, setShowCompletionModal] = useState(false)
     const [completionDismissed, setCompletionDismissed] = useState(false)
+    const backLabel = getBackLabel(language)
     
     // Refs for scrolling
     const containerRef = useRef<HTMLDivElement>(null)
@@ -265,7 +273,7 @@ export default function VyanjanLessonsPage() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-                Back
+                {backLabel}
             </button>
 
             {/* Mobile: Journey View */}

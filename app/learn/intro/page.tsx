@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { toHindiNum } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { getIntroLessons, getCompletedLessonIds, type IntroLesson } from '@/lib/introModule'
 import { getCurrentIdentity, type Identity } from '@/lib/guestIdentity'
@@ -90,6 +89,13 @@ function generateJourneyPath(count: number, centerX: number): string {
     return path
 }
 
+function getBackLabel(language: string): string {
+    if (language === 'hi') return 'वापस'
+    if (language === 'kn') return 'ಹಿಂದೆ'
+    if (language === 'ta') return 'பின்'
+    return 'Back'
+}
+
 export default function IntroLessonsPage() {
     const router = useRouter()
     const { language } = useLanguage()
@@ -102,6 +108,7 @@ export default function IntroLessonsPage() {
     const [isMobile, setIsMobile] = useState(false)
     const [showCompletionModal, setShowCompletionModal] = useState(false)
     const [completionDismissed, setCompletionDismissed] = useState(false)
+    const backLabel = getBackLabel(language)
     
     // Refs for scrolling
     const containerRef = useRef<HTMLDivElement>(null)
@@ -267,7 +274,7 @@ export default function IntroLessonsPage() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-                Back
+                {backLabel}
             </button>
 
             {/* Mobile: Journey View */}
@@ -620,11 +627,6 @@ export default function IntroLessonsPage() {
                                             {lesson.subtitle}
                                         </span>
                                     </motion.div>
-                                    
-                                    {/* Level number */}
-                                    <div className="mt-2 text-xs text-[#D4AF37]/50 font-serif">
-                                        स्तर {toHindiNum(index + 1)}
-                                    </div>
                                     
                                     {/* Skip Introduction Button for first lesson */}
                                     {index === 0 && (

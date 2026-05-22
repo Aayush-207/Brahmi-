@@ -73,6 +73,13 @@ function getTamilCourseModuleLabel(moduleId: string) {
     }
 }
 
+function getHomeLabel(language: string): string {
+    if (language === 'hi') return 'होम'
+    if (language === 'kn') return 'ಮುಖಪುಟ'
+    if (language === 'ta') return 'முகப்பு'
+    return 'Home'
+}
+
 export default function LearnPage() {
     const router = useRouter()
     const { language, t } = useLanguage()
@@ -103,6 +110,7 @@ export default function LearnPage() {
     const activeModuleIndex = 1
     const completedUpTo = 0 // Introduction is done
     const shouldStripBracketedLanguageText = language === 'hi' || language === 'kn'
+    const homeLabel = getHomeLabel(language)
 
     const formatCourseLabel = (value: string) => shouldStripBracketedLanguageText ? stripBracketedText(value) : value
 
@@ -127,7 +135,7 @@ export default function LearnPage() {
             {/* 2. Header (Consistent with Vowels Page) */}
             <div className="w-full border-b border-[#D4AF37]/20 py-4 md:py-6 text-center bg-[#1a1613]/95 backdrop-blur-sm sticky top-0 z-50 px-4">
                 <button onClick={() => router.push('/')} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#D4AF37] hover:text-[#E69A47] transition-colors text-xs font-bold uppercase tracking-wider flex items-center gap-1">
-                    ← <span className="hidden sm:inline">Home</span>
+                    ← <span className="hidden sm:inline">{homeLabel}</span>
                 </button>
                 
                 <div className="text-[#E69A47]/70 font-bold tracking-[0.2em] text-[10px] mb-1 uppercase">{t('hero.tag')}</div>

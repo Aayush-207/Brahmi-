@@ -4,9 +4,12 @@ import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/LanguageContext";
+import { localizeDigits } from "@/lib/utils";
 
 export function MarketingCTA() {
     const { t, language } = useLanguage();
+    const lettersCount = localizeDigits("100", language);
+    const yearsCount = localizeDigits("2500", language);
 
     return (
         <section className="py-32 bg-gradient-to-b from-[#1a1613] to-[#2a2420] text-center px-6 relative overflow-hidden">
@@ -66,7 +69,7 @@ export function MarketingCTA() {
                         {/* Stats or features */}
                         <div className="pt-8 flex flex-wrap justify-center gap-8 md:gap-12 text-center">
                             <div className="space-y-2">
-                                <div className="text-3xl md:text-4xl font-bold text-[#E69A47]">100+</div>
+                                <div className="text-3xl md:text-4xl font-bold text-[#E69A47]">{lettersCount}+</div>
                                 <div className="text-sm text-[#D4A373] uppercase tracking-wider">अक्षर</div>
                             </div>
                             <div className="w-px h-12 bg-[#D4A373]/30"></div>
@@ -76,7 +79,7 @@ export function MarketingCTA() {
                             </div>
                             <div className="w-px h-12 bg-[#D4A373]/30"></div>
                             <div className="space-y-2">
-                                <div className="text-3xl md:text-4xl font-bold text-[#D4AF37]">2500+</div>
+                                <div className="text-3xl md:text-4xl font-bold text-[#D4AF37]">{yearsCount}+</div>
                                 <div className="text-sm text-[#D4A373] uppercase tracking-wider">वर्ष</div>
                             </div>
                         </div>

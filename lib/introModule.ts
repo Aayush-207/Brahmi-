@@ -1,5 +1,6 @@
 import { Identity } from './guestIdentity'
 import { getDataForLanguage } from '@/backend/data/index'
+import { localizeDigits } from './utils'
 
 const GUEST_INTRO_PROGRESS_KEY = 'brahmi_guest_intro_progress'
 
@@ -207,13 +208,17 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
     return (vowel.romanized || vowel.title_english || '').toUpperCase()
   }
   const getPracticeMatraExample = (matra: any) => {
+    const isInherentMatra = (matra?.order === 1) || !matra?.matraSign
+
     // Hindi: keep localized example
     if (isHindi) {
-      return `मात्रा के साथ: ${matra.example_combination}`
+      if (isInherentMatra) return 'मात्रा के साथ: केवल व्यंजन'
+      return localizeDigits(`मात्रा के साथ: ${matra.example_combination}`, 'hi')
     }
 
     // Kannada: use precomputed Kannada examples or fallback
     if (isKannada) {
+      if (isInherentMatra) return 'ಮಾತ್ರೆಯೊಂದಿಗೆ: ವ್ಯಂಜನ ಮಾತ್ರ'
       const kannadaExamples: Record<number, string> = {
         1: 'ಕ',
         2: 'ಕಾ',
@@ -231,10 +236,11 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
 
       const kannadaResult = kannadaExamples[matra?.order] || matra?.exampleDevanagari || ''
       const matraMark = matra?.matraSign || matra?.vowelBrahmi?.slice(-1) || ''
-      return `ಮಾತ್ರೆಯೊಂದಿಗೆ: ಕ + ${matraMark} = ${kannadaResult}`
+      return localizeDigits(`ಮಾತ್ರೆಯೊಂದಿಗೆ: ಕ + ${matraMark} = ${kannadaResult}`, 'kn')
     }
 
     if (isTamil) {
+      if (isInherentMatra) return 'மாத்ராவுடன்: மெய்யெழுத்து மட்டும்'
       const tamilExamples: Record<number, string> = {
         1: 'அ',
         2: 'ஆ',
@@ -252,7 +258,7 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
 
       const tamilResult = tamilExamples[matra?.order] || matra?.exampleDevanagari || ''
       const matraMark = matra?.matraSign || matra?.vowelBrahmi?.slice(-1) || ''
-      return `மாத்ராவுடன்: அ + ${matraMark} = ${tamilResult}`
+      return localizeDigits(`மாத்ராவுடன்: அ + ${matraMark} = ${tamilResult}`, 'ta')
     }
 
     // English: compute a romanized combo (use 'ka' as representative consonant)
@@ -277,6 +283,7 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
     }
 
     try {
+      if (isInherentMatra) return 'With matra: Consonant only'
       const matraKey = matra.vowelDevanagari || matra.matraName || ''
       const romanized = romanizeConsonantWithMatra('ka', matraKey)
       return `With matra: ${romanized}`

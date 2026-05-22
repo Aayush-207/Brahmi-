@@ -40,6 +40,20 @@ type LetterStep = {
     letters: Letter  // Single object, not array
 }
 
+function getPracticeText(language: string): string {
+    if (language === 'hi') return 'अभ्यास'
+    if (language === 'kn') return 'ಅಭ್ಯಾಸ'
+    if (language === 'ta') return 'பயிற்சி'
+    return 'Practice'
+}
+
+function getExitText(language: string): string {
+    if (language === 'hi') return 'बाहर निकलें'
+    if (language === 'kn') return 'ನಿರ್ಗಮಿಸಿ'
+    if (language === 'ta') return 'வெளியேறு'
+    return 'Exit'
+}
+
 export default function LessonPage({ params }: { params: Promise<{ letter_id: string }> }) {
     const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
     const [isLoaded, setIsLoaded] = useState(false)
@@ -187,7 +201,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
     // Determine return route based on letter type
     const getReturnRoute = (completedId?: string) => {
-        const baseUrl = letterType === 'consonant' ? '/learn/vyanjan' : '/learn/intro'
+        const baseUrl = letterType === 'consonant' ? '/learn/vyanjan' : '/letters'
         return completedId ? `${baseUrl}?completed=${completedId}` : baseUrl
     }
 
@@ -317,6 +331,8 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
     // IF TRACE MODE IS ACTIVE
     if (traceMode) {
+        const practiceText = getPracticeText(language)
+        const exitText = getExitText(language)
         return (
             <div className="min-h-screen bg-[#1C1C1C] flex flex-col lg:flex-row lg:items-center lg:justify-center lg:p-8 pt-16 pb-20 md:pb-8 relative overflow-hidden">
                 {/* Floating Back Button - marks lesson complete */}
@@ -325,7 +341,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                     className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
                 >
                     <span className="text-lg">←</span>
-                    <span className="hidden sm:inline">Exit</span>
+                    <span className="hidden sm:inline">{exitText}</span>
                 </button>
 
                 {/* Floating Sign In Button */}
@@ -368,7 +384,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                                 onClick={handleFlowComplete}
                                 className="px-6 py-3 bg-gray-600 hover:bg-gray-500 text-white rounded-lg font-medium transition-all duration-300 flex items-center gap-2"
                             >
-                                {language === 'hi' ? 'अभ्यास करें→' : (letterType === 'vowel' ? 'Practice' : 'Practice writing')}
+                                {practiceText}
                             </button>
                         </div>
                     </div>
@@ -381,7 +397,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                             onClick={handleFlowComplete}
                             className="flex items-center gap-2 px-4 py-3 rounded-xl bg-gray-600 hover:bg-gray-500 text-white font-medium transition-all shadow-lg text-sm"
                         >
-                            <span>{language === 'hi' ? 'अभ्यास करें→' : (letterType === 'vowel' ? 'Practice' : 'Practice writing')}</span>
+                            <span>{practiceText}</span>
                         </button>
                         <button
                             onClick={handleFlowComplete}
@@ -398,6 +414,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
 
     // IF QUIZ MODE IS ACTIVE
     if (quizMode) {
+        const exitText = getExitText(language)
         return (
             <div className="min-h-screen bg-[#1C1C1C] flex flex-col items-center justify-center lg:p-4 pt-16 pb-20 md:pb-8 relative overflow-hidden">
                 {/* Floating Back Button */}
@@ -406,7 +423,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                     className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
                 >
                     <span className="text-lg">←</span>
-                    <span className="hidden sm:inline">Exit</span>
+                    <span className="hidden sm:inline">{exitText}</span>
                 </button>
 
                 {/* Floating Sign In Button */}
@@ -441,6 +458,8 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     const currentStep = steps[currentStepIndex]
     const letter = currentStep.letters
     const isLastStep = currentStepIndex === steps.length - 1
+    const practiceText = getPracticeText(language)
+    const exitText = getExitText(language)
 
     const getStepColor = (stepType: string) => {
         const colors = {
@@ -573,7 +592,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                 className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
             >
                 <span className="text-lg">←</span>
-                <span className="hidden sm:inline">Exit</span>
+                <span className="hidden sm:inline">{exitText}</span>
             </button>
 
             {/* Floating Sign In Button */}
@@ -615,7 +634,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                     onClick={isLastStep ? handleFlowComplete : handleNext}
                     className="hidden md:block absolute right-2 md:right-10 p-3 md:p-4 rounded-full bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 text-lg md:text-xl"
                 >
-                    {isLastStep ? (language === 'hi' ? 'अभ्यास करें→' : (quizQuestions.length > 0 ? 'Quiz →' : 'Trace →')) : '→'}
+                    {isLastStep ? (quizQuestions.length > 0 ? `${practiceText} →` : 'Trace →') : '→'}
                 </button>
             </div>
 
@@ -652,7 +671,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                         onClick={isLastStep ? handleFlowComplete : handleNext}
                         className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
                     >
-                        <span>{isLastStep ? (language === 'hi' ? 'अभ्यास करें→' : (quizQuestions.length > 0 ? 'Quiz' : 'Trace')) : (language === 'hi' ? 'अगला' : 'Next')}</span>
+                        <span>{isLastStep ? (quizQuestions.length > 0 ? practiceText : 'Trace') : (language === 'hi' ? 'अगला' : 'Next')}</span>
                         <span className="text-lg">→</span>
                     </button>
                 </div>

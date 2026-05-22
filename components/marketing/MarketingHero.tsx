@@ -7,6 +7,13 @@ import { useLanguage } from '@/lib/LanguageContext';
 
 export function MarketingHero() {
     const { t, language } = useLanguage();
+    const heroPrefix = language === 'hi'
+        ? 'ब्राह्मी लिपि में'
+        : language === 'kn'
+            ? 'ಬ್ರಾಹ್ಮೀ ಲಿಪಿಯಲ್ಲಿ'
+            : language === 'ta'
+                ? 'பிராமி எழுத்தில்'
+                : 'Brahmi Script in';
 
     return (
         <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-6 overflow-hidden bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613]">
@@ -41,7 +48,7 @@ export function MarketingHero() {
 
                         <div className="space-y-6">
                             <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#F5F1E8] font-bold leading-[1.1] tracking-tight">
-                                {language === 'hi' ? 'ब्राह्मी लिपि में' : 'Brahmi Script in'} {' '}
+                                {heroPrefix}{' '}
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E69A47] via-[#D4AF37] to-[#CC7722] animate-gradient">
                                     {t('hero.titleGradient')}
                                 </span>

@@ -1,5 +1,6 @@
 import { Identity } from './guestIdentity'
 import { getDataForLanguage } from '@/backend/data/index'
+import { localizeDigits } from './utils'
 
 const GUEST_VYANJAN_PROGRESS_KEY = 'brahmi_guest_vyanjan_progress'
 
@@ -309,7 +310,11 @@ export async function getVyanjanLessons(language: string = 'hi'): Promise<Vyanja
   const sortedLessons = lessons.sort((a: VyanjanLesson, b: VyanjanLesson) => a.order_no - b.order_no)
 
   if (language === 'hi') {
-    return sortedLessons.map(l => ({ ...l, thumbnail_label: l.thumbnail_icon }))
+    return sortedLessons.map(l => ({
+      ...l,
+      description: localizeDigits(l.description || '', 'hi'),
+      thumbnail_label: l.thumbnail_icon
+    }))
   }
 
   if (language === 'kn') {
@@ -326,7 +331,7 @@ export async function getVyanjanLessons(language: string = 'hi'): Promise<Vyanja
         ...lesson,
         title: !isPlaceholderText(lesson.title_kannada) ? lesson.title_kannada : (KANNADA_LESSON_TITLE_MAP[lesson.lesson_id] || lesson.title),
         subtitle: !isPlaceholderText(lesson.subtitle_kannada) ? lesson.subtitle_kannada : getKannadaVyanjanSubtitle(lesson.consonant_group, lesson.subtitle),
-        description: !isPlaceholderText(lesson.description_kannada) ? lesson.description_kannada : getKannadaVyanjanDescription(lesson.consonant_group, lesson.description),
+        description: localizeDigits(!isPlaceholderText(lesson.description_kannada) ? lesson.description_kannada : getKannadaVyanjanDescription(lesson.consonant_group, lesson.description), 'kn'),
         thumbnail_label: thumb
       }
     })
@@ -358,7 +363,7 @@ export async function getVyanjanLessons(language: string = 'hi'): Promise<Vyanja
       description: language === 'en'
         ? getEnglishVyanjanDescription(lesson.consonant_group, lesson.description)
         : (isTamil
-            ? (lesson.description_english || lesson.description || '')
+            ? localizeDigits((lesson.description_english || lesson.description || ''), 'ta')
             : (lesson.description_english || lesson.description || getEnglishVyanjanDescription(lesson.consonant_group, lesson.description))),
       thumbnail_label: thumb
     }
@@ -385,11 +390,11 @@ export async function getVyanjanLessonContent(lessonId: string, language: string
       ? (!isPlaceholderText(lesson.title_kannada) ? lesson.title_kannada : (KANNADA_LESSON_TITLE_MAP[lesson.lesson_id] || lesson.title))
       : (language === 'hi' ? lesson.title : (lesson.title_english || lesson.title)),
     content: language === 'kn'
-      ? (!isPlaceholderText(lesson.description_kannada) ? lesson.description_kannada : getKannadaVyanjanDescription(lesson.consonant_group, lesson.description))
+      ? localizeDigits((!isPlaceholderText(lesson.description_kannada) ? lesson.description_kannada : getKannadaVyanjanDescription(lesson.consonant_group, lesson.description)), 'kn')
       : (language === 'hi'
-          ? lesson.description
+          ? localizeDigits(lesson.description || '', 'hi')
           : (isTamil
-              ? (lesson.description_english || lesson.description || '')
+              ? localizeDigits((lesson.description_english || lesson.description || ''), 'ta')
               : getEnglishVyanjanDescription(lesson.consonant_group, lesson.description))),
     order_no: 1
   })

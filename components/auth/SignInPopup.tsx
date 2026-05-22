@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Sparkles } from 'lucide-react'
+import { getSupabaseBrowserClient } from '@/lib/supabase/client'
 
 interface SignInPopupProps {
   isVisible: boolean
@@ -18,13 +19,19 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
     setError(null)
     
     try {
-      // Backend sign-in will be implemented when backend is available
-      console.log('Sign in: Backend authentication will be implemented')
-      // For now, show a message to the user
-      setError('Sign-in feature coming soon! Backend integration in progress.')
-      setIsLoading(false)
+      const supabase = getSupabaseBrowserClient()
+      const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(window.location.pathname + window.location.search)}`
+      const { error: signInError } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo }
+      })
+
+      if (signInError) {
+        throw signInError
+      }
     } catch (err) {
-      setError('Sign-in feature coming soon!')
+      console.error('Google sign-in failed:', err)
+      setError('Google sign-in failed. Please try again.')
       setIsLoading(false)
     }
   }
@@ -49,7 +56,7 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md z-50 px-4"
           >
-            <div className="bg-gradient-to-br from-[#2a2420] to-[#1a1613] border border-[#D4AF37]/30 rounded-2xl p-6 shadow-2xl shadow-black/50">
+            <div className="bg-linear-to-br from-[#2a2420] to-[#1a1613] border border-[#D4AF37]/30 rounded-2xl p-6 shadow-2xl shadow-black/50">
               {/* Header */}
               <div className="flex items-center gap-3 mb-6">
                 <Sparkles className="w-6 h-6 text-[#D4AF37]" />
@@ -67,13 +74,6 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
                 <p className="text-gray-300 mb-4">
                   Sign in to automatically save your learning progress and access your lessons from any device.
                 </p>
-                
-                <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-lg p-4 mb-6">
-                  <div className="flex items-center gap-2 text-[#D4AF37] text-sm font-medium">
-                    <Sparkles className="w-4 h-4" />
-                    <span>Backend integration coming soon!</span>
-                  </div>
-                </div>
               </div>
 
               {/* Error Message */}
@@ -87,7 +87,7 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
               <button
                 onClick={handleGoogleSignIn}
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#D4AF37] to-[#C5A059] text-[#1a1613] rounded-xl px-6 py-4 font-bold text-sm hover:scale-105 transition-all duration-300 shadow-lg shadow-[#D4AF37]/30 hover:shadow-xl hover:shadow-[#D4AF37]/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="w-full flex items-center justify-center gap-3 bg-linear-to-r from-[#D4AF37] to-[#C5A059] text-[#1a1613] rounded-xl px-6 py-4 font-bold text-sm hover:scale-105 transition-all duration-300 shadow-lg shadow-[#D4AF37]/30 hover:shadow-xl hover:shadow-[#D4AF37]/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-[#1a1613] border-t-transparent rounded-full animate-spin" />

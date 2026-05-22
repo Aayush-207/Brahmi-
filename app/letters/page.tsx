@@ -142,6 +142,13 @@ function getLevelCaption(language: 'hi' | 'en' | 'kn' | 'ta', level: number) {
     return `स्तर ${toHindiNum(level)}`
 }
 
+function getBackButtonLabel(language: 'hi' | 'en' | 'kn' | 'ta') {
+    if (language === 'hi') return 'वापस'
+    if (language === 'kn') return 'ಹಿಂದೆ'
+    if (language === 'ta') return 'பின்'
+    return 'Back'
+}
+
 export default function LettersPage() {
     // --- State ---
     const [identity, setIdentity] = useState<Identity>({ type: 'none', id: null })
@@ -317,6 +324,8 @@ export default function LettersPage() {
 
     if (loading) return <div className="fixed inset-0 bg-linear-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] flex items-center justify-center text-[#D4AF37]">Loading...</div>
 
+    const backLabel = getBackButtonLabel(language)
+
     // Calculate bounds based on view type
     const centerX = typeof window !== 'undefined' ? window.innerWidth / 2 : 200
     
@@ -358,7 +367,7 @@ export default function LettersPage() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-                Back
+                {backLabel}
             </button>
 
             {/* Mobile: Journey View */}

@@ -75,7 +75,7 @@ export function Header() {
                                                 language === 'hi' ? 'text-[#E69A47]' : 'text-[#B8AFA0]'
                                             }`}
                                         >
-                                            हिन्दी (Hindi)
+                                            हिन्दी 
                                         </button>
                                         <button
                                             onClick={() => {
@@ -97,7 +97,7 @@ export function Header() {
                                                 language === 'kn' ? 'text-[#E69A47]' : 'text-[#B8AFA0]'
                                             }`}
                                         >
-                                            ಕನ್ನಡ (Kannada)
+                                            ಕನ್ನಡ 
                                         </button>
                                         <button
                                             onClick={() => {
@@ -108,7 +108,7 @@ export function Header() {
                                                 language === 'ta' ? 'text-[#E69A47]' : 'text-[#B8AFA0]'
                                             }`}
                                         >
-                                            தமிழ் (Tamil)
+                                            தமிழ் 
                                         </button>
                                     </motion.div>
                                 )}
@@ -159,7 +159,7 @@ export function Header() {
                                                 : 'bg-[#2a2420] border border-[#D4AF37]/30 text-[#B8AFA0] hover:bg-[#D4AF37]/10'
                                         }`}
                                     >
-                                        हिन्दी (Hindi)
+                                        हिन्दी 
                                     </button>
                                     <button
                                         onClick={() => {
@@ -185,7 +185,7 @@ export function Header() {
                                                 : 'bg-[#2a2420] border border-[#D4AF37]/30 text-[#B8AFA0] hover:bg-[#D4AF37]/10'
                                         }`}
                                     >
-                                        ಕನ್ನಡ (Kannada)
+                                        ಕನ್ನಡ 
                                     </button>
                                     <button
                                         onClick={() => {
@@ -198,7 +198,7 @@ export function Header() {
                                                 : 'bg-[#2a2420] border border-[#D4AF37]/30 text-[#B8AFA0] hover:bg-[#D4AF37]/10'
                                         }`}
                                     >
-                                        தமிழ் (Tamil)
+                                        தமிழ் 
                                     </button>
                                 </div>
 

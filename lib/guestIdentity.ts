@@ -1,3 +1,5 @@
+import { getSupabaseBrowserClient } from './supabase/client'
+
 const GUEST_ID_KEY = 'brahmi_guest_id'
 
 export type Identity =
@@ -43,8 +45,13 @@ export function getOrCreateGuestId(): string {
  */
 export async function getCurrentIdentity(): Promise<Identity> {
     try {
-        // For now, always return guest identity
-        // Backend authentication will be implemented when available
+        const supabase = getSupabaseBrowserClient()
+        const { data } = await supabase.auth.getSession()
+        const user = data.session?.user
+        if (user) {
+            return { type: 'user', id: user.id }
+        }
+
         const guestId = getOrCreateGuestId()
         return { type: 'guest', id: guestId }
     } catch (error: any) {
