@@ -23,7 +23,7 @@ export default function VyanjanLessonPage({ params }: { params: Promise<{ lesson
     const [loading, setLoading] = useState(true)
     const [direction, setDirection] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
-    const isTamil = language === 'ta' || language === 'tamil'
+    const isTamil = language === 'ta'
 
     // Sync currentSlide with search params if provided
     useEffect(() => {
