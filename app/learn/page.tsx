@@ -215,7 +215,7 @@ export default function LearnPage() {
                     // Logic: Even = Mascot Left, Odd = Mascot Right (Alternating)
                     const mascotSide = index % 2 === 0 ? 'left' : 'right'
                     const mascotImg = (index % 3) + 1
-                    const tamilModule = language === 'ta' || language === 'tamil' ? getTamilCourseModuleLabel(module.id) : null
+                    const tamilModule = language === 'ta' ? getTamilCourseModuleLabel(module.id) : null
                     const displayTitle = tamilModule?.title || formatCourseLabel(t(`courses.${module.id.split('-')[1]}.title`))
                     const displaySubtitle = tamilModule?.subtitle || formatCourseLabel(t(`courses.${module.id.split('-')[1]}.subtitle`))
                     const displayIcon = getModuleIconLabel(language, module.id, tamilModule?.icon || module.icon)
