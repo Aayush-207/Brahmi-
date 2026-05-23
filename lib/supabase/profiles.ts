@@ -35,9 +35,8 @@ export async function upsertUserProfile(user: User): Promise<void> {
     updated_at: new Date().toISOString()
   }
 
-  const { error } = await supabase
-    .from('profiles')
-    .upsert(profile, { onConflict: 'id' })
+  const profilesTable = supabase.from('profiles') as any
+  const { error } = await profilesTable.upsert(profile, { onConflict: 'id' })
 
   if (error) {
     console.error('Failed to upsert user profile:', error)

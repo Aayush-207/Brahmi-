@@ -15,8 +15,11 @@ export type VyanjanLesson = {
   module_id: string
   lesson_id: string
   title: string
+  title_tamil?: string
   subtitle: string
+  subtitle_tamil?: string
   description: string
+  description_tamil?: string
   thumbnail_icon: string
   thumbnail_label?: string
   order_no: number
@@ -41,11 +44,14 @@ export type Consonant = {
   categoryHindi: string
   categoryEnglish: string
   categoryDescription: string
+  categoryTamil?: string
+  categoryDescriptionTamil?: string
   devanagari: string
   brahmi: string
   romanized: string
   pronunciationNote: string
   pronunciationNoteEnglish?: string
+  pronunciationNoteTamil?: string
   pronunciationNoteKannada?: string
   title_kannada?: string
   categoryKannada?: string
@@ -301,7 +307,7 @@ export async function getCompletedVyanjanLessonIds(identity: Identity): Promise<
 }
 
 export async function getVyanjanLessons(language: string = 'hi'): Promise<VyanjanLesson[]> {
-  const isTamil = language === 'ta' || language === 'tamil'
+  const isTamil = language === 'ta'
   const data = getDataForLanguage(language)
   const lessons = data.vyanjan.lessons as VyanjanLesson[]
   const consonantsList = data.vyanjan.consonants as any[]
@@ -371,7 +377,7 @@ export async function getVyanjanLessons(language: string = 'hi'): Promise<Vyanja
 }
 
 export async function getVyanjanLessonContent(lessonId: string, language: string = 'hi'): Promise<VyanjanLessonContent[]> {
-  const isTamil = language === 'ta' || language === 'tamil'
+  const isTamil = language === 'ta'
   const data = getDataForLanguage(language)
   const vyanjanData = data.vyanjan
   const matraData = data.matras

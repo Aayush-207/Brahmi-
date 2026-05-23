@@ -1,15 +1,18 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabaseUrlValue = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKeyValue = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-if (!supabaseUrl) {
+if (!supabaseUrlValue) {
   throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL')
 }
 
-if (!supabaseKey) {
+if (!supabaseKeyValue) {
   throw new Error('Missing NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY')
 }
+
+const supabaseUrl: string = supabaseUrlValue
+const supabaseKey: string = supabaseKeyValue
 
 let browserClient: ReturnType<typeof createClient> | null = null
 

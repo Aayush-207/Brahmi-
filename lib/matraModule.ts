@@ -18,9 +18,12 @@ export type MatraLesson = {
   lesson_id: string
   title: string
   title_english?: string
+  title_tamil?: string
   subtitle: string | null
+  subtitle_tamil?: string
   description?: string
   description_english?: string
+  description_tamil?: string
   matra_symbol: string | null
   order_no: number
   estimated_time: number
@@ -122,7 +125,7 @@ export async function getMatraLessons(identity: Identity, language: string = 'hi
   // Sort by order_no to ensure correct sequence
   const sortedLessons = lessons.sort((a: MatraLesson, b: MatraLesson) => a.order_no - b.order_no);
 
-  const isTamil = language === 'ta' || language === 'tamil';
+  const isTamil = language === 'ta';
 
   if (language !== 'hi') {
     return sortedLessons.map((lesson) => ({
@@ -160,7 +163,7 @@ export async function getMatraLessonInfo(lessonId: string, language: string = 'h
 export async function getMatraLessonContent(lessonId: string, language: string = 'hi'): Promise<MatraLessonContent[]> {
   const data = getDataForLanguage(language);
   const matraData = data.matras;
-  const isTamil = language === 'ta' || language === 'tamil';
+  const isTamil = language === 'ta';
   
   const lesson = (matraData.lessons as unknown as MatraLesson[]).find(l => l.lesson_id === lessonId)
   if (!lesson) return []
