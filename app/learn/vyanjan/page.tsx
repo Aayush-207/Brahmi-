@@ -89,6 +89,21 @@ function generateJourneyPath(count: number, centerX: number): string {
     return path
 }
 
+function getVyanjanTileLabel(language: string, lessonId: string, fallback: string | null) {
+    if (lessonId === 'vyanjan-lesson-001') {
+        if (language === 'hi') return 'अ'
+        if (language === 'kn') return 'ಅ'
+        if (language === 'ta') return 'அ'
+        return 'Aa'
+    }
+
+    if (fallback && fallback !== 'अ') {
+        return fallback
+    }
+
+    return language === 'hi' ? 'क' : language === 'kn' ? 'ಕ' : language === 'ta' ? 'க' : 'Ka'
+}
+
 function getBackLabel(language: string): string {
     if (language === 'hi') return 'वापस'
     if (language === 'kn') return 'ಹಿಂದೆ'
@@ -374,7 +389,7 @@ export default function VyanjanLessonsPage() {
                                             whileHover={{ scale: 1.1 }}
                                             whileTap={{ scale: 0.95 }}
                                         >
-                                            <span className="text-2xl">{lesson.thumbnail_label || lesson.thumbnail_icon}</span>
+                                            <span className="text-2xl">{getVyanjanTileLabel(language, lesson.lesson_id, lesson.thumbnail_label || lesson.thumbnail_icon)}</span>
                                             
                                             {/* Completed indicator */}
                                             {isCompleted && (
@@ -569,7 +584,7 @@ export default function VyanjanLessonsPage() {
                                             }}
                                             whileTap={{ scale: 0.95, translateY: 0 }}
                                         >
-                                            <span className="text-3xl">{lesson.thumbnail_label || lesson.thumbnail_icon}</span>
+                                            <span className="text-3xl">{getVyanjanTileLabel(language, lesson.lesson_id, lesson.thumbnail_label || lesson.thumbnail_icon)}</span>
                                             
                                             {/* Golden torch for completed */}
                                             {isCompleted && (

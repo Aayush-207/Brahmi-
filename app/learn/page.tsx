@@ -80,6 +80,35 @@ function getHomeLabel(language: string): string {
     return 'Home'
 }
 
+function getModuleIconLabel(language: string, moduleId: string, fallbackIcon: string): string {
+    if (moduleId === 'module-intro') {
+        return fallbackIcon
+    }
+
+    const iconMap: Record<string, Record<string, string>> = {
+        'module-swar': {
+            hi: 'अ',
+            en: 'Aa',
+            kn: 'ಅ',
+            ta: 'அ',
+        },
+        'module-vyanjan': {
+            hi: 'क',
+            en: 'Ka',
+            kn: 'ಕ',
+            ta: 'க',
+        },
+        'module-matra': {
+            hi: 'का',
+            en: 'Kaa',
+            kn: 'ಕಾ',
+            ta: 'கா',
+        },
+    }
+
+    return iconMap[moduleId]?.[language] || fallbackIcon
+}
+
 export default function LearnPage() {
     const router = useRouter()
     const { language, t } = useLanguage()
@@ -189,7 +218,7 @@ export default function LearnPage() {
                     const tamilModule = language === 'ta' || language === 'tamil' ? getTamilCourseModuleLabel(module.id) : null
                     const displayTitle = tamilModule?.title || formatCourseLabel(t(`courses.${module.id.split('-')[1]}.title`))
                     const displaySubtitle = tamilModule?.subtitle || formatCourseLabel(t(`courses.${module.id.split('-')[1]}.subtitle`))
-                    const displayIcon = tamilModule?.icon || module.icon
+                    const displayIcon = getModuleIconLabel(language, module.id, tamilModule?.icon || module.icon)
 
                     // State Logic
                     const isCompleted = index <= completedUpTo

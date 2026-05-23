@@ -13,7 +13,12 @@ export function Header() {
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
-    const { language, setLanguage, t } = useLanguage();
+    const { language, setLanguage, markLanguageSelected, t } = useLanguage();
+
+    const chooseLanguage = (nextLanguage: typeof language) => {
+        setLanguage(nextLanguage);
+        markLanguageSelected();
+    };
 
     // Hide header on App routes (Journey, Lesson, etc.)
     const isAppPage = pathname?.startsWith('/letters') || pathname?.startsWith('/lesson') || pathname?.startsWith('/learn');
@@ -68,7 +73,7 @@ export function Header() {
                                     >
                                         <button
                                             onClick={() => {
-                                                setLanguage('hi');
+                                                chooseLanguage('hi');
                                                 setIsLangMenuOpen(false);
                                             }}
                                             className={`w-full px-6 py-3 text-left hover:bg-[#D4AF37]/10 transition-colors whitespace-nowrap ${
@@ -79,7 +84,7 @@ export function Header() {
                                         </button>
                                         <button
                                             onClick={() => {
-                                                setLanguage('en');
+                                                chooseLanguage('en');
                                                 setIsLangMenuOpen(false);
                                             }}
                                             className={`w-full px-6 py-3 text-left hover:bg-[#D4AF37]/10 transition-colors border-t border-[#D4AF37]/20 whitespace-nowrap ${
@@ -90,7 +95,7 @@ export function Header() {
                                         </button>
                                         <button
                                             onClick={() => {
-                                                setLanguage('kn');
+                                                chooseLanguage('kn');
                                                 setIsLangMenuOpen(false);
                                             }}
                                             className={`w-full px-6 py-3 text-left hover:bg-[#D4AF37]/10 transition-colors border-t border-[#D4AF37]/20 whitespace-nowrap ${
@@ -101,7 +106,7 @@ export function Header() {
                                         </button>
                                         <button
                                             onClick={() => {
-                                                setLanguage('ta');
+                                                chooseLanguage('ta');
                                                 setIsLangMenuOpen(false);
                                             }}
                                             className={`w-full px-6 py-3 text-left hover:bg-[#D4AF37]/10 transition-colors border-t border-[#D4AF37]/20 whitespace-nowrap ${
@@ -150,7 +155,7 @@ export function Header() {
                                 <div className="w-full flex flex-col gap-2">
                                     <button
                                         onClick={() => {
-                                            setLanguage('hi');
+                                            chooseLanguage('hi');
                                             setIsMobileMenuOpen(false);
                                         }}
                                         className={`w-full px-4 py-3 rounded-lg text-left font-medium transition-colors ${
@@ -163,7 +168,7 @@ export function Header() {
                                     </button>
                                     <button
                                         onClick={() => {
-                                            setLanguage('en');
+                                            chooseLanguage('en');
                                             setIsMobileMenuOpen(false);
                                         }}
                                         className={`w-full px-4 py-3 rounded-lg text-left font-medium transition-colors ${
@@ -176,7 +181,7 @@ export function Header() {
                                     </button>
                                     <button
                                         onClick={() => {
-                                            setLanguage('kn');
+                                            chooseLanguage('kn');
                                             setIsMobileMenuOpen(false);
                                         }}
                                         className={`w-full px-4 py-3 rounded-lg text-left font-medium transition-colors ${
@@ -189,7 +194,7 @@ export function Header() {
                                     </button>
                                     <button
                                         onClick={() => {
-                                            setLanguage('ta');
+                                            chooseLanguage('ta');
                                             setIsMobileMenuOpen(false);
                                         }}
                                         className={`w-full px-4 py-3 rounded-lg text-left font-medium transition-colors ${
@@ -201,7 +206,7 @@ export function Header() {
                                         தமிழ் 
                                     </button>
                                 </div>
-
+            
                                 <AuthButton />
                                 <Link href="/learn" className="w-full" onClick={() => setIsMobileMenuOpen(false)}>
                                     <Button className="relative w-full h-12 text-sm font-bold bg-gradient-to-r from-[#D4AF37] to-[#C5A059] text-[#1a1613] rounded-xl hover:scale-105 transition-all duration-300 uppercase tracking-wider shadow-lg shadow-[#D4AF37]/30 overflow-hidden group">

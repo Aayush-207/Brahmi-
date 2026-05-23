@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/landing/Header";
 import DevAttributeGuard from "@/components/dev/DevAttributeGuard";
 import { LanguageProvider } from "@/lib/LanguageContext";
+import LanguagePreferenceModal from "@/components/LanguagePreferenceModal";
 
 
 const inter = Inter({
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         <LanguageProvider>
           <Header />
+          <LanguagePreferenceModal />
           <DevAttributeGuard />
           <main className="min-h-screen">
             {children}

@@ -89,6 +89,28 @@ function generateJourneyPath(count: number, centerX: number): string {
     return path
 }
 
+function getMatraTileLabel(language: string, lessonId: string, fallback: string | null) {
+    if (lessonId === 'matras-lesson-001') {
+        if (language === 'hi') return 'का'
+        if (language === 'kn') return 'ಕಾ'
+        if (language === 'ta') return 'கா'
+        return 'Kaa'
+    }
+
+    if (lessonId === 'matras-lesson-002') {
+        if (language === 'hi') return 'अ'
+        if (language === 'kn') return 'ಅ'
+        if (language === 'ta') return 'அ'
+        return 'Aa'
+    }
+
+    if (fallback && fallback !== 'None') {
+        return fallback
+    }
+
+    return lessonId === 'matras-lesson-002' ? (language === 'hi' ? 'अ' : language === 'kn' ? 'ಅ' : language === 'ta' ? 'அ' : 'Aa') : ''
+}
+
 export default function MatraPage() {
     const router = useRouter()
     const { language } = useLanguage()
@@ -363,7 +385,7 @@ export default function MatraPage() {
                                             whileHover={{ scale: 1.1 }}
                                             whileTap={{ scale: 0.95 }}
                                         >
-                                            <span className="text-2xl">{lesson.matra_symbol || 'का'}</span>
+                                            <span className="text-2xl">{getMatraTileLabel(language, lesson.lesson_id, lesson.matra_symbol)}</span>
                                             
                                             {/* Completed indicator */}
                                             {isCompleted && (
@@ -558,7 +580,7 @@ export default function MatraPage() {
                                             }}
                                             whileTap={{ scale: 0.95, translateY: 0 }}
                                         >
-                                            <span className="text-3xl">{lesson.matra_symbol || 'का'}</span>
+                                            <span className="text-3xl">{getMatraTileLabel(language, lesson.lesson_id, lesson.matra_symbol)}</span>
                                             
                                             {/* Golden torch for completed */}
                                             {isCompleted && (

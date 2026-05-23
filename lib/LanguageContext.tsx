@@ -4,9 +4,12 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 
 type Language = "hi" | "en" | "kn" | "ta";
 
+const LANGUAGE_SELECTION_KEY = "brahmi_language_selected";
+
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
+  markLanguageSelected: () => void;
   t: (key: string) => string;
 }
 
@@ -61,8 +64,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     return typeof value === "string" ? value : key;
   };
 
+  const markLanguageSelected = () => {
+    try {
+      localStorage.setItem(LANGUAGE_SELECTION_KEY, "true");
+    } catch (error) {
+      console.warn("Failed to store language preference:", error);
+    }
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, markLanguageSelected, t }}>
       {children}
     </LanguageContext.Provider>
   );
