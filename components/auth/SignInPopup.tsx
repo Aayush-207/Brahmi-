@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Sparkles } from 'lucide-react'
 import { getSupabaseBrowserClient } from '@/lib/supabase/client'
+import { getAppBaseUrl } from '@/lib/siteUrl'
 
 interface SignInPopupProps {
   isVisible: boolean
@@ -31,7 +32,8 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
         setIsLoading(false)
         return
       }
-      const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(window.location.pathname + window.location.search)}`
+      const appBaseUrl = getAppBaseUrl()
+      const redirectTo = `${appBaseUrl}/auth/callback?next=${encodeURIComponent(window.location.pathname + window.location.search)}`
       const { error: signInError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: { redirectTo }

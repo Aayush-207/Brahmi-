@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { getSupabaseBrowserClient } from '@/lib/supabase/client'
+import { getAppBaseUrl } from '@/lib/siteUrl'
 
 export default function LoginPage() {
     const router = useRouter()
@@ -29,7 +30,7 @@ export default function LoginPage() {
                 setError('Google sign-in is not configured on this deployment yet.')
                 return
             }
-            const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent('/learn')}`
+            const redirectTo = `${getAppBaseUrl()}/auth/callback?next=${encodeURIComponent('/learn')}`
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: { redirectTo }
