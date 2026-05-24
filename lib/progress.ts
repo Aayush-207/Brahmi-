@@ -1,4 +1,5 @@
 import { Identity } from './guestIdentity'
+import { loadAccountLessonProgress, saveAccountLessonProgress } from './supabase/lessonProgress'
 
 const GUEST_PROGRESS_KEY = 'brahmi_guest_progress'
 
@@ -59,9 +60,21 @@ export async function getUserProgress(identity: Identity) {
         return { completedIds: [], currentId: null }
     }
 
-    // Backend will provide progress data
-    console.log('User progress: Waiting for backend implementation')
-    return { completedIds: [], currentId: null }
+    const progressRows = await loadAccountLessonProgress('module-swar', identity.id)
+    const completedIds = Object.values(progressRows)
+        .filter((entry) => entry.status === 'completed')
+        .map((entry) => entry.lesson_id)
+        .sort((a, b) => a.localeCompare(b))
+
+    const currentId = Object.values(progressRows)
+        .sort((a, b) => {
+            const completedScore = Number(Boolean(a.completed_at)) - Number(Boolean(b.completed_at))
+            if (completedScore !== 0) return completedScore
+            return new Date(a.last_accessed).getTime() - new Date(b.last_accessed).getTime()
+        })
+        .at(-1)?.lesson_id || null
+
+    return { completedIds, currentId }
 }
 
 /**
@@ -89,8 +102,7 @@ export async function markLessonComplete(identity: Identity, letterId: string) {
         return
     }
 
-    // Backend will handle saving progress for authenticated users
-    console.log('Lesson complete: Waiting for backend implementation')
+    await saveAccountLessonProgress('module-swar', letterId, 'completed', 100, identity.id)
 }
 
 /**
