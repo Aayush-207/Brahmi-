@@ -21,10 +21,10 @@ function pickAvatar(user: User): string | null {
   return metadata.avatar_url || metadata.picture || metadata.avatar || metadata.image || null
 }
 
-export async function upsertUserProfile(user: User): Promise<void> {
+export async function upsertUserProfile(user: User): Promise<boolean> {
   const supabase = getSupabaseBrowserClient()
   if (!supabase) {
-    return
+    return false
   }
   const provider = user.app_metadata?.provider || user.identities?.[0]?.provider || null
 
@@ -42,7 +42,14 @@ export async function upsertUserProfile(user: User): Promise<void> {
   const { error } = await profilesTable.upsert(profile, { onConflict: 'id' })
 
   if (error) {
-    console.error('Failed to upsert user profile:', error)
-    throw error
+    console.warn('Failed to upsert user profile:', {
+      message: error?.message || 'Unknown Supabase error',
+      code: error?.code || null,
+      details: error?.details || null,
+      hint: error?.hint || null,
+    })
+    return false
   }
+
+  return true
 }

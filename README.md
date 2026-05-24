@@ -34,3 +34,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Supabase Setup
+
+Google sign-in stores profile data in Supabase, but the database schema must be applied first.
+
+1. Open the Supabase SQL editor for your project.
+2. Run [supabase/profiles.sql](supabase/profiles.sql).
+3. Verify that the `public.profiles` table exists.
+4. Sign in with Google again.
+
+Notes:
+
+- Supabase Auth users are stored in `auth.users`, which is not shown as a normal table in the Table Editor.
+- The app writes the readable profile row to `public.profiles`.
+- If you do not run the SQL file, sign-in can succeed but no profile row will be created.
