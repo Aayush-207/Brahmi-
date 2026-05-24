@@ -20,6 +20,11 @@ export default function SignInPopup({ isVisible, onClose }: SignInPopupProps) {
     
     try {
       const supabase = getSupabaseBrowserClient()
+      if (!supabase) {
+        setError('Google sign-in is not configured on this deployment yet.')
+        setIsLoading(false)
+        return
+      }
       const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(window.location.pathname + window.location.search)}`
       const { error: signInError } = await supabase.auth.signInWithOAuth({
         provider: 'google',

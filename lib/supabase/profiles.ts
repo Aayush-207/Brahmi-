@@ -23,6 +23,9 @@ function pickAvatar(user: User): string | null {
 
 export async function upsertUserProfile(user: User): Promise<void> {
   const supabase = getSupabaseBrowserClient()
+  if (!supabase) {
+    return
+  }
   const provider = user.app_metadata?.provider || user.identities?.[0]?.provider || null
 
   const profile: AppUserProfile = {

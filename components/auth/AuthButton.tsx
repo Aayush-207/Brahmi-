@@ -22,6 +22,12 @@ export default function AuthButton() {
             const currentIdentity = await getCurrentIdentity();
             setIdentity(currentIdentity);
 
+            if (!supabase) {
+                setAvatarUrl(null);
+                setUserName(null);
+                return;
+            }
+
             const { data } = await supabase.auth.getUser();
             const user = data.user;
             if (user) {
@@ -40,6 +46,10 @@ export default function AuthButton() {
 
         loadIdentity();
 
+        if (!supabase) {
+            return;
+        }
+
         const { data: authListener } = supabase.auth.onAuthStateChange(() => {
             loadIdentity();
         });
@@ -51,6 +61,14 @@ export default function AuthButton() {
 
     const handleSignOut = async () => {
         const supabase = getSupabaseBrowserClient();
+        if (!supabase) {
+            setIdentity({ type: 'guest', id: 'guest_' + Math.random().toString(36) });
+            setAvatarUrl(null);
+            setUserName(null);
+            router.push('/');
+            return;
+        }
+
         await supabase.auth.signOut();
         setIdentity({ type: 'guest', id: 'guest_' + Math.random().toString(36) });
         setAvatarUrl(null);

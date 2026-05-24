@@ -25,6 +25,10 @@ export default function LoginPage() {
     const handleLogin = async () => {
         try {
             const supabase = getSupabaseBrowserClient()
+            if (!supabase) {
+                setError('Google sign-in is not configured on this deployment yet.')
+                return
+            }
             const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent('/learn')}`
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',

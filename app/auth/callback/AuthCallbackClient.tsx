@@ -17,6 +17,10 @@ export default function AuthCallbackClient() {
     const run = async () => {
       try {
         const supabase = getSupabaseBrowserClient();
+        if (!supabase) {
+          setError('Google sign-in is not configured on this deployment yet.');
+          return;
+        }
         const code = searchParams.get('code');
         const next = searchParams.get('next') || '/learn';
 

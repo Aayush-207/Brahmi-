@@ -46,6 +46,10 @@ export function getOrCreateGuestId(): string {
 export async function getCurrentIdentity(): Promise<Identity> {
     try {
         const supabase = getSupabaseBrowserClient()
+        if (!supabase) {
+            const guestId = getOrCreateGuestId()
+            return { type: 'guest', id: guestId }
+        }
         const { data } = await supabase.auth.getSession()
         const user = data.session?.user
         if (user) {
