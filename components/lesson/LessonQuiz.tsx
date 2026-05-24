@@ -23,6 +23,76 @@ export type McqQuestion = {
 
 type QuizState = 'idle' | 'active' | 'answered_correct' | 'answered_wrong' | 'completed'
 
+type QuizLanguage = 'hi' | 'en' | 'kn' | 'ta'
+
+const QUIZ_TEXT: Record<QuizLanguage, {
+    correctTitle: string
+    wrongTitle: string
+    correctBody: string
+    wrongBodyPrefix: string
+    continue: string
+    completedTitle: string
+    completedBody: string
+    gurujiCorrect: string
+    gurujiWrong: string
+}> = {
+    hi: {
+        correctTitle: 'सही!'
+        , wrongTitle: 'गलत',
+        correctBody: 'बहुत बढ़िया।',
+        wrongBodyPrefix: 'सही उत्तर:',
+        continue: 'आगे',
+        completedTitle: 'पाठ पूरा हुआ!',
+        completedBody: 'आपने इन सभी अवधारणाओं में महारत हासिल कर ली है।',
+        gurujiCorrect: 'सही जवाब',
+        gurujiWrong: 'गलत जवाब'
+    },
+    en: {
+        correctTitle: 'Correct!',
+        wrongTitle: 'Incorrect',
+        correctBody: 'Nicely done.',
+        wrongBodyPrefix: 'Correct answer:',
+        continue: 'Continue',
+        completedTitle: 'Lesson Complete!',
+        completedBody: 'You have mastered these concepts.',
+        gurujiCorrect: 'Correct answer',
+        gurujiWrong: 'Wrong answer'
+    },
+    kn: {
+        correctTitle: 'ಸರಿ!',
+        wrongTitle: 'ತಪ್ಪು',
+        correctBody: 'ಚೆನ್ನಾಗಿ ಮಾಡಿದ್ದೀರಿ.',
+        wrongBodyPrefix: 'ಸರಿಯಾದ ಉತ್ತರ:',
+        continue: 'ಮುಂದೆ',
+        completedTitle: 'ಪಾಠ ಪೂರ್ಣಗೊಂಡಿದೆ!',
+        completedBody: 'ನೀವು ಈ ಕಲ್ಪನೆಗಳನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಕಲಿತಿದ್ದೀರಿ.',
+        gurujiCorrect: 'ಸರಿಯಾದ ಉತ್ತರ',
+        gurujiWrong: 'ತಪ್ಪಾದ ಉತ್ತರ'
+    },
+    ta: {
+        correctTitle: 'சரி!',
+        wrongTitle: 'தவறு',
+        correctBody: 'நன்றாக செய்தீர்கள்.',
+        wrongBodyPrefix: 'சரியான பதில்:',
+        continue: 'தொடரவும்',
+        completedTitle: 'பாடம் முடிந்தது!',
+        completedBody: 'இந்த கருத்துகளை நீங்கள் முழுமையாக கற்றுக்கொண்டீர்கள்.',
+        gurujiCorrect: 'சரி பதில்',
+        gurujiWrong: 'தவறான பதில்'
+    }
+}
+
+function getQuizText(language: string) {
+    return QUIZ_TEXT[(language as QuizLanguage) || 'en'] || QUIZ_TEXT.en
+}
+
+function getSpeechLocale(language: string): string {
+    if (language === 'hi') return 'hi-IN'
+    if (language === 'kn') return 'kn-IN'
+    if (language === 'ta') return 'ta-IN'
+    return 'en-US'
+}
+
 interface LessonQuizProps {
     questions: McqQuestion[]
     onComplete: () => void
@@ -30,6 +100,7 @@ interface LessonQuizProps {
 
 export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
     const { language } = useLanguage()
+    const quizText = getQuizText(language)
     const [quizState, setQuizState] = useState<QuizState>('idle')
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null)
@@ -57,10 +128,10 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
 
         if (correct) {
             setQuizState('answered_correct')
-            speakAsGuruji('sahi jawab')
+            speakAsGuruji(quizText.gurujiCorrect, { lang: getSpeechLocale(language) })
         } else {
             setQuizState('answered_wrong')
-            speakAsGuruji('galat jawab')
+            speakAsGuruji(quizText.gurujiWrong, { lang: getSpeechLocale(language) })
             setShakingOptionId(optionId)
             // Reset shake after animation
             setTimeout(() => setShakingOptionId(null), 500)
@@ -88,7 +159,7 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
 
     if (quizState === 'completed') {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-8 bg-[#1C1C1C] rounded-3xl border border-[#3A3A3A]">
+            <div className="flex flex-col items-center justify-center min-h-100 text-center p-8 bg-[#1C1C1C] rounded-3xl border border-[#3A3A3A]">
                 <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -96,8 +167,8 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
                 >
                     🎉
                 </motion.div>
-                <h2 className="text-3xl font-bold text-white mb-4">Lesson Complete!</h2>
-                <p className="text-gray-400">You've mastered these concepts.</p>
+                <h2 className="text-3xl font-bold text-white mb-4">{quizText.completedTitle}</h2>
+                <p className="text-gray-400">{quizText.completedBody}</p>
             </div>
         )
     }
@@ -160,7 +231,7 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
                                 className={`
                                     relative p-5 rounded-2xl border-2 border-b-4 
                                     text-lg font-medium text-left transition-all duration-200
-                                    active:border-b-2 active:translate-y-[2px]
+                                    active:border-b-2 active:translate-y-0.5
                                     ${buttonStyle} ${opacityClass}
                                 `}
                             >
@@ -206,12 +277,12 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold">
-                                        {quizState === 'answered_correct' ? 'Correct!' : 'Incorrect'}
+                                        {quizState === 'answered_correct' ? quizText.correctTitle : quizText.wrongTitle}
                                     </h3>
                                     <p className="text-sm font-medium opacity-90">
-                                        {quizState === 'answered_correct' ? 'Nicely done.' : (() => {
+                                        {quizState === 'answered_correct' ? quizText.correctBody : (() => {
                                             const correctOption = currentQuestion.options.find(o => o.is_correct);
-                                            return correctOption ? `Correct answer: ${correctOption.option_text}` : 'Review the correct answer above.';
+                                            return correctOption ? `${quizText.wrongBodyPrefix} ${correctOption.option_text}` : quizText.wrongBodyPrefix;
                                         })()}
                                     </p>
                                 </div>
@@ -221,7 +292,7 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
                                 onClick={handleContinue}
                                 className="w-full md:w-auto px-6 py-3 rounded-xl font-bold text-white uppercase tracking-wide bg-[#58CC02] border-[#46a302] border-b-4 active:border-b-0 active:translate-y-1 transition-all"
                             >
-                                {language === 'hi' ? '→' : 'Continue'}
+                                {quizText.continue}
                             </button>
                         </div>
                     </motion.div>

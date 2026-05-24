@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
-import { toHindiNum } from '@/lib/utils'
+import { localizeDigits } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getNextModuleRoute } from '@/lib/lessonFlow'
 import {
@@ -141,7 +141,7 @@ function UnifiedSlide({
                 transition={{ delay: idx * 0.1 }}
                 className="flex items-start gap-4 text-lg text-[#E6D8B8]/90"
               >
-                <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[#E69A47] mt-3" />
+                <span className="shrink-0 w-2 h-2 rounded-full bg-[#E69A47] mt-3" />
                 <span className="leading-relaxed" dangerouslySetInnerHTML={{ __html: point.replace(/^\• /, '').replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#D4AF37]">$1</strong>') }} />
               </motion.li>
             ))}
@@ -229,7 +229,7 @@ function UnifiedSlide({
             message={content || title || ''}
             variant="celebrating"
           />
-          <div className="bg-gradient-to-br from-[#2a3a2a] to-[#1a2a1a] rounded-3xl p-6 md:p-12 border-2 border-green-600/50">
+          <div className="bg-linear-to-br from-[#2a3a2a] to-[#1a2a1a] rounded-3xl p-6 md:p-12 border-2 border-green-600/50">
             <div className="text-center mb-4 md:mb-6">
               <div className="inline-block p-3 md:p-4 bg-green-600/20 rounded-full mb-3 md:mb-4">
                 <svg className="w-8 h-8 md:w-12 md:h-12 text-green-500" fill="currentColor" viewBox="0 0 20 20">
@@ -366,7 +366,7 @@ function UnifiedSlide({
                 transition={{ delay: idx * 0.2 }}
                 className="flex items-center mb-4 last:mb-0"
               >
-                <div className="flex gap-4 items-center bg-[#2a2420] p-4 rounded-xl border border-[#D4AF37]/30 shadow-lg min-w-[300px]">
+                <div className="flex gap-4 items-center bg-[#2a2420] p-4 rounded-xl border border-[#D4AF37]/30 shadow-lg min-w-75">
                   <div className="text-3xl font-bold text-[#D4AF37] w-12 h-12 flex items-center justify-center bg-[#D4AF37]/10 rounded-lg">
                     {pair.short}
                   </div>
@@ -378,7 +378,7 @@ function UnifiedSlide({
                   </div>
                 </div>
                 {idx < swarPairs.length - 1 && (
-                  <div className="absolute h-8 w-1 bg-[#D4AF37]/20 left-[150px]" style={{ top: `${(idx + 1) * 64}px` }} />
+                  <div className="absolute h-8 w-1 bg-[#D4AF37]/20 left-37.5" style={{ top: `${(idx + 1) * 64}px` }} />
                 )}
               </motion.div>
             ))}
@@ -514,7 +514,7 @@ export default function LessonPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] flex items-center justify-center">
         <div className="text-[#D4AF37] text-xl">Loading lesson...</div>
       </div>
     )
@@ -522,7 +522,7 @@ export default function LessonPage() {
 
   if (!lesson || contents.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] flex items-center justify-center">
         <div className="text-center">
           <div className="text-[#E69A47] text-xl mb-4">Lesson not found</div>
           <Link href="/learn/intro" className="text-[#D4AF37] hover:underline">
@@ -535,6 +535,7 @@ export default function LessonPage() {
 
   const currentContent = contents[currentSlide]
   const isLastSlide = currentSlide === contents.length - 1
+  const progressNumber = (value: number | string) => localizeDigits(String(value), language)
 
   return (
     <div className="min-h-screen bg-[#1C1C1C] text-[#E6D8B8] flex flex-col relative overflow-hidden">
@@ -563,14 +564,14 @@ export default function LessonPage() {
       <div className="hidden md:block fixed top-4 left-1/2 -translate-x-1/2 z-40 w-48 sm:w-64 md:w-80">
         <div className="h-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full overflow-hidden shadow-lg border border-[#D4AF37]/20">
           <motion.div
-            className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F2D06B]"
+            className="h-full bg-linear-to-r from-[#D4AF37] to-[#F2D06B]"
             initial={{ width: 0 }}
             animate={{ width: `${((currentSlide + 1) / contents.length) * 100}%` }}
             transition={{ duration: 0.5 }}
           />
         </div>
         <div className="text-center text-xs text-[#D4AF37]/60 mt-1">
-          {toHindiNum(currentSlide + 1)} / {toHindiNum(contents.length)}
+          {progressNumber(currentSlide + 1)} / {progressNumber(contents.length)}
         </div>
       </div>
 
@@ -633,7 +634,7 @@ export default function LessonPage() {
       </div>
 
       {/* Mobile Navigation Buttons (Bottom) - Only visible on mobile */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-gradient-to-t from-[#1C1C1C] via-[#1C1C1C]/95 to-transparent pointer-events-none">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-linear-to-t from-[#1C1C1C] via-[#1C1C1C]/95 to-transparent pointer-events-none">
         <div className="flex justify-between items-center gap-3 pointer-events-auto">
           {/* Previous Button - Bottom Left */}
           <button
@@ -648,13 +649,13 @@ export default function LessonPage() {
           {/* Progress Indicator - Center */}
           <div className="flex flex-col items-center gap-1 px-3">
             <div className="flex items-center gap-1.5">
-              <span className="text-[#D4AF37] font-bold text-sm">{toHindiNum(currentSlide + 1)}</span>
+              <span className="text-[#D4AF37] font-bold text-sm">{progressNumber(currentSlide + 1)}</span>
               <span className="text-[#D4AF37]/40 text-xs">/</span>
-              <span className="text-[#D4AF37]/60 text-xs">{toHindiNum(contents.length)}</span>
+              <span className="text-[#D4AF37]/60 text-xs">{progressNumber(contents.length)}</span>
             </div>
             <div className="w-16 h-1 bg-[#2C2C2C] rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F2D06B] transition-all duration-300"
+                className="h-full bg-linear-to-r from-[#D4AF37] to-[#F2D06B] transition-all duration-300"
                 style={{ width: `${((currentSlide + 1) / contents.length) * 100}%` }}
               />
             </div>

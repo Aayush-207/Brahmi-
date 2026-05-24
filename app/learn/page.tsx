@@ -145,7 +145,7 @@ export default function LearnPage() {
 
     return (
         // 1. ISOLATION: Explicit dark background, full height, no footer leakage
-        <div className="min-h-screen w-full bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] text-[#F5F1E8] flex flex-col items-center relative overflow-hidden font-sans">
+        <div className="min-h-screen w-full bg-linear-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] text-[#F5F1E8] flex flex-col items-center relative overflow-hidden font-sans">
 
             {/* Subtle background pattern */}
             <div className="fixed inset-0 opacity-5 pointer-events-none">
@@ -164,7 +164,7 @@ export default function LearnPage() {
             {/* 2. Header (Consistent with Vowels Page) */}
             <div className="w-full border-b border-[#D4AF37]/20 py-4 md:py-6 text-center bg-[#1a1613]/95 backdrop-blur-sm sticky top-0 z-50 px-4">
                 <button onClick={() => router.push('/')} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#D4AF37] hover:text-[#E69A47] transition-colors text-xs font-bold uppercase tracking-wider flex items-center gap-1">
-                    ← <span className="hidden sm:inline">{homeLabel}</span>
+                    <span className="text-2xl sm:text-lg leading-none">←</span> <span className="hidden sm:inline">{homeLabel}</span>
                 </button>
                 
                 <div className="text-[#E69A47]/70 font-bold tracking-[0.2em] text-[10px] mb-1 uppercase">{t('hero.tag')}</div>
@@ -173,7 +173,7 @@ export default function LearnPage() {
 
             {/* 3. Main Journey Container */}
             <div
-                className="relative w-full max-w-[360px] mx-auto mt-4 pb-32"
+                className="relative w-full max-w-90 mx-auto mt-4 pb-32"
                 style={{ height: `${PADDING_TOP + (COURSE_MODULES.length * VERTICAL_GAP)}px` }}
             >
                 {/* LAYER 0: The Path (Z-0) */}
@@ -234,7 +234,7 @@ export default function LearnPage() {
                             {/* Strictly anchored relative to node center. Closer offset for mobile. */}
                             <div
                                 className={`absolute w-28 md:w-36 pointer-events-none z-10 opacity-80
-                                    ${mascotSide === 'left' ? '-left-[110px] md:-left-[160px]' : '-right-[110px] md:-right-[160px]'}
+                                    ${mascotSide === 'left' ? '-left-27.5 md:-left-40' : '-right-27.5 md:-right-40'}
                                 `}
                             >
                                 <motion.div
@@ -279,7 +279,7 @@ export default function LearnPage() {
                                     </motion.div>
 
                                     {/* Hover Tooltip */}
-                                    <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
+                                    <div className="absolute top-30 md:top-35 left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
                                         <h3 className="text-[#E6D8B8]/50 font-bold text-lg md:text-xl leading-tight font-serif">
                                             {displayTitle}
                                         </h3>
@@ -300,7 +300,7 @@ export default function LearnPage() {
                                         transition={{ delay: 0.2 + (index * 0.1), type: "spring" }}
                                         className={`
                                         w-28 h-28 md:w-32 md:h-32 rounded-full flex flex-col items-center justify-center 
-                                        transition-all duration-300 relative bg-gradient-to-br from-[#2a2420] to-[#1a1613]
+                                        transition-all duration-300 relative bg-linear-to-br from-[#2a2420] to-[#1a1613]
                                         ${isCompleted
                                             ? 'border-4 border-[#E69A47] shadow-[0_0_40px_rgba(230,154,71,0.5)]'
                                             : 'border-2 border-[#D4AF37]/60 shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:border-[#D4AF37] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)]'
@@ -322,7 +322,7 @@ export default function LearnPage() {
                                     </motion.div>
 
                                     {/* Text Label (Below) - Z-30 */}
-                                    <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
+                                    <div className="absolute top-30 md:top-35 left-1/2 -translate-x-1/2 w-56 md:w-64 text-center z-30 pointer-events-none">
                                         <h3 className="text-[#D4AF37] font-bold text-lg md:text-xl leading-tight group-hover:text-[#E69A47] transition-colors font-serif">
                                             {formatCourseLabel(t(`courses.${module.id.split('-')[1]}.title`))}
                                         </h3>
@@ -342,7 +342,7 @@ export default function LearnPage() {
             
             {/* Floating Streak Display - Top Right */}
             {identity.type === 'user' && identity.id && (
-                <div className="fixed top-6 right-6 z-[60]">
+                <div className="fixed top-6 right-6 z-60">
                     <StreakDisplay userId={identity.id} compact />
                 </div>
             )}
