@@ -1,6 +1,7 @@
 import { Identity } from './guestIdentity'
 import { getDataForLanguage } from '@/backend/data/index'
 import { localizeDigits } from './utils'
+import { loadAccountLessonProgress, saveAccountLessonProgress } from './supabase/lessonProgress'
 
 const GUEST_INTRO_PROGRESS_KEY = 'brahmi_guest_intro_progress'
 
@@ -116,7 +117,14 @@ export async function saveProgress(
       completedIds.push(lessonId)
     }
     saveGuestIntroProgressToStorage(completedIds, progressMap)
+    return
   }
+
+  if (!identity.id) {
+    return
+  }
+
+  await saveAccountLessonProgress('module-intro', lessonId, status, progress, identity.id)
 }
 
 /**
@@ -139,10 +147,22 @@ export async function saveAnswer(
 export async function getIntroProgress(identity: Identity): Promise<{ completedIds: string[], progressMap: Record<string, number> }> {
   if (identity.type === 'guest') {
     return getGuestIntroProgressFromStorage()
-  } else {
-    // Persistent user progress would go here
+  }
+
+  if (!identity.id) {
     return { completedIds: [], progressMap: {} }
   }
+
+  const progressRows = await loadAccountLessonProgress('module-intro', identity.id)
+  const completedIds = Object.values(progressRows)
+    .filter((entry) => entry.status === 'completed')
+    .map((entry) => entry.lesson_id)
+  const progressMap = Object.values(progressRows).reduce<Record<string, number>>((accumulator, entry) => {
+    accumulator[entry.lesson_id] = entry.progress_percentage || 0
+    return accumulator
+  }, {})
+
+  return { completedIds, progressMap }
 }
 
 /**
@@ -421,13 +441,7 @@ export async function getLetterSteps(letterId: string, language: string = 'hi'):
           id: `${letterId}-step-example`,
           step_type: 'example',
           title: isHindi ? 'उदाहरण' : isKannada ? 'ಉದಾಹರಣೆ' : isTamil ? 'உதாரணம்' : 'Example',
-          content: isHindi
-            ? `मात्रा के साथ: ${matra.example_combination}`
-            : isKannada
-              ? getPracticeMatraExample(matra)
-              : isTamil
-                ? getPracticeMatraExample(matra)
-              : getPracticeMatraExample(matra),
+          content: getPracticeMatraExample(matra),
           order_no: 4,
           letters
         })

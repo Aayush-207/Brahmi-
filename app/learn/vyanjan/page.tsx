@@ -146,7 +146,7 @@ export default function VyanjanLessonsPage() {
             const currentIdentity = await getCurrentIdentity()
             setIdentity(currentIdentity)
             
-            const lessonsData = await getVyanjanLessons(language)
+            const lessonsData = await getVyanjanLessons(currentIdentity, language)
             setLessons(lessonsData)
             
             // Get completed lessons for both guests and authenticated users
@@ -240,7 +240,7 @@ export default function VyanjanLessonsPage() {
 
     if (loading) {
         return (
-            <div className="fixed inset-0 bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] flex items-center justify-center text-[#D4AF37]">
+            <div className="fixed inset-0 bg-linear-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] flex items-center justify-center text-[#D4AF37]">
                 Loading...
             </div>
         )
@@ -261,7 +261,7 @@ export default function VyanjanLessonsPage() {
     return (
         <div 
             ref={containerRef}
-            className="fixed inset-0 bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] text-[#F5F1E8] overflow-auto"
+            className="fixed inset-0 bg-linear-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613] text-[#F5F1E8] overflow-auto"
         >
             {/* Floating Sign In */}
             <FloatingSignIn />
@@ -380,10 +380,10 @@ export default function VyanjanLessonsPage() {
                                             className={`
                                                 relative w-20 h-20 flex items-center justify-center border-4 rounded-full transition-all duration-500
                                                 ${isCompleted || isCelebrating 
-                                                    ? 'bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_25px_rgba(212,175,55,0.8)]' 
+                                                    ? 'bg-linear-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_25px_rgba(212,175,55,0.8)]' 
                                                     : isNext 
-                                                    ? 'bg-gradient-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613] animate-pulse shadow-[0_0_35px_rgba(230,154,71,0.9)]'
-                                                    : 'bg-gradient-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40'
+                                                    ? 'bg-linear-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613] animate-pulse shadow-[0_0_35px_rgba(230,154,71,0.9)]'
+                                                    : 'bg-linear-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40'
                                                 }
                                             `}
                                             whileHover={{ scale: 1.1 }}
@@ -417,7 +417,7 @@ export default function VyanjanLessonsPage() {
                                     
                                     {/* Lesson Title */}
                                     <motion.div 
-                                        className="mt-3 px-2 py-1 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-[120px] text-center"
+                                        className="mt-3 px-2 py-1 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-30 text-center"
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ delay: index * 0.08 + 0.2 }}
@@ -445,7 +445,7 @@ export default function VyanjanLessonsPage() {
                                 {/* Completion Node */}
                                 <button
                                     onClick={() => setShowCompletionModal(true)}
-                                    className="relative w-20 h-20 flex items-center justify-center border-4 rounded-full bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_30px_rgba(212,175,55,0.9)] hover:scale-110 transition-all duration-300"
+                                    className="relative w-20 h-20 flex items-center justify-center border-4 rounded-full bg-linear-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_30px_rgba(212,175,55,0.9)] hover:scale-110 transition-all duration-300"
                                 >
                                     <span className="text-2xl">📜</span>
                                     
@@ -461,7 +461,7 @@ export default function VyanjanLessonsPage() {
                                 
                                 {/* Lesson Title */}
                                 <motion.div 
-                                    className="mt-3 px-2 py-1 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-[120px] text-center"
+                                        className="mt-3 px-2 py-1 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-30 text-center"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: lessons.length * 0.08 + 0.2 }}
@@ -558,7 +558,7 @@ export default function VyanjanLessonsPage() {
                                     transition={{ delay: index * 0.1, type: "spring" }}
                                 >
                                     {/* Temple Stone Step Base */}
-                                    <div className="absolute -bottom-4 w-32 h-3 bg-gradient-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
+                                    <div className="absolute -bottom-4 w-32 h-3 bg-linear-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
                                     
                                     {/* Lesson Stone */}
                                     <Link href={`/learn/vyanjan/${lesson.lesson_id}`}>
@@ -566,10 +566,10 @@ export default function VyanjanLessonsPage() {
                                             className={`
                                                 relative w-24 h-24 flex items-center justify-center border-4 transition-all duration-500
                                                 ${isCompleted || isCelebrating 
-                                                    ? 'bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_30px_rgba(212,175,55,0.8),0_8px_0_rgba(204,119,34,0.6)]' 
+                                                    ? 'bg-linear-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_30px_rgba(212,175,55,0.8),0_8px_0_rgba(204,119,34,0.6)]' 
                                                     : isNext 
-                                                    ? 'bg-gradient-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613] animate-pulse shadow-[0_0_40px_rgba(230,154,71,0.9),0_8px_0_rgba(204,119,34,0.7)]'
-                                                    : 'bg-gradient-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40 hover:border-[#D4AF37] hover:text-[#E6D8B8]'
+                                                    ? 'bg-linear-to-br from-[#D4AF37] to-[#CC7722] border-[#E69A47] text-[#1a1613] animate-pulse shadow-[0_0_40px_rgba(230,154,71,0.9),0_8px_0_rgba(204,119,34,0.7)]'
+                                                    : 'bg-linear-to-br from-[#3a3230] to-[#2a2420] border-[#4a3f2f] text-[#E6D8B8]/40 hover:border-[#D4AF37] hover:text-[#E6D8B8]'
                                                 }
                                                 ${isCompleted || isNext ? 'rounded-lg' : 'rounded-md'}
                                             `}
@@ -613,7 +613,7 @@ export default function VyanjanLessonsPage() {
                                     
                                     {/* Lesson Title on Stone Plaque */}
                                     <motion.div 
-                                        className="mt-4 px-3 py-2 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-[140px] text-center"
+                                        className="mt-4 px-3 py-2 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-35 text-center"
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ delay: index * 0.1 + 0.3 }}
@@ -643,12 +643,12 @@ export default function VyanjanLessonsPage() {
                                 transition={{ delay: lessons.length * 0.1, type: "spring" }}
                             >
                                 {/* Temple Stone Step Base */}
-                                <div className="absolute -bottom-4 w-32 h-3 bg-gradient-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
+                                <div className="absolute -bottom-4 w-32 h-3 bg-linear-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
                                 
                                 {/* Completion Stone */}
                                 <button
                                     onClick={() => setShowCompletionModal(true)}
-                                    className="relative w-24 h-24 flex items-center justify-center border-4 bg-gradient-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_30px_rgba(212,175,55,0.8),0_8px_0_rgba(204,119,34,0.6)] rounded-lg hover:scale-105 hover:shadow-[0_0_40px_rgba(212,175,55,0.9),0_10px_0_rgba(204,119,34,0.7)] transition-all duration-300"
+                                    className="relative w-24 h-24 flex items-center justify-center border-4 bg-linear-to-br from-[#E69A47] to-[#CC7722] border-[#D4AF37] text-[#1a1613] shadow-[0_0_30px_rgba(212,175,55,0.8),0_8px_0_rgba(204,119,34,0.6)] rounded-lg hover:scale-105 hover:shadow-[0_0_40px_rgba(212,175,55,0.9),0_10px_0_rgba(204,119,34,0.7)] transition-all duration-300"
                                     style={{ transform: 'translateY(-4px)' }}
                                 >
                                     <span className="text-3xl">📜</span>
@@ -666,7 +666,7 @@ export default function VyanjanLessonsPage() {
                                 
                                 {/* Lesson Title on Stone Plaque */}
                                 <motion.div 
-                                    className="mt-4 px-3 py-2 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-[140px] text-center"
+                                    className="mt-4 px-3 py-2 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-35 text-center"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: lessons.length * 0.1 + 0.3 }}
@@ -688,7 +688,7 @@ export default function VyanjanLessonsPage() {
             {/* Completion Modal */}
             {showCompletionModal && (
                 <motion.div
-                    className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0a0a]/80 backdrop-blur-sm"
+                    className="fixed inset-0 z-100 flex items-center justify-center bg-[#0a0a0a]/80 backdrop-blur-sm"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
@@ -726,7 +726,7 @@ export default function VyanjanLessonsPage() {
                                     const nextRoute = getNextModuleRoute('module-vyanjan')
                                     router.push(nextRoute || '/learn')
                                 }}
-                                className="w-full bg-gradient-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-4 px-6 rounded-lg hover:brightness-110 hover:scale-105 transition-all shadow-lg border-2 border-[#F5F1E8]/50"
+                                className="w-full bg-linear-to-r from-[#E69A47] to-[#D4AF37] text-[#1a1613] font-bold py-4 px-6 rounded-lg hover:brightness-110 hover:scale-105 transition-all shadow-lg border-2 border-[#F5F1E8]/50"
                             >
                                 <div className="flex items-center justify-center gap-2">
                                     <span className="text-lg">📖</span>

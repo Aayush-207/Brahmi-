@@ -41,11 +41,13 @@ Google sign-in stores profile data in Supabase, but the database schema must be 
 
 1. Open the Supabase SQL editor for your project.
 2. Run [supabase/profiles.sql](supabase/profiles.sql).
-3. Verify that the `public.profiles` table exists.
-4. Sign in with Google again.
+3. Run [supabase/lesson_progress.sql](supabase/lesson_progress.sql).
+4. Verify that the `public.profiles` and `public.lesson_progress` tables exist.
+5. Sign in with Google again.
 
 Notes:
 
 - Supabase Auth users are stored in `auth.users`, which is not shown as a normal table in the Table Editor.
 - The app writes the readable profile row to `public.profiles`.
+- The app writes signed-in lesson progress rows to `public.lesson_progress`.
 - If you do not run the SQL file, sign-in can succeed but no profile row will be created.

@@ -1,6 +1,7 @@
 import { Identity } from './guestIdentity'
 import { getDataForLanguage } from '@/backend/data/index'
 import { localizeDigits } from './utils'
+import { loadAccountLessonProgress, saveAccountLessonProgress } from './supabase/lessonProgress'
 
 const GUEST_VYANJAN_PROGRESS_KEY = 'brahmi_guest_vyanjan_progress'
 
@@ -25,6 +26,8 @@ export type VyanjanLesson = {
   order_no: number
   estimated_time_minutes: number
   consonant_group: string
+  status?: 'not_started' | 'in_progress' | 'completed'
+  progress_percentage?: number
 }
 
 export type VyanjanLessonContent = {
@@ -290,14 +293,35 @@ export async function saveVyanjanProgress(
       completedIds.push(lessonId)
     }
     saveGuestVyanjanProgressToStorage(completedIds, progressMap)
+    return
   }
+
+  if (!identity.id) {
+    return
+  }
+
+  await saveAccountLessonProgress('module-vyanjan', lessonId, status, progress, identity.id)
 }
 
 export async function getVyanjanProgress(identity: Identity): Promise<{ completedIds: string[], progressMap: Record<string, number> }> {
   if (identity.type === 'guest') {
     return getGuestVyanjanProgressFromStorage()
   }
-  return { completedIds: [], progressMap: {} }
+
+  if (!identity.id) {
+    return { completedIds: [], progressMap: {} }
+  }
+
+  const progressRows = await loadAccountLessonProgress('module-vyanjan', identity.id)
+  const completedIds = Object.values(progressRows)
+    .filter((entry) => entry.status === 'completed')
+    .map((entry) => entry.lesson_id)
+  const progressMap = Object.values(progressRows).reduce<Record<string, number>>((accumulator, entry) => {
+    accumulator[entry.lesson_id] = entry.progress_percentage || 0
+    return accumulator
+  }, {})
+
+  return { completedIds, progressMap }
 }
 
 // Added this to fix common pattern
@@ -306,24 +330,36 @@ export async function getCompletedVyanjanLessonIds(identity: Identity): Promise<
   return completedIds
 }
 
-export async function getVyanjanLessons(language: string = 'hi'): Promise<VyanjanLesson[]> {
-  const isTamil = language === 'ta'
-  const data = getDataForLanguage(language)
+export async function getVyanjanLessons(identityOrLanguage: Identity | string = 'hi', language: string = 'hi'): Promise<VyanjanLesson[]> {
+  const identity = typeof identityOrLanguage === 'string' ? ({ type: 'none', id: null } as Identity) : identityOrLanguage
+  const resolvedLanguage = typeof identityOrLanguage === 'string' ? identityOrLanguage : language
+  const isTamil = resolvedLanguage === 'ta'
+  const data = getDataForLanguage(resolvedLanguage)
   const lessons = data.vyanjan.lessons as VyanjanLesson[]
   const consonantsList = data.vyanjan.consonants as any[]
   const categoriesMap = data.vyanjan.categories as Record<string, any>
+  const progressRows = await getVyanjanProgress(identity)
+  const progressMap = progressRows.progressMap
   // Sort by order_no to ensure correct sequence
   const sortedLessons = lessons.sort((a: VyanjanLesson, b: VyanjanLesson) => a.order_no - b.order_no)
 
-  if (language === 'hi') {
+  const applyProgress = (lesson: VyanjanLesson): VyanjanLesson => ({
+    ...lesson,
+    status: progressMap[lesson.lesson_id] >= 100 ? 'completed' : (progressMap[lesson.lesson_id] > 0 ? 'in_progress' : 'not_started'),
+    progress_percentage: progressMap[lesson.lesson_id] || 0
+  })
+
+  if (resolvedLanguage === 'hi') {
     return sortedLessons.map(l => ({
       ...l,
       description: localizeDigits(l.description || '', 'hi'),
-      thumbnail_label: l.thumbnail_icon
+      thumbnail_label: l.thumbnail_icon,
+      status: progressMap[l.lesson_id] >= 100 ? 'completed' : (progressMap[l.lesson_id] > 0 ? 'in_progress' : 'not_started'),
+      progress_percentage: progressMap[l.lesson_id] || 0
     }))
   }
 
-  if (language === 'kn') {
+  if (resolvedLanguage === 'kn') {
     return sortedLessons.map((lesson: any) => {
       // determine a Kannada thumbnail label from first consonant in category
       let thumb = lesson.thumbnail_icon
@@ -338,7 +374,9 @@ export async function getVyanjanLessons(language: string = 'hi'): Promise<Vyanja
         title: !isPlaceholderText(lesson.title_kannada) ? lesson.title_kannada : (KANNADA_LESSON_TITLE_MAP[lesson.lesson_id] || lesson.title),
         subtitle: !isPlaceholderText(lesson.subtitle_kannada) ? lesson.subtitle_kannada : getKannadaVyanjanSubtitle(lesson.consonant_group, lesson.subtitle),
         description: localizeDigits(!isPlaceholderText(lesson.description_kannada) ? lesson.description_kannada : getKannadaVyanjanDescription(lesson.consonant_group, lesson.description), 'kn'),
-        thumbnail_label: thumb
+        thumbnail_label: thumb,
+        status: progressMap[lesson.lesson_id] >= 100 ? 'completed' : (progressMap[lesson.lesson_id] > 0 ? 'in_progress' : 'not_started'),
+        progress_percentage: progressMap[lesson.lesson_id] || 0
       }
     })
   }
@@ -371,7 +409,9 @@ export async function getVyanjanLessons(language: string = 'hi'): Promise<Vyanja
         : (isTamil
             ? localizeDigits((lesson.description_english || lesson.description || ''), 'ta')
             : (lesson.description_english || lesson.description || getEnglishVyanjanDescription(lesson.consonant_group, lesson.description))),
-      thumbnail_label: thumb
+      thumbnail_label: thumb,
+      status: progressMap[lesson.lesson_id] >= 100 ? 'completed' : (progressMap[lesson.lesson_id] > 0 ? 'in_progress' : 'not_started'),
+      progress_percentage: progressMap[lesson.lesson_id] || 0
     }
   })
 }

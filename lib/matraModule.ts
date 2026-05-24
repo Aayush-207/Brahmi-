@@ -7,6 +7,7 @@
 
 import type { Identity } from './guestIdentity'
 import { getDataForLanguage } from '@/backend/data/index'
+import { loadAccountLessonProgress, saveAccountLessonProgress } from './supabase/lessonProgress'
 
 // ============================================
 // TYPE DEFINITIONS
@@ -124,27 +125,41 @@ export async function getMatraLessons(identity: Identity, language: string = 'hi
   const lessons = [...(matraData.lessons as unknown as MatraLesson[])];
   // Sort by order_no to ensure correct sequence
   const sortedLessons = lessons.sort((a: MatraLesson, b: MatraLesson) => a.order_no - b.order_no);
+  let progressByLessonId: Record<string, { status: 'not_started' | 'in_progress' | 'completed'; progress_percentage: number }> = {}
+
+  if (identity.type === 'guest' || !identity.id) {
+    progressByLessonId = getGuestMatraProgressFromStorage()
+  } else {
+    const accountProgress = await loadAccountLessonProgress('module-matra', identity.id)
+    progressByLessonId = Object.values(accountProgress).reduce<Record<string, { status: 'not_started' | 'in_progress' | 'completed'; progress_percentage: number }>>((accumulator, entry) => {
+      accumulator[entry.lesson_id] = {
+        status: entry.status,
+        progress_percentage: entry.progress_percentage || 0
+      }
+      return accumulator
+    }, {})
+  }
 
   const isTamil = language === 'ta';
+
+  const applyProgress = (lesson: MatraLesson): MatraLesson => ({
+    ...lesson,
+    status: progressByLessonId[lesson.lesson_id]?.status || 'not_started',
+    progress_percentage: progressByLessonId[lesson.lesson_id]?.progress_percentage || 0
+  })
 
   if (language !== 'hi') {
     return sortedLessons.map((lesson) => ({
       ...lesson,
       title: isTamil ? (lesson.title_tamil || lesson.title || lesson.title_english || '') : (lesson.title_english || lesson.title),
       subtitle: isTamil ? (lesson.subtitle || getEnglishMatraSubtitle(lesson.lesson_id, lesson.subtitle) || '') : getEnglishMatraSubtitle(lesson.lesson_id, lesson.subtitle),
-      description: isTamil ? (lesson.description_tamil || lesson.description || lesson.description_english || '') : (lesson.description_english || lesson.description || '')
+      description: isTamil ? (lesson.description_tamil || lesson.description || lesson.description_english || '') : (lesson.description_english || lesson.description || ''),
+      status: progressByLessonId[lesson.lesson_id]?.status || 'not_started',
+      progress_percentage: progressByLessonId[lesson.lesson_id]?.progress_percentage || 0
     }));
   }
-  
-  if (identity.type === 'guest' || !identity.id) {
-    const progress = getGuestMatraProgressFromStorage();
-    return sortedLessons.map(lesson => ({
-      ...lesson,
-      status: progress[lesson.lesson_id]?.status || 'not_started',
-      progress_percentage: progress[lesson.lesson_id]?.progress_percentage || 0
-    }));
-  }
-  return sortedLessons;
+
+  return sortedLessons.map(applyProgress);
 }
 
 /**
@@ -371,7 +386,8 @@ export async function saveMatraProgress(
     saveGuestMatraProgressToStorage(guestProgress)
     return true
   }
-  return true
+
+  return saveAccountLessonProgress('module-matra', lessonId, status, progressPercentage, identity.id)
 }
 
 /**
