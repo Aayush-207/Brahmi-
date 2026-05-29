@@ -338,7 +338,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                 {/* Floating Back Button - marks lesson complete */}
                 <button
                     onClick={handleFlowComplete}
-                    className="fixed top-4 left-4 z-50 flex items-center gap-2 px-2 py-1 sm:px-4 sm:py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
+                    className="fixed top-4 left-4 z-50 flex items-center gap-2 px-2 py-1 md:px-4 md:py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
                 >
                     <span className="text-lg">←</span>
                     <span className="hidden sm:inline">{exitText}</span>
@@ -420,7 +420,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                 {/* Floating Back Button */}
                 <button
                     onClick={() => router.push(getReturnRoute())}
-                    className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
+                    className="fixed top-4 left-4 z-50 flex items-center gap-2 px-2 py-1 md:px-4 md:py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
                 >
                     <span className="text-lg">←</span>
                     <span className="hidden sm:inline">{exitText}</span>
@@ -589,7 +589,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
             {/* Floating Back Button */}
             <button
                 onClick={() => router.push(getReturnRoute())}
-                className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
+                    className="fixed top-4 left-4 z-50 flex items-center gap-2 px-2 py-1 md:px-4 md:py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
             >
                 <span className="text-lg">←</span>
                 <span className="hidden sm:inline">{exitText}</span>
@@ -622,7 +622,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                     ←
                 </button>
 
-                <UnifiedStepComponent
+                <JainBabaSVG
                     step={currentStep}
                     letter={letter}
                     isAnimating={isAnimating}

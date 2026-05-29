@@ -164,7 +164,7 @@ export default function LearnPage() {
             {/* 2. Header (Consistent with Vowels Page) */}
             <div className="w-full border-b border-[#D4AF37]/20 py-4 md:py-6 text-center bg-[#1a1613]/95 backdrop-blur-sm sticky top-0 z-50 px-4">
                 <button onClick={() => router.push('/')} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#D4AF37] hover:text-[#E69A47] transition-colors text-xs font-bold uppercase tracking-wider flex items-center gap-1">
-                    <span className="text-2xl sm:text-lg leading-none">←</span> <span className="hidden sm:inline">{homeLabel}</span>
+                    <span className="text-3xl sm:text-lg leading-none">←</span> <span className="hidden sm:inline">{homeLabel}</span>
                 </button>
                 
                 <div className="text-[#E69A47]/70 font-bold tracking-[0.2em] text-[10px] mb-1 uppercase">{t('hero.tag')}</div>
