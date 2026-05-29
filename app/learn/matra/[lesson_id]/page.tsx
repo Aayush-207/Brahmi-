@@ -138,9 +138,9 @@ export default function MatraLessonPage({ params }: { params: Promise<{ lesson_i
             {/* Floating Back Button */}
             <Link
                 href="/learn/matra"
-                className="fixed top-4 left-4 z-50 flex items-center gap-2 px-2 py-1 sm:px-4 sm:py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
+                className="fixed top-3 left-3 sm:top-4 sm:left-4 z-50 flex items-center gap-1.5 px-1.5 py-1 sm:px-4 sm:py-2 bg-[#2C2C2C]/90 backdrop-blur-sm rounded-full text-[#D4AF37] hover:bg-[#3A3A3A] hover:text-[#FFD6A5] transition-all font-medium text-sm shadow-lg border border-[#D4AF37]/20"
             >
-                <span className="text-lg">←</span>
+                <span className="text-sm sm:text-lg">←</span>
                 <span className="hidden sm:inline">Exit</span>
             </Link>
 
