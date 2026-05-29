@@ -623,11 +623,19 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                 </button>
 
                 <JainBabaSVG
-                    step={currentStep}
-                    letter={letter}
-                    isAnimating={isAnimating}
+                    variant={
+                        currentStep.step_type === 'show'
+                            ? 'excited'
+                            : currentStep.step_type === 'sound'
+                                ? 'default'
+                                : currentStep.step_type === 'practice'
+                                    ? 'encouraging'
+                                    : currentStep.step_type === 'complete'
+                                        ? 'celebrating'
+                                        : 'default'
+                    }
+                    size={isMobile ? 84 : 100}
                     isSpeaking={isSpeaking}
-                    onPronounce={pronounce}
                 />
 
                 <button
