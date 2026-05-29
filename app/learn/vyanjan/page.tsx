@@ -113,18 +113,18 @@ function getBackLabel(language: string): string {
 
 function getWordsTileCopy(language: string) {
     if (language === 'hi') {
-        return { title: 'शब्द', subtitle: 'जल्द आ रहा है' }
+        return { title: 'शब्द' }
     }
 
     if (language === 'kn') {
-        return { title: 'ಪದಗಳು', subtitle: 'ಶೀಘ್ರದಲ್ಲೇ ಬರುತ್ತಿದೆ' }
+        return { title: 'ಪದಗಳು' }
     }
 
     if (language === 'ta') {
-        return { title: 'சொற்கள்', subtitle: 'விரைவில் வருகிறது' }
+        return { title: 'சொற்கள்' }
     }
 
-    return { title: 'Words', subtitle: 'Coming soon' }
+    return { title: 'Words' }
 }
 
 export default function VyanjanLessonsPage() {
@@ -742,9 +742,6 @@ export default function VyanjanLessonsPage() {
                             >
                                 <span className="text-xs font-bold text-[#E6D8B8] leading-tight block">
                                     {wordsTileCopy.title}
-                                </span>
-                                <span className="text-[10px] text-[#D4AF37]/70 mt-1 block">
-                                    {wordsTileCopy.subtitle}
                                 </span>
                             </motion.div>
                         </motion.div>

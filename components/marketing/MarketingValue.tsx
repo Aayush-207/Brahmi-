@@ -7,8 +7,8 @@ import { useLanguage } from "@/lib/LanguageContext";
 export function MarketingValue() {
     const { t, language } = useLanguage();
     const badgeClassName = language === 'en'
-        ? 'text-[#E69A47] text-sm sm:text-base md:text-lg font-bold tracking-[0.22em] sm:tracking-[0.28em] uppercase leading-none whitespace-nowrap'
-        : 'text-[#E69A47] text-sm sm:text-base md:text-lg font-bold tracking-normal normal-case leading-none whitespace-nowrap';
+        ? 'text-[#D4A373] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase'
+        : 'text-[#D4A373] text-xs sm:text-sm font-bold tracking-normal normal-case';
 
     return (
         <section className="py-20 sm:py-24 md:py-32 bg-linear-to-b from-[#2a2420] to-[#1a1613] relative overflow-hidden">
@@ -49,8 +49,7 @@ export function MarketingValue() {
                         className="space-y-6 sm:space-y-8 text-center md:text-left"
                     >
                         {/* Decorative line */}
-                        <div className="flex flex-col items-center gap-3 md:flex-row md:items-center md:gap-4 md:justify-start">
-                            <div className="h-1 w-16 bg-linear-to-r from-[#E69A47] to-transparent rounded-full"></div>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D4A373]/10 border border-[#D4A373]/40">
                             <span className={badgeClassName}>{t('value.tag')}</span>
                         </div>
 
