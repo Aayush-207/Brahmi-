@@ -17,7 +17,7 @@ import tamilVyanjan from './tamil/vyanjan.json';
 
 type LanguageKey = 'hindi' | 'english' | 'kannada' | 'tamil';
 
-const supportedLanguages: LanguageKey[] = ['hindi', 'english', 'kannada', 'tamil'];
+const supportedLanguages: LanguageKey[] = ['english', 'kannada', 'tamil', 'hindi'];
 
 function buildSwarData(language: LanguageKey) {
   const isHindi = language === 'hindi';

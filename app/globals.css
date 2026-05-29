@@ -181,3 +181,8 @@ h6 {
 *::-webkit-scrollbar-thumb:hover {
   background: #E69A47;
 }
+
+/* Enable smooth scrolling for in-page anchors */
+html {
+  scroll-behavior: smooth;
+}

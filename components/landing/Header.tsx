@@ -73,21 +73,10 @@ export function Header() {
                                     >
                                         <button
                                             onClick={() => {
-                                                chooseLanguage('hi');
-                                                setIsLangMenuOpen(false);
-                                            }}
-                                            className={`w-full px-6 py-3 text-left hover:bg-[#D4AF37]/10 transition-colors whitespace-nowrap ${
-                                                language === 'hi' ? 'text-[#E69A47]' : 'text-[#B8AFA0]'
-                                            }`}
-                                        >
-                                            हिन्दी 
-                                        </button>
-                                        <button
-                                            onClick={() => {
                                                 chooseLanguage('en');
                                                 setIsLangMenuOpen(false);
                                             }}
-                                            className={`w-full px-6 py-3 text-left hover:bg-[#D4AF37]/10 transition-colors border-t border-[#D4AF37]/20 whitespace-nowrap ${
+                                            className={`w-full px-6 py-3 text-left hover:bg-[#D4AF37]/10 transition-colors whitespace-nowrap ${
                                                 language === 'en' ? 'text-[#E69A47]' : 'text-[#B8AFA0]'
                                             }`}
                                         >
@@ -114,6 +103,17 @@ export function Header() {
                                             }`}
                                         >
                                             தமிழ் 
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                chooseLanguage('hi');
+                                                setIsLangMenuOpen(false);
+                                            }}
+                                            className={`w-full px-6 py-3 text-left hover:bg-[#D4AF37]/10 transition-colors border-t border-[#D4AF37]/20 whitespace-nowrap ${
+                                                language === 'hi' ? 'text-[#E69A47]' : 'text-[#B8AFA0]'
+                                            }`}
+                                        >
+                                            हिन्दी 
                                         </button>
                                     </motion.div>
                                 )}
@@ -155,19 +155,6 @@ export function Header() {
                                 <div className="w-full flex flex-col gap-2">
                                     <button
                                         onClick={() => {
-                                            chooseLanguage('hi');
-                                            setIsMobileMenuOpen(false);
-                                        }}
-                                        className={`w-full px-4 py-3 rounded-lg text-left font-medium transition-colors ${
-                                            language === 'hi'
-                                                ? 'bg-[#D4AF37]/20 text-[#E69A47]'
-                                                : 'bg-[#2a2420] border border-[#D4AF37]/30 text-[#B8AFA0] hover:bg-[#D4AF37]/10'
-                                        }`}
-                                    >
-                                        हिन्दी 
-                                    </button>
-                                    <button
-                                        onClick={() => {
                                             chooseLanguage('en');
                                             setIsMobileMenuOpen(false);
                                         }}
@@ -204,6 +191,19 @@ export function Header() {
                                         }`}
                                     >
                                         தமிழ் 
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            chooseLanguage('hi');
+                                            setIsMobileMenuOpen(false);
+                                        }}
+                                        className={`w-full px-4 py-3 rounded-lg text-left font-medium transition-colors ${
+                                            language === 'hi'
+                                                ? 'bg-[#D4AF37]/20 text-[#E69A47]'
+                                                : 'bg-[#2a2420] border border-[#D4AF37]/30 text-[#B8AFA0] hover:bg-[#D4AF37]/10'
+                                        }`}
+                                    >
+                                        हिन्दी 
                                     </button>
                                 </div>
             

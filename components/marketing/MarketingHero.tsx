@@ -7,6 +7,9 @@ import { useLanguage } from '@/lib/LanguageContext';
 
 export function MarketingHero() {
     const { t, language } = useLanguage();
+    const badgeClassName = language === 'en'
+        ? 'text-[#E69A47] text-xs sm:text-sm font-medium tracking-wider uppercase'
+        : 'text-[#E69A47] text-xs sm:text-sm font-medium tracking-normal normal-case';
     const heroPrefix = language === 'hi'
         ? 'ब्राह्मी लिपि में'
         : language === 'kn'
@@ -43,7 +46,7 @@ export function MarketingHero() {
                         {/* Decorative Tag */}
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E69A47]/10 border border-[#E69A47]/40 backdrop-blur-sm">
                             <span className="w-2 h-2 rounded-full bg-[#E69A47] animate-pulse"></span>
-                            <span className="text-[#E69A47] text-xs sm:text-sm font-medium tracking-wider">{t('hero.tag')}</span>
+                            <span className={badgeClassName}>{t('hero.tag')}</span>
                         </div>
 
                         <div className="space-y-6">

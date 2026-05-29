@@ -5,7 +5,10 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/LanguageContext";
 
 export function MarketingValue() {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
+    const badgeClassName = language === 'en'
+        ? 'text-[#E69A47] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase'
+        : 'text-[#E69A47] text-xs sm:text-sm font-bold tracking-normal normal-case';
 
     return (
         <section className="py-20 sm:py-24 md:py-32 bg-gradient-to-b from-[#2a2420] to-[#1a1613] relative overflow-hidden">
@@ -48,7 +51,7 @@ export function MarketingValue() {
                         {/* Decorative line */}
                         <div className="flex items-center gap-4 justify-center md:justify-start">
                             <div className="h-1 w-16 bg-gradient-to-r from-[#E69A47] to-transparent rounded-full"></div>
-                            <span className="text-[#E69A47] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">{t('value.tag')}</span>
+                            <span className={badgeClassName}>{t('value.tag')}</span>
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#F5F1E8] leading-tight">

@@ -22,7 +22,10 @@ const TRUST_ITEMS = [
 ];
 
 export function MarketingTrust() {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
+    const badgeClassName = language === 'en'
+        ? 'text-[#E69A47] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase'
+        : 'text-[#E69A47] text-xs sm:text-sm font-bold tracking-normal normal-case';
 
     const translatedItems = TRUST_ITEMS.map(item => ({
         ...item,
@@ -31,7 +34,7 @@ export function MarketingTrust() {
     }));
     
     return (
-        <section className="py-20 sm:py-24 md:py-32 bg-gradient-to-b from-[#2a2420] to-[#1a1613] relative overflow-hidden">
+        <section id="trust" className="py-20 sm:py-24 md:py-32 bg-gradient-to-b from-[#2a2420] to-[#1a1613] relative overflow-hidden">
             {/* Decorative background elements */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-[#D4AF37] rounded-full blur-3xl"></div>
@@ -48,7 +51,7 @@ export function MarketingTrust() {
                     className="text-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-6"
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#8B3A3A]/10 border border-[#8B3A3A]/40">
-                        <span className="text-[#E69A47] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">{t('trust.badge')}</span>
+                        <span className={badgeClassName}>{t('trust.badge')}</span>
                     </div>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#F5F1E8] leading-tight">
                         {t('trust.title')}

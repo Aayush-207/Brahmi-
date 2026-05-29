@@ -25,7 +25,10 @@ const STEPS = [
 ];
 
 export function MarketingMethod() {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
+    const badgeClassName = language === 'en'
+        ? 'text-[#D4A373] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase'
+        : 'text-[#D4A373] text-xs sm:text-sm font-bold tracking-normal normal-case';
     
     const translatedSteps = STEPS.map(step => ({
         ...step,
@@ -34,7 +37,7 @@ export function MarketingMethod() {
     }));
     
     return (
-        <section className="py-20 sm:py-24 md:py-32 bg-gradient-to-b from-[#1a1613] to-[#2a2420] relative overflow-hidden">
+        <section id="method" className="py-20 sm:py-24 md:py-32 bg-gradient-to-b from-[#1a1613] to-[#2a2420] relative overflow-hidden">
             {/* Section Header */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16 md:mb-20 text-center">
                 <motion.div
@@ -45,7 +48,7 @@ export function MarketingMethod() {
                     className="space-y-4"
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D4A373]/10 border border-[#D4A373]/40">
-                        <span className="text-[#D4A373] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">{t('method.tag')}</span>
+                        <span className={badgeClassName}>{t('method.tag')}</span>
                     </div>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#F5F1E8] leading-tight">
                         {t('method.title')}

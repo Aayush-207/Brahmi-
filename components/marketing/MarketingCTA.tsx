@@ -8,6 +8,9 @@ import { localizeDigits } from "@/lib/utils";
 
 export function MarketingCTA() {
     const { t, language } = useLanguage();
+    const badgeClassName = language === 'en'
+        ? 'text-[#E69A47] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase'
+        : 'text-[#E69A47] text-xs sm:text-sm font-bold tracking-normal normal-case';
     const lettersCount = localizeDigits("100", language);
     const yearsCount = localizeDigits("2500", language);
 
@@ -35,7 +38,7 @@ export function MarketingCTA() {
                         {/* Badge */}
                         <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#8B3A3A]/20 border border-[#8B3A3A]/50">
                             <span className="w-2 h-2 rounded-full bg-[#E69A47] animate-pulse"></span>
-                            <span className="text-[#E69A47] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">{t('cta.badge')}</span>
+                            <span className={badgeClassName}>{t('cta.badge')}</span>
                         </div>
 
                         {/* Heading */}
