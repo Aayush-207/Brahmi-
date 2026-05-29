@@ -47,7 +47,7 @@ export function FloatingSignIn() {
   if (!isLoaded) {
     return (
       <div className="fixed top-4 right-4 z-50">
-        <div className="w-12 h-12 bg-[#D4AF37]/20 rounded-full animate-pulse" />
+        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#D4AF37]/20 rounded-full animate-pulse" />
       </div>
     )
   }
@@ -56,18 +56,18 @@ export function FloatingSignIn() {
     <>
       <div className="fixed top-4 right-4 z-50">
         {identity.type === 'user' ? (
-          <div className="flex items-center gap-3 rounded-full border border-[#D4AF37]/30 bg-[#2a2420]/95 px-3 py-2 shadow-xl shadow-black/20 backdrop-blur-sm">
+          <div className="flex items-center gap-2 sm:gap-3 rounded-full border border-[#D4AF37]/30 bg-[#2a2420]/95 px-2 sm:px-3 py-1.5 sm:py-2 shadow-xl shadow-black/20 backdrop-blur-sm">
             {avatarUrl ? (
               <Image
                 src={avatarUrl}
                 alt={userName || 'User'}
                 width={34}
                 height={34}
-                className="h-8 w-8 rounded-full border border-[#D4AF37]/40 object-cover"
+                className="h-7 w-7 sm:h-8 sm:w-8 rounded-full border border-[#D4AF37]/40 object-cover"
                 unoptimized
               />
             ) : (
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37] font-bold text-sm">
+              <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#D4AF37] font-bold text-sm">
                 {(userName || 'U').charAt(0).toUpperCase()}
               </div>
             )}
@@ -102,19 +102,19 @@ export function FloatingSignIn() {
                 setUserName(null)
                 router.refresh()
               }}
-              className="sm:hidden rounded-full p-2 text-[#E6D8B8] hover:bg-white/10"
+              className="sm:hidden rounded-full p-1 text-[#E6D8B8] hover:bg-white/10"
               aria-label="Sign out"
             >
-              <LogOut size={16} />
+              <LogOut size={14} />
             </button>
           </div>
         ) : (
           <button
             onClick={() => setShowSignInPopup(true)}
-            className="bg-linear-to-r from-[#D4AF37]/90 to-[#C5A059]/90 backdrop-blur-sm border border-[#D4AF37]/40 text-[#1a1613] hover:from-[#D4AF37] hover:to-[#C5A059] rounded-full px-4 py-3 font-medium transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
+            className="bg-linear-to-r from-[#D4AF37]/90 to-[#C5A059]/90 backdrop-blur-sm border border-[#D4AF37]/40 text-[#1a1613] hover:from-[#D4AF37] hover:to-[#C5A059] rounded-full px-3 py-1.5 sm:px-4 sm:py-3 font-medium transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 text-sm"
           >
-            <span className="hidden sm:block text-sm">Sign in to save progress</span>
-            <span className="sm:hidden text-sm">Sign in</span>
+            <span className="hidden sm:block">Sign in to save progress</span>
+            <span className="sm:hidden">Sign in</span>
           </button>
         )}
       </div>

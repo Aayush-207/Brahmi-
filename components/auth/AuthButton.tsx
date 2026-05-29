@@ -79,9 +79,9 @@ export default function AuthButton() {
     if (identity.type === 'user') {
         return (
             <>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 md:gap-3">
                     {avatarUrl && (
-                        <Image src={avatarUrl} alt={userName || 'User'} width={36} height={36} className="h-9 w-9 rounded-full border border-[#D4AF37]/40 object-cover" unoptimized />
+                        <Image src={avatarUrl} alt={userName || 'User'} width={36} height={36} className="h-7 w-7 md:h-9 md:w-9 rounded-full border border-[#D4AF37]/40 object-cover" unoptimized />
                     )}
                     <div className="hidden md:block text-right">
                         <div className="text-xs text-[#E6D8B8] font-semibold">{userName || 'Signed in'}</div>
@@ -89,7 +89,7 @@ export default function AuthButton() {
                     </div>
                     <button
                         onClick={handleSignOut}
-                        className="md:hidden text-sm font-bold text-[#EDEDED] hover:text-[#D4AF37] hover:bg-[#D4AF37]/10 px-4 py-2 rounded-md transition-all uppercase tracking-widest border border-transparent hover:border-[#D4AF37]/50"
+                        className="md:hidden text-sm font-bold text-[#EDEDED] hover:text-[#D4AF37] hover:bg-[#D4AF37]/10 px-3 py-1.5 md:px-4 md:py-2 rounded-md transition-all uppercase tracking-widest border border-transparent hover:border-[#D4AF37]/50"
                     >
                         Sign out
                     </button>
@@ -104,13 +104,13 @@ export default function AuthButton() {
 
     return (
         <>
-            <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 md:gap-3">
                 <span className="text-xs text-[#D4AF37]/70 hidden md:inline">
                     Sign in to save progress
                 </span>
                 <button
                     onClick={() => setShowSignInPopup(true)}
-                    className="text-sm font-bold text-[#EDEDED] hover:text-[#D4AF37] hover:bg-[#D4AF37]/10 px-4 py-2 rounded-md transition-all uppercase tracking-widest border border-transparent hover:border-[#D4AF37]/50"
+                    className="text-sm font-bold text-[#EDEDED] hover:text-[#D4AF37] hover:bg-[#D4AF37]/10 px-3 py-1.5 md:px-4 md:py-2 rounded-md transition-all uppercase tracking-widest border border-transparent hover:border-[#D4AF37]/50"
                 >
                     Sign in
                 </button>
