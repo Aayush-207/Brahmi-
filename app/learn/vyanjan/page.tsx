@@ -111,6 +111,22 @@ function getBackLabel(language: string): string {
     return 'Back'
 }
 
+function getWordsTileCopy(language: string) {
+    if (language === 'hi') {
+        return { title: 'शब्द', subtitle: 'जल्द आ रहा है' }
+    }
+
+    if (language === 'kn') {
+        return { title: 'ಪದಗಳು', subtitle: 'ಶೀಘ್ರದಲ್ಲೇ ಬರುತ್ತಿದೆ' }
+    }
+
+    if (language === 'ta') {
+        return { title: 'சொற்கள்', subtitle: 'விரைவில் வருகிறது' }
+    }
+
+    return { title: 'Words', subtitle: 'Coming soon' }
+}
+
 export default function VyanjanLessonsPage() {
     const router = useRouter()
     const { language } = useLanguage()
@@ -124,6 +140,7 @@ export default function VyanjanLessonsPage() {
     const [showCompletionModal, setShowCompletionModal] = useState(false)
     const [completionDismissed, setCompletionDismissed] = useState(false)
     const backLabel = getBackLabel(language)
+    const wordsTileCopy = getWordsTileCopy(language)
     
     // Refs for scrolling
     const containerRef = useRef<HTMLDivElement>(null)
@@ -324,7 +341,7 @@ export default function VyanjanLessonsPage() {
                         
                         {/* Background dashed path */}
                         <path
-                            d={generateJourneyPath(lessons.length + 1, centerX) ?? ''}
+                            d={generateJourneyPath(lessons.length + 2, centerX) ?? ''}
                             fill="none"
                             stroke="url(#vyanjanJourneyGradient)"
                             strokeWidth="4"
@@ -338,7 +355,7 @@ export default function VyanjanLessonsPage() {
                             <path
                                 d={generateJourneyPath(
                                     lastCompletedIndex === lessons.length - 1 
-                                        ? lessons.length + 1 
+                                        ? lessons.length + 2 
                                         : lastCompletedIndex + 2, 
                                     centerX
                                 ) ?? ''}
@@ -435,12 +452,12 @@ export default function VyanjanLessonsPage() {
                             <motion.div
                                 className="absolute flex flex-col items-center"
                                 style={{ 
-                                    left: getJourneyPosition(lessons.length, centerX).x - 48,
-                                    top: getJourneyPosition(lessons.length, centerX).y - 48,
+                                    left: getJourneyPosition(lessons.length + 1, centerX).x - 48,
+                                    top: getJourneyPosition(lessons.length + 1, centerX).y - 48,
                                 }}
                                 initial={{ scale: 0, y: 20 }}
                                 animate={{ scale: 1, y: 0 }}
-                                transition={{ delay: lessons.length * 0.08, type: "spring" }}
+                                transition={{ delay: (lessons.length + 1) * 0.08, type: "spring" }}
                             >
                                 {/* Completion Node */}
                                 <button
@@ -472,6 +489,26 @@ export default function VyanjanLessonsPage() {
                                 </motion.div>
                             </motion.div>
                         )}
+
+                        {/* Words Tile - Mobile */}
+                        <motion.div
+                            className="absolute flex flex-col items-center"
+                            style={{
+                                left: getJourneyPosition(lessons.length, centerX).x - 64,
+                                top: getJourneyPosition(lessons.length, centerX).y - 52,
+                            }}
+                            initial={{ scale: 0, y: 20 }}
+                            animate={{ scale: 1, y: 0 }}
+                            transition={{ delay: lessons.length * 0.08, type: "spring" }}
+                        >
+                            <div className="w-28 h-28 flex flex-col items-center justify-center rounded-2xl border-2 border-[#D4AF37]/40 bg-linear-to-br from-[#2a2420] to-[#1a1613] text-center shadow-[0_0_24px_rgba(212,175,55,0.18)]">
+                                <span className="text-3xl">✦</span>
+                                <span className="mt-2 text-sm font-bold text-[#F5E8C8]">{wordsTileCopy.title}</span>
+                                <span className="mt-1 text-[10px] uppercase tracking-[0.18em] text-[#D4AF37]/70">
+                                    {wordsTileCopy.subtitle}
+                                </span>
+                            </div>
+                        </motion.div>
                     </div>
                 </div>
             ) : (
@@ -508,7 +545,7 @@ export default function VyanjanLessonsPage() {
                         
                         {/* Background dashed path */}
                         <path
-                            d={generateTemplePath(lessons.length + 1) ?? ''}
+                            d={generateTemplePath(lessons.length + 2) ?? ''}
                             fill="none"
                             stroke="url(#vyanjanGradient)"
                             strokeWidth="6"
@@ -522,7 +559,7 @@ export default function VyanjanLessonsPage() {
                             <path
                                 d={generateTemplePath(
                                     lastCompletedIndex === lessons.length - 1 
-                                        ? lessons.length + 1 
+                                        ? lessons.length + 2 
                                         : lastCompletedIndex + 2
                                 ) ?? ''}
                                 fill="none"
@@ -635,12 +672,12 @@ export default function VyanjanLessonsPage() {
                             <motion.div
                                 className="absolute flex flex-col items-center"
                                 style={{ 
-                                    left: getTempleStepPosition(lessons.length).x - 60,
-                                    top: getTempleStepPosition(lessons.length).y - minY - 80,
+                                    left: getTempleStepPosition(lessons.length + 1).x - 60,
+                                    top: getTempleStepPosition(lessons.length + 1).y - minY - 80,
                                 }}
                                 initial={{ scale: 0, y: 20 }}
                                 animate={{ scale: 1, y: 0 }}
-                                transition={{ delay: lessons.length * 0.1, type: "spring" }}
+                                transition={{ delay: (lessons.length + 1) * 0.1, type: "spring" }}
                             >
                                 {/* Temple Stone Step Base */}
                                 <div className="absolute -bottom-4 w-32 h-3 bg-linear-to-b from-[#4a3f2f]/60 to-transparent rounded-full blur-sm" />
@@ -681,6 +718,36 @@ export default function VyanjanLessonsPage() {
                                 
                             </motion.div>
                         )}
+
+                        {/* Words Tile - Desktop */}
+                        <motion.div
+                            className="absolute flex flex-col items-center"
+                            style={{
+                                left: getTempleStepPosition(lessons.length).x - 60,
+                                top: getTempleStepPosition(lessons.length).y - minY - 80,
+                            }}
+                            initial={{ scale: 0, y: 20 }}
+                            animate={{ scale: 1, y: 0 }}
+                            transition={{ delay: lessons.length * 0.1, type: "spring" }}
+                        >
+                            <div className="relative w-24 h-24 flex items-center justify-center border-4 rounded-lg bg-linear-to-br from-[#2a2420] to-[#1a1613] border-[#D4AF37]/50 text-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.22),0_8px_0_rgba(42,36,32,0.8)]">
+                                <span className="text-3xl">✦</span>
+                            </div>
+
+                            <motion.div 
+                                className="mt-4 px-3 py-2 bg-[#2a2420]/90 backdrop-blur-sm rounded border border-[#D4AF37]/30 max-w-35 text-center"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: lessons.length * 0.1 + 0.3 }}
+                            >
+                                <span className="text-xs font-bold text-[#E6D8B8] leading-tight block">
+                                    {wordsTileCopy.title}
+                                </span>
+                                <span className="text-[10px] text-[#D4AF37]/70 mt-1 block">
+                                    {wordsTileCopy.subtitle}
+                                </span>
+                            </motion.div>
+                        </motion.div>
                     </div>
                 </div>
             )}

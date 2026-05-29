@@ -7,11 +7,11 @@ import { useLanguage } from "@/lib/LanguageContext";
 export function MarketingValue() {
     const { t, language } = useLanguage();
     const badgeClassName = language === 'en'
-        ? 'text-[#E69A47] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase'
-        : 'text-[#E69A47] text-xs sm:text-sm font-bold tracking-normal normal-case';
+        ? 'text-[#E69A47] text-sm sm:text-base md:text-lg font-bold tracking-[0.22em] sm:tracking-[0.28em] uppercase leading-none whitespace-nowrap'
+        : 'text-[#E69A47] text-sm sm:text-base md:text-lg font-bold tracking-normal normal-case leading-none whitespace-nowrap';
 
     return (
-        <section className="py-20 sm:py-24 md:py-32 bg-gradient-to-b from-[#2a2420] to-[#1a1613] relative overflow-hidden">
+        <section className="py-20 sm:py-24 md:py-32 bg-linear-to-b from-[#2a2420] to-[#1a1613] relative overflow-hidden">
             {/* Decorative Elements */}
             <div className="absolute top-0 left-1/4 w-64 h-64 bg-[#D4AF37]/5 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[#E6D8B8]/5 rounded-full blur-3xl"></div>
@@ -28,7 +28,7 @@ export function MarketingValue() {
                     >
                         <div className="relative group">
                             {/* Card background with glassmorphism */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#E6D8B8]/10 to-[#D4AF37]/5 rounded-3xl backdrop-blur-sm border border-[#E6D8B8]/20 transform group-hover:scale-105 transition-transform duration-500"></div>
+                            <div className="absolute inset-0 bg-linear-to-br from-[#E6D8B8]/10 to-[#D4AF37]/5 rounded-3xl backdrop-blur-sm border border-[#E6D8B8]/20 transform group-hover:scale-105 transition-transform duration-500"></div>
                             
                             <div className="relative p-6 sm:p-8 md:p-12">
                                 <img
@@ -49,8 +49,8 @@ export function MarketingValue() {
                         className="space-y-6 sm:space-y-8 text-center md:text-left"
                     >
                         {/* Decorative line */}
-                        <div className="flex items-center gap-4 justify-center md:justify-start">
-                            <div className="h-1 w-16 bg-gradient-to-r from-[#E69A47] to-transparent rounded-full"></div>
+                        <div className="flex flex-col items-center gap-3 md:flex-row md:items-center md:gap-4 md:justify-start">
+                            <div className="h-1 w-16 bg-linear-to-r from-[#E69A47] to-transparent rounded-full"></div>
                             <span className={badgeClassName}>{t('value.tag')}</span>
                         </div>
 

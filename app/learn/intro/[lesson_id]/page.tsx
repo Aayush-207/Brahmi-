@@ -440,9 +440,14 @@ export default function LessonPage() {
   const [direction, setDirection] = useState(0)
   const [mcqSelected, setMcqSelected] = useState(false)
 
-  const finishLesson = async () => {
+  const finishLesson = async (nextRoute?: string) => {
     if (identity.type === 'user' || identity.type === 'guest') {
       await saveProgress(lessonId, 'completed', 100, identity)
+    }
+
+    if (nextRoute) {
+      router.push(nextRoute)
+      return
     }
 
     const nextLessonId = await getNextIntroLessonId(lessonId, language)
@@ -598,7 +603,7 @@ export default function LessonPage() {
                 onQuestionnaireSelect={async (val, optionIndex) => {
                   saveAnswer(lessonId, currentContent.id, val, false, identity)
                   if (currentContent.metadata?.direct_complete_option_index === optionIndex) {
-                    await finishLesson()
+                    await finishLesson('/letters')
                     return
                   }
                   setMcqSelected(true)
