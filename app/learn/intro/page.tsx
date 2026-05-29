@@ -413,18 +413,6 @@ export default function IntroLessonsPage() {
                                         </span>
                                     </motion.div>
                                     
-                                    {/* Skip Introduction Button for first lesson */}
-                                    {index === 0 && (
-                                        <motion.button
-                                            onClick={() => router.push('/learn/intro')}
-                                            className="mt-2 px-2 py-1 bg-[#E69A47]/20 hover:bg-[#E69A47]/40 border border-[#E69A47]/50 rounded text-[9px] font-bold text-[#E69A47] hover:text-[#E6D8B8] transition-all duration-300"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ delay: index * 0.08 + 0.3 }}
-                                        >
-                                            Skip Introduction
-                                        </motion.button>
-                                    )}
                                 </motion.div>
                             )
                         })}
@@ -628,18 +616,6 @@ export default function IntroLessonsPage() {
                                         </span>
                                     </motion.div>
                                     
-                                    {/* Skip Introduction Button for first lesson */}
-                                    {index === 0 && (
-                                        <motion.button
-                                            onClick={() => router.push('/learn/intro')}
-                                            className="mt-2 px-3 py-1 bg-[#E69A47]/20 hover:bg-[#E69A47]/40 border border-[#E69A47]/50 rounded text-[10px] font-bold text-[#E69A47] hover:text-[#E6D8B8] transition-all duration-300"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ delay: index * 0.1 + 0.4 }}
-                                        >
-                                            Skip Introduction
-                                        </motion.button>
-                                    )}
                                 </motion.div>
                             )
                         })}

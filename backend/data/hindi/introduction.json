@@ -91,17 +91,6 @@
   ],
   "content": [
     {
-      "id": "content-001",
-      "lesson_id": "intro-brahmi-intro",
-      "content_type": "title_slide",
-      "title": "BRAHMI LIPI",
-      "content": "",
-      "metadata": {
-        "buttonText": "अगला"
-      },
-      "order_no": 1
-    },
-    {
       "id": "content-002",
       "lesson_id": "intro-brahmi-intro",
       "content_type": "text",
@@ -153,6 +142,7 @@
           "क्या आप जानना चाहेंगे?",
           "सीधे आगे बढ़ें?"
         ],
+        "direct_complete_option_index": 1,
         "buttonText": "अगला"
       },
       "order_no": 1

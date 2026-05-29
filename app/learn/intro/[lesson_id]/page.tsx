@@ -30,7 +30,7 @@ function UnifiedSlide({
   slideContent: IntroLessonContent;
   slideIndex: number;
   onMCQSelect?: (value: string, isCorrect: boolean) => void;
-  onQuestionnaireSelect?: (value: string) => void;
+  onQuestionnaireSelect?: (value: string, optionIndex: number) => void;
 }) {
   const { content_type, title, content, metadata } = slideContent
   const [selected, setSelected] = useState<string | null>(null)
@@ -48,9 +48,9 @@ function UnifiedSlide({
   }
 
   // Questionnaire Handler
-  const handleQuestionnaireSelect = (option: string) => {
+  const handleQuestionnaireSelect = (option: string, optionIndex: number) => {
     setSelected(option)
-    onQuestionnaireSelect?.(option)
+    onQuestionnaireSelect?.(option, optionIndex)
   }
 
   // Render based on content type
@@ -269,7 +269,7 @@ function UnifiedSlide({
                 key={idx}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => handleQuestionnaireSelect(option)}
+                onClick={() => handleQuestionnaireSelect(option, idx)}
                 className={`
                   p-4 rounded-xl border-2 text-lg font-medium transition-all
                   ${selected === option
@@ -440,6 +440,25 @@ export default function LessonPage() {
   const [direction, setDirection] = useState(0)
   const [mcqSelected, setMcqSelected] = useState(false)
 
+  const finishLesson = async () => {
+    if (identity.type === 'user' || identity.type === 'guest') {
+      await saveProgress(lessonId, 'completed', 100, identity)
+    }
+
+    const nextLessonId = await getNextIntroLessonId(lessonId, language)
+    if (nextLessonId) {
+      router.push(`/learn/intro/${nextLessonId}`)
+      return
+    }
+
+    const nextModuleRoute = getNextModuleRoute('module-intro')
+    if (nextModuleRoute) {
+      router.push(nextModuleRoute)
+    } else {
+      router.push('/learn')
+    }
+  }
+
   useEffect(() => {
     async function loadData() {
       const currentIdentity = await getCurrentIdentity()
@@ -482,26 +501,7 @@ export default function LessonPage() {
         await saveProgress(lessonId, 'in_progress', progress, identity)
       }
     } else {
-      // Last slide of lesson - mark as complete and go to next lesson or module
-      if (identity.type === 'user' || identity.type === 'guest') {
-        await saveProgress(lessonId, 'completed', 100, identity)
-      }
-      
-      // Check if there's a next lesson in intro module
-      const nextLessonId = await getNextIntroLessonId(lessonId, language)
-      if (nextLessonId) {
-        // Navigate to next intro lesson
-        router.push(`/learn/intro/${nextLessonId}`)
-      } else {
-        // Last intro lesson completed - navigate to next module (Swar/Vowels)
-        const nextModuleRoute = getNextModuleRoute('module-intro')
-        if (nextModuleRoute) {
-          router.push(nextModuleRoute)
-        } else {
-          // Fallback if no next module
-          router.push('/learn')
-        }
-      }
+      await finishLesson()
     }
   }
 
@@ -546,15 +546,6 @@ export default function LessonPage() {
       >
         <span className="text-lg">←</span>
         <span className="hidden sm:inline">Exit</span>
-      </Link>
-
-      {/* Skip Introduction Button */}
-      <Link 
-        href="/letters"
-        className="fixed top-4 left-24 sm:left-32 z-50 flex items-center gap-2 px-4 py-2 bg-[#E69A47]/90 backdrop-blur-sm rounded-full text-[#1C1C1C] hover:bg-[#E69A47] transition-all font-medium text-sm shadow-lg border border-[#E69A47]/30"
-      >
-        <span className="text-lg">⏭</span>
-        <span className="hidden sm:inline">Skip Intro</span>
       </Link>
 
       {/* Floating Sign In Button */}
@@ -604,8 +595,12 @@ export default function LessonPage() {
                   saveAnswer(lessonId, currentContent.id, val, isCorrect, identity)
                   setMcqSelected(true)
                 }}
-                onQuestionnaireSelect={(val) => {
+                onQuestionnaireSelect={async (val, optionIndex) => {
                   saveAnswer(lessonId, currentContent.id, val, false, identity)
+                  if (currentContent.metadata?.direct_complete_option_index === optionIndex) {
+                    await finishLesson()
+                    return
+                  }
                   setMcqSelected(true)
                 }}
               />
