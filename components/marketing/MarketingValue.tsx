@@ -63,10 +63,12 @@ export function MarketingValue() {
                         </p>
                         
                         <div className="pt-4">
-                            <Button className="group px-5 sm:px-7 md:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold text-[#CC7722] border-2 border-[#CC7722]/40 bg-transparent hover:bg-[#CC7722]/10 hover:border-[#CC7722] rounded-xl uppercase tracking-widest transition-all duration-300">
-                                {t('value.button')}
-                                <span className="inline-block ml-2 transform group-hover:translate-x-2 transition-transform duration-300">→</span>
-                            </Button>
+                            <a href="/dharmastal">
+                                <Button className="group px-5 sm:px-7 md:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold text-[#CC7722] border-2 border-[#CC7722]/40 bg-transparent hover:bg-[#CC7722]/10 hover:border-[#CC7722] rounded-xl uppercase tracking-widest transition-all duration-300">
+                                    {t('value.button')}
+                                    <span className="inline-block ml-2 transform group-hover:translate-x-2 transition-transform duration-300">→</span>
+                                </Button>
+                            </a>
                         </div>
                     </motion.div>
                 </div>

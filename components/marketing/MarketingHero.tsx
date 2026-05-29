@@ -73,9 +73,11 @@ export function MarketingHero() {
                                     <div className="absolute inset-0 bg-gradient-to-r from-[#E6D8B8] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </Button>
                             </Link>
-                            <Button className="w-full sm:w-auto h-12 sm:h-14 md:h-16 px-5 sm:px-8 md:px-12 text-sm sm:text-base md:text-lg font-medium bg-transparent border-2 border-[#D4A373]/40 text-[#D4A373] rounded-2xl hover:bg-[#D4A373]/10 hover:border-[#D4A373] transition-all duration-300 backdrop-blur-sm">
-                                {t('hero.secondaryBtn')}
-                            </Button>
+                            <Link href="/dharmastal" className="w-full sm:w-auto">
+                                <Button className="w-full sm:w-auto h-12 sm:h-14 md:h-16 px-5 sm:px-8 md:px-12 text-sm sm:text-base md:text-lg font-medium bg-transparent border-2 border-[#D4A373]/40 text-[#D4A373] rounded-2xl hover:bg-[#D4A373]/10 hover:border-[#D4A373] transition-all duration-300 backdrop-blur-sm">
+                                    {t('hero.secondaryBtn')}
+                                </Button>
+                            </Link>
                         </div>
                     </motion.div>
 

@@ -20,8 +20,8 @@ export function Header() {
         markLanguageSelected();
     };
 
-    // Hide header on App routes (Journey, Lesson, etc.)
-    const isAppPage = pathname?.startsWith('/letters') || pathname?.startsWith('/lesson') || pathname?.startsWith('/learn');
+    // Hide header on App routes (Journey, Lesson, etc.) and the dharmastal page
+    const isAppPage = pathname?.startsWith('/letters') || pathname?.startsWith('/lesson') || pathname?.startsWith('/learn') || pathname?.startsWith('/dharmastal');
 
     if (isAppPage) return null;
 
