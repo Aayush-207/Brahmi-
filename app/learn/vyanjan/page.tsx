@@ -111,7 +111,7 @@ function getBackLabel(language: string): string {
     return 'Back'
 }
 
-function getWordsTileCopy(language: string) {
+function getWordsTileCopy(language: string): { title: string } {
     if (language === 'hi') {
         return { title: 'शब्द' }
     }
@@ -505,7 +505,6 @@ export default function VyanjanLessonsPage() {
                                 <span className="text-3xl">✦</span>
                                 <span className="mt-2 text-sm font-bold text-[#F5E8C8]">{wordsTileCopy.title}</span>
                                 <span className="mt-1 text-[10px] uppercase tracking-[0.18em] text-[#D4AF37]/70">
-                                    {wordsTileCopy.subtitle}
                                 </span>
                             </div>
                         </motion.div>
