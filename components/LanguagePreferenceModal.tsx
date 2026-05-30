@@ -8,10 +8,10 @@ import { useLanguage } from '@/lib/LanguageContext'
 const LANGUAGE_SELECTION_KEY = 'brahmi_language_selected'
 
 const languageOptions = [
-  { value: 'hi', label: 'हिन्दी' },
   { value: 'en', label: 'English' },
   { value: 'kn', label: 'ಕನ್ನಡ' },
   { value: 'ta', label: 'தமிழ்' },
+  { value: 'hi', label: 'हिन्दी' },
 ] as const
 
 export default function LanguagePreferenceModal() {
