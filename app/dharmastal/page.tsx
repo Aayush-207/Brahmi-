@@ -134,41 +134,45 @@ const PAGE_COPY = {
         caption: 'ಜೈನ ವಾಂಗ್ಮಯದ ಸಂರಕ್ಷಣೆ ಮತ್ತು ಅಧ್ಯಯನಕ್ಕೆ ಪ್ರೇರಣೆ',
     },
     ta: {
-        home: 'Home',
-        title: 'Dharmasthal Introduction',
-        subtitle: 'Brahmi script preservation and development effort',
+        home: 'முகப்பு',
+        title: 'தர்மஸ்தல அறிமுகம்',
+        subtitle: 'பிராஹ்மி எழுத்து பாதுகாப்பு மற்றும் வளர்ச்சிக்கான பாராட்டத்தக்க முயற்சி',
         intro1: (
             <>
-                <Strong>Dharmasthal</Strong> is a unique spiritual and pilgrimage center situated on the banks of the Netravati River in South Kannada district, Karnataka.
+                <Strong>தர்மஸ்தலா</Strong>, கர்நாடக மாநிலத்தின் தக்ஷிண கன்னட மாவட்டத்தில், நேத்ராவதி நதிக்கரையில் அமைந்துள்ள தனித்துவமான கலாச்சார மற்றும் ஆன்மிகத் திருத்தலமாக விளங்குகிறது.
+            இப்புண்ணிய பூமி, சமணம், இந்துமதம் மற்றும் பல்வேறு சமய நம்பிக்கைகளின் ஒற்றுமைமிக்க இணை வாழ்வின் ஒப்பற்ற பாரம்பரியத்தை உயிர்ப்புடன் பிரதிபலிக்கும் சின்னமாகக் கருதப்படுகிறது.
+            இங்குள்ள பண்டைய சமணச் சிலைகள், பகவான் ஸ்ரீ மஞ்சுநாதேஸ்வரரின் வழிபாடு மற்றும் நீண்டகால மத நல்லிணக்க மரபு ஆகியவை இந்தியப் பண்பாட்டின் பரந்த மனப்பான்மை மற்றும் ஒருங்கிணைந்த சிந்தனையை வெளிப்படுத்துகின்றன.
             </>
         ),
         intro2: (
             <>
-                <Strong>The Dharmasthal Institution</Strong> is a vast service organization dedicated to education, healthcare, rural development, cultural preservation, and public welfare.
+                <Strong>தர்மஸ்தல நிறுவனம்</Strong> வெறும் மத மையமாக மட்டுமல்லாது, கல்வி, சுகாதார சேவை, கிராமப்புற முன்னேற்றம், கலாச்சாரப் பாதுகாப்பு மற்றும் மக்கள் நலன் போன்ற பல்வேறு துறைகளில் அர்ப்பணிப்புடன் செயல்படும் ஒரு மகத்தான சேவை நிறுவனமாகப் புகழ்பெற்றுள்ளது.
+            இதன் பல்துறை சேவைகள் எண்ணற்ற மக்களின் வாழ்க்கையைத் தொட்டு, அவர்களுக்கு புதிய திசையையும் ஊக்கத்தையும் வழங்கியுள்ளன.
             </>
         ),
         section1Lead: (
             <>
-                Brahmi script promoter and revered monk <Strong>Shrutaaradhak Saint Kshullak Shri Prajnansagar Ji Gurudev</Strong>&apos;s inspiration and guidance,
-                along with the support of Dharmadhikari <Strong>Dr. D. Veerendra Heggade Ji and revered H. Hemavathi Heggade</Strong>, is commendable.
+                <Strong>பிராஹ்மி எழுத்து பரப்புரையாளர் மற்றும் ஶ்ருதாராதக சாந்த் க்ஷுல்லக ஸ்ரீ பிரஜ்ஞான்சாகர் ஜி குருதேவர்</Strong> அவர்களின் மங்களகரமான ஊக்கமும் ஆன்மிக வழிகாட்டுதலும் கொண்டு முன்னெடுக்கப்படும் பிராஹ்மி எழுத்து மறுமலர்ச்சி மற்றும் பாதுகாப்பு இயக்கத்தை, தர்மாதிகாரி <Strong>டாக்டர் டி. வீரேந்திர ஹெக்டே மற்றும் திருமதி ஹேமவதி ஹெக்டே</Strong> அவர்கள் பொதுமக்கள் அனைவரிடமும் கொண்டு சேர்க்கும் உறுதியை எடுத்திருப்பது மிகவும் பாராட்டத்தக்கதும் ஊக்கமளிப்பதுமான செயல் ஆகும்.
             </>
         ),
         section1Body: (
             <>
-                Dr. D. Veerendra Heggade Ji has been doing remarkable work for many decades in education, rural upliftment, healthcare, Indian culture, and ancient knowledge traditions.
+                <Strong>டாக்டர் டி. வீரேந்திர ஹெக்டே</Strong> அவர்கள் பல தசாப்தங்களாக கல்வி, கிராமப்புற மறுமலர்ச்சி, சுகாதார சேவை, இந்தியப் பண்பாடு மற்றும் பண்டைய அறிவுப் பாரம்பரியங்களின் பாதுகாப்பு ஆகிய துறைகளில் குறிப்பிடத்தக்க சேவைகளை ஆற்றி வருகிறார்.
+            இந்தியாவின் ஆன்மிக மரபுகளின் மீது அவருக்குள்ள ஆழ்ந்த பற்றும் கலாச்சார அர்ப்பணிப்பும், பிராஹ்மி எழுத்து போன்ற முக்கியமான இயக்கங்களுடன் அவர் கொண்டுள்ள தொடர்பில் தெளிவாக வெளிப்படுகின்றன.
             </>
         ),
         section2Body: (
             <>
-                H. Hemavathi Heggade Ji&apos;s continuous active participation in social, cultural, and service-oriented activities has provided constant strength to this sacred effort.
+                அதேபோல், சமூக, கலாச்சார மற்றும் சேவை சார்ந்த பணிகளில் <Strong>திருமதி ஹேமவதி ஹெக்டே</Strong> அவர்களின் தொடர்ச்சியான செயற்பாட்டும் இப்புனித முயற்சிக்கு இடையறாத ஊக்கத்தையும் வலிமையையும் வழங்கி வருகிறது.
             </>
         ),
         section3Body: (
             <>
-                <Strong>Good Life Jain Foundation</Strong> expresses heartfelt gratitude to the Dharmasthal Institution, respected Dr. D. Veerendra Heggade Ji, and revered H. Hemavathi Heggade Ji.
+                <Strong>குட் லைஃப் ஜைன் ஃபவுண்டேஷன்</Strong>, தர்மஸ்தல நிறுவனம், மதிப்பிற்குரிய <Strong>டாக்டர் டி. வீரேந்திர ஹெக்டே</Strong> அவர்கள் மற்றும் <Strong>திருமதி ஹேமவதி ஹெக்டே</Strong> அவர்களுக்கு இதயபூர்வமான நன்றியைத் தெரிவித்துக்கொள்கிறது.
+            அவர்களின் நல்லெண்ணமிக்க ஒத்துழைப்பும் அர்ப்பணிப்பும், இந்தியாவின் பண்டைய சமண ஶ்ருதப் பாரம்பரியம் மற்றும் பிராஹ்மி எழுத்து பாதுகாப்பிற்காக மேற்கொள்ளப்படும் இந்தப் புண்ணிய முயற்சியை மேலும் உறுதியானதாகவும், பரந்ததாகவும், பயனுள்ளதாகவும் மாற்றும் என்பது உறுதி.
             </>
         ),
-        caption: 'Inspiration for Jain literary preservation and study',
+        caption: 'சமண இலக்கியப் பாரம்பரியத்தின் பாதுகாப்பும் ஆய்வும் பெறும் ஊக்கம்',
     },
 } as const;
 
@@ -203,12 +207,12 @@ export default function DharmastalPage() {
                 </section>
 
                 <section className="mt-5 grid gap-4 md:grid-cols-[1.05fr_0.95fr] md:items-start">
-                    <div className="relative w-full h-52 sm:h-64 md:h-72 md:-mt-2 lg:-mt-3">
+                    <div className="relative w-full h-64 sm:h-72 md:h-72 md:-mt-2 lg:-mt-3">
                         <Image
-                            src="/Ndharmastal-1.png"
+                            src="/N2dharmastal-1.png"
                             alt="धर्मस्थल दृश्य 1"
                             fill
-                            className="object-contain object-top"
+                            className="object-contain object-center md:object-top"
                         />
                     </div>
 
@@ -230,23 +234,23 @@ export default function DharmastalPage() {
                         <p>{content.section3Body}</p>
                     </div>
 
-                    <div className="order-1 md:order-2 relative w-full h-48 sm:h-60 md:h-64">
+                    <div className="order-1 md:order-2 relative w-full h-56 sm:h-64 md:h-64">
                         <Image
                             src="/Ndharmastal-2.png"
                             alt="धर्मस्थल दृश्य 2"
                             fill
-                            className="object-cover"
+                            className="object-contain object-center md:object-cover"
                         />
                     </div>
                 </section>
 
                 <section className="mt-5 flex flex-col items-center gap-3 text-center">
-                    <div className="w-full max-w-sm relative h-44 sm:h-56 md:h-60">
+                    <div className="w-full max-w-sm relative h-56 sm:h-64 md:h-60">
                         <Image
                             src="/Ndharmastal-3.png"
                             alt="धर्मस्थल दृश्य 3"
                             fill
-                            className="object-cover"
+                            className="object-contain object-center md:object-cover"
                         />
                     </div>
                     <p className="text-[1.02rem] font-bold leading-tight text-red-600 sm:text-[1.08rem] lg:text-[1.12rem]">
