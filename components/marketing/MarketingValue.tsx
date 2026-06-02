@@ -11,7 +11,7 @@ export function MarketingValue() {
         : 'text-[#D4A373] text-xs sm:text-sm font-bold tracking-normal normal-case';
 
     return (
-        <section className="py-20 sm:py-24 md:py-32 bg-linear-to-b from-[#2a2420] to-[#1a1613] relative overflow-hidden">
+        <section className="py-20 sm:py-24 md:py-32 bg-transparent relative overflow-hidden">
             {/* Decorative Elements */}
             <div className="absolute top-0 left-1/4 w-64 h-64 bg-[#D4AF37]/5 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[#E6D8B8]/5 rounded-full blur-3xl"></div>

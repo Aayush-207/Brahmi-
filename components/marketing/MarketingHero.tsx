@@ -19,7 +19,7 @@ export function MarketingHero() {
                 : 'Brahmi Script in';
 
     return (
-        <section className="relative min-h-screen flex items-center justify-center pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-[#1a1613] via-[#2a2420] to-[#1a1613]">
+        <section className="relative min-h-screen flex items-center justify-center pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 overflow-hidden bg-transparent">
             {/* Animated Background Pattern */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0" style={{
@@ -52,7 +52,7 @@ export function MarketingHero() {
                         <div className="space-y-6">
                             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-serif text-[#F5F1E8] font-bold leading-[1.1] tracking-tight">
                                 {heroPrefix}{' '}
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E69A47] via-[#D4AF37] to-[#CC7722] animate-gradient">
+                                <span className="text-transparent bg-clip-text bg-linear-to-r from-[#E69A47] via-[#D4AF37] to-[#CC7722] animate-gradient">
                                     {t('hero.titleGradient')}
                                 </span>
                             </h1>
@@ -68,9 +68,9 @@ export function MarketingHero() {
 
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 pt-3 sm:pt-4 justify-center lg:justify-start">
                             <Link href="/learn" className="w-full sm:w-auto">
-                                <Button className="w-full sm:w-auto group relative h-12 sm:h-14 md:h-16 px-5 sm:px-8 md:px-12 text-sm sm:text-base md:text-lg font-bold bg-gradient-to-r from-[#D4AF37] to-[#C5A059] text-[#1a1613] rounded-2xl shadow-xl shadow-[#D4AF37]/20 hover:shadow-2xl hover:shadow-[#D4AF37]/30 hover:scale-105 transition-all duration-300 overflow-hidden">
+                                <Button className="w-full sm:w-auto group relative h-12 sm:h-14 md:h-16 px-5 sm:px-8 md:px-12 text-sm sm:text-base md:text-lg font-bold bg-linear-to-r from-[#D4AF37] to-[#C5A059] text-[#1a1613] rounded-2xl shadow-xl shadow-[#D4AF37]/20 hover:shadow-2xl hover:shadow-[#D4AF37]/30 hover:scale-105 transition-all duration-300 overflow-hidden">
                                     <span className="relative z-10 uppercase tracking-wider">{t('hero.primaryBtn')}</span>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-[#E6D8B8] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    <div className="absolute inset-0 bg-linear-to-r from-[#E6D8B8] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </Button>
                             </Link>
                             <Link href="/dharmastal" className="w-full sm:w-auto">
@@ -90,9 +90,9 @@ export function MarketingHero() {
                     >
                         <div className="relative">
                             {/* Glow effect behind mascot */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/20 to-[#E6D8B8]/20 rounded-full blur-2xl scale-110"></div>
+                            <div className="absolute inset-0 bg-linear-to-br from-[#D4AF37]/20 to-[#E6D8B8]/20 rounded-full blur-2xl scale-110"></div>
                             
-                            <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-[550px] md:h-[550px] animate-float">
+                            <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-137.5 md:h-137.5 animate-float">
                                 <img
                                     src="/mascot/mascot_hero.png"
                                     alt="Brahmi Scholar Mascot"

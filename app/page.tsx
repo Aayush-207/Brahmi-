@@ -7,7 +7,7 @@ import { Footer } from "@/components/landing/Footer";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <main className="flex min-h-screen flex-col bg-gradient-to-b from-[#1a1613] via-[#2a2420] to-[#1a1613]">
       {/* 1. Hero: The Invitation */}
       <MarketingHero />
 
@@ -25,6 +25,6 @@ export default function Home() {
 
       {/* Existing Footer */}
       <Footer />
-    </div>
+    </main>
   );
 }

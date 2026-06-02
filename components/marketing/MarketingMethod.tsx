@@ -37,7 +37,7 @@ export function MarketingMethod() {
     }));
     
     return (
-        <section id="method" className="py-20 sm:py-24 md:py-32 bg-gradient-to-b from-[#1a1613] to-[#2a2420] relative overflow-hidden">
+        <section id="method" className="py-20 sm:py-24 md:py-32 bg-transparent relative overflow-hidden">
             {/* Section Header */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16 md:mb-20 text-center">
                 <motion.div
@@ -58,7 +58,7 @@ export function MarketingMethod() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
                 {/* Connecting Line */}
-                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#D4AF37]/50 via-[#E6D8B8]/30 to-[#D4AF37]/50 transform -translate-x-1/2"></div>
+                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-linear-to-b from-[#D4AF37]/50 via-[#E6D8B8]/30 to-[#D4AF37]/50 transform -translate-x-1/2"></div>
 
                 <div className="space-y-16 sm:space-y-20 md:space-y-32">
                     {translatedSteps.map((step, index) => (
@@ -75,7 +75,7 @@ export function MarketingMethod() {
                                 {/* Step Number Badge */}
                                 <div className="flex items-center gap-4 justify-center md:justify-start">
                                     <div className="relative">
-                                        <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-[#E69A47] to-[#CC7722] flex items-center justify-center text-2xl sm:text-3xl shadow-xl shadow-[#E69A47]/30">
+                                        <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl bg-linear-to-br from-[#E69A47] to-[#CC7722] flex items-center justify-center text-2xl sm:text-3xl shadow-xl shadow-[#E69A47]/30">
                                             {step.icon}
                                         </div>
                                         <div className="absolute -top-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#D4A373] border-2 border-[#1a1613] flex items-center justify-center text-[10px] sm:text-xs font-bold text-[#1a1613]">
@@ -97,12 +97,12 @@ export function MarketingMethod() {
                             <div className="flex-1 flex justify-center w-full">
                                 <div className="relative group">
                                     {/* Glow effect */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/20 to-[#E6D8B8]/20 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
+                                    <div className="absolute inset-0 bg-linear-to-br from-[#D4AF37]/20 to-[#E6D8B8]/20 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
                                     
                                     {/* Card */}
-                                    <div className="relative w-full max-w-sm aspect-square bg-gradient-to-br from-[#2a2420] to-[#1a1613] rounded-3xl shadow-2xl border border-[#E6D8B8]/20 flex items-center justify-center overflow-hidden backdrop-blur-sm transform group-hover:scale-105 transition-all duration-500">
+                                    <div className="relative w-full max-w-sm aspect-square bg-linear-to-br from-[#2a2420] to-[#1a1613] rounded-3xl shadow-2xl border border-[#E6D8B8]/20 flex items-center justify-center overflow-hidden backdrop-blur-sm transform group-hover:scale-105 transition-all duration-500">
                                         {/* Inner glow */}
-                                        <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                        <div className="absolute inset-0 bg-linear-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                         
                                         <img
                                             src={step.image}

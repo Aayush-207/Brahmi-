@@ -34,7 +34,7 @@ export function MarketingTrust() {
     }));
     
     return (
-        <section id="trust" className="py-20 sm:py-24 md:py-32 bg-gradient-to-b from-[#2a2420] to-[#1a1613] relative overflow-hidden">
+        <section id="trust" className="py-20 sm:py-24 md:py-32 bg-transparent relative overflow-hidden">
             {/* Decorative background elements */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-[#D4AF37] rounded-full blur-3xl"></div>
@@ -73,13 +73,13 @@ export function MarketingTrust() {
                             className="group relative"
                         >
                             {/* Card glow effect */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/20 to-[#E6D8B8]/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div className="absolute inset-0 bg-linear-to-br from-[#D4AF37]/20 to-[#E6D8B8]/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             
                             {/* Card */}
-                            <div className="relative p-6 sm:p-8 lg:p-10 bg-gradient-to-br from-[#2a2420]/80 to-[#1a1613]/80 backdrop-blur-sm rounded-3xl border border-[#D4A373]/20 hover:border-[#E69A47]/50 transition-all duration-500 shadow-xl h-full">
+                            <div className="relative p-6 sm:p-8 lg:p-10 bg-linear-to-br from-[#2a2420]/80 to-[#1a1613]/80 backdrop-blur-sm rounded-3xl border border-[#D4A373]/20 hover:border-[#E69A47]/50 transition-all duration-500 shadow-xl h-full">
                                 {/* Icon */}
                                 <div className="mb-6">
-                                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-[#E69A47]/20 to-[#D4A373]/10 flex items-center justify-center text-4xl sm:text-5xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-linear-to-br from-[#E69A47]/20 to-[#D4A373]/10 flex items-center justify-center text-4xl sm:text-5xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
                                         {item.icon}
                                     </div>
                                 </div>
