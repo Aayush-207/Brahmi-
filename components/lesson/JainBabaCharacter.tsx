@@ -71,11 +71,11 @@ const JainBabaCharacter: React.FC<JainBabaCharacterProps> = ({
         <div className={`flex flex-row ${alignmentClass} items-center gap-3 mb-6 animate-in fade-in slide-in-from-left-4 duration-500`}>
             {/* Jain Baba Character */}
             <div className="relative flex-shrink-0">
-                <div className={`w-16 h-16 sm:w-20 sm:h-20 animate-in zoom-in duration-700 transition-transform ${isSpeaking ? 'scale-110' : 'scale-100'}`}>
-                    <JainBabaSVG variant={variant} size={80} isSpeaking={isSpeaking} />
+                <div className={`w-16 h-[90.6px] sm:w-20 sm:h-[113.3px] animate-in zoom-in duration-700 transition-transform ${isSpeaking ? 'scale-105' : 'scale-100'}`}>
+                    <JainBabaSVG variant={variant} isSpeaking={isSpeaking} />
                 </div>
                 {/* Floating animation indicator */}
-                <div className={`absolute -top-1 -right-1 w-2.5 h-2.5 bg-learning-gold rounded-full ${isSpeaking ? 'animate-ping' : 'animate-pulse'}`}></div>
+                <div className={`absolute -top-1 right-2 w-2.5 h-2.5 bg-learning-gold rounded-full ${isSpeaking ? 'animate-ping' : 'animate-pulse'}`}></div>
             </div>
 
             {/* Speech Bubble with Prompt */}

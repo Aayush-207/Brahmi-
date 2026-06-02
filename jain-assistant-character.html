@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jain Assistant Character</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+Devanagari:wght@300;400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: radial-gradient(ellipse at center, #1a0a00 0%, #0d0500 60%, #000 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    overflow: hidden;
+  }
+
+  /* Ambient glow background */
+  .ambient {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 30% 50%, rgba(200,120,0,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 70% 50%, rgba(180,40,0,0.06) 0%, transparent 50%);
+  }
+
+  .page-title {
+    color: #c8860a;
+    font-size: 13px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.7;
+    font-family: 'Cinzel', serif;
+  }
+
+  .page-subtitle {
+    color: #e8b84b;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+  }
+
+  /* Character container */
+  .character-stage {
+    position: relative;
+    width: 320px;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Aura rings */
+  .aura-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    animation: aura-pulse 3s ease-in-out infinite;
+  }
+  .aura-1 {
+    width: 260px; height: 260px;
+    border-color: rgba(218,165,32,0.25);
+    top: 80px; left: 30px;
+    animation-delay: 0s;
+  }
+  .aura-2 {
+    width: 300px; height: 300px;
+    border-color: rgba(218,165,32,0.12);
+    top: 60px; left: 10px;
+    animation-delay: 0.8s;
+  }
+  .aura-3 {
+    width: 340px; height: 340px;
+    border-color: rgba(218,165,32,0.06);
+    top: 40px; left: -10px;
+    animation-delay: 1.6s;
+  }
+
+  @keyframes aura-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.04); opacity: 0.5; }
+  }
+
+  /* Floating particles */
+  .particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .particle {
+    position: absolute;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #e8b84b;
+    animation: float-up 4s ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes float-up {
+    0% { transform: translateY(20px) scale(0); opacity: 0; }
+    30% { opacity: 0.8; }
+    100% { transform: translateY(-80px) scale(0.5); opacity: 0; }
+  }
+
+  /* Main SVG character */
+  .char-svg {
+    position: relative;
+    z-index: 10;
+    filter: drop-shadow(0 0 30px rgba(218,165,32,0.4)) drop-shadow(0 0 60px rgba(180,80,0,0.2));
+    animation: char-float 4s ease-in-out infinite;
+    margin-top: 20px;
+  }
+
+  @keyframes char-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* Lotus petals glow */
+  .lotus-glow {
+    animation: lotus-breathe 3s ease-in-out infinite;
+  }
+  @keyframes lotus-breathe {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.75; }
+  }
+
+  /* Eye blink */
+  .eye-l, .eye-r {
+    animation: blink 5s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes blink {
+    0%, 90%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.1); }
+  }
+
+  /* Hands glow */
+  .hands-glow {
+    animation: hands-pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes hands-pulse {
+    0%, 100% { opacity: 0.6; r: 18px; }
+    50% { opacity: 1; r: 22px; }
+  }
+
+  /* Third eye */
+  .third-eye {
+    animation: third-eye-glow 2s ease-in-out infinite;
+  }
+  @keyframes third-eye-glow {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; filter: url(#glow); }
+  }
+
+  /* Speech bubble */
+  .speech-wrap {
+    margin-top: 24px;
+    position: relative;
+    z-index: 20;
+  }
+  .speech-bubble {
+    background: linear-gradient(135deg, rgba(40,20,0,0.95), rgba(25,10,0,0.95));
+    border: 1px solid rgba(218,165,32,0.4);
+    border-radius: 20px;
+    padding: 14px 22px;
+    max-width: 300px;
+    text-align: center;
+    position: relative;
+    box-shadow:
+      0 0 30px rgba(218,165,32,0.15),
+      inset 0 1px 0 rgba(218,165,32,0.2);
+  }
+  .speech-bubble::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 10px solid transparent;
+    border-bottom-color: rgba(218,165,32,0.4);
+    border-top: none;
+  }
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 9px solid transparent;
+    border-bottom-color: rgba(25,10,0,0.95);
+    border-top: none;
+  }
+
+  .speech-text {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 14px;
+    color: #e8c870;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .speech-name {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: #c8860a;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    opacity: 0.8;
+  }
+
+  /* Dot decoration */
+  .dots-decor {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 14px;
+  }
+  .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #c8860a;
+    opacity: 0.5;
+  }
+  .dot.active { background: #e8b84b; opacity: 1; width: 12px; border-radius: 2px; }
+
+  /* Bottom label */
+  .char-label {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .char-label-main {
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: rgba(200,134,10,0.5);
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+
+<div class="page-title">Good Life Jain Foundation</div>
+<div class="page-subtitle">आपका AI सहायक</div>
+
+<div class="character-stage">
+  <!-- Aura rings -->
+  <div class="aura-ring aura-1"></div>
+  <div class="aura-ring aura-2"></div>
+  <div class="aura-ring aura-3"></div>
+
+  <!-- Floating particles -->
+  <div class="particles">
+    <div class="particle" style="left:30%;top:70%;animation-delay:0s;"></div>
+    <div class="particle" style="left:50%;top:75%;animation-delay:0.7s;"></div>
+    <div class="particle" style="left:70%;top:68%;animation-delay:1.4s;"></div>
+    <div class="particle" style="left:40%;top:72%;animation-delay:2.1s;"></div>
+    <div class="particle" style="left:60%;top:65%;animation-delay:2.8s;"></div>
+  </div>
+
+  <!-- SVG Character -->
+  <svg class="char-svg" width="240" height="340" viewBox="0 0 240 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Gold gradient body -->
+      <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#D4B54A"/>
+        <stop offset="40%" stop-color="#C8860A"/>
+        <stop offset="100%" stop-color="#7A4A00"/>
+      </linearGradient>
+      <!-- Robe gradient -->
+      <linearGradient id="robeGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#8B1A00"/>
+        <stop offset="100%" stop-color="#5A0A00"/>
+      </linearGradient>
+      <!-- Lotus gradient -->
+      <radialGradient id="lotusGrad" cx="50%" cy="60%" r="50%">
+        <stop offset="0%" stop-color="#FFD700"/>
+        <stop offset="60%" stop-color="#E8A020"/>
+        <stop offset="100%" stop-color="#C87000"/>
+      </radialGradient>
+      <!-- Halo gradient -->
+      <radialGradient id="haloGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFE066" stop-opacity="0.9"/>
+        <stop offset="70%" stop-color="#C8860A" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#C8860A" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Skin gradient -->
+      <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#E8C060"/>
+        <stop offset="100%" stop-color="#C89030"/>
+      </linearGradient>
+      <!-- Eye gradient -->
+      <radialGradient id="eyeGrad" cx="40%" cy="40%" r="60%">
+        <stop offset="0%" stop-color="#8B1A00"/>
+        <stop offset="100%" stop-color="#3A0800"/>
+      </radialGradient>
+      <!-- Third eye glow -->
+      <radialGradient id="thirdEyeGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFD700"/>
+        <stop offset="100%" stop-color="#E05000" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Hands glow -->
+      <radialGradient id="handsGlowGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFE066" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#FFE066" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Gold border -->
+      <linearGradient id="borderGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#FFE066"/>
+        <stop offset="50%" stop-color="#C8860A"/>
+        <stop offset="100%" stop-color="#7A4A00"/>
+      </linearGradient>
+
+      <filter id="soft-glow">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+
+    <!-- ===== DIVINE HALO ===== -->
+    <circle cx="120" cy="90" r="65" fill="url(#haloGrad)" opacity="0.8"/>
+    <circle cx="120" cy="90" r="55" fill="none" stroke="url(#borderGrad)" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="120" cy="90" r="48" fill="none" stroke="#FFE066" stroke-width="0.5" opacity="0.4" stroke-dasharray="4 3"/>
+
+    <!-- Halo tick marks (divine) -->
+    <g opacity="0.5">
+      <line x1="120" y1="38" x2="120" y2="42" stroke="#FFE066" stroke-width="1.5"/>
+      <line x1="120" y1="138" x2="120" y2="142" stroke="#FFE066" stroke-width="1.5"/>
+      <line x1="68" y1="90" x2="72" y2="90" stroke="#FFE066" stroke-width="1.5"/>
+      <line x1="168" y1="90" x2="172" y2="90" stroke="#FFE066" stroke-width="1.5"/>
+      <line x1="83" y1="53" x2="86" y2="57" stroke="#FFE066" stroke-width="1"/>
+      <line x1="154" y1="53" x2="157" y2="57" stroke="#FFE066" stroke-width="1"/>
+      <line x1="83" y1="127" x2="86" y2="123" stroke="#FFE066" stroke-width="1"/>
+      <line x1="154" y1="127" x2="157" y2="123" stroke="#FFE066" stroke-width="1"/>
+    </g>
+
+    <!-- ===== BODY / TORSO ===== -->
+    <!-- Robe/dhoti base -->
+    <ellipse cx="120" cy="250" rx="52" ry="28" fill="#6A1200" opacity="0.5"/>
+
+    <!-- Seated body shape -->
+    <path d="M80,220 Q75,200 78,185 L82,175 Q100,168 120,168 Q140,168 158,175 L162,185 Q165,200 160,220 Q150,240 120,245 Q90,240 80,220Z"
+          fill="url(#robeGrad)"/>
+
+    <!-- Robe folds -->
+    <path d="M88,190 Q92,210 90,225" stroke="#C03000" stroke-width="1" fill="none" opacity="0.6"/>
+    <path d="M105,185 Q108,215 106,230" stroke="#C03000" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M135,185 Q132,215 134,230" stroke="#C03000" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M152,190 Q148,210 150,225" stroke="#C03000" stroke-width="1" fill="none" opacity="0.6"/>
+
+    <!-- ===== LOTUS SEAT ===== -->
+    <!-- Back petals -->
+    <ellipse cx="120" cy="248" rx="48" ry="16" fill="#8B6000" opacity="0.4"/>
+
+    <!-- Lotus petals group (front) -->
+    <g class="lotus-glow">
+      <!-- Left outer -->
+      <path d="M72,248 Q60,230 75,218 Q88,230 85,248Z" fill="url(#lotusGrad)" opacity="0.9"/>
+      <!-- Left inner -->
+      <path d="M90,248 Q80,232 92,222 Q102,234 98,248Z" fill="#FFD700" opacity="0.85"/>
+      <!-- Center -->
+      <path d="M108,248 Q104,228 120,220 Q136,228 132,248Z" fill="#FFE560" opacity="0.95"/>
+      <!-- Right inner -->
+      <path d="M130,248 Q138,234 148,222 Q160,232 150,248Z" fill="#FFD700" opacity="0.85"/>
+      <!-- Right outer -->
+      <path d="M155,248 Q165,230 165,218 Q178,230 168,248Z" fill="url(#lotusGrad)" opacity="0.9"/>
+      <!-- Petal tips highlights -->
+      <path d="M120,222 Q118,218 120,215 Q122,218 120,222Z" fill="#FFF5A0" opacity="0.8"/>
+    </g>
+
+    <!-- Lotus center base -->
+    <ellipse cx="120" cy="249" rx="45" ry="10" fill="#C87000" opacity="0.6"/>
+    <ellipse cx="120" cy="247" rx="35" ry="7" fill="#E8A020" opacity="0.5"/>
+
+    <!-- ===== NECK ===== -->
+    <path d="M110,165 Q120,160 130,165 L132,175 Q120,172 108,175Z" fill="url(#skinGrad)"/>
+
+    <!-- Neck ornament line -->
+    <path d="M108,170 Q120,167 132,170" stroke="#C8860A" stroke-width="1" fill="none" opacity="0.8"/>
+
+    <!-- ===== HEAD ===== -->
+    <!-- Head shape - slightly stylized -->
+    <ellipse cx="120" cy="110" rx="38" ry="42" fill="url(#skinGrad)"/>
+
+    <!-- Subtle cheek shading -->
+    <ellipse cx="100" cy="118" rx="10" ry="8" fill="#C08020" opacity="0.2"/>
+    <ellipse cx="140" cy="118" rx="10" ry="8" fill="#C08020" opacity="0.2"/>
+
+    <!-- ===== HAIR / TOPKNOT ===== -->
+    <path d="M90,80 Q95,60 120,55 Q145,60 150,80 Q140,72 120,70 Q100,72 90,80Z" fill="#3A1A00"/>
+    <!-- Topknot bun -->
+    <ellipse cx="120" cy="62" rx="14" ry="10" fill="#4A2200"/>
+    <ellipse cx="120" cy="60" rx="10" ry="7" fill="#5A2A00"/>
+    <!-- Hair highlight -->
+    <path d="M110,64 Q120,58 130,64" stroke="#8A5A20" stroke-width="1" fill="none" opacity="0.5"/>
+
+    <!-- Gold hair ornament / mukuta -->
+    <path d="M106,75 L110,68 L115,72 L120,65 L125,72 L130,68 L134,75Z"
+          fill="url(#borderGrad)" opacity="0.9"/>
+    <circle cx="120" cy="65" r="3" fill="#FFE066"/>
+
+    <!-- ===== FACE FEATURES ===== -->
+
+    <!-- Eyebrows -->
+    <path d="M103,101 Q110,97 116,100" stroke="#5A3000" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M124,100 Q130,97 137,101" stroke="#5A3000" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- Eyes -->
+    <g class="eye-l">
+      <ellipse cx="109" cy="110" rx="8" ry="7" fill="white" opacity="0.95"/>
+      <ellipse cx="110" cy="111" rx="5" ry="5.5" fill="url(#eyeGrad)"/>
+      <circle cx="111" cy="110" r="2.5" fill="#1A0800"/>
+      <circle cx="113" cy="108" r="1.2" fill="white" opacity="0.9"/>
+    </g>
+    <g class="eye-r">
+      <ellipse cx="131" cy="110" rx="8" ry="7" fill="white" opacity="0.95"/>
+      <ellipse cx="130" cy="111" rx="5" ry="5.5" fill="url(#eyeGrad)"/>
+      <circle cx="129" cy="110" r="2.5" fill="#1A0800"/>
+      <circle cx="131" cy="108" r="1.2" fill="white" opacity="0.9"/>
+    </g>
+    <!-- Eye lashes top -->
+    <path d="M102,107 Q109,103 116,106" stroke="#3A1A00" stroke-width="1.5" fill="none" opacity="0.8"/>
+    <path d="M124,106 Q131,103 138,107" stroke="#3A1A00" stroke-width="1.5" fill="none" opacity="0.8"/>
+
+    <!-- Third eye (tilak) -->
+    <g class="third-eye">
+      <ellipse cx="120" cy="97" rx="5" ry="3.5" fill="url(#thirdEyeGrad)"/>
+      <ellipse cx="120" cy="97" rx="3" ry="2" fill="#FFD700" opacity="0.9"/>
+      <circle cx="120" cy="97" r="1.2" fill="#FF6000"/>
+    </g>
+
+    <!-- Nose -->
+    <path d="M117,118 Q120,122 123,118" stroke="#C08020" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="116" cy="118" r="1.5" fill="#B07010" opacity="0.4"/>
+    <circle cx="124" cy="118" r="1.5" fill="#B07010" opacity="0.4"/>
+
+    <!-- Smile - serene -->
+    <path d="M112,128 Q120,135 128,128" stroke="#9A5010" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M114,130 Q120,134 126,130" fill="#C06010" opacity="0.3"/>
+
+    <!-- Ear decorations -->
+    <ellipse cx="82" cy="112" rx="5" ry="7" fill="#D4A030" opacity="0.9"/>
+    <ellipse cx="82" cy="112" rx="3" ry="5" fill="#E8C050"/>
+    <ellipse cx="158" cy="112" rx="5" ry="7" fill="#D4A030" opacity="0.9"/>
+    <ellipse cx="158" cy="112" rx="3" ry="5" fill="#E8C050"/>
+
+    <!-- ===== ARMS ===== -->
+    <!-- Left arm -->
+    <path d="M88,185 Q75,190 72,202 Q70,212 80,218 Q88,210 90,200 Q92,192 88,185Z"
+          fill="url(#skinGrad)"/>
+    <!-- Right arm -->
+    <path d="M152,185 Q165,190 168,202 Q170,212 160,218 Q152,210 150,200 Q148,192 152,185Z"
+          fill="url(#skinGrad)"/>
+
+    <!-- Arm ornament bands -->
+    <path d="M76,200 Q80,198 84,200" stroke="#C8860A" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M156,200 Q160,198 164,200" stroke="#C8860A" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- ===== HANDS IN NAMASTE / ANJALI MUDRA ===== -->
+    <!-- Glow behind hands -->
+    <circle class="hands-glow" cx="120" cy="198" r="20" fill="url(#handsGlowGrad)"/>
+
+    <!-- Left hand -->
+    <path d="M105,205 Q108,195 114,190 L118,188 Q120,192 119,198 Q117,204 112,208 Q108,210 105,205Z"
+          fill="url(#skinGrad)"/>
+    <!-- Right hand -->
+    <path d="M135,205 Q132,195 126,190 L122,188 Q120,192 121,198 Q123,204 128,208 Q132,210 135,205Z"
+          fill="url(#skinGrad)"/>
+    <!-- Hands overlap center -->
+    <ellipse cx="120" cy="198" rx="8" ry="11" fill="url(#skinGrad)" opacity="0.9"/>
+
+    <!-- Finger details -->
+    <path d="M116,189 L116,182" stroke="#C09030" stroke-width="1" opacity="0.6" stroke-linecap="round"/>
+    <path d="M119,188 L119,181" stroke="#C09030" stroke-width="1" opacity="0.6" stroke-linecap="round"/>
+    <path d="M122,188 L122,181" stroke="#C09030" stroke-width="1" opacity="0.6" stroke-linecap="round"/>
+    <path d="M125,189 L125,182" stroke="#C09030" stroke-width="1" opacity="0.6" stroke-linecap="round"/>
+
+    <!-- ===== NECKLACE ===== -->
+    <path d="M95,172 Q120,182 145,172" stroke="#C8860A" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M95,172 Q120,185 145,172" stroke="#FFE066" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.5"/>
+    <!-- Pendant -->
+    <circle cx="120" cy="180" r="4" fill="#FFE066"/>
+    <circle cx="120" cy="180" r="2.5" fill="#C8860A"/>
+    <circle cx="120" cy="180" r="1.2" fill="#FFE066"/>
+
+    <!-- ===== JAIN SYMBOL ON CHEST ===== -->
+    <!-- Small Om/Jain symbol suggestion -->
+    <text x="120" y="213" text-anchor="middle" font-size="11" fill="#FFE066" opacity="0.6" font-family="serif">ॐ</text>
+
+    <!-- ===== BOTTOM SHADOW ===== -->
+    <ellipse cx="120" cy="262" rx="50" ry="8" fill="#000" opacity="0.3"/>
+  </svg>
+
+</div>
+
+<!-- Speech bubble -->
+<div class="speech-wrap">
+  <div class="speech-bubble">
+    <div class="speech-text">नमस्कार 🙏 मैं आपका जैन ज्ञान सहायक हूं।<br>कोई भी ग्रंथ पढ़वाएं, मैं समझाऊंगा।</div>
+    <div class="dots-decor">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="speech-name">Bramhi · Gyaan · Sahayak</div>
+  </div>
+</div>
+
+<div class="char-label" style="margin-top:24px;">
+  <div class="char-label-main">Good Life Jain Foundation · AI Assistant</div>
+</div>
+
+<script>
+  // Animate dots typing indicator
+  const dots = document.querySelectorAll('.dot');
+  let active = 0;
+  setInterval(() => {
+    dots.forEach(d => d.classList.remove('active'));
+    dots[active % dots.length].classList.add('active');
+    active++;
+  }, 600);
+
+  // Randomize particle positions and delays
+  const particles = document.querySelectorAll('.particle');
+  particles.forEach(p => {
+    p.style.left = (25 + Math.random() * 50) + '%';
+    p.style.animationDelay = (Math.random() * 4) + 's';
+    p.style.animationDuration = (3 + Math.random() * 2) + 's';
+  });
+</script>
+</body>
+</html>
