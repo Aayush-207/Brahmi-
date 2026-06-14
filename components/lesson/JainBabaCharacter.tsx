@@ -71,7 +71,7 @@ const JainBabaCharacter: React.FC<JainBabaCharacterProps> = ({
         <div className={`flex flex-row ${alignmentClass} items-center gap-3 mb-6 animate-in fade-in slide-in-from-left-4 duration-500`}>
             {/* Jain Baba Character */}
             <div className="relative flex-shrink-0">
-                <div className={`w-16 h-[90.6px] sm:w-20 sm:h-[113.3px] animate-in zoom-in duration-700 transition-transform ${isSpeaking ? 'scale-105' : 'scale-100'}`}>
+                <div className={`w-16 h-auto sm:w-20 animate-in zoom-in duration-700 transition-transform ${isSpeaking ? 'scale-105' : 'scale-100'}`}>
                     <JainBabaSVG variant={variant} isSpeaking={isSpeaking} />
                 </div>
                 {/* Floating animation indicator */}
@@ -105,7 +105,7 @@ const JainBabaCharacter: React.FC<JainBabaCharacterProps> = ({
                             {isSpeaking && (
                                 <button
                                     onClick={handleStopSpeech}
-                                    className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all bg-red-100 hover:bg-red-200 text-red-600 hover:text-red-700"
+                                    className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all bg-red-100 hover:bg-red-200 text-[#ea3838] hover:text-[#ea3838]"
                                     title="Stop Guruji"
                                     aria-label="Stop speaking"
                                 >
