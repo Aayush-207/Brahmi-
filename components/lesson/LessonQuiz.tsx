@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useLanguage } from '@/lib/LanguageContext'
 import { motion, AnimatePresence } from 'framer-motion'
 import { speakAsGuruji } from '@/lib/gurujispeech'
+import QuizQuestionMascot from '@/components/lesson/QuizQuestionMascot'
 
 export type McqOption = {
     id: string
@@ -188,9 +189,12 @@ export default function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
             </div>
 
             {/* Question */}
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center">
-                {currentQuestion.question}
-            </h2>
+            <div className="relative mb-8 pr-12 sm:pr-14 md:pr-16">
+                <QuizQuestionMascot />
+                <h2 className="text-2xl md:text-3xl font-bold text-white text-center">
+                    {currentQuestion.question}
+                </h2>
+            </div>
 
             {/* Options */}
             <div className="flex flex-col gap-4 mb-8">

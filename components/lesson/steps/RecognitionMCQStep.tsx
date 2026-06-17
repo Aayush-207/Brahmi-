@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { LessonStep } from '@/types/lesson';
 import JainBabaCharacter from '../JainBabaCharacter';
+import QuizQuestionMascot from '../QuizQuestionMascot';
 
 interface RecognitionMCQStepProps {
     step: LessonStep;
@@ -37,10 +38,13 @@ const RecognitionMCQStep: React.FC<RecognitionMCQStepProps> = ({ step, onComplet
 
     return (
         <div className="flex flex-col items-center justify-center space-y-8 p-8 max-w-lg mx-auto">
-            <JainBabaCharacter 
-                message={question}
-                variant="encouraging"
-            />
+            <div className="relative w-full pr-12 sm:pr-14">
+                <QuizQuestionMascot />
+                <JainBabaCharacter 
+                    message={question}
+                    variant="encouraging"
+                />
+            </div>
 
             <div className="grid grid-cols-2 gap-4 w-full">
                 {options.map((option: string, idx: number) => {

@@ -17,6 +17,7 @@ import {
 } from '@/lib/introModule'
 import { getCurrentIdentity, type Identity } from '@/lib/guestIdentity'
 import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
+import QuizQuestionMascot from '@/components/lesson/QuizQuestionMascot'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 import { useLanguage } from '@/lib/LanguageContext'
 
@@ -294,12 +295,15 @@ function UnifiedSlide({
             message={content || title || ''}
             variant={isCorrect === true ? 'celebrating' : isCorrect === false ? 'default' : 'excited'}
           />
-          {title && (
-            <h2 className="text-2xl md:text-4xl font-bold text-[#D4AF37] mb-4 md:mb-6 text-center">{title}</h2>
-          )}
-          {content && (
-            <p className="text-lg md:text-xl text-[#E6D8B8]/80 mb-6 md:mb-8 text-center">{content}</p>
-          )}
+          <div className="relative pr-12 sm:pr-14 md:pr-16 mb-6 md:mb-8">
+            <QuizQuestionMascot />
+            {title && (
+              <h2 className="text-2xl md:text-4xl font-bold text-[#D4AF37] mb-4 md:mb-6 text-center">{title}</h2>
+            )}
+            {content && (
+              <p className="text-lg md:text-xl text-[#E6D8B8]/80 text-center">{content}</p>
+            )}
+          </div>
           <div className="grid grid-cols-1 gap-4">
             {options.map((opt: any, idx: number) => {
               const optionText = typeof opt === 'object' ? opt.text : opt;
