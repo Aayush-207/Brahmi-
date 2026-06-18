@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { markLessonComplete } from '@/lib/progress'
 import { getCurrentIdentity, Identity } from '@/lib/guestIdentity'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -52,6 +53,20 @@ function getExitText(language: string): string {
     if (language === 'kn') return 'ನಿರ್ಗಮಿಸಿ'
     if (language === 'ta') return 'வெளியேறு'
     return 'Exit'
+}
+
+function SwarFinalSlideMascot({ className = '' }: { className?: string }) {
+    return (
+        <Image
+            src="/mascot/bramhi_thumbsup_clean_v3.png"
+            alt=""
+            width={180}
+            height={270}
+            className={`pointer-events-none h-28 w-auto object-contain drop-shadow-2xl md:h-36 lg:h-44 ${className}`}
+            priority
+            aria-hidden="true"
+        />
+    )
 }
 
 export default function LessonPage({ params }: { params: Promise<{ letter_id: string }> }) {
@@ -460,6 +475,7 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
     const isLastStep = currentStepIndex === steps.length - 1
     const practiceText = getPracticeText(language)
     const exitText = getExitText(language)
+    const showSwarFinalMascot = isLastStep && (letterId?.startsWith('swar-') || letterId === 'practice-time')
 
     const getStepColor = (stepType: string) => {
         const colors = {
@@ -629,6 +645,11 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                     onPronounce={pronounce}
                 />
 
+                {showSwarFinalMascot && (
+                    <div className="hidden md:block absolute right-2 md:right-10 -translate-y-36 lg:-translate-y-44">
+                        <SwarFinalSlideMascot />
+                    </div>
+                )}
                 <button
                     onClick={isLastStep ? handleFlowComplete : handleNext}
                     className="hidden md:block absolute right-2 md:right-10 p-3 md:p-4 rounded-full bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 text-lg md:text-xl"
@@ -666,6 +687,11 @@ export default function LessonPage({ params }: { params: Promise<{ letter_id: st
                     </div>
 
                     {/* Next/Complete Button - Bottom Right */}
+                    {showSwarFinalMascot && (
+                        <div className="absolute right-4 bottom-16">
+                            <SwarFinalSlideMascot className="h-24" />
+                        </div>
+                    )}
                     <button
                         onClick={isLastStep ? handleFlowComplete : handleNext}
                         className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#D4AF37] text-[#1C1C1C] font-bold hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/30 text-sm"
