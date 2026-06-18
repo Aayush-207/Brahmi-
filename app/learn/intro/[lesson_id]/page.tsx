@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { localizeDigits } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getNextModuleRoute } from '@/lib/lessonFlow'
@@ -20,6 +21,31 @@ import JainBabaCharacter from '@/components/lesson/JainBabaCharacter'
 import QuizQuestionMascot from '@/components/lesson/QuizQuestionMascot'
 import { FloatingSignIn } from '@/components/auth/FloatingSignIn'
 import { useLanguage } from '@/lib/LanguageContext'
+
+function IntroGreetingImage({ src }: { src: string }) {
+  return (
+    <motion.div
+      className="pointer-events-none hidden md:flex items-center justify-center self-center"
+      initial={{ opacity: 0, x: 24 }}
+      animate={{ opacity: 1, x: 0, y: [0, -8, 0] }}
+      transition={{
+        opacity: { duration: 0.25 },
+        x: { duration: 0.3 },
+        y: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+      }}
+      aria-hidden="true"
+    >
+      <Image
+        src={src}
+        alt=""
+        width={170}
+        height={313}
+        className="h-52 w-auto object-contain drop-shadow-2xl lg:h-64"
+        priority
+      />
+    </motion.div>
+  )
+}
 
 // Unified Slide Component - Renders all content types dynamically
 function UnifiedSlide({ 
@@ -545,6 +571,10 @@ export default function LessonPage() {
   const currentContent = contents[currentSlide]
   const isLastSlide = currentSlide === contents.length - 1
   const progressNumber = (value: number | string) => localizeDigits(String(value), language)
+  const showGreetingImage = currentContent.content_type !== 'mcq' && currentContent.content_type !== 'questionnaire'
+  const greetingImageSrc = lessonId === 'intro-encouragement'
+    ? '/mascot/bramhi_jumping_clean_hires.png'
+    : '/mascot/bramhi_greeting.png'
 
   return (
     <div className="min-h-screen bg-[#1C1C1C] text-[#E6D8B8] flex flex-col relative overflow-hidden">
@@ -586,35 +616,42 @@ export default function LessonPage() {
           ←
         </button>
 
-        <div className="w-full max-w-5xl h-full flex items-center justify-center overflow-y-auto overflow-x-hidden">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={currentSlide}
-              custom={direction}
-              initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: direction > 0 ? -50 : 50 }}
-              transition={{ duration: 0.3 }}
-              className="w-full py-8"
-            >
-              <UnifiedSlide
-                slideContent={currentContent}
-                slideIndex={currentSlide}
-                onMCQSelect={(val, isCorrect) => {
-                  saveAnswer(lessonId, currentContent.id, val, isCorrect, identity)
-                  setMcqSelected(true)
-                }}
-                onQuestionnaireSelect={async (val, optionIndex) => {
-                  saveAnswer(lessonId, currentContent.id, val, false, identity)
-                  if (currentContent.metadata?.direct_complete_option_index === optionIndex) {
-                    await finishLesson('/letters')
-                    return
-                  }
-                  setMcqSelected(true)
-                }}
-              />
-            </motion.div>
-          </AnimatePresence>
+        <div className={`w-full h-full overflow-y-auto overflow-x-hidden ${
+          showGreetingImage
+            ? 'max-w-6xl md:grid md:grid-cols-[minmax(0,1fr)_180px] lg:grid-cols-[minmax(0,1fr)_220px] md:items-center md:gap-6'
+            : 'max-w-5xl flex items-center justify-center'
+        }`}>
+          <div className="min-w-0 w-full">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={currentSlide}
+                custom={direction}
+                initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: direction > 0 ? -50 : 50 }}
+                transition={{ duration: 0.3 }}
+                className="w-full py-8"
+              >
+                <UnifiedSlide
+                  slideContent={currentContent}
+                  slideIndex={currentSlide}
+                  onMCQSelect={(val, isCorrect) => {
+                    saveAnswer(lessonId, currentContent.id, val, isCorrect, identity)
+                    setMcqSelected(true)
+                  }}
+                  onQuestionnaireSelect={async (val, optionIndex) => {
+                    saveAnswer(lessonId, currentContent.id, val, false, identity)
+                    if (currentContent.metadata?.direct_complete_option_index === optionIndex) {
+                      await finishLesson('/letters')
+                      return
+                    }
+                    setMcqSelected(true)
+                  }}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          {showGreetingImage && <IntroGreetingImage src={greetingImageSrc} />}
         </div>
 
         {/* Desktop Next / Arrow: For MCQ slides hide until selection; show arrow-only after select */}
